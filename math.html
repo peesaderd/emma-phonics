@@ -282,6 +282,7 @@ body {
       }
     })();
   </script>
+  <script src="/theme/js/kidobits-resume.js"></script>
 </head>
 <body id="worldBody" class="bg-[#F0F5FD] flex flex-col justify-between selection:bg-amber-400 min-h-screen text-slate-800">
 
@@ -1090,6 +1091,19 @@ body {
       updateStepperUI();
       const les = LESSONS[SESSION.lessonIdx];
       const stage = les.stages[SESSION.stageIdx];
+      try {
+        if (window.KidobitsResume && les) {
+          const stageIcons = { catcher: '🧺', pump: '🎈', assembly: '🚀', matching: '🔗', bonds: '🌳', compare: '⚖️', pattern: '🚂', tenframe: '🔟', sorter: '🧩', kitten: '🐱', pizza: '🍕', seesaw: '⚖️', bubble: '🫧', slicer: '🔪' };
+          const sIcon = stageIcons[stage.type] || '🎮';
+          KidobitsResume.save('kidobits_math_progress', les.id, {
+            title: les.title || les.id,
+            subtitle: `เกมที่ ${SESSION.stageIdx + 1}/4 · ${sIcon} ${stage.prompt || ''}`,
+            step: SESSION.stageIdx,
+            index: 0,
+            done: false
+          });
+        }
+      } catch(e) {}
       const arena = document.getElementById('lessonStageContainer');
       arena.innerHTML = '';
 

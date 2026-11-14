@@ -35,6 +35,7 @@
     .floating { animation: floatSlow 3s ease-in-out infinite; }
     .btn-press:active { transform: scale(0.97); }
   </style>
+  <script src="/theme/js/kidobits-resume.js"></script>
 </head>
 <body class="bg-[#FDF9F8] text-[#2C2623] min-h-screen flex justify-center pb-24">
 
@@ -96,6 +97,9 @@
       <!-- Decorative ambient glow -->
       <div class="absolute -right-8 -bottom-8 w-36 h-36 rounded-full bg-white/10 blur-xl pointer-events-none"></div>
     </section>
+
+    <!-- Container for Resume Banner -->
+    <div id="chineseResumeBannerContainer" class="w-full mb-3"></div>
 
     <!-- Category / Tier Filter Tabs -->
     <div class="flex items-center gap-1.5 p-1 bg-white rounded-2xl border border-slate-100 shadow-xs mb-3 text-xs font-bold">
@@ -755,6 +759,23 @@ const CHINESE_DATA = {
     document.addEventListener('DOMContentLoaded', () => {
       renderLessons();
     });
+
+    function checkChineseResume() {
+      if (!window.KidobitsResume) return;
+      KidobitsResume.renderBanner({
+        storageKey: 'kidobits_chinese_progress',
+        containerId: 'chineseResumeBannerContainer',
+        theme: 'red',
+        onResume: function(act) {
+          window.location.href = `/chinese.html?id=${act.lessonId}`;
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      checkChineseResume();
+    });
+
   </script>
 </body>
 </html>

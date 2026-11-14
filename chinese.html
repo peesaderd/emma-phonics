@@ -114,6 +114,7 @@ body {
       }
     })();
   </script>
+  <script src="/theme/js/kidobits-resume.js"></script>
 </head>
 <body class="min-h-screen text-slate-800 flex flex-col justify-between selection:bg-orange-200">
 
@@ -1103,6 +1104,19 @@ body {
 
     function renderStep() {
       updateStepPills();
+      try {
+        if (window.KidobitsResume && CURRENT_LESSON) {
+          const stepNames = ['ฟังเสียง', 'ฝึกพูด', 'อ่านทำความเข้าใจ', 'ฝึกคัดอักษรจีน'];
+          const sName = stepNames[CURRENT_STEP] || ('ทักษะที่ ' + (CURRENT_STEP + 1));
+          KidobitsResume.save('kidobits_chinese_progress', CURRENT_LESSON.id, {
+            title: CURRENT_LESSON.title || CURRENT_LESSON.id,
+            subtitle: `ทักษะที่ ${CURRENT_STEP + 1}/4 · ${sName}`,
+            step: CURRENT_STEP,
+            index: 0,
+            done: false
+          });
+        }
+      } catch(e) {}
       const stage = document.getElementById('playerStage');
       if (CURRENT_STEP === 0) renderListenStep(stage);
       else if (CURRENT_STEP === 1) renderSpeakStep(stage);

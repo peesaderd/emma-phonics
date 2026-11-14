@@ -34,6 +34,7 @@
     .floating { animation: floatSlow 3s ease-in-out infinite; }
     .btn-press:active { transform: scale(0.97); }
   </style>
+  <script src="/theme/js/kidobits-resume.js"></script>
 </head>
 <body class="bg-[#F8F9FD] text-[#2C2623] min-h-screen flex justify-center pb-24">
 
@@ -95,6 +96,9 @@
       <!-- Decorative ambient glow -->
       <div class="absolute -right-8 -bottom-8 w-36 h-36 rounded-full bg-white/10 blur-xl pointer-events-none"></div>
     </section>
+
+    <!-- Container for Resume Banner -->
+    <div id="mathResumeBannerContainer" class="w-full mb-3"></div>
 
     <!-- Stage / Difficulty Selector Filter Tabs -->
     <div class="flex items-center gap-1.5 p-1 bg-white rounded-2xl border border-slate-100 shadow-xs mb-3 text-xs font-bold">
@@ -324,6 +328,25 @@ const LESSONS = [{"id": "L01", "num": 1, "title": "Lesson 1: Forest Welcome (ก
     document.addEventListener('DOMContentLoaded', () => {
       renderLessons();
     });
+
+    function checkMathResume() {
+      if (!window.KidobitsResume) return;
+      KidobitsResume.renderBanner({
+        storageKey: 'kidobits_math_progress',
+        containerId: 'mathResumeBannerContainer',
+        theme: 'orange',
+        onResume: function(act) {
+          const num = parseInt((act.lessonId || '').replace(/[^0-9]/g, ''), 10) || 1;
+          const stg = act.step || 0;
+          window.location.href = `/math.html?lesson=${num}&stage=${stg}`;
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      checkMathResume();
+    });
+
   </script>
 </body>
 </html>

@@ -37,6 +37,7 @@
       animation: pulseRing 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
   </style>
+  <script src="/theme/js/kidobits-resume.js"></script>
 </head>
 <body class="bg-[#FFFBF5] text-slate-800 antialiased min-h-screen pb-24 selection:bg-orange-500 selection:text-white">
 
@@ -876,6 +877,7 @@
       if (!STATE.isOpen || !STATE.lesson) return;
       try {
         const all = progAll();
+        const isDone = STATE.step >= 4;
         all[STATE.lid] = {
           step: STATE.step,
           i: STATE.i,
@@ -883,11 +885,26 @@
             return { step: r.step, outcome: r.outcome, word: r.word, via: r.via };
           }),
           stars: STATE.earnedStars,
-          done: STATE.step >= 4,
+          done: isDone,
           updatedAt: Date.now()
         };
         all.__last = STATE.lid;
         localStorage.setItem(PKEY, JSON.stringify(all));
+
+        if (window.KidobitsResume) {
+          if (isDone) {
+            KidobitsResume.markDone(PKEY, STATE.lid);
+          } else {
+            const stepName = (typeof STEP_NAMES !== 'undefined' && STEP_NAMES[STATE.step]) ? STEP_NAMES[STATE.step] : ('ขั้นที่ ' + (STATE.step + 1));
+            KidobitsResume.save(PKEY, STATE.lid, {
+              title: STATE.lesson.title || STATE.lid,
+              subtitle: stepName + (STATE.i > 0 ? (' · ข้อ ' + (STATE.i + 1)) : ''),
+              step: STATE.step,
+              index: STATE.i,
+              done: false
+            });
+          }
+        }
       } catch (e) {}
     }
 
