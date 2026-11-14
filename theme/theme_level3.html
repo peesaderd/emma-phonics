@@ -1,0 +1,2340 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Level 3: Master Storyteller Arena · Teacher Emma 👩‍🏫 · Kidobits</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&family=Noto+Sans+Thai:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,600,1,0" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', 'Noto Sans Thai', sans-serif;
+      background-color: #FFFBF5;
+      color: #1e293b;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .font-display { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .card-glow:hover {
+      box-shadow: 0 16px 32px -8px rgba(249, 115, 22, 0.2);
+      transform: translateY(-3px);
+    }
+    .glow-orange {
+      box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.3);
+    }
+    .glow-green {
+      box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.3);
+    }
+    @keyframes pulseRing {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 0.3; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .pulse-ring {
+      animation: pulseRing 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+</head>
+<body class="bg-[#FFFBF5] text-slate-800 antialiased min-h-screen pb-24 selection:bg-orange-500 selection:text-white">
+
+  <!-- ================= TOP APP BAR ================= -->
+  
+  <!-- Kidobits Theme Top Header -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#F1EAF7] px-4 py-3 shadow-sm">
+    <div class="max-w-4xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <a href="theme_phonicsHome.html" class="px-3.5 py-1.5 rounded-full bg-[#FFF0F5] hover:bg-[#FFE3EE] text-[#E85A8A] transition-colors flex items-center gap-1.5 text-xs font-black border border-[#FFD6E8]">
+          <span class="text-sm">←</span> <span>บทเรียน</span>
+        </a>
+        <div class="h-4 w-px bg-[#E5DEF0] mx-1"></div>
+        <div class="flex items-center gap-1.5">
+          <span class="text-xl">👩‍🏫</span>
+          <span class="text-xs font-black text-[#1A1A1A] hidden sm:inline">Teacher Emma · โฟนิกส์</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="px-2.5 py-1 rounded-full bg-[#FFF9E6] border border-[#FFE8A3] text-xs font-extrabold text-[#B38300] flex items-center gap-1">
+          <span>⭐</span> <span>120</span>
+        </span>
+        <span class="px-2.5 py-1 rounded-full bg-[#F0FDF4] border border-[#BBF7D0] text-xs font-extrabold text-[#15803D] flex items-center gap-1">
+          <span>🪙</span> <span>350</span>
+        </span>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ================= HERO BANNER ================= -->
+  <section id="kbContinueWrap" class="max-w-6xl mx-auto px-4 pt-4 hidden">
+  <div class="rounded-2xl border-2 border-emerald-300 bg-emerald-50 p-3 flex items-center gap-3 shadow-sm">
+    <div class="text-2xl">⏱️</div>
+    <div class="flex-1 min-w-0">
+      <div class="text-xs font-black text-emerald-800">ยังเรียนไม่จบ — เล่นต่อได้เลย</div>
+      <div id="kbContinueText" class="text-[11px] text-emerald-700 font-bold truncate"></div>
+    </div>
+    <button id="kbContinueBtn" class="shrink-0 h-11 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-black text-xs shadow-md transition">▶ เล่นต่อ</button>
+  </div>
+</section>
+<section class="max-w-6xl mx-auto px-4 pt-6 pb-2">
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-orange-500 via-amber-500 to-amber-600 p-6 sm:p-9 shadow-xl border border-orange-300 text-white">
+      <div class="absolute -right-4 -bottom-6 opacity-20 pointer-events-none text-9xl">👩‍🏫</div>
+      <div class="relative z-10 max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/15 text-white text-xs font-bold mb-3 backdrop-blur-sm border border-white/20">
+          <span>✨</span> ระบบเรียนสดกับครูเอ็มม่า (Teacher Emma AI Tutor) · Level 2 Fluent Reader
+        </div>
+        <h1 class="font-display text-2xl sm:text-4xl font-black text-white tracking-tight leading-tight mb-2">
+          From 4 Letters to 8-Letter Tales! 📚✨
+        </h1>
+        <p class="text-orange-50 text-xs sm:text-sm leading-relaxed mb-6">
+          ไม่ต้องกดปุ่มเริ่มเกม! พอกดเข้าบทเรียน ครูเอ็มม่าจะพูดนำทันที เมื่อครูพูดจบระบบจะรอให้น้องออกเสียงผ่านไมค์หรือแตะคำตอบ เมื่อตอบถูกครูจะให้กำลังใจและข้ามไปข้อต่อไปให้อัตโนมัติ!
+        </p>
+
+        <!-- 4-STEP LADDER BADGES -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-6">
+          <div class="p-3 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 text-left">
+            <span class="text-[10px] font-black uppercase text-amber-100 block mb-0.5">ขั้นที่ 1 · 4 ตัว</span>
+            <span class="font-display font-black text-xs text-white block">Digraphs</span>
+            <span class="text-[10px] text-orange-100">sh, ch, th, ck, ng</span>
+          </div>
+          <div class="p-3 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 text-left">
+            <span class="text-[10px] font-black uppercase text-amber-100 block mb-0.5">ขั้นที่ 2 · 4–5 ตัว</span>
+            <span class="font-display font-black text-xs text-white block">Blends</span>
+            <span class="text-[10px] text-orange-100">bl, cl, fr, st, -nd, -mp</span>
+          </div>
+          <div class="p-3 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 text-left">
+            <span class="text-[10px] font-black uppercase text-amber-100 block mb-0.5">ขั้นที่ 3 · 5–6 ตัว</span>
+            <span class="font-display font-black text-xs text-white block">Magic 'e'</span>
+            <span class="text-[10px] text-orange-100">plane, stripe, stone</span>
+          </div>
+          <div class="p-3 rounded-2xl bg-white/35 backdrop-blur-sm border-2 border-white text-left shadow-md">
+            <span class="text-[10px] font-black uppercase text-yellow-200 block mb-0.5">ขั้นที่ 4 · 6–8 ตัว 🔥</span>
+            <span class="font-display font-black text-xs text-white block">Compound & Tales</span>
+            <span class="text-[10px] text-yellow-100">campfire, นิทาน 120 คำ</span>
+          </div>
+        </div>
+
+        <!-- Quick Start Resume Button -->
+        <div class="p-3.5 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex justify-between text-xs font-bold text-white mb-1.5">
+              <span>สถานะหลักสูตร</span>
+              <span class="text-yellow-200 font-extrabold">16 / 16 บทเรียนพร้อมสอนสด 100%</span>
+            </div>
+            <div class="w-full h-2 bg-black/20 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-yellow-300 via-amber-200 to-white rounded-full" style="width: 100%"></div>
+            </div>
+          </div>
+          <button onclick="openLesson('L3.01')" class="px-5 py-2.5 rounded-xl bg-white hover:bg-orange-50 text-orange-700 font-black text-xs sm:text-sm shadow-md transition-transform active:scale-95 flex-shrink-0 flex items-center gap-1.5">
+            <span>👩‍🏫</span> <span>เริ่มเรียนกับครูเอ็มม่า</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WORLD FILTER TABS ================= -->
+  <section class="max-w-6xl mx-auto px-4 py-4 sticky top-14 z-30 bg-[#FFFBF5]/95 backdrop-blur-md">
+    <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+      <button onclick="filterWorld('all')" class="world-tab active px-4 py-2 rounded-2xl bg-orange-500 text-white font-black text-xs whitespace-nowrap shadow-md shadow-orange-500/20 transition-all">
+        🌟 ทั้งหมด 16 บทเรียน
+      </button>
+      <button onclick="filterWorld('w1')" class="world-tab px-4 py-2 rounded-2xl bg-white border border-orange-200 text-slate-700 hover:text-orange-600 font-bold text-xs whitespace-nowrap transition-all shadow-sm">
+        🌊 World 1: Digraphs (4 ตัว)
+      </button>
+      <button onclick="filterWorld('w2')" class="world-tab px-4 py-2 rounded-2xl bg-white border border-orange-200 text-slate-700 hover:text-orange-600 font-bold text-xs whitespace-nowrap transition-all shadow-sm">
+        🌲 World 2: Blends (4–5 ตัว)
+      </button>
+      <button onclick="filterWorld('w3')" class="world-tab px-4 py-2 rounded-2xl bg-white border border-orange-200 text-slate-700 hover:text-orange-600 font-bold text-xs whitespace-nowrap transition-all shadow-sm">
+        ✨ World 3: Magic 'e' (5–6 ตัว)
+      </button>
+      <button onclick="filterWorld('w4')" class="world-tab px-4 py-2 rounded-2xl bg-white border border-rose-200 text-rose-700 hover:text-rose-800 font-bold text-xs whitespace-nowrap transition-all shadow-sm">
+        🏰 World 4: Compound & Tales (6–8 ตัว 🔥)
+      </button>
+    </div>
+  </section>
+
+  <!-- ================= LESSONS CONTAINER ================= -->
+  <main class="max-w-6xl mx-auto px-4 space-y-10">
+
+    <section id="w1" class="world-section space-y-4">
+      <div class="flex items-center justify-between border-b border-orange-100 pb-2.5">
+        <div>
+          <h2 class="font-display font-extrabold text-lg sm:text-xl text-slate-900 flex items-center gap-2"><span>🌳 World 1: Vowel Teams</span></h2>
+          <p class="text-xs text-slate-500 mt-0.5">สระคู่ ee/ea · ai/ay · oa/ow · igh/ie</p>
+        </div>
+        <span class="text-xs font-bold text-orange-700 bg-orange-50 px-3 py-1 rounded-full border border-orange-200">4 บทเรียน</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+<!-- Card: L3.01 -->
+        <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.01</span>
+              <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 9</span>
+            </div>
+            <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">&#x27;ee&#x27; &amp; &#x27;ea&#x27; — สระคู่เสียงยาว /iː/</h3>
+            <p class="text-xs text-slate-500 mb-3 line-clamp-2">เข้าใจกฎสระคู่ สองตัวติดกันเปล่งเป็น 1 เสียงยาว</p>
+            <div class="mb-4">
+              <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">tree 🌳</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">seed 🌱</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">feet 🦶</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">green 🟢</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">leaf 🍃</span></div>
+            </div>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+              <span class="italic font-medium">"I sleep under a green tree...."</span>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
+            <button onclick="openLesson('L3.01')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+              <span>เริ่มเรียน</span> <span>›</span>
+            </button>
+          </div>
+        </div>
+<!-- Card: L3.02 -->
+        <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.02</span>
+              <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 9</span>
+            </div>
+            <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">&#x27;ai&#x27; &amp; &#x27;ay&#x27; — สระคู่ /eɪ/</h3>
+            <p class="text-xs text-slate-500 mb-3 line-clamp-2">แยกกฎ ai ใช้กลางคำ · ay ใช้ท้ายคำ</p>
+            <div class="mb-4">
+              <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">rain 🌧️</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">tail 🐒</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">train 🚂</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">wait ⏳</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">sail ⛵</span></div>
+            </div>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+              <span class="italic font-medium">"Wait for the train in the rain...."</span>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
+            <button onclick="openLesson('L3.02')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+              <span>เริ่มเรียน</span> <span>›</span>
+            </button>
+          </div>
+        </div>
+<!-- Card: L3.03 -->
+        <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.03</span>
+              <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 9</span>
+            </div>
+            <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">&#x27;oa&#x27; &amp; &#x27;ow&#x27; — สระคู่ /oʊ/</h3>
+            <p class="text-xs text-slate-500 mb-3 line-clamp-2">เปรียบเทียบตำแหน่งคำของ oa และ ow</p>
+            <div class="mb-4">
+              <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">boat ⛵</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">road 🛣️</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">coat 🧥</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">soap 🧼</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">snow ❄️</span></div>
+            </div>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+              <span class="italic font-medium">"The boat on the road is slow...."</span>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
+            <button onclick="openLesson('L3.03')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+              <span>เริ่มเรียน</span> <span>›</span>
+            </button>
+          </div>
+        </div>
+<!-- Card: L3.04 -->
+        <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.04</span>
+              <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 9</span>
+            </div>
+            <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">&#x27;igh&#x27; &amp; &#x27;ie&#x27; — สระ /aɪ/</h3>
+            <p class="text-xs text-slate-500 mb-3 line-clamp-2">กลุ่มอักษร 3 ตัวออกเป็น 1 เสียงสระยาว</p>
+            <div class="mb-4">
+              <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">night 🌙</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">light 💡</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">bright 🔆</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">high ⬆️</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">fight 🥊</span></div>
+            </div>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+              <span class="italic font-medium">"The bright light is high at night...."</span>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
+            <button onclick="openLesson('L3.04')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+              <span>เริ่มเรียน</span> <span>›</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="w2" class="world-section space-y-4">
+      <div class="flex items-center justify-between border-b border-orange-100 pb-2.5">
+        <div>
+          <h2 class="font-display font-extrabold text-lg sm:text-xl text-slate-900 flex items-center gap-2"><span>⭐ World 2: Bossy R</span></h2>
+          <p class="text-xs text-slate-500 mt-0.5">r ควบคุมเสียง ar · or · er/ir/ur และประโยค</p>
+        </div>
+        <span class="text-xs font-bold text-orange-700 bg-orange-50 px-3 py-1 rounded-full border border-orange-200">4 บทเรียน</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+<!-- Card: L3.05 -->
+        <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.05</span>
+              <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 10</span>
+            </div>
+            <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Bossy R &#x27;ar&#x27; — /ɑːr/</h3>
+            <p class="text-xs text-slate-500 mb-3 line-clamp-2">เข้าใจว่า r ตามหลังสระ a จะควบคุมเสียง</p>
+            <div class="mb-4">
+              <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">car 🚗</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">star ⭐</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">farm 🚜</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">park 🏞️</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">shark 🦈</span></div>
+            </div>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+              <span class="italic font-medium">"The smart shark is in the dark park...."</span>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
+            <button onclick="openLesson('L3.05')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+              <span>เริ่มเรียน</span> <span>›</span>
+            </button>
+          </div>
+        </div>
+<!-- Card: L3.06 -->
+        <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.06</span>
+              <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 10</span>
+            </div>
+            <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Bossy R &#x27;or&#x27; — /ɔːr/</h3>
+            <p class="text-xs text-slate-500 mb-3 line-clamp-2">เสียง r ควบคุมสระ o</p>
+            <div class="mb-4">
+              <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">fork 🍴</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">corn 🌽</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">horn 📯</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">storm 🌪️</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">short 📏</span></div>
+            </div>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+              <span class="italic font-medium">"The horse is short in the storm...."</span>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
+            <button onclick="openLesson('L3.06')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+              <span>เริ่มเรียน</span> <span>›</span>
+            </button>
+          </div>
+        </div>
+<!-- Card: L3.07 -->
+        <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.07</span>
+              <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 10</span>
+            </div>
+            <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Triplets &#x27;er, ir, ur&#x27; — /ɜːr/</h3>
+            <p class="text-xs text-slate-500 mb-3 line-clamp-2">กลุ่มสามพี่น้องรูปต่างกันแต่เสียงเดียวกัน</p>
+            <div class="mb-4">
+              <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">her 👩</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">fern 🌿</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">bird 🐦</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">girl 👧</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">shirt 👕</span></div>
+            </div>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+              <span class="italic font-medium">"The girl in the shirt has a bird...."</span>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
+            <button onclick="openLesson('L3.07')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+              <span>เริ่มเรียน</span> <span>›</span>
+            </button>
+          </div>
+        </div>
+<!-- Card: L3.08 -->
+        <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.08</span>
+              <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 10</span>
+            </div>
+            <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Bossy R ประโยค</h3>
+            <p class="text-xs text-slate-500 mb-3 line-clamp-2">อ่านประโยคที่มีคำ R-controlled หลายคำต่อเนื่อง</p>
+            <div class="mb-4">
+              <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">smart 🧠</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">girl 👧</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">star ⭐</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">dark 🌑</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">park 🏞️</span></div>
+            </div>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+              <span class="italic font-medium">"The smart girl saw a star in the dark park...."</span>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
+            <button onclick="openLesson('L3.08')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+              <span>เริ่มเรียน</span> <span>›</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="w3" class="world-section space-y-4">
+      <div class="flex items-center justify-between border-b border-orange-100 pb-2.5">
+        <div>
+          <h2 class="font-display font-extrabold text-lg sm:text-xl text-slate-900 flex items-center gap-2"><span>🪙 World 3: Diphthongs</span></h2>
+          <p class="text-xs text-slate-500 mt-0.5">สระผสม oi/oy · ou/ow · oo สองเสียง · au/aw + ตัวเงียบ</p>
+        </div>
+        <span class="text-xs font-bold text-orange-700 bg-orange-50 px-3 py-1 rounded-full border border-orange-200">4 บทเรียน</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+<!-- Card: L3.09 -->
+        <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.09</span>
+              <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 11</span>
+            </div>
+            <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Diphthongs &#x27;oi&#x27; &amp; &#x27;oy&#x27; — /ɔɪ/</h3>
+            <p class="text-xs text-slate-500 mb-3 line-clamp-2">สระผสมสองเสียงที่รูปปากเลื่อนจากกลมไปแบน</p>
+            <div class="mb-4">
+              <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">coin 🪙</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">point 👉</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">boil 🍲</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">spoil 💔</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">oil 🛢️</span></div>
+            </div>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+              <span class="italic font-medium">"A happy boy plays with his new toy...."</span>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
+            <button onclick="openLesson('L3.09')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+              <span>เริ่มเรียน</span> <span>›</span>
+            </button>
+          </div>
+        </div>
+<!-- Card: L3.10 -->
+        <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.10</span>
+              <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 11</span>
+            </div>
+            <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Diphthongs &#x27;ou&#x27; &amp; &#x27;ow&#x27; — /aʊ/</h3>
+            <p class="text-xs text-slate-500 mb-3 line-clamp-2">เปรียบเทียบ ou กลางคำ กับ ow ท้ายคำ</p>
+            <div class="mb-4">
+              <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">cloud ☁️</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">house 🏠</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">mouse 🐭</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">shout 📢</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">cow 🐄</span></div>
+            </div>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+              <span class="italic font-medium">"The mouse in the house can shout...."</span>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
+            <button onclick="openLesson('L3.10')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+              <span>เริ่มเรียน</span> <span>›</span>
+            </button>
+          </div>
+        </div>
+<!-- Card: L3.11 -->
+        <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.11</span>
+              <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 11</span>
+            </div>
+            <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Double &#x27;oo&#x27; — สั้น /ʊ/ กับ ยาว /uː/</h3>
+            <p class="text-xs text-slate-500 mb-3 line-clamp-2">แยก oo สั้นกับ oo ยาว</p>
+            <div class="mb-4">
+              <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">book 📚</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">cook 👨‍🍳</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">look 👀</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">foot 🦶</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">moon 🌕</span></div>
+            </div>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+              <span class="italic font-medium">"Look at the book by the cool moon...."</span>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
+            <button onclick="openLesson('L3.11')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+              <span>เริ่มเรียน</span> <span>›</span>
+            </button>
+          </div>
+        </div>
+<!-- Card: L3.12 -->
+        <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.12</span>
+              <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 11</span>
+            </div>
+            <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">&#x27;au, aw&#x27; &amp; ตัวอักษรเงียบ</h3>
+            <p class="text-xs text-slate-500 mb-3 line-clamp-2">สระ /ɔː/ และพยัญชนะที่ไม่ออกเสียง (kn, wr)</p>
+            <div class="mb-4">
+              <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">sauce 🥫</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">draw ✏️</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">saw 🪚</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">claw 🦅</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">knight 🛡️</span></div>
+            </div>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+              <span class="italic font-medium">"Draw the sauce with a straw...."</span>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
+            <button onclick="openLesson('L3.12')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+              <span>เริ่มเรียน</span> <span>›</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="w4" class="world-section space-y-4">
+      <div class="flex items-center justify-between border-b border-orange-100 pb-2.5">
+        <div>
+          <h2 class="font-display font-extrabold text-lg sm:text-xl text-slate-900 flex items-center gap-2"><span>📖 World 4: Story Books</span></h2>
+          <p class="text-xs text-slate-500 mt-0.5">นิทาน 3 บท และการจบหลักสูตร Phonics</p>
+        </div>
+        <span class="text-xs font-bold text-orange-700 bg-orange-50 px-3 py-1 rounded-full border border-orange-200">4 บทเรียน</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+<!-- Card: L3.13 -->
+        <div class="card-glow bg-white border border-fuchsia-300 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.13</span>
+              <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">📖 นิทาน</span>
+            </div>
+            <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Chapter 1 — Oliver&#x27;s Treehouse Quest</h3>
+            <p class="text-xs text-slate-500 mb-3 line-clamp-2">อ่านนิทาน 80–100 คำ ฝึกแบ่งวรรคและใส่อารมณ์</p>
+            <div class="mb-4">
+              <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">climbed 🧗</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">ladder 🪜</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">bright 🔆</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">golden 🪙</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">smile 😊</span></div>
+            </div>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+              <span class="italic font-medium">"Oliver the fox climbed the tall wooden ladder to his treehou..."</span>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
+            <button onclick="openLesson('L3.13')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+              <span>เริ่มเรียน</span> <span>›</span>
+            </button>
+          </div>
+        </div>
+<!-- Card: L3.14 -->
+        <div class="card-glow bg-white border border-fuchsia-300 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.14</span>
+              <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">📖 นิทาน</span>
+            </div>
+            <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Chapter 2 — The Star Bird in the Dark Woods</h3>
+            <p class="text-xs text-slate-500 mb-3 line-clamp-2">อ่านนิทานบทที่สอง เน้นการเชื่อมคำและความเข้าใจ</p>
+            <div class="mb-4">
+              <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">followed 👣</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">dark 🌑</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">fern 🌿</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">wing 🪽</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">sweet 🍬</span></div>
+            </div>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+              <span class="italic font-medium">"Deep in the dark woods, a small bird sang a sweet song. Oliv..."</span>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
+            <button onclick="openLesson('L3.14')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+              <span>เริ่มเรียน</span> <span>›</span>
+            </button>
+          </div>
+        </div>
+<!-- Card: L3.15 -->
+        <div class="card-glow bg-white border border-fuchsia-300 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.15</span>
+              <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">📖 นิทาน</span>
+            </div>
+            <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Chapter 3 — The Secret of the Golden Boat</h3>
+            <p class="text-xs text-slate-500 mb-3 line-clamp-2">อ่านนิทานบทที่สาม เตรียมความพร้อมอ่านหนังสือจริง</p>
+            <div class="mb-4">
+              <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">golden 🪙</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">silver 🥈</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">sail ⛵</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">island 🏝️</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">sunset 🌅</span></div>
+            </div>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+              <span class="italic font-medium">"By the green lake stood a golden boat with a silver sail. Ol..."</span>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
+            <button onclick="openLesson('L3.15')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+              <span>เริ่มเรียน</span> <span>›</span>
+            </button>
+          </div>
+        </div>
+<!-- Card: L3.16 -->
+        <div class="card-glow bg-white border border-fuchsia-300 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.16</span>
+              <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">📖 นิทาน</span>
+            </div>
+            <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Master Graduation 🎓👑</h3>
+            <p class="text-xs text-slate-500 mb-3 line-clamp-2">จบหลักสูตร Phonics อย่างสมบูรณ์</p>
+            <div class="mb-4">
+              <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">treasure 💎</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">adventure 🗺️</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">cheered 🎉</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">friends 👫</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">magical ✨</span></div>
+            </div>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+              <span class="italic font-medium">"Deep in the green forest of Littlewood, Oliver the fox climb..."</span>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
+            <button onclick="openLesson('L3.16')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+              <span>เริ่มเรียน</span> <span>›</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= TEACHER EMMA LIVE ARENA MODAL ================= -->
+  <!-- NO LOBBY START BUTTON: Opens and starts immediately! -->
+  <div id="playerModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+    <div class="bg-white border-2 border-orange-300 rounded-3xl w-full max-w-[calc(100vw-16px)] sm:max-w-2xl shadow-2xl overflow-hidden flex flex-col my-auto min-h-0 max-h-[92vh]">
+
+      <!-- HEADER: Top Status & Teacher Avatar -->
+      <div class="p-3 sm:p-5 border-b border-orange-100 bg-[#FFFBF5] flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+          <button type="button" onclick="closeLesson()" class="h-11 min-w-11 px-3 rounded-2xl bg-white hover:bg-orange-50 active:scale-95 text-slate-700 font-black flex items-center justify-center gap-1 text-sm border-2 border-slate-200 shadow-sm transition" title="กลับสู่แผนที่รวมด่าน" aria-label="กลับสู่แผนที่รวมด่าน"><span class="text-lg leading-none">‹</span><span class="hidden sm:inline">กลับ</span></button>
+          <div class="flex items-center gap-2.5 min-w-0">
+            <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-400 to-orange-500 text-white flex items-center justify-center text-xl shadow-sm">
+              👩‍🏫
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="font-display font-extrabold text-sm sm:text-base text-slate-900 leading-tight">ครูเอ็มม่า (Teacher Emma)</span>
+                <span id="playerLid" class="px-2 py-0.5 rounded-md bg-orange-500 text-white text-[10px] font-black">L3.01</span>
+              </div>
+              <div id="playerTitle" class="text-[11px] text-orange-600 font-semibold truncate max-w-xs">The 'sh' Sound</div>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" onclick="closeLesson()" class="h-11 min-w-11 shrink-0 rounded-2xl bg-white hover:bg-rose-50 active:scale-95 text-rose-600 font-black flex items-center justify-center text-lg border-2 border-rose-200 shadow-sm transition" title="ปิดแบบฝึกหัด" aria-label="ปิดแบบฝึกหัด">✕</button>
+      </div>
+
+      <!-- STEPBAR (4 STEPS + SUMMARY) -->
+      <div class="px-5 pt-3 pb-2 bg-white border-b border-orange-100">
+        <div class="flex items-center justify-between mb-1.5">
+          <div class="flex items-center gap-1.5">
+            <span id="stepIcon" class="text-sm">🎚️</span>
+            <span id="stepName" class="font-display font-black text-xs text-orange-700 uppercase tracking-wide">ขั้นที่ 1: ผสมเสียง (Blend)</span>
+          </div>
+          <span id="stepProgressText" class="text-[11px] font-extrabold text-slate-500">คำที่ 1 / 4</span>
+        </div>
+        
+        <div id="actBanner" class="hidden mt-2 flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-orange-100 to-amber-50 border border-orange-200/70 text-xs leading-tight flex-wrap"></div>
+
+        <div class="grid grid-cols-4 gap-2 mt-2">
+          <div id="stepBar0" class="h-2 rounded-full bg-orange-500 transition-all duration-300"></div>
+          <div id="stepBar1" class="h-2 rounded-full bg-slate-200 transition-all duration-300"></div>
+          <div id="stepBar2" class="h-2 rounded-full bg-slate-200 transition-all duration-300"></div>
+          <div id="stepBar3" class="h-2 rounded-full bg-slate-200 transition-all duration-300"></div>
+        
+        </div>
+      </div>
+
+      <!-- LIVE TEACHER EMMA STATUS BADGE & PROMPT STRIP -->
+      <div class="px-5 py-3 bg-gradient-to-r from-orange-50 via-amber-50 to-orange-50 border-b border-orange-100 flex flex-col gap-1.5">
+        <div class="flex items-center justify-between">
+          <div id="tutorStateBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500 text-white text-xs font-black shadow-sm animate-pulse">
+            <span class="w-2 h-2 rounded-full bg-white animate-ping"></span>
+            <span id="tutorStateText">ครูเอ็มม่ากำลังพูดนำ 🔊</span>
+          </div>
+          <!-- Live VU Mic Activity Bar -->
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] font-bold text-slate-400">ไมค์:</span>
+            <div class="w-16 h-2 bg-slate-200 rounded-full overflow-hidden">
+              <div id="emmaVuBar" class="h-full bg-emerald-500 rounded-full transition-all duration-150" style="width: 10%"></div>
+            </div>
+            <span id="emmaVuPct" class="text-[10px] font-mono font-bold text-slate-400">10%</span>
+          </div>
+        </div>
+        <p id="tutorSpeechText" class="text-xs sm:text-sm text-slate-800 font-bold leading-relaxed">
+          "ครูเอ็มม่า: กำลังโหลดบทเรียน..."
+        </p>
+      </div>
+
+      <!-- ================= DYNAMIC ACTIVITY STAGE ================= -->
+      <div id="appStage" class="p-5 sm:p-6 overflow-y-auto flex-1 flex flex-col justify-center bg-[#FFFBF5]">
+        <!-- Dynamically rendered per step -->
+      </div>
+
+      <!-- FOOTER: Mode Status & Guidance -->
+      <div class="p-3 bg-white border-t border-orange-100 flex items-center justify-between text-xs px-5">
+        <div class="flex items-center gap-2">
+          <button id="btnHearTeacher" onclick="replayTeacherVoice()" class="px-3.5 py-1.5 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold border border-orange-200 flex items-center gap-1 transition">
+            <span>🔊</span> <span>ฟังครูพูดซ้ำ</span>
+          </button>
+        </div>
+
+        <!-- Mode Indicator -->
+        <div id="footerModeStatus" class="px-4 py-1.5 rounded-full bg-orange-100 text-orange-900 border border-orange-200 font-black text-xs flex items-center gap-1.5 shadow-sm">
+          <span>👆 โหมดแตะหน้าจอ</span>
+        </div>
+
+        <button onclick="skipCurrentItem()" class="text-slate-400 hover:text-slate-600 font-bold text-[11px] underline">
+          ข้ามข้อ ›
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT: TEACHER EMMA LIVE INTERACTIVE ENGINE -->
+  <script>
+    const LESSONS = {"L3.01":{"id":"L3.01","num":1,"world":"w1","world_title":"World 1: Vowel Teams","unit":"Unit 9","title":"'ee' & 'ea' — สระคู่เสียงยาว /iː/","goal_th":"เข้าใจกฎสระคู่ สองตัวติดกันเปล่งเป็น 1 เสียงยาว","length_tag":"คำ 8 ตัว","difficulty":1,"targets":["tree","seed","feet","green","leaf","meat","beach","clean"],"emojis":{"tree":"🌳","seed":"🌱","feet":"🦶","green":"🟢","leaf":"🍃","meat":"🍖","beach":"🏖️","clean":"✨"},"oliver_script":"Welcome to Level 3! Here is the golden rule: When two vowels go walking, the first one does the talking!","blend":[{"word":"tree","graphemes":["tr","ee"],"ipa":"","th":"ต้นไม้","emoji":"🌳"},{"word":"seed","graphemes":["s","ee","d"],"ipa":"","th":"เมล็ด","emoji":"🌱"},{"word":"feet","graphemes":["f","ee","t"],"ipa":"","th":"เท้า","emoji":"🦶"},{"word":"green","graphemes":["gr","ee","n"],"ipa":"","th":"สีเขียว","emoji":"🟢"}],"segment_build":[{"word":"tree","graphemes":["tr","ee"],"emoji":"🌳"},{"word":"seed","graphemes":["s","ee","d"],"emoji":"🌱"},{"word":"feet","graphemes":["f","ee","t"],"emoji":"🦶"},{"word":"green","graphemes":["gr","ee","n"],"emoji":"🟢"}],"listen_choose":[{"word":"tree","options":["tree","green","seed","feet"],"emoji":"🌳"},{"word":"seed","options":["clean","green","seed","leaf"],"emoji":"🌱"},{"word":"feet","options":["clean","tree","green","feet"],"emoji":"🦶"},{"word":"green","options":["leaf","green","feet","beach"],"emoji":"🟢"}],"sentences":["I sleep under a green tree.","Look at the clean beach."],"activities":{"s1":"Walking Vowels","s2":"Team Sorter","s3":"Word Puzzle","s4":"Voice Reading"},"act_specs":[{"step":0,"type":"walk","label":"Walking Vowels","hint":"การ์ตูน e กับ a จับมือเดินด้วยกัน"},{"step":1,"type":"sort","label":"Team Sorter","hint":"แยกคำว่าคำไหนสะกดด้วย ee หรือ ea","a":"sorter","b":"ee"},{"step":2,"type":"puzzle","label":"Word Puzzle","hint":"ลาก gr + ee + n เพื่อสร้างคำว่า green"},{"step":3,"type":"voice","label":"Voice Reading","hint":"อ่านประโยค \"I sleep under a green tree.\""}]},"L3.02":{"id":"L3.02","num":2,"world":"w1","world_title":"World 1: Vowel Teams","unit":"Unit 9","title":"'ai' & 'ay' — สระคู่ /eɪ/","goal_th":"แยกกฎ ai ใช้กลางคำ · ay ใช้ท้ายคำ","length_tag":"คำ 8 ตัว","difficulty":1,"targets":["rain","tail","train","wait","sail","day","play","stay"],"emojis":{"rain":"🌧️","tail":"🐒","train":"🚂","wait":"⏳","sail":"⛵","day":"📅","play":"🎮","stay":"🏠"},"oliver_script":"ai sits in the middle, ay waits at the end. Both say /eɪ/!","blend":[{"word":"rain","graphemes":["r","ai","n"],"ipa":"","th":"ฝน","emoji":"🌧️"},{"word":"tail","graphemes":["t","ai","l"],"ipa":"","th":"หาง","emoji":"🐒"},{"word":"train","graphemes":["tr","ai","n"],"ipa":"","th":"รถไฟ","emoji":"🚂"},{"word":"wait","graphemes":["w","ai","t"],"ipa":"","th":"รอ","emoji":"⏳"}],"segment_build":[{"word":"rain","graphemes":["r","ai","n"],"emoji":"🌧️"},{"word":"tail","graphemes":["t","ai","l"],"emoji":"🐒"},{"word":"train","graphemes":["tr","ai","n"],"emoji":"🚂"},{"word":"wait","graphemes":["w","ai","t"],"emoji":"⏳"}],"listen_choose":[{"word":"rain","options":["rain","play","stay","tail"],"emoji":"🌧️"},{"word":"tail","options":["stay","train","tail","play"],"emoji":"🐒"},{"word":"train","options":["stay","wait","tail","train"],"emoji":"🚂"},{"word":"wait","options":["day","train","wait","play"],"emoji":"⏳"}],"sentences":["Wait for the train in the rain.","We play all day and stay."],"activities":{"s1":"Vowel Pair Flash","s2":"ai or ay?","s3":"Word Puzzle","s4":"Voice Reading"},"act_specs":[{"step":0,"type":"walk","label":"Vowel Pair Flash","hint":"สระคู่ ai กับ ay เปล่งเสียง /eɪ/"},{"step":1,"type":"sort","label":"ai or ay?","hint":"แยกคำที่สะกดด้วย ai กับ ay","a":"sorter","b":"ai"},{"step":2,"type":"puzzle","label":"Word Puzzle","hint":"ประกอบชิ้นส่วนให้เป็นคำที่ถูกต้อง"},{"step":3,"type":"voice","label":"Voice Reading","hint":"อ่านประโยคที่มี sระคู่ /eɪ/"}]},"L3.03":{"id":"L3.03","num":3,"world":"w1","world_title":"World 1: Vowel Teams","unit":"Unit 9","title":"'oa' & 'ow' — สระคู่ /oʊ/","goal_th":"เปรียบเทียบตำแหน่งคำของ oa และ ow","length_tag":"คำ 8 ตัว","difficulty":1,"targets":["boat","road","coat","soap","snow","blow","grow","window"],"emojis":{"boat":"⛵","road":"🛣️","coat":"🧥","soap":"🧼","snow":"❄️","blow":"💨","grow":"🌿","window":"🪟"},"oliver_script":"oa likes the middle, ow likes the end. Both say /oʊ/!","blend":[{"word":"boat","graphemes":["b","oa","t"],"ipa":"","th":"เรือ","emoji":"⛵"},{"word":"road","graphemes":["r","oa","d"],"ipa":"","th":"ถนน","emoji":"🛣️"},{"word":"coat","graphemes":["c","oa","t"],"ipa":"","th":"เสื้อโค้ท","emoji":"🧥"},{"word":"soap","graphemes":["s","oa","p"],"ipa":"","th":"สบู่","emoji":"🧼"}],"segment_build":[{"word":"boat","graphemes":["b","oa","t"],"emoji":"⛵"},{"word":"road","graphemes":["r","oa","d"],"emoji":"🛣️"},{"word":"coat","graphemes":["c","oa","t"],"emoji":"🧥"},{"word":"soap","graphemes":["s","oa","p"],"emoji":"🧼"}],"listen_choose":[{"word":"boat","options":["road","snow","boat","coat"],"emoji":"⛵"},{"word":"road","options":["grow","snow","soap","road"],"emoji":"🛣️"},{"word":"coat","options":["coat","boat","grow","soap"],"emoji":"🧥"},{"word":"soap","options":["coat","window","soap","blow"],"emoji":"🧼"}],"sentences":["The boat on the road is slow.","Snow on the window, blow it away."],"activities":{"s1":"Long O Sort","s2":"oa or ow?","s3":"Word Puzzle","s4":"Voice Reading"},"act_specs":[{"step":0,"type":"walk","label":"Long O Sort","hint":"สระคู่ oa กับ ow เปล่งเสียง /oʊ/"},{"step":1,"type":"sort","label":"oa or ow?","hint":"แยกคำที่สะกดด้วย oa กับ ow","a":"sorter","b":"oa"},{"step":2,"type":"puzzle","label":"Word Puzzle","hint":"ประกอบชิ้นส่วนให้เป็นคำที่ถูกต้อง"},{"step":3,"type":"voice","label":"Voice Reading","hint":"อ่านประโยคที่มีสระคู่ /oʊ/"}]},"L3.04":{"id":"L3.04","num":4,"world":"w1","world_title":"World 1: Vowel Teams","unit":"Unit 9","title":"'igh' & 'ie' — สระ /aɪ/","goal_th":"กลุ่มอักษร 3 ตัวออกเป็น 1 เสียงสระยาว","length_tag":"คำ 8 ตัว","difficulty":1,"targets":["night","light","bright","high","fight","pie","tie","lie"],"emojis":{"night":"🌙","light":"💡","bright":"🔆","high":"⬆️","fight":"🥊","pie":"🥧","tie":"👔","lie":"🛏️"},"oliver_script":"igh is three letters but only one sound: /aɪ/. ie works the same!","blend":[{"word":"night","graphemes":["n","igh","t"],"ipa":"","th":"กลางคืน","emoji":"🌙"},{"word":"light","graphemes":["l","igh","t"],"ipa":"","th":"แสง","emoji":"💡"},{"word":"bright","graphemes":["br","igh","t"],"ipa":"","th":"สว่าง","emoji":"🔆"},{"word":"high","graphemes":["h","igh"],"ipa":"","th":"สูง","emoji":"⬆️"}],"segment_build":[{"word":"night","graphemes":["n","igh","t"],"emoji":"🌙"},{"word":"light","graphemes":["l","igh","t"],"emoji":"💡"},{"word":"bright","graphemes":["br","igh","t"],"emoji":"🔆"},{"word":"high","graphemes":["h","igh"],"emoji":"⬆️"}],"listen_choose":[{"word":"night","options":["night","high","tie","lie"],"emoji":"🌙"},{"word":"light","options":["fight","lie","bright","light"],"emoji":"💡"},{"word":"bright","options":["bright","fight","high","lie"],"emoji":"🔆"},{"word":"high","options":["night","high","tie","bright"],"emoji":"⬆️"}],"sentences":["The bright light is high at night.","A pie and a tie, what a lie!"],"activities":{"s1":"3-in-1 Sound","s2":"igh or ie?","s3":"Word Puzzle","s4":"Voice Reading"},"act_specs":[{"step":0,"type":"walk","label":"3-in-1 Sound","hint":"igh 3 ตัวอักษร แต่ออกเสียงเดียว /aɪ/"},{"step":1,"type":"sort","label":"igh or ie?","hint":"แยกคำที่สะกดด้วย igh กับ ie","a":"sorter","b":"igh"},{"step":2,"type":"puzzle","label":"Word Puzzle","hint":"ประกอบชิ้นส่วนให้เป็นคำที่ถูกต้อง"},{"step":3,"type":"voice","label":"Voice Reading","hint":"อ่านประโยคที่มี igh / ie"}]},"L3.05":{"id":"L3.05","num":5,"world":"w2","world_title":"World 2: Bossy R","unit":"Unit 10","title":"Bossy R 'ar' — /ɑːr/","goal_th":"เข้าใจว่า r ตามหลังสระ a จะควบคุมเสียง","length_tag":"คำ 8 ตัว","difficulty":2,"targets":["car","star","farm","park","shark","dark","smart","yard"],"emojis":{"car":"🚗","star":"⭐","farm":"🚜","park":"🏞️","shark":"🦈","dark":"🌑","smart":"🧠","yard":"🏡"},"oliver_script":"Arr matey! Letter r is so bossy that a cannot say its usual sound. They make /ɑːr/!","blend":[{"word":"car","graphemes":["c","ar"],"ipa":"","th":"รถ","emoji":"🚗"},{"word":"star","graphemes":["st","ar"],"ipa":"","th":"ดาว","emoji":"⭐"},{"word":"farm","graphemes":["f","ar","m"],"ipa":"","th":"ฟาร์ม","emoji":"🚜"},{"word":"park","graphemes":["p","ar","k"],"ipa":"","th":"สวนสาธารณะ","emoji":"🏞️"}],"segment_build":[{"word":"car","graphemes":["c","ar"],"emoji":"🚗"},{"word":"star","graphemes":["st","ar"],"emoji":"⭐"},{"word":"farm","graphemes":["f","ar","m"],"emoji":"🚜"},{"word":"park","graphemes":["p","ar","k"],"emoji":"🏞️"}],"listen_choose":[{"word":"car","options":["park","car","shark","star"],"emoji":"🚗"},{"word":"star","options":["star","yard","farm","park"],"emoji":"⭐"},{"word":"farm","options":["yard","car","star","farm"],"emoji":"🚜"},{"word":"park","options":["star","park","yard","farm"],"emoji":"🏞️"}],"sentences":["The smart shark is in the dark park.","A star on the farm in the yard."],"activities":{"s1":"Bossy Hat","s2":"Car & Star Slider","s3":"Farm Maze","s4":"Voice Challenge"},"act_specs":[{"step":0,"type":"hat","label":"Bossy Hat Animation","hint":"ตัว r สวมหมวกโจรสลัดควบคุมเสียงตัว a"},{"step":1,"type":"slider","label":"Car & Star Slider","hint":"เลื่อน st + ar ➔ star, sh + ar + k ➔ shark"},{"step":2,"type":"maze","label":"Farm Maze","hint":"นำทางจิ้งจอก Oliver ผ่านฟาร์มด้วยคำ ar"},{"step":3,"type":"voice","label":"Voice Challenge","hint":"อ่านคำว่า \"smart shark\" ชัดเจนหนักแน่น"}]},"L3.06":{"id":"L3.06","num":6,"world":"w2","world_title":"World 2: Bossy R","unit":"Unit 10","title":"Bossy R 'or' — /ɔːr/","goal_th":"เสียง r ควบคุมสระ o","length_tag":"คำ 8 ตัว","difficulty":2,"targets":["fork","corn","horn","storm","short","horse","north","sport"],"emojis":{"fork":"🍴","corn":"🌽","horn":"📯","storm":"🌪️","short":"📏","horse":"🐴","north":"🧭","sport":"⚽"},"oliver_script":"When r follows o, o becomes /ɔːr/ — like a horn in a storm!","blend":[{"word":"fork","graphemes":["f","or","k"],"ipa":"","th":"ส้อม","emoji":"🍴"},{"word":"corn","graphemes":["c","or","n"],"ipa":"","th":"ข้าวโพด","emoji":"🌽"},{"word":"horn","graphemes":["h","or","n"],"ipa":"","th":"แตร","emoji":"📯"},{"word":"storm","graphemes":["st","or","m"],"ipa":"","th":"พายุ","emoji":"🌪️"}],"segment_build":[{"word":"fork","graphemes":["f","or","k"],"emoji":"🍴"},{"word":"corn","graphemes":["c","or","n"],"emoji":"🌽"},{"word":"horn","graphemes":["h","or","n"],"emoji":"📯"},{"word":"storm","graphemes":["st","or","m"],"emoji":"🌪️"}],"listen_choose":[{"word":"fork","options":["north","horn","sport","fork"],"emoji":"🍴"},{"word":"corn","options":["corn","short","fork","sport"],"emoji":"🌽"},{"word":"horn","options":["storm","fork","short","horn"],"emoji":"📯"},{"word":"storm","options":["short","corn","storm","sport"],"emoji":"🌪️"}],"sentences":["The horse is short in the storm.","Corn and a fork, north of the horn."],"activities":{"s1":"Bossy Hat","s2":"or Slider","s3":"Storm Maze","s4":"Voice Challenge"},"act_specs":[{"step":0,"type":"hat","label":"Bossy Hat Animation","hint":"ตัว r สวมหมวกโจรสลัดควบคุมเสียงตัว o"},{"step":1,"type":"slider","label":"or Slider","hint":"เลื่อน f + or + k ➔ fork, st + or + m ➔ storm"},{"step":2,"type":"maze","label":"Storm Maze","hint":"นำทาง Oliver ผ่านพายุด้วยคำ or"},{"step":3,"type":"voice","label":"Voice Challenge","hint":"อ่านคำที่มี or ชัดเจนหนักแน่น"}]},"L3.07":{"id":"L3.07","num":7,"world":"w2","world_title":"World 2: Bossy R","unit":"Unit 10","title":"Triplets 'er, ir, ur' — /ɜːr/","goal_th":"กลุ่มสามพี่น้องรูปต่างกันแต่เสียงเดียวกัน","length_tag":"คำ 8 ตัว","difficulty":2,"targets":["her","fern","bird","girl","shirt","turn","burn","nurse"],"emojis":{"her":"👩","fern":"🌿","bird":"🐦","girl":"👧","shirt":"👕","turn":"↩️","burn":"🔥","nurse":"👩‍⚕️"},"oliver_script":"Three spellings, one sound: er, ir and ur all say /ɜːr/!","blend":[{"word":"her","graphemes":["h","er"],"ipa":"","th":"ของเธอ","emoji":"👩"},{"word":"fern","graphemes":["f","er","n"],"ipa":"","th":"เฟิร์น","emoji":"🌿"},{"word":"bird","graphemes":["b","ir","d"],"ipa":"","th":"นก","emoji":"🐦"},{"word":"girl","graphemes":["g","ir","l"],"ipa":"","th":"เด็กผู้หญิง","emoji":"👧"}],"segment_build":[{"word":"her","graphemes":["h","er"],"emoji":"👩"},{"word":"fern","graphemes":["f","er","n"],"emoji":"🌿"},{"word":"bird","graphemes":["b","ir","d"],"emoji":"🐦"},{"word":"girl","graphemes":["g","ir","l"],"emoji":"👧"}],"listen_choose":[{"word":"her","options":["shirt","burn","nurse","her"],"emoji":"👩"},{"word":"fern","options":["bird","turn","shirt","fern"],"emoji":"🌿"},{"word":"bird","options":["burn","bird","fern","girl"],"emoji":"🐦"},{"word":"girl","options":["girl","bird","fern","shirt"],"emoji":"👧"}],"sentences":["The girl in the shirt has a bird.","Turn the fern, do not burn it."],"activities":{"s1":"Triplet Match","s2":"er ir ur Sort","s3":"Word Puzzle","s4":"Voice Challenge"},"act_specs":[{"step":0,"type":"hat","label":"Triplet Match","hint":"er ir ur รูปต่างกันแต่เสียงเดียวกัน /ɜːr/"},{"step":1,"type":"sort","label":"er ir ur Sort","hint":"แยกคำว่าสะกดด้วย er ir หรือ ur","a":"sorter","b":"er"},{"step":2,"type":"puzzle","label":"Word Puzzle","hint":"ประกอบชิ้นส่วนให้เป็นคำที่ถูกต้อง"},{"step":3,"type":"voice","label":"Voice Challenge","hint":"อ่านคำ triplet ให้ชัดเจน"}]},"L3.08":{"id":"L3.08","num":8,"world":"w2","world_title":"World 2: Bossy R","unit":"Unit 10","title":"Bossy R ประโยค","goal_th":"อ่านประโยคที่มีคำ R-controlled หลายคำต่อเนื่อง","length_tag":"คำ 8 ตัว","difficulty":2,"targets":["smart","girl","star","dark","park","horn","turn","shirt"],"emojis":{"smart":"🧠","girl":"👧","star":"⭐","dark":"🌑","park":"🏞️","horn":"📯","turn":"↩️","shirt":"👕"},"oliver_script":"Now read a whole sentence full of bossy r words. Take your time!","blend":[{"word":"smart","graphemes":["sm","ar","t"],"ipa":"","th":"ฉลาด","emoji":"🧠"},{"word":"girl","graphemes":["g","ir","l"],"ipa":"","th":"เด็กผู้หญิง","emoji":"👧"},{"word":"star","graphemes":["st","ar"],"ipa":"","th":"ดาว","emoji":"⭐"},{"word":"dark","graphemes":["d","ar","k"],"ipa":"","th":"มืด","emoji":"🌑"}],"segment_build":[{"word":"smart","graphemes":["sm","ar","t"],"emoji":"🧠"},{"word":"girl","graphemes":["g","ir","l"],"emoji":"👧"},{"word":"star","graphemes":["st","ar"],"emoji":"⭐"},{"word":"dark","graphemes":["d","ar","k"],"emoji":"🌑"}],"listen_choose":[{"word":"smart","options":["girl","star","dark","smart"],"emoji":"🧠"},{"word":"girl","options":["turn","shirt","star","girl"],"emoji":"👧"},{"word":"star","options":["star","park","turn","girl"],"emoji":"⭐"},{"word":"dark","options":["dark","horn","turn","smart"],"emoji":"🌑"}],"sentences":["The smart girl saw a star in the dark park.","Turn north at the park and hear the horn."],"activities":{"s1":"Sentence Build","s2":"R-Team Sort","s3":"Word Puzzle","s4":"Voice Reading"},"act_specs":[{"step":0,"type":"walk","label":"Sentence Build","hint":"เรียงคำเป็นประโยคที่มีเสียง r ควบคุม"},{"step":1,"type":"sort","label":"R-Team Sort","hint":"แยกคำ ar or er ir ur","a":"sorter","b":"ar"},{"step":2,"type":"puzzle","label":"Word Puzzle","hint":"ประกอบชิ้นส่วนให้เป็นคำที่ถูกต้อง"},{"step":3,"type":"voice","label":"Voice Reading","hint":"อ่านประโยคยาวที่มี Bossy R"}]},"L3.09":{"id":"L3.09","num":9,"world":"w3","world_title":"World 3: Diphthongs","unit":"Unit 11","title":"Diphthongs 'oi' & 'oy' — /ɔɪ/","goal_th":"สระผสมสองเสียงที่รูปปากเลื่อนจากกลมไปแบน","length_tag":"คำ 8 ตัว","difficulty":3,"targets":["coin","point","boil","spoil","oil","toy","boy","joy"],"emojis":{"coin":"🪙","point":"👉","boil":"🍲","spoil":"💔","oil":"🛢️","toy":"🧸","boy":"👦","joy":"😊"},"oliver_script":"Clink! Lips start round like O then stretch into a smile: /ɔɪ/!","blend":[{"word":"coin","graphemes":["c","oi","n"],"ipa":"","th":"เหรียญ","emoji":"🪙"},{"word":"point","graphemes":["p","oi","nt"],"ipa":"","th":"ชี้","emoji":"👉"},{"word":"boil","graphemes":["b","oi","l"],"ipa":"","th":"ต้ม","emoji":"🍲"},{"word":"spoil","graphemes":["sp","oi","l"],"ipa":"","th":"เสีย","emoji":"💔"}],"segment_build":[{"word":"coin","graphemes":["c","oi","n"],"emoji":"🪙"},{"word":"point","graphemes":["p","oi","nt"],"emoji":"👉"},{"word":"boil","graphemes":["b","oi","l"],"emoji":"🍲"},{"word":"spoil","graphemes":["sp","oi","l"],"emoji":"💔"}],"listen_choose":[{"word":"coin","options":["point","toy","coin","spoil"],"emoji":"🪙"},{"word":"point","options":["boil","joy","boy","point"],"emoji":"👉"},{"word":"boil","options":["boil","coin","joy","boy"],"emoji":"🍲"},{"word":"spoil","options":["spoil","point","oil","toy"],"emoji":"💔"}],"sentences":["A happy boy plays with his new toy.","Do not spoil the oil with the coin."],"activities":{"s1":"Mouth Glide","s2":"oi or oy?","s3":"Coin Collector","s4":"Speech Recording"},"act_specs":[{"step":0,"type":"mouth","label":"Mouth Glide Model","hint":"ดูแอนิเมชันรูปปากเลื่อนจากทรงกลมสู่รอยยิ้ม"},{"step":1,"type":"sort","label":"Position Rule","hint":"กฎการสะกด: oi (กลางคำ) vs oy (ท้ายคำ)","a":"sorter","b":"oi"},{"step":2,"type":"coin","label":"Coin Collector","hint":"แตะเหรียญทองเพื่อสะกดคำว่า c-o-i-n"},{"step":3,"type":"voice","label":"Speech Recording","hint":"อ่านออกเสียง \"A happy boy with a new toy.\""}]},"L3.10":{"id":"L3.10","num":10,"world":"w3","world_title":"World 3: Diphthongs","unit":"Unit 11","title":"Diphthongs 'ou' & 'ow' — /aʊ/","goal_th":"เปรียบเทียบ ou กลางคำ กับ ow ท้ายคำ","length_tag":"คำ 8 ตัว","difficulty":3,"targets":["cloud","house","mouse","shout","cow","owl","town","crown"],"emojis":{"cloud":"☁️","house":"🏠","mouse":"🐭","shout":"📢","cow":"🐄","owl":"🦉","town":"🏘️","crown":"👑"},"oliver_script":"ou in the middle, ow at the end. Both sound like /aʊ/!","blend":[{"word":"cloud","graphemes":["cl","ou","d"],"ipa":"","th":"เมฆ","emoji":"☁️"},{"word":"house","graphemes":["h","ou","se"],"ipa":"","th":"บ้าน","emoji":"🏠"},{"word":"mouse","graphemes":["m","ou","se"],"ipa":"","th":"หนู","emoji":"🐭"},{"word":"shout","graphemes":["sh","ou","t"],"ipa":"","th":"ตะโกน","emoji":"📢"}],"segment_build":[{"word":"cloud","graphemes":["cl","ou","d"],"emoji":"☁️"},{"word":"house","graphemes":["h","ou","se"],"emoji":"🏠"},{"word":"mouse","graphemes":["m","ou","se"],"emoji":"🐭"},{"word":"shout","graphemes":["sh","ou","t"],"emoji":"📢"}],"listen_choose":[{"word":"cloud","options":["cow","cloud","mouse","crown"],"emoji":"☁️"},{"word":"house","options":["town","cow","house","crown"],"emoji":"🏠"},{"word":"mouse","options":["cow","mouse","shout","crown"],"emoji":"🐭"},{"word":"shout","options":["town","shout","house","mouse"],"emoji":"📢"}],"sentences":["The mouse in the house can shout.","An owl in the town has a crown."],"activities":{"s1":"Cloud & Cow","s2":"ou or ow?","s3":"Town Map","s4":"Speech Recording"},"act_specs":[{"step":0,"type":"mouth","label":"Cloud & Cow","hint":"ou กลางคำ ow ท้ายคำ ต่างก็เสียง /aʊ/"},{"step":1,"type":"sort","label":"ou or ow?","hint":"แยกคำที่สะกดด้วย ou กับ ow","a":"sorter","b":"ou"},{"step":2,"type":"map","label":"Town Map","hint":"เดินทางในเมืองด้วยคำ ou / ow"},{"step":3,"type":"voice","label":"Speech Recording","hint":"อ่านประโยคที่มี /aʊ/"}]},"L3.11":{"id":"L3.11","num":11,"world":"w3","world_title":"World 3: Diphthongs","unit":"Unit 11","title":"Double 'oo' — สั้น /ʊ/ กับ ยาว /uː/","goal_th":"แยก oo สั้นกับ oo ยาว","length_tag":"คำ 8 ตัว","difficulty":3,"targets":["book","cook","look","foot","moon","spoon","zoo","cool"],"emojis":{"book":"📚","cook":"👨‍🍳","look":"👀","foot":"🦶","moon":"🌕","spoon":"🥄","zoo":"🦁","cool":"😎"},"oliver_script":"Careful! oo has two sounds: short like book, long like moon!","blend":[{"word":"book","graphemes":["b","oo","k"],"ipa":"","th":"หนังสือ","emoji":"📚"},{"word":"cook","graphemes":["c","oo","k"],"ipa":"","th":"ทำอาหาร","emoji":"👨‍🍳"},{"word":"look","graphemes":["l","oo","k"],"ipa":"","th":"มอง","emoji":"👀"},{"word":"foot","graphemes":["f","oo","t"],"ipa":"","th":"เท้า","emoji":"🦶"}],"segment_build":[{"word":"book","graphemes":["b","oo","k"],"emoji":"📚"},{"word":"cook","graphemes":["c","oo","k"],"emoji":"👨‍🍳"},{"word":"look","graphemes":["l","oo","k"],"emoji":"👀"},{"word":"foot","graphemes":["f","oo","t"],"emoji":"🦶"}],"listen_choose":[{"word":"book","options":["book","foot","spoon","cool"],"emoji":"📚"},{"word":"cook","options":["cool","cook","spoon","foot"],"emoji":"👨‍🍳"},{"word":"look","options":["spoon","moon","foot","look"],"emoji":"👀"},{"word":"foot","options":["moon","spoon","cook","foot"],"emoji":"🦶"}],"sentences":["Look at the book by the cool moon.","A spoon at the zoo, a foot in the room."],"activities":{"s1":"Short or Long?","s2":"oo Sort","s3":"Word Puzzle","s4":"Voice Reading"},"act_specs":[{"step":0,"type":"mouth","label":"Short or Long?","hint":"oo มีสองเสียง สั้น /ʊ/ กับ ยาว /uː/"},{"step":1,"type":"sort","label":"oo Sort","hint":"แยก oo สั้นกับ oo ยาว","a":"sorter","b":"oo"},{"step":2,"type":"puzzle","label":"Word Puzzle","hint":"ประกอบชิ้นส่วนให้เป็นคำที่ถูกต้อง"},{"step":3,"type":"voice","label":"Voice Reading","hint":"อ่านประโยคที่มี oo สองเสียง"}]},"L3.12":{"id":"L3.12","num":12,"world":"w3","world_title":"World 3: Diphthongs","unit":"Unit 11","title":"'au, aw' & ตัวอักษรเงียบ","goal_th":"สระ /ɔː/ และพยัญชนะที่ไม่ออกเสียง (kn, wr)","length_tag":"คำ 8 ตัว","difficulty":3,"targets":["sauce","draw","saw","claw","knight","knee","write","wrong"],"emojis":{"sauce":"🥫","draw":"✏️","saw":"🪚","claw":"🦅","knight":"🛡️","knee":"🦵","write":"📝","wrong":"❌"},"oliver_script":"au and aw say /ɔː/. And watch out: k in kn and w in wr are silent!","blend":[{"word":"sauce","graphemes":["s","au","ce"],"ipa":"","th":"ซอส","emoji":"🥫"},{"word":"draw","graphemes":["dr","aw"],"ipa":"","th":"วาด","emoji":"✏️"},{"word":"saw","graphemes":["s","aw"],"ipa":"","th":"เลื่อย/เห็น","emoji":"🪚"},{"word":"claw","graphemes":["cl","aw"],"ipa":"","th":"กรงเล็บ","emoji":"🦅"}],"segment_build":[{"word":"sauce","graphemes":["s","au","ce"],"emoji":"🥫"},{"word":"draw","graphemes":["dr","aw"],"emoji":"✏️"},{"word":"saw","graphemes":["s","aw"],"emoji":"🪚"},{"word":"claw","graphemes":["cl","aw"],"emoji":"🦅"}],"listen_choose":[{"word":"sauce","options":["wrong","draw","saw","sauce"],"emoji":"🥫"},{"word":"draw","options":["sauce","draw","write","knight"],"emoji":"✏️"},{"word":"saw","options":["saw","knee","write","sauce"],"emoji":"🪚"},{"word":"claw","options":["write","knight","claw","sauce"],"emoji":"🦅"}],"sentences":["Draw the sauce with a straw.","The knight hurt his knee, but nothing is wrong."],"activities":{"s1":"Silent Letter Hunt","s2":"au or aw?","s3":"Word Puzzle","s4":"Speech Recording"},"act_specs":[{"step":0,"type":"silent","label":"Silent Letter Hunt","hint":"หา k ใน kn และ w ใน wr ที่ไม่ออกเสียง"},{"step":1,"type":"sort","label":"au or aw?","hint":"แยกคำที่สะกดด้วย au กับ aw","a":"sorter","b":"au"},{"step":2,"type":"puzzle","label":"Word Puzzle","hint":"ประกอบชิ้นส่วนให้เป็นคำที่ถูกต้อง"},{"step":3,"type":"voice","label":"Speech Recording","hint":"อ่านประโยคที่มี au / aw และตัวเงียบ"}]},"L3.13":{"id":"L3.13","num":13,"world":"w4","world_title":"World 4: Story Books","unit":"Unit 12","title":"Chapter 1 — Oliver's Treehouse Quest","goal_th":"อ่านนิทาน 80–100 คำ ฝึกแบ่งวรรคและใส่อารมณ์","length_tag":"คำ 6 ตัว","difficulty":4,"targets":["climbed","ladder","bright","golden","smile","green"],"emojis":{"climbed":"🧗","ladder":"🪜","bright":"🔆","golden":"🪙","smile":"😊","green":"🟢"},"oliver_script":"Welcome to the story chapter! Read this story with Oliver.","blend":[{"word":"climbed","graphemes":["cl","i","m","b","ed"],"ipa":"","th":"ปีน","emoji":"🧗"},{"word":"ladder","graphemes":["l","a","dd","er"],"ipa":"","th":"บันได","emoji":"🪜"},{"word":"bright","graphemes":["br","igh","t"],"ipa":"","th":"สว่าง","emoji":"🔆"},{"word":"golden","graphemes":["g","o","l","d","en"],"ipa":"","th":"สีทอง","emoji":"🪙"}],"segment_build":[{"word":"climbed","graphemes":["cl","i","m","b","ed"],"emoji":"🧗"},{"word":"ladder","graphemes":["l","a","dd","er"],"emoji":"🪜"},{"word":"bright","graphemes":["br","igh","t"],"emoji":"🔆"},{"word":"golden","graphemes":["g","o","l","d","en"],"emoji":"🪙"}],"listen_choose":[{"word":"climbed","options":["bright","smile","climbed","golden"],"emoji":"🧗"},{"word":"ladder","options":["bright","climbed","ladder","golden"],"emoji":"🪜"},{"word":"bright","options":["ladder","green","bright","golden"],"emoji":"🔆"},{"word":"golden","options":["golden","climbed","bright","green"],"emoji":"🪙"}],"sentences":["Oliver the fox climbed the tall wooden ladder to his treehouse. The bright stars were shining above the green trees. He found a brown box with a golden key inside. 'What a great day!' said Oliver with a happy smile."],"activities":{"s1":"Story Preview","s2":"Key Word Sort","s3":"Word Puzzle","s4":"Voice Reading"},"act_specs":[{"step":0,"type":"story","label":"Story Preview","hint":"อ่านนิทานนำก่อนเริ่ม"},{"step":1,"type":"sort","label":"Key Word Sort","hint":"แยกคำสำคัญในนิทาน","a":"sorter","b":"ee"},{"step":2,"type":"puzzle","label":"Word Puzzle","hint":"ประกอบชิ้นส่วนคำสำคัญ"},{"step":3,"type":"voice","label":"Voice Reading","hint":"อ่านนิทานบทที่ 1 ออกเสียง"}]},"L3.14":{"id":"L3.14","num":14,"world":"w4","world_title":"World 4: Story Books","unit":"Unit 12","title":"Chapter 2 — The Star Bird in the Dark Woods","goal_th":"อ่านนิทานบทที่สอง เน้นการเชื่อมคำและความเข้าใจ","length_tag":"คำ 6 ตัว","difficulty":4,"targets":["followed","dark","fern","wing","sweet","night"],"emojis":{"followed":"👣","dark":"🌑","fern":"🌿","wing":"🪽","sweet":"🍬","night":"🌙"},"oliver_script":"Chapter two! Follow the song into the dark woods.","blend":[{"word":"followed","graphemes":["f","o","ll","ow","ed"],"ipa":"","th":"ตาม","emoji":"👣"},{"word":"dark","graphemes":["d","ar","k"],"ipa":"","th":"มืด","emoji":"🌑"},{"word":"fern","graphemes":["f","er","n"],"ipa":"","th":"เฟิร์น","emoji":"🌿"},{"word":"wing","graphemes":["w","i","ng"],"ipa":"","th":"ปีก","emoji":"🪽"}],"segment_build":[{"word":"followed","graphemes":["f","o","ll","ow","ed"],"emoji":"👣"},{"word":"dark","graphemes":["d","ar","k"],"emoji":"🌑"},{"word":"fern","graphemes":["f","er","n"],"emoji":"🌿"},{"word":"wing","graphemes":["w","i","ng"],"emoji":"🪽"}],"listen_choose":[{"word":"followed","options":["wing","sweet","followed","night"],"emoji":"👣"},{"word":"dark","options":["night","sweet","wing","dark"],"emoji":"🌑"},{"word":"fern","options":["dark","followed","sweet","fern"],"emoji":"🌿"},{"word":"wing","options":["followed","dark","wing","sweet"],"emoji":"🪽"}],"sentences":["Deep in the dark woods, a small bird sang a sweet song. Oliver followed the sound past the tall fern and the old stone wall. The bird had a bright star on its wing. 'You light up the night!' said Oliver, and the bird flew high into the sky."],"activities":{"s1":"Story Preview","s2":"Key Word Sort","s3":"Word Puzzle","s4":"Voice Reading"},"act_specs":[{"step":0,"type":"story","label":"Story Preview","hint":"อ่านนิทานบทที่ 2 นำก่อนเริ่ม"},{"step":1,"type":"sort","label":"Key Word Sort","hint":"แยกคำสำคัญในนิทาน","a":"sorter","b":"ir"},{"step":2,"type":"puzzle","label":"Word Puzzle","hint":"ประกอบชิ้นส่วนคำสำคัญ"},{"step":3,"type":"voice","label":"Voice Reading","hint":"อ่านนิทานบทที่ 2 ออกเสียง"}]},"L3.15":{"id":"L3.15","num":15,"world":"w4","world_title":"World 4: Story Books","unit":"Unit 12","title":"Chapter 3 — The Secret of the Golden Boat","goal_th":"อ่านนิทานบทที่สาม เตรียมความพร้อมอ่านหนังสือจริง","length_tag":"คำ 6 ตัว","difficulty":4,"targets":["golden","silver","sail","island","sunset","joy"],"emojis":{"golden":"🪙","silver":"🥈","sail":"⛵","island":"🏝️","sunset":"🌅","joy":"😊"},"oliver_script":"The last chapter. Sail with Oliver to the secret island!","blend":[{"word":"golden","graphemes":["g","o","l","d","en"],"ipa":"","th":"สีทอง","emoji":"🪙"},{"word":"silver","graphemes":["s","i","l","v","er"],"ipa":"","th":"สีเงิน","emoji":"🥈"},{"word":"sail","graphemes":["s","ai","l"],"ipa":"","th":"แล่นเรือ","emoji":"⛵"},{"word":"island","graphemes":["i","s","l","and"],"ipa":"","th":"เกาะ","emoji":"🏝️"}],"segment_build":[{"word":"golden","graphemes":["g","o","l","d","en"],"emoji":"🪙"},{"word":"silver","graphemes":["s","i","l","v","er"],"emoji":"🥈"},{"word":"sail","graphemes":["s","ai","l"],"emoji":"⛵"},{"word":"island","graphemes":["i","s","l","and"],"emoji":"🏝️"}],"listen_choose":[{"word":"golden","options":["island","golden","silver","joy"],"emoji":"🪙"},{"word":"silver","options":["silver","sunset","golden","island"],"emoji":"🥈"},{"word":"sail","options":["golden","island","sail","sunset"],"emoji":"⛵"},{"word":"island","options":["joy","island","sunset","silver"],"emoji":"🏝️"}],"sentences":["By the green lake stood a golden boat with a silver sail. Oliver and his friends climbed in and sailed past the sand and the reeds. 'Where are we going?' asked the little girl. 'To find the secret island!' said Oliver. And they sailed into the bright sunset with joy."],"activities":{"s1":"Story Preview","s2":"Key Word Sort","s3":"Word Puzzle","s4":"Voice Reading"},"act_specs":[{"step":0,"type":"story","label":"Story Preview","hint":"อ่านนิทานบทที่ 3 นำก่อนเริ่ม"},{"step":1,"type":"sort","label":"Key Word Sort","hint":"แยกคำสำคัญในนิทาน","a":"sorter","b":"ai"},{"step":2,"type":"puzzle","label":"Word Puzzle","hint":"ประกอบชิ้นส่วนคำสำคัญ"},{"step":3,"type":"voice","label":"Voice Reading","hint":"อ่านนิทานบทที่ 3 ออกเสียง"}]},"L3.16":{"id":"L3.16","num":16,"world":"w4","world_title":"World 4: Story Books","unit":"Unit 12","title":"Master Graduation 🎓👑","goal_th":"จบหลักสูตร Phonics อย่างสมบูรณ์","length_tag":"คำ 6 ตัว","difficulty":4,"targets":["treasure","adventure","cheered","friends","magical","greatest"],"emojis":{"treasure":"💎","adventure":"🗺️","cheered":"🎉","friends":"👫","magical":"✨","greatest":"🏆"},"oliver_script":"Hooray! You started from letter sounds, then words, then sentences, and now whole stories!","blend":[{"word":"treasure","graphemes":["tr","ea","s","ure"],"ipa":"","th":"สมบัติ","emoji":"💎"},{"word":"adventure","graphemes":["a","d","v","en","t","ure"],"ipa":"","th":"การผจญภัย","emoji":"🗺️"},{"word":"cheered","graphemes":["ch","ee","r","ed"],"ipa":"","th":"ส่งเสียงเชียร์","emoji":"🎉"},{"word":"friends","graphemes":["fr","ie","nd","s"],"ipa":"","th":"เพื่อน","emoji":"👫"}],"segment_build":[{"word":"treasure","graphemes":["tr","ea","s","ure"],"emoji":"💎"},{"word":"adventure","graphemes":["a","d","v","en","t","ure"],"emoji":"🗺️"},{"word":"cheered","graphemes":["ch","ee","r","ed"],"emoji":"🎉"},{"word":"friends","graphemes":["fr","ie","nd","s"],"emoji":"👫"}],"listen_choose":[{"word":"treasure","options":["adventure","greatest","friends","treasure"],"emoji":"💎"},{"word":"adventure","options":["cheered","greatest","adventure","magical"],"emoji":"🗺️"},{"word":"cheered","options":["magical","adventure","cheered","friends"],"emoji":"🎉"},{"word":"friends","options":["magical","friends","greatest","cheered"],"emoji":"👫"}],"sentences":["Deep in the green forest of Littlewood, Oliver the fox climbed the tall wooden ladder of his treehouse.","The bright stars were shining in the dark night. He opened his brown treasure box and found a magical golden coin.","With a happy smile, Oliver said, 'Reading is the greatest adventure of all!' And all his animal friends clapped and cheered with joy."],"activities":{"s1":"Grand Read","s2":"Fluency Check","s3":"Comprehension","s4":"Certificate"},"act_specs":[{"step":0,"type":"story","label":"Grand Read","hint":"อ่านบทความนิทานจบหลักสูตรอย่างคล่องแคล่ว"},{"step":1,"type":"sort","label":"Fluency Check","hint":"ตรวจจังหวะหยุดวรรคและน้ำเสียง","a":"sorter","b":"ee"},{"step":2,"type":"quiz","label":"Comprehension Master","hint":"ตอบคำถามจับใจความ 5 ข้อ"},{"step":3,"type":"cert","label":"Official Certificate","hint":"ออกใบประกาศนียบัตร Master Phonics Explorer"}]}};
+
+    // ENGINE STATE
+    const STATE = {
+      lid: 'L3.01',
+      lesson: LESSONS['L3.01'],
+      step: 0,          // 0: Blend, 1: Segment, 2: Listen, 3: Sentences, 4: Summary
+      i: 0,             // Current word index (0..3)
+      isTeacherSpeaking: false,
+      isWaitingForChild: false,
+      hasAnswered: false,
+      isOpen: false,
+      results: [],
+      earnedStars: 48
+    };
+
+    /* ---- FIX 2026-11-02: ไม่มีระบบจำความคืบหน้าเลย (localStorage 0 จุด)
+       เด็กปิดแท็บ/กลับมาทีหลัง ต้องเริ่มบทใหม่ทุกครั้ง ---- */
+    const PKEY = 'kb_l2_progress_v1';
+
+    function progAll() {
+      try { return JSON.parse(localStorage.getItem(PKEY) || '{}') || {}; }
+      catch (e) { return {}; }
+    }
+
+    function progSave() {
+      if (!STATE.isOpen || !STATE.lesson) return;
+      try {
+        const all = progAll();
+        all[STATE.lid] = {
+          step: STATE.step,
+          i: STATE.i,
+          results: STATE.results.map(function (r) {
+            return { step: r.step, outcome: r.outcome, word: r.word, via: r.via };
+          }),
+          stars: STATE.earnedStars,
+          done: STATE.step >= 4,
+          updatedAt: Date.now()
+        };
+        all.__last = STATE.lid;
+        localStorage.setItem(PKEY, JSON.stringify(all));
+      } catch (e) {}
+    }
+
+    function progLoad(lid) {
+      const p = progAll()[lid];
+      if (!p || typeof p.step !== 'number') return null;
+      if (p.done) return null;              /* จบบทแล้ว = เริ่มใหม่ */
+      if (p.step >= 4) return null;
+      return p;
+    }
+
+    function progClear(lid) {
+      try {
+        const all = progAll();
+        delete all[lid];
+        localStorage.setItem(PKEY, JSON.stringify(all));
+      } catch (e) {}
+    }
+
+    /* การ์ด "เล่นต่อ" บนหน้าแรก */
+    function lastPlayedLid() {
+      const all = progAll();
+      const lid = all.__last;
+      if (!lid || !all[lid] || all[lid].done) return null;
+      return all[lid].step > 0 || all[lid].i > 0 ? lid : null;
+    }
+
+    const STEP_NAMES = [
+      'ขั้นที่ 1 · ผสมเสียง (แตะรวมคำ 👆)',
+      'ขั้นที่ 2 · เรียงตัวอักษร (แตะสะกดคำ 👆)',
+      'ขั้นที่ 3 · ฟังเลือกคำ (แตะคำที่ได้ยิน 👆)',
+      'ขั้นที่ 4 · อ่านประโยค (อ่านออกเสียงตามครู 🎙️)',
+      '🎉 จบบทเรียน (Summary)'
+    ];
+    const STEP_ICONS_DEFAULT = ['🎚️', '🧩', '🎯', '🎙️', '🏆'];
+
+    /* กิจกรรมเฉพาะบทตาม PDF — ชื่อ/ไอคอนเปลี่ยนตาม LESSONS[lid].act_specs */
+    const ACT_ICON = { walk:'🚶', sort:'🗂️', puzzle:'🧩', voice:'🎙️', hat:'🏴‍☠️', slider:'🎚️',
+                       maze:'🗺️', mouth:'👄', coin:'🪙', map:'🧭', silent:'🤫', story:'📖',
+                       quiz:'❓', cert:'🎓' };
+    function stepLabel(step) {
+      const sp = (STATE.lesson && STATE.lesson.act_specs || [])[step];
+      if (!sp) return STEP_NAMES[step];
+      return `ขั้นที่ ${step + 1} · ${sp.label}`;
+    }
+    function stepIcon(step) {
+      const sp = (STATE.lesson && STATE.lesson.act_specs || [])[step];
+      return sp ? (ACT_ICON[sp.type] || '⭐') : STEP_ICONS_DEFAULT[step];
+    }
+
+    const STEP_ICONS = ['🎚️', '🧩', '🎯', '🎙️', '🏆'];
+
+    // ================= AUDIO UNLOCK & GESTURE WARMUP =================
+    let AC = null;
+    let audioUnlocked = false;
+    function unlockAudio() {
+      if (audioUnlocked) return;
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return;
+        AC = AC || new Ctx();
+        if (AC.state === 'suspended') AC.resume();
+        const buf = AC.createBuffer(1, 1, 22050);
+        const src = AC.createBufferSource();
+        src.buffer = buf;
+        src.connect(AC.destination);
+        src.start(0);
+        audioUnlocked = true;
+      } catch(e) {}
+    }
+    document.addEventListener('touchstart', unlockAudio, { passive: true });
+    document.addEventListener('click', unlockAudio);
+    document.addEventListener('pointerdown', unlockAudio);
+
+    // Web Audio Sound Engine
+    function playChime(type) {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        if (type === 'pop') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(440, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.08);
+          gain.gain.setValueAtTime(0.2, ctx.currentTime);
+          gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.1);
+          osc.start(); osc.stop(ctx.currentTime + 0.1);
+        } else if (type === 'success') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+          osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.09);
+          osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.18);
+          gain.gain.setValueAtTime(0.25, ctx.currentTime);
+          gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.35);
+          osc.start(); osc.stop(ctx.currentTime + 0.35);
+        } else if (type === 'error') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, ctx.currentTime);
+          osc.frequency.linearRampToValueAtTime(160, ctx.currentTime + 0.2);
+          gain.gain.setValueAtTime(0.2, ctx.currentTime);
+          gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.2);
+          osc.start(); osc.stop(ctx.currentTime + 0.2);
+        }
+      } catch (e) {}
+    }
+
+    // -------------------------------------------------------------------
+    // TEACHER EMMA FEMALE AUDIO & SPEECH SYNTHESIS ENGINE
+    // -------------------------------------------------------------------
+    let emmaAudioElem = null;
+    let cachedFemaleVoice = null;
+
+    // Strict Female Voice Selector (Never defaults to Microsoft David / Male voice)
+    function getFemaleVoice() {
+      if (cachedFemaleVoice) return cachedFemaleVoice;
+      if (!('speechSynthesis' in window)) return null;
+      const voices = window.speechSynthesis.getVoices();
+      if (!voices || voices.length === 0) return null;
+
+      // 1. High-priority female neural/studio voices (Jenny, Aria, Samantha, Victoria, Zira, Google US English, Ava, Allison, Karen, Susan, Hazel)
+      const femaleNames = ['jenny', 'aria', 'samantha', 'victoria', 'zira', 'google us english', 'ava', 'allison', 'karen', 'susan', 'hazel'];
+      for (const name of femaleNames) {
+        const match = voices.find(v => v.lang.startsWith('en') && v.name.toLowerCase().includes(name));
+        if (match) {
+          cachedFemaleVoice = match;
+          return cachedFemaleVoice;
+        }
+      }
+
+      // 2. Any voice explicitly containing female
+      const anyFemale = voices.find(v => v.lang.startsWith('en') && v.name.toLowerCase().includes('female'));
+      if (anyFemale) {
+        cachedFemaleVoice = anyFemale;
+        return cachedFemaleVoice;
+      }
+
+      // 3. Filter out all known male voice identifiers
+      const nonMale = voices.find(v => {
+        if (!v.lang.startsWith('en')) return false;
+        const s = v.name.toLowerCase();
+        return !s.includes('david') && !s.includes('mark') && !s.includes('george') && !s.includes('richard') && !s.includes('guy') && !s.includes('male');
+      });
+      if (nonMale) {
+        cachedFemaleVoice = nonMale;
+        return cachedFemaleVoice;
+      }
+
+      cachedFemaleVoice = voices.find(v => v.lang.startsWith('en')) || voices[0];
+      return cachedFemaleVoice;
+    }
+
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = () => {
+        cachedFemaleVoice = null;
+        getFemaleVoice();
+      };
+    }
+
+    // Play Teacher Emma Studio MP3 audio file (Edge-TTS en-US-JennyNeural)
+    function playEmmaMp3(url, callback, fallbackText) {
+      if (emmaAudioElem) {
+        try {
+          emmaAudioElem.pause();
+          emmaAudioElem.currentTime = 0;
+          emmaAudioElem.src = '';
+        } catch(e) {}
+        emmaAudioElem = null;
+      }
+
+      const audio = new Audio(url);
+      emmaAudioElem = audio;
+      let finished = false;
+
+      const finish = () => {
+        if (finished) return;
+        finished = true;
+        emmaAudioElem = null;
+        if (callback) callback();
+      };
+
+      audio.onended = finish;
+      audio.onerror = () => {
+        /* FIX: file missing or unplayable -> speak with Web Speech instead of silence */
+        if (emmaAudioElem === audio) emmaAudioElem = null;
+        finished = true;
+        if (fallbackText && 'speechSynthesis' in window) {
+          try {
+            window.speechSynthesis.cancel();
+            const ut = new SpeechSynthesisUtterance(fallbackText);
+            const v = getFemaleVoice();
+            if (v) ut.voice = v;
+            ut.lang = 'en-US'; ut.rate = 0.8; ut.pitch = 1.15;
+            ut.onend = () => { if (callback) callback(); };
+            ut.onerror = () => { if (callback) callback(); };
+            window.speechSynthesis.speak(ut);
+            return;
+          } catch(e) {}
+        }
+        if (callback) callback();
+      };
+
+      // Safety timeout in case audio stalls
+      setTimeout(() => {
+        if (!finished && emmaAudioElem === audio) {
+          finish();
+        }
+      }, 7000);
+
+      audio.play().catch(err => {
+        audio.onerror && audio.onerror();
+      });
+    }
+
+    // High Level Emma Speak: Uses pre-rendered JennyNeural MP3 first, falls back to Female Web Speech
+    function emmaSpeak(text, audioUrl, callback) {
+      STATE.isTeacherSpeaking = true;
+      STATE.isWaitingForChild = false;
+      try { stopSentenceMic(); } catch(e) {}
+
+      // UI update: Teacher is leading
+      const badge = document.getElementById('tutorStateBadge');
+      const textEl = document.getElementById('tutorStateText');
+      if (badge) {
+        badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500 text-white text-xs font-black shadow-sm animate-pulse";
+      }
+      if (textEl) {
+        textEl.textContent = "ครูเอ็มม่ากำลังพูดนำ 🔊";
+      }
+
+      const onDone = () => {
+        STATE.isTeacherSpeaking = false;
+        onEmmaFinishedSpeaking();
+        if (callback) callback();
+      };
+
+      try {
+        if (audioUrl) {
+          playEmmaMp3(audioUrl, onDone, text);
+        } else if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          const ut = new SpeechSynthesisUtterance(text);
+          const voice = getFemaleVoice();
+          if (voice) ut.voice = voice;
+          ut.lang = 'en-US';
+          ut.rate = 0.85;
+          ut.pitch = 1.15; // Child-friendly female teacher pitch
+
+          ut.onend = onDone;
+          ut.onerror = onDone;
+          window.speechSynthesis.speak(ut);
+        } else {
+          setTimeout(onDone, 1200);
+        }
+      } catch(e) {
+        console.warn("emmaSpeak error fallback:", e);
+        onDone();
+      }
+    }
+
+    /* FIX: บางเบราว์เซอร์บล็อกเสียงรอบแรกหลังเปิด modal -> ลองสั่งเล่นซ้ำอีกครั้ง */
+    let _lastSpokenAt = 0;
+    function retryTeacherVoice() {
+      if (!STATE.isOpen) return;
+      if (STATE.isTeacherSpeaking) return;
+      const now = Date.now();
+      if (now - _lastSpokenAt < 400) return;
+      _lastSpokenAt = now;
+      try {
+        const el = document.querySelector('#tutorSpeechText');
+        const lesson = STATE.lesson;
+        if (!lesson) return;
+        if (STATE.step === 0 || STATE.step === 1) {
+          const it = (lesson.blend || [])[STATE.i];
+          if (it) emmaSpeak(`Spell the word ${it.word}!`, lessonWordAudio(it.word));
+        } else if (STATE.step === 2) {
+          const it = (lesson.listen_choose || [])[STATE.i];
+          if (it) emmaSpeak(`Listen carefully. Which one is ${it.word}?`, lessonWordAudio(it.word));
+        } else if (STATE.step === 3) {
+          const it = (lesson.sentences || [])[STATE.i];
+          if (it) {
+            const u = `/kidobits/audio/l3/sent_${STATE.lid}_${STATE.i}.mp3`;
+            if (!emmaAudioElem) playEmmaMp3(u, null, it);
+          }
+        }
+      } catch (e) {}
+    }
+
+    // EMMA FINISHED SPEAKING -> WAITS FOR CHILD (STEP-AWARE MODALITY)
+    function onEmmaFinishedSpeaking() {
+      STATE.isWaitingForChild = true;
+
+      const badge = document.getElementById('tutorStateBadge');
+      const textEl = document.getElementById('tutorStateText');
+      if (!badge || !textEl) return;
+
+      if (STATE.step === 3) {
+        // Step 4 is Voice Reading (Sentences) - Auto mic open!
+        badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500 text-white text-xs font-black shadow-md animate-pulse";
+        textEl.textContent = "ถึงตาหนูอ่านตามครูแล้วค่ะ (ไมค์เปิดอัตโนมัติ) 🎙️";
+      } else if (STATE.step === 4) {
+        badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500 text-white text-xs font-black shadow-md";
+        textEl.textContent = "ยินดีด้วยค่ะคนเก่ง! 🎉";
+      } else {
+        // Steps 0, 1, 2 are Touch / Tap
+        badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500 text-white text-xs font-black shadow-md";
+        textEl.textContent = "ถึงตาหนูแตะคำตอบแล้วจ้า 👆";
+      }
+    }
+
+    // ================= LEVEL 1 PROVEN MIC + STT ENGINE (100% MATCHING v2/lesson.html) =================
+    const STT_URL = '/kidobits/stt';
+    const MIN_SPEECH_MS = 350;       // voiced time needed to accept speech
+    const VOICE_LO_HZ = 200;         // human voice band low
+    const SPEECH_RMS = 0.045;        // voice energy threshold
+    const REC_WINDOW_MS = 6000;      // hard ceiling (6s)
+    const SILENCE_HOLD_MS = 900;     // silence after speech before auto-stop
+    const NO_SPEECH_MS = 4500;       // timeout if child hasn't spoken
+
+    let micStream = null;
+    let micAttemptId = 0;
+    let activeVuRaf = null;          /* FIX: ใช้ใน closeLesson แต่ไม่เคยประกาศ */
+    let activeVuCtx = null;          /* FIX: cancelAnimationFrame/close() */
+    let micPermissionGranted = false; /* FIX: ใช้ใน closeLesson แต่ไม่เคยประกาศ */
+    let activeMediaRec = null;
+    let isSentenceListening = false;
+    let stopListeningFn = null;
+
+    const SENT_FUNC_WORDS = new Set([
+      'the','a','an','is','in','on','at','by','to','it','and','was','were',
+      'of','with','his','her','he','she','they','we','you','said','can','us',
+      'be','for','that','this','into','upon','above','across','from','your','our'
+    ]);
+
+    // Levenshtein distance for typo/phonetic tolerance
+    function levenshtein(a, b) {
+      const m = a.length, n = b.length;
+      const dp = Array.from({ length: m + 1 }, () => new Uint8Array(n + 1));
+      for (let i = 0; i <= m; i++) dp[i][0] = i;
+      for (let j = 0; j <= n; j++) dp[0][j] = j;
+      for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+          const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+          dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + cost);
+        }
+      }
+      return dp[m][n];
+    }
+
+    // Phonetic sound normaliser (Phoneme Normaliser matching english.html)
+    function soundKey(w) {
+      if (!w) return '';
+      let x = String(w).toLowerCase().replace(/[^a-z]/g, '');
+      if (!x) return '';
+      x = x.replace(/^c(?=[eiy])/, 's');
+      x = x.replace(/c(?=[eiy])/g, 's');
+      x = x.replace(/x/g, 'ks').replace(/qu/g, 'kw');
+      x = x.replace(/ck/g, 'k').replace(/ph/g, 'f').replace(/gh/g, '');
+      x = x.replace(/th/g, 't').replace(/sh/g, 's').replace(/ch/g, 'k');
+      x = x.replace(/wh/g, 'w').replace(/wr/g, 'r');
+      x = x.replace(/[aeiouy]+/g, 'a');
+      x = x.replace(/(.)+/g, '$1');
+      return x;
+    }
+
+    // Does token sound like target? (Phoneme similarity)
+    function soundsLike(token, target) {
+      const tk = soundKey(target);
+      const sk = soundKey(token);
+      if (!tk || !sk) return false;
+      if (sk === tk) return true;
+      if (tk.length >= 3 && sk.length >= 3 && levenshtein(sk, tk) <= 1) return true;
+      if (tk.length >= 4 && sk.startsWith(tk.slice(0, 3))) return true;
+      return false;
+    }
+
+    function sentWordsOf(txt) {
+      return String(txt || '').toLowerCase().replace(/[^a-z ]/g, ' ').split(/\s+/).filter(Boolean);
+    }
+
+    function scoreSentence(target, heard) {
+      const targetClean = sentWordsOf(target);
+      const tw = targetClean.filter(w => !SENT_FUNC_WORDS.has(w));
+      const hw = sentWordsOf(heard);
+      if (!tw.length) {
+        const allTw = targetClean;
+        let hit = 0;
+        allTw.forEach(w => {
+          if (hw.includes(w) || hw.some(tok => soundsLike(tok, w))) hit++;
+        });
+        const r = allTw.length ? (hit / allTw.length) : 0;
+        return { ratio: r, hitCount: hit, total: allTw.length };
+      }
+      const pool = hw.slice();
+      let hit = 0;
+      for (const w of tw) {
+        let idx = pool.indexOf(w);
+        if (idx === -1) {
+          idx = pool.findIndex(x => x.length > 3 && w.length > 3 && x[0] === w[0] && (x.slice(0, 3) === w.slice(0, 3) || x.slice(-3) === w.slice(-3)));
+        }
+        if (idx === -1) {
+          idx = pool.findIndex(x => soundsLike(x, w));
+        }
+        if (idx !== -1) {
+          hit++;
+          pool.splice(idx, 1);
+        }
+      }
+      const ratio = tw.length > 0 ? (hit / tw.length) : 0;
+      return { ratio: ratio, hitCount: hit, total: tw.length };
+    }
+
+    async function ensureMic() {
+      if (micStream && micStream.active) return micStream;
+      micStream = await navigator.mediaDevices.getUserMedia({
+        audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true }
+      });
+      return micStream;
+    }
+
+    function pickMime() {
+      if (typeof MediaRecorder === 'undefined') return '';
+      const c = ['audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus', 'audio/mp4'];
+      for (const x of c) {
+        try { if (MediaRecorder.isTypeSupported(x)) return x; } catch(e) {}
+      }
+      return '';
+    }
+
+    function speakSingleWord(word) {
+      if (!word) return;
+      if ('speechSynthesis' in window) {
+        try {
+          window.speechSynthesis.cancel();
+          const ut = new SpeechSynthesisUtterance(word);
+          const voice = getFemaleVoice();
+          if (voice) ut.voice = voice;
+          ut.lang = 'en-US';
+          ut.rate = 0.8;
+          ut.pitch = 1.15;
+          window.speechSynthesis.speak(ut);
+        } catch(e) {}
+      }
+    }
+
+    function updateVuVisual(pct) {
+      const bar = document.getElementById('emmaVuBar');
+      const val = document.getElementById('emmaVuPct');
+      if (bar) bar.style.width = pct + '%';
+      if (val) val.textContent = pct + '%';
+    }
+
+    function resetMicBtnUI() {
+      const micBtn = document.getElementById('btnSentenceMic');
+      const statusDot = document.getElementById('sttStatusDot');
+      const statusLabel = document.getElementById('sttStatusLabel');
+      const waveContainer = document.getElementById('sttWaveBarContainer');
+
+      if (micBtn) {
+        micBtn.className = "px-6 py-3 rounded-2xl bg-rose-500 hover:bg-rose-600 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-rose-500/25 active:scale-95 transition cursor-pointer";
+        micBtn.innerHTML = '<span>🎙️ แตะไมค์แล้วเริ่มพูด</span>';
+      }
+      if (statusDot) statusDot.className = "w-2.5 h-2.5 rounded-full bg-slate-300";
+      if (statusLabel) statusLabel.textContent = "สถานะไมค์: พร้อมรับฟัง";
+      if (waveContainer) waveContainer.classList.add('hidden');
+      updateVuVisual(10);
+    }
+
+    function stopSentenceMic() {
+      if (stopListeningFn) {
+        try { stopListeningFn(); } catch(e) {}
+      } else if (activeMediaRec && activeMediaRec.state !== 'inactive') {
+        try { activeMediaRec.stop(); } catch(e) {}
+      }
+      isSentenceListening = false;
+    }
+
+    /* อัดเสียง 1 ครั้ง → ส่ง STT → คืน {text, raw, fuzzy_ok, via, decision} (ถอดแบบตรง 100% จาก Level 1 v2/lesson.html) */
+    async function listenOnce(targetWord, onState) {
+      const myId = ++micAttemptId;
+      const stub = { text: '', fuzzy_ok: false, via: 'error', decision: 'error' };
+
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        onState && onState('nomedia', 'เบราว์เซอร์ไม่รองรับไมค์ 😢');
+        return stub;
+      }
+      let stream;
+      try {
+        stream = await ensureMic();
+      } catch(e) {
+        onState && onState('noperm', 'กรุณาอนุญาตไมค์ 🎙️ (แตะปุ่มเพื่อขอสิทธิ์)');
+        return stub;
+      }
+
+      return await new Promise((resolve) => {
+        const chunks = [];
+        let speechDetected = false, lastVoiceTs = 0, voicedMs = 0, recStart = Date.now();
+        let mime = pickMime();
+        let rec;
+        try {
+          rec = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream);
+        } catch(e) {
+          onState && onState('nocorder', 'อัดเสียงไม่ได้');
+          return resolve(stub);
+        }
+
+        // Dedicated new AudioContext per recording session (never reused, prevents muted graph bug)
+        let vuCtx = null, analyser = null, rafId = null;
+        try {
+          const Ctx = window.AudioContext || window.webkitAudioContext;
+          if (Ctx) {
+            vuCtx = new Ctx();
+            const src = vuCtx.createMediaStreamSource(stream);
+            analyser = vuCtx.createAnalyser();
+            analyser.fftSize = 256;
+            src.connect(analyser);
+          }
+        } catch(e) {}
+
+        let resolved = false;
+        let userForcedStop = false;
+
+        const cleanup = () => {
+          try { if (rafId) cancelAnimationFrame(rafId); } catch(e) {}
+          try { if (vuCtx) vuCtx.close(); } catch(e) {}
+          activeMediaRec = null;
+          isSentenceListening = false;
+          stopListeningFn = null;
+          updateVuVisual(10);
+        };
+
+        const stop = (forcedByUser = false) => {
+          if (forcedByUser) userForcedStop = true;
+          try {
+            if (rec && rec.state !== 'inactive') rec.stop();
+          } catch(e) {}
+        };
+        stopListeningFn = () => stop(true);
+        activeMediaRec = rec;
+        isSentenceListening = true;
+
+        rec.ondataavailable = (ev) => {
+          if (ev.data && ev.data.size > 0) chunks.push(ev.data);
+        };
+        rec.onerror = () => {};
+        rec.onstop = async () => {
+          cleanup();
+          if (resolved) return;
+          resolved = true;
+          const blob = new Blob(chunks, { type: mime || 'audio/webm' });
+
+          // ถ้าไม่ได้ยินเสียง หรือสั้นเกินไป และไม่ใช่ผู้ใช้กดหยุดเอง -> แจ้งและคืน stub
+          if (!userForcedStop && (blob.size < 1200 || !speechDetected || voicedMs < MIN_SPEECH_MS)) {
+            onState && onState('tooshort', 'ไม่ได้ยินเสียงชัด — ลองอีกครั้งนะ 🙂');
+            return resolve(stub);
+          }
+
+          onState && onState('thinking', 'กำลังส่งเสียงให้ครูตรวจ… 🎧');
+          const fd = new FormData();
+          fd.append('audio', blob, 'child.webm');
+          const tw = String(targetWord || '').toLowerCase();
+          const sentWords = tw.replace(/[^a-z ]/g, ' ').split(/\s+/).filter(Boolean);
+          const hint = (sentWords.length > 1 ? sentWords : [tw]).filter(Boolean);
+          fd.append('hint', Array.from(new Set(hint)).join(','));
+
+          const ctrl = new AbortController();
+          const to = setTimeout(() => { try { ctrl.abort(); } catch(e) {} }, 30000);
+          try {
+            const resp = await fetch(STT_URL, { method: 'POST', body: fd, signal: ctrl.signal });
+            clearTimeout(to);
+            if (myId !== micAttemptId) return resolve(stub);
+            const data = await resp.json();
+            const raw = (data && data.text) || '';
+            const clean = raw.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g, ' ').replace(/\s+/g, ' ').trim();
+            resolve({
+              text: clean, raw: raw,
+              fuzzy_ok: !!(data && data.fuzzy_ok),
+              via: (data && data.via) || 'asr',
+              decision: (data && data.decision) || 'asr',
+              spelled: !!(data && data.spelled),
+              elapsed: data && data.elapsed,
+            });
+          } catch(e) {
+            clearTimeout(to);
+            resolve(stub);
+          }
+        };
+
+        try {
+          rec.start();
+        } catch(e) {
+          cleanup();
+          onState && onState('nocorder', 'อัดเสียงไม่ได้');
+          return resolve(stub);
+        }
+        onState && onState('recording', 'กำลังฟัง… หนูอ่านออกเสียงตามครูเลย 🎙️');
+
+        const poll = () => {
+          if (myId !== micAttemptId) return stop();
+          const dur = Date.now() - recStart;
+          if (analyser && vuCtx) {
+            try {
+              const freq = new Uint8Array(analyser.frequencyBinCount);
+              analyser.getByteFrequencyData(freq);
+              const hzPerBin = (vuCtx.sampleRate || 48000) / 2 / freq.length;
+              const lo = Math.max(1, Math.floor(VOICE_LO_HZ / hzPerBin));
+              const hi = Math.min(freq.length - 1, Math.ceil(3500 / hzPerBin));
+              let sum = 0, n = 0;
+              for (let i = lo; i <= hi; i++) { sum += freq[i] * freq[i]; n++; }
+              const bandRms = n ? Math.sqrt(sum / n) / 255 : 0;
+              const pct = Math.max(5, Math.min(100, Math.round(bandRms * 350)));
+              updateVuVisual(pct);
+              if (bandRms > SPEECH_RMS) {
+                speechDetected = true;
+                lastVoiceTs = Date.now();
+                voicedMs += 16;
+              }
+            } catch(e) {}
+          }
+          if (dur >= REC_WINDOW_MS) return stop();
+          if (speechDetected) {
+            if (Date.now() - lastVoiceTs >= SILENCE_HOLD_MS) return stop();
+          } else if (dur >= NO_SPEECH_MS) {
+            return stop();
+          }
+          if (speechDetected && voicedMs < MIN_SPEECH_MS) speechDetected = false;
+          rafId = requestAnimationFrame(poll);
+        };
+        rafId = requestAnimationFrame(poll);
+      });
+    }
+
+    function toggleSentenceMic() {
+      if (isSentenceListening) {
+        stopSentenceMic();
+      } else if (window.doSentenceMic) {
+        window.doSentenceMic();
+      }
+    }
+
+    // ================= ENGINE DISPATCHER =================
+    function render() {
+      try { progSave(); } catch(e) {}
+      STATE.hasAnswered = false;
+
+      // Update Stepbar
+      document.getElementById('stepName').textContent = stepLabel(STATE.step);
+      document.getElementById('stepIcon').textContent = stepIcon(STATE.step);
+
+      for (let s = 0; s < 4; s++) {
+        const bar = document.getElementById('stepBar' + s);
+        if (s < STATE.step) bar.className = 'h-2 rounded-full bg-emerald-500';
+        else if (s === STATE.step) bar.className = 'h-2 rounded-full bg-orange-500';
+        else bar.className = 'h-2 rounded-full bg-slate-200';
+      }
+
+      // Route step
+      [renderBlend, renderSegment, renderListen, renderSentences, renderSummary][STATE.step]();
+
+      /* แบนเนอร์กิจกรรมตาม PDF (ชื่อกิจกรรม + คำอธิบาย) */
+      try {
+        const sp = (STATE.lesson.act_specs || [])[STATE.step];
+        const banner = document.getElementById('actBanner');
+        if (banner) {
+          if (!sp || STATE.step === 4) { banner.classList.add('hidden'); banner.innerHTML = ''; }
+          else {
+            banner.classList.remove('hidden');
+            banner.innerHTML = `<span class="text-base">${ACT_ICON[sp.type] || '⭐'}</span>
+              <span class="font-black text-orange-900">${sp.label}</span>
+              <span class="text-[11px] text-orange-700/80">${sp.hint || ''}</span>`;
+          }
+        }
+      } catch (e) {}
+      try { paintActPanel(); } catch (e) { console.warn('act panel:', e); }
+
+      /* FIX 2026-11-02c: speechSynthesis / <audio> ถูกระงับถ้าไม่มีการแตะเลย
+         -> แตะครั้งแรกที่ปุ่ม "เริ่มเรียน" ปลดล็อกให้แล้ว (openLesson เรียก unlockAudio)
+         ที่นี่แค่ทำให้แน่ใจว่าเสียงครูเริ่มทุกครั้งที่เข้าขั้นใหม่ */
+      if (!STATE.silentRender) {
+        setTimeout(function () { retryTeacherVoice(); }, 250);
+      }
+    }
+
+    // ================= STEP 0: BLEND (ผสมเสียง - โหมดแตะ) =================
+    function renderBlend() {
+      const list = STATE.lesson.blend || [];
+      const it = list[STATE.i];
+      if (!it) {
+        STATE.step = 1;
+        STATE.i = 0;
+        return render();
+      }
+
+      document.getElementById('stepProgressText').textContent = 'คำที่ ' + (STATE.i + 1) + ' / ' + list.length;
+      document.getElementById('tutorSpeechText').textContent = `ครูเอ็มม่า: "แตะชิปตัวอักษรทีละตัวจากซ้ายไปขวา รวมเป็นคำว่า ${it.word} นะคะ!"`;
+      const modeEl = document.getElementById('footerModeStatus');
+      if (modeEl) modeEl.innerHTML = '<span>👆 โหมดแตะ: แตะชิปผสมเสียงตามลำดับ</span>';
+
+      const wordAudio = lessonWordAudio(it.word);   /* FIX: w_ ก่อน ถ้าไม่มีใช้ g_ ที่มีจริงครบ 169 คำ */
+      const stage = document.getElementById('appStage');
+      let h = `
+        <div class="text-center space-y-4">
+          <div class="text-5xl sm:text-6xl drop-shadow-sm">${it.emoji || '✨'}</div>
+          
+          <div class="inline-block px-3.5 py-1 rounded-full bg-orange-100 text-orange-950 text-xs font-black">
+            👉 กิจกรรม: แตะกล่องเสียงตามลำดับ เพื่อรวมเป็นคำว่า <b class="text-orange-600 font-mono text-sm">${it.word}</b>
+          </div>
+
+          <!-- Grapheme chips -->
+          <div id="blendChips" class="flex items-center justify-center gap-3 sm:gap-4 my-3">
+      `;
+
+      it.graphemes.forEach((g, idx) => {
+        h += `
+          <button data-idx="${idx}" class="blend-chip w-16 sm:w-20 h-16 sm:h-20 rounded-2xl bg-white border-2 border-orange-300 font-display font-black text-2xl sm:text-3xl text-orange-950 flex items-center justify-center shadow-sm hover:border-orange-500 active:scale-95 transition-all cursor-pointer">
+            ${g}
+          </button>
+        `;
+        if (idx < it.graphemes.length - 1) {
+          h += `<span class="text-orange-300 font-black text-2xl">+</span>`;
+        }
+      });
+
+      h += `
+          </div>
+
+          <!-- Merged Result & Replay Button -->
+          <div id="blendResultBox" class="p-3">
+            <span class="font-display font-black text-4xl sm:text-5xl text-orange-600 tracking-wider">${it.word}</span>
+            <div class="flex items-center justify-center gap-3 mt-1.5">
+              <span class="text-xs font-mono font-bold text-slate-500">${it.ipa}</span>
+              <span class="text-slate-300">•</span>
+              <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-0.5 rounded-full border border-emerald-200">${it.th}</span>
+            </div>
+            <button onclick="playEmmaMp3('${wordAudio}')" class="inline-flex items-center gap-1.5 px-3.5 py-1 mt-2.5 rounded-full bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold text-xs border border-orange-200 transition cursor-pointer">
+              <span>🔊</span> <span>ฟังเสียงคำนี้</span>
+            </button>
+          </div>
+
+          <div id="stepFeedback" class="h-6 text-xs font-bold text-emerald-600 flex items-center justify-center"></div>
+        </div>
+      `;
+      stage.innerHTML = h;
+
+      // Emma speaks word first, then WAITS for child to TAP! (handled by retryTeacherVoice after lock)
+
+      // Interactive Tap (In order from left to right)
+      let currentTap = 0;
+      document.querySelectorAll('.blend-chip').forEach(btn => {
+        btn.onclick = () => {
+          if (STATE.hasAnswered) return;
+          const idx = parseInt(btn.dataset.idx, 10);
+          if (idx === currentTap) {
+            playChime('pop');
+            btn.classList.add('bg-orange-500', 'text-white', 'border-orange-600');
+            const gText = btn.textContent.trim().toLowerCase();
+            playEmmaMp3(`/kidobits/audio/l3/g_${gText}.mp3`);
+            currentTap++;
+            if (currentTap === it.graphemes.length) {
+              handleChildSuccess(it.word, 'blend');
+            }
+          } else {
+            playChime('error');
+            btn.classList.add('animate-shake');
+            setTimeout(() => btn.classList.remove('animate-shake'), 400);
+          }
+        };
+      });
+    }
+
+    // ================= STEP 1: SEGMENT BUILD (เรียงตัวอักษรสะกดคำ - โหมดแตะ) =================
+    function renderSegment() {
+      const list = STATE.lesson.segment_build || [];
+      const it = list[STATE.i];
+      if (!it) {
+        STATE.step = 2;
+        STATE.i = 0;
+        return render();
+      }
+
+      document.getElementById('stepProgressText').textContent = 'คำที่ ' + (STATE.i + 1) + ' / ' + list.length;
+      document.getElementById('tutorSpeechText').textContent = `ครูเอ็มม่า: "แตะตัวอักษรด้านล่างใส่ลงในช่องว่าง เพื่อสะกดคำว่า ${it.word} นะคะ!"`;
+      const modeEl = document.getElementById('footerModeStatus');
+      if (modeEl) modeEl.innerHTML = '<span>🧩 โหมดแตะสะกดคำ: แตะตัวอักษรใส่ในช่องว่าง</span>';
+
+      const wordAudio = lessonWordAudio(it.word);   /* FIX: w_ ก่อน ถ้าไม่มีใช้ g_ ที่มีจริงครบ 169 คำ */
+      const shuffled = it.graphemes.slice().sort(() => Math.random() - 0.5);
+
+      const stage = document.getElementById('appStage');
+      let h = `
+        <div class="text-center space-y-4">
+          <div class="text-5xl sm:text-6xl drop-shadow-sm">${it.emoji || '✨'}</div>
+          
+          <div class="inline-block px-3.5 py-1 rounded-full bg-orange-100 text-orange-950 text-xs font-black">
+            👉 กิจกรรม: แตะตัวอักษรใส่ช่องว่าง สะกดคำว่า <b class="text-orange-600 font-mono text-sm">${it.word}</b>
+          </div>
+
+          <!-- Empty Slots -->
+          <div id="segSlots" class="flex items-center justify-center gap-2 sm:gap-3 my-3">
+      `;
+
+      it.graphemes.forEach((g, idx) => {
+        h += `
+          <div data-idx="${idx}" class="seg-slot w-14 sm:w-16 h-15 sm:h-16 rounded-2xl border-2 border-dashed border-orange-300 bg-white font-display font-black text-2xl text-slate-400 flex items-center justify-center transition-all">
+            ?
+          </div>
+        `;
+      });
+
+      h += `
+          </div>
+
+          <!-- Letter Options -->
+          <div class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400">แตะตัวอักษรใส่ลงในช่อง:</div>
+          <div id="segOpts" class="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+      `;
+
+      shuffled.forEach(g => {
+        h += `
+          <button data-g="${g}" class="seg-opt w-14 sm:w-16 h-14 sm:h-16 rounded-2xl bg-white hover:bg-orange-500 hover:text-white border-2 border-orange-200 text-slate-800 font-display font-black text-2xl shadow-sm transition active:scale-95 cursor-pointer">
+            ${g}
+          </button>
+        `;
+      });
+
+      h += `
+          </div>
+          <div id="stepFeedback" class="h-6 text-xs font-bold text-emerald-600 flex items-center justify-center"></div>
+        </div>
+      `;
+      stage.innerHTML = h;
+
+      let userPicks = [];
+      const slots = document.querySelectorAll('.seg-slot');
+      document.querySelectorAll('.seg-opt').forEach(btn => {
+        btn.onclick = () => {
+          if (STATE.hasAnswered) return;
+          const g = btn.dataset.g;
+          playEmmaMp3(`/kidobits/audio/l3/g_${g.toLowerCase()}.mp3`);
+          userPicks.push(g);
+          btn.disabled = true;
+          btn.classList.add('opacity-30', 'pointer-events-none');
+
+          slots[userPicks.length - 1].textContent = g;
+          slots[userPicks.length - 1].classList.remove('border-dashed', 'text-slate-400');
+          slots[userPicks.length - 1].classList.add('border-orange-500', 'bg-orange-50', 'text-orange-950', 'shadow-sm');
+
+          if (userPicks.length === it.graphemes.length) {
+            const formed = userPicks.join('');
+            if (formed === it.word) {
+              handleChildSuccess(it.word, 'spell');
+            } else {
+              playChime('error');
+              setTimeout(() => renderSegment(), 800);
+            }
+          }
+        };
+      });
+    }
+
+    // ================= STEP 2: LISTEN & CHOOSE (ฟังเลือกคำ - โหมดแตะ) =================
+    function renderListen() {
+      const list = STATE.lesson.listen_choose || [];
+      const it = list[STATE.i];
+      if (!it) {
+        STATE.step = 3;
+        STATE.i = 0;
+        return render();
+      }
+
+      document.getElementById('stepProgressText').textContent = 'คำที่ ' + (STATE.i + 1) + ' / ' + list.length;
+      document.getElementById('tutorSpeechText').textContent = `ครูเอ็มม่า: "ตั้งใจฟังเสียงนะจ๊ะ คำไหนคือ ${it.word} ? แตะการ์ดได้เลยค่ะ!"`;
+      const modeEl = document.getElementById('footerModeStatus');
+      if (modeEl) modeEl.innerHTML = '<span>🎯 โหมดฟังแล้วแตะ: แตะเลือกคำศัพท์ที่ได้ยิน</span>';
+
+      const wordAudio = lessonWordAudio(it.word);   /* FIX: w_ ก่อน ถ้าไม่มีใช้ g_ ที่มีจริงครบ 169 คำ */
+      const stage = document.getElementById('appStage');
+      let h = `
+        <div class="text-center space-y-4">
+          <div class="flex items-center justify-center">
+            <button onclick="playEmmaMp3('${wordAudio}')" class="px-5 py-3 rounded-2xl bg-orange-100 hover:bg-orange-200 text-orange-950 font-black text-sm flex items-center gap-2 shadow-sm border border-orange-200 hover:scale-105 active:scale-95 transition cursor-pointer">
+              <span class="text-3xl">${it.emoji || '🎧'}</span>
+              <span>🔊 แตะฟังเสียงครูเอ็มม่าอีกครั้ง</span>
+            </button>
+          </div>
+          
+          <div class="inline-block px-3.5 py-1 rounded-full bg-orange-100 text-orange-950 text-xs font-black">
+            👉 กิจกรรม: ฟังเสียงแล้วแตะการ์ดคำศัพท์ที่ถูกต้อง
+          </div>
+
+          <!-- Options Grid -->
+          <div id="listenOpts" class="grid grid-cols-2 gap-3 max-w-md mx-auto my-3">
+      `;
+
+      it.options.forEach(opt => {
+        h += `
+          <button data-opt="${opt}" class="listen-btn p-4 rounded-2xl bg-white hover:bg-orange-50 border-2 border-slate-200 hover:border-orange-400 font-display font-extrabold text-base text-slate-800 transition-all shadow-sm active:scale-95 cursor-pointer">
+            ${opt}
+          </button>
+        `;
+      });
+
+      h += `
+          </div>
+          <div id="stepFeedback" class="h-6 text-xs font-bold text-emerald-600 flex items-center justify-center"></div>
+        </div>
+      `;
+      stage.innerHTML = h;
+
+      // Emma speaks prompt, then WAITS for child to TAP! (handled by retryTeacherVoice after lock)
+
+      document.querySelectorAll('.listen-btn').forEach(btn => {
+        btn.onclick = () => {
+          if (STATE.hasAnswered) return;
+          const chosen = btn.dataset.opt;
+          if (chosen === it.word) {
+            btn.classList.remove('bg-white', 'border-slate-200');
+            btn.classList.add('bg-emerald-500', 'border-emerald-600', 'text-white');
+            handleChildSuccess(it.word, 'listen');
+          } else {
+            playChime('error');
+            btn.classList.add('bg-rose-50', 'border-rose-300', 'text-rose-700');
+          }
+        };
+      });
+    }
+
+    // ================= STEP 3: SENTENCES (อ่านประโยค - โหมดอ่านออกเสียง / ไมค์) =================
+    function renderSentences() {
+      const list = STATE.lesson.sentences || [];
+      const it = list[STATE.i];
+      if (!it) {
+        STATE.step = 4;
+        STATE.i = 0;
+        return render();
+      }
+
+      document.getElementById('stepProgressText').textContent = 'ประโยคที่ ' + (STATE.i + 1) + ' / ' + list.length;
+      document.getElementById('tutorSpeechText').textContent = `ครูเอ็มม่า: "ฟังครูอ่านนำก่อนนะคะ '${it}' ถึงตาหนูอ่านออกเสียงตามครูเลยค่ะ!"`;
+      const modeEl = document.getElementById('footerModeStatus');
+      if (modeEl) modeEl.innerHTML = '<span>🎙️ โหมดอ่านออกเสียง: ฟังครูอ่านจบแล้วอ่านตามครูได้เลย</span>';
+
+      const sentAudio = `/kidobits/audio/l3/sent_${STATE.lid}_${STATE.i}.mp3`;
+      const words = it.replace(/[.?!]+$/, '').split(/\s+/);
+
+      const stage = document.getElementById('appStage');
+      let h = `
+        <div class="text-center space-y-4">
+          <div class="text-5xl drop-shadow-sm">📖</div>
+          
+          <div class="inline-block px-3.5 py-1 rounded-full bg-rose-100 text-rose-900 text-xs font-black">
+            🎙️ กิจกรรม: อ่านประโยคตามครูเอ็มม่า (ไมค์เปิดอัตโนมัติเมื่อครูพูดจบ)
+          </div>
+
+          <!-- Sentence Display with Clickable Words -->
+          <div class="p-5 rounded-3xl bg-white border-2 border-orange-200 text-center shadow-sm max-w-lg mx-auto">
+            <div class="font-display font-black text-xl sm:text-2xl text-slate-900 leading-relaxed flex flex-wrap items-center justify-center gap-2">
+      `;
+
+      words.forEach(w => {
+        const cleanWord = w.replace(/[^a-zA-Z]/g, '');
+        h += `<span onclick="speakSingleWord('${cleanWord}')" class="sent-word px-2 py-1 rounded-xl hover:bg-orange-100 active:scale-95 cursor-pointer transition select-none" title="แตะเพื่อฟังคำนี้">${w}</span>`;
+      });
+
+      h += `
+            </div>
+            <div class="text-[11px] text-slate-400 font-bold mt-2">💡 แตะที่คำแต่ละคำ เพื่อฟังครูออกเสียงทีละคำได้ค่ะ</div>
+          </div>
+
+          <!-- Controls: Listen again & Mic Button -->
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+            <button onclick="playEmmaMp3('${sentAudio}')" class="px-4 py-2.5 rounded-2xl bg-orange-100 hover:bg-orange-200 text-orange-950 font-bold text-xs flex items-center gap-1.5 shadow-sm active:scale-95 transition cursor-pointer">
+              <span>🔊 ฟังครูอ่านอีกครั้ง</span>
+            </button>
+            <button id="btnSentenceMic" class="px-6 py-3 rounded-2xl bg-rose-500 hover:bg-rose-600 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-rose-500/25 active:scale-95 transition cursor-pointer">
+              <span>🎙️ แตะไมค์แล้วเริ่มพูด</span>
+            </button>
+          </div>
+
+          <!-- Live Speech Recognition Feedback -->
+          <div id="sttFeedbackBox" class="p-4 rounded-3xl bg-white border-2 border-rose-100 max-w-md mx-auto shadow-sm text-center">
+            <div class="flex items-center justify-center gap-2 mb-1">
+              <span id="sttStatusDot" class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+              <span id="sttStatusLabel" class="text-xs font-bold text-slate-500">สถานะไมค์: พร้อมรับฟัง</span>
+            </div>
+            <div id="sttTranscriptText" class="text-sm font-black text-slate-800 min-h-[28px] flex items-center justify-center">
+              (ฟังครูอ่านจบแล้ว อ่านประโยคตามครูได้เลยค่ะ 🎙️)
+            </div>
+            <div id="sttWaveBarContainer" class="hidden mt-2 flex items-center justify-center gap-1.5 h-4">
+              <span class="w-1.5 bg-rose-500 rounded-full animate-pulse" style="height: 60%"></span>
+              <span class="w-1.5 bg-rose-500 rounded-full animate-bounce" style="height: 100%"></span>
+              <span class="w-1.5 bg-rose-500 rounded-full animate-pulse" style="height: 80%"></span>
+              <span class="w-1.5 bg-rose-500 rounded-full animate-bounce" style="height: 50%"></span>
+              <span class="w-1.5 bg-rose-500 rounded-full animate-pulse" style="height: 90%"></span>
+            </div>
+          </div>
+
+          <!-- Alternative manual confirmation (Always available!) -->
+          <div class="pt-1 flex items-center justify-center gap-2">
+            <button data-tap-sentence class="px-5 py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold text-xs border border-emerald-200 transition cursor-pointer flex items-center justify-center gap-1.5">
+              <span>✔ หนูอ่านคล่องแล้ว (ผ่านไปข้อถัดไป)</span>
+            </button>
+          </div>
+
+          <div id="stepFeedback" class="h-6 text-xs font-bold text-emerald-600 flex items-center justify-center"></div>
+        </div>
+      `;
+      stage.innerHTML = h;
+
+      /* FIX: ห้ามฝังข้อความประโยคลงใน onclick — ประโยคมี ' และ " ทำให้สตริงขาด
+         แล้วปุ่มกดไม่ได้ (L3.13–L3.16 ค้างขั้น 4) ผูก handler ด้วย JS หลัง stage วาดเสร็จ */
+      document.querySelectorAll('[data-tap-sentence]').forEach(btn => {
+        btn.onclick = () => handleChildSuccess(String(it).slice(0, 60), 'tap_sentence');
+      });
+
+      resetMicBtnUI();
+
+      const idxAtMic = STATE.i;
+      const cleanTarget = it.toLowerCase().trim();
+
+      const doMic = async () => {
+        if (STATE.hasAnswered || STATE.step !== 3 || !STATE.isOpen) return;
+        if (isSentenceListening) {
+          // User clicked while listening -> stop early and submit!
+          stopSentenceMic();
+          return;
+        }
+
+        if (emmaAudioElem) {
+          try { emmaAudioElem.pause(); emmaAudioElem.currentTime = 0; } catch(e) {}
+          emmaAudioElem = null;
+        }
+
+        const micBtn = document.getElementById('btnSentenceMic');
+        const transcriptEl = document.getElementById('sttTranscriptText');
+        const statusDot = document.getElementById('sttStatusDot');
+        const statusLabel = document.getElementById('sttStatusLabel');
+        const waveContainer = document.getElementById('sttWaveBarContainer');
+
+        const onState = (state, msg) => {
+          if (state === 'recording') {
+            if (micBtn) {
+              micBtn.className = "px-6 py-3 rounded-2xl bg-rose-600 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-rose-600/35 animate-pulse cursor-pointer";
+              micBtn.innerHTML = '<span>⏹️ กำลังฟัง... (แตะเมื่ออ่านจบ)</span>';
+            }
+            if (statusDot) statusDot.className = "w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping";
+            if (statusLabel) statusLabel.textContent = "สถานะ: " + msg;
+            if (transcriptEl) transcriptEl.innerHTML = '<span class="text-rose-600 font-bold animate-pulse">🎙️ ไมค์เปิดแล้ว! อ่านประโยคตามครูได้เลยค่ะ</span>';
+            if (waveContainer) waveContainer.classList.remove('hidden');
+          } else if (state === 'thinking') {
+            if (micBtn) {
+              micBtn.className = "px-6 py-3 rounded-2xl bg-orange-500 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25";
+              micBtn.innerHTML = '<span>🎧 กำลังส่งเสียงให้ครูเอ็มม่าตรวจ...</span>';
+            }
+            if (statusDot) statusDot.className = "w-2.5 h-2.5 rounded-full bg-orange-400";
+            if (statusLabel) statusLabel.textContent = "สถานะ: กำลังตรวจเสียงอ่าน 🎧";
+            if (transcriptEl) transcriptEl.innerHTML = '<span class="text-orange-600 font-bold animate-pulse">กำลังประมวลผลเสียงอ่าน... 🎧</span>';
+            if (waveContainer) waveContainer.classList.add('hidden');
+          } else {
+            resetMicBtnUI();
+            if (statusLabel) statusLabel.textContent = "สถานะ: " + (msg || 'พร้อมรับฟัง');
+            if (transcriptEl) transcriptEl.innerHTML = `<span class="text-amber-600 font-bold">${msg || ''}</span>`;
+            if (waveContainer) waveContainer.classList.add('hidden');
+          }
+        };
+
+        const res = await listenOnce(cleanTarget, onState);
+        resetMicBtnUI();
+
+        if (STATE.hasAnswered || STATE.step !== 3 || !STATE.isOpen) return;
+
+        const heard = (res.text || '').trim();
+        const sc = scoreSentence(cleanTarget, heard);
+        const isMatch = heard && (sc.ratio >= 0.5 || sc.hitCount >= 2 || cleanTarget.includes(heard.slice(0, 7)) || heard.includes(cleanTarget.slice(0, 7)));
+
+        if (isMatch) {
+          if (transcriptEl) {
+            transcriptEl.innerHTML = `<span class="text-emerald-600 font-black">"${heard}" ✅ อ่านได้ ${sc.hitCount} คำ — ยอดเยี่ยมมากค่ะ!</span>`;
+          }
+          if (micBtn) {
+            micBtn.className = "px-6 py-3 rounded-2xl bg-emerald-600 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25";
+            micBtn.innerHTML = '<span>✅ ยอดเยี่ยมมากค่ะ!</span>';
+          }
+          playEmmaMp3('/kidobits/audio/l3/praise_reading.mp3', () => {
+            setTimeout(() => {
+              handleChildSuccess(it, 'mic');
+            }, 400);
+          });
+        } else if (!heard) {
+          if (transcriptEl) {
+            transcriptEl.innerHTML = '<span class="text-amber-600 font-bold">ไม่ได้ยินเสียงชัด ๆ — ลองพูดอีกครั้งนะ 🙂 หรือแตะ "หนูอ่านคล่องแล้ว"</span>';
+          }
+          if (STATE.step === 3 && STATE.i === idxAtMic && !STATE.hasAnswered && STATE.isOpen) {
+            setTimeout(() => { doMic(); }, 900);
+          }
+        } else {
+          if (transcriptEl) {
+            transcriptEl.innerHTML = `<span class="text-amber-600 font-bold">ได้ยินว่า "${heard}" — ลองอีกครั้งนะ 🙂</span>`;
+          }
+          playEmmaMp3('/kidobits/audio/try_again.mp3', () => {
+            if (STATE.step === 3 && STATE.i === idxAtMic && !STATE.hasAnswered && STATE.isOpen) {
+              setTimeout(() => { doMic(); }, 400);
+            }
+          });
+        }
+      };
+
+      window.doSentenceMic = doMic;
+      const mb = document.getElementById('btnSentenceMic');
+      if (mb) mb.onclick = doMic;
+
+      // Emma speaks sentence first -> on finished, AUTOMATICALLY starts mic!
+      emmaSpeak(`Read after me: ${it}. Your turn!`, sentAudio, () => {
+        if (STATE.step === 3 && !STATE.hasAnswered && STATE.isOpen) {
+          setTimeout(() => {
+            doMic();
+          }, 300);
+        }
+      });
+    }
+
+    // ================= STEP 4: SUMMARY (สรุปผลจบบท) =================
+    function renderSummary() {
+      try { progClear(STATE.lid); } catch(e) {}
+      playChime('success');
+      confetti({ particleCount: 60, spread: 80, origin: { y: 0.6 } });
+
+      /* SAFE: ทุกการเขียน DOM ผ่าน guard เพราะหน้า modal ถูก render ใหม่ทั้งก้อนได้ */
+      const _sp = document.getElementById('stepProgressText'); if (_sp) _sp.textContent = '100% สำเร็จ!';
+      const _badge = document.getElementById('tutorStateBadge');
+      if (_badge) _badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500 text-white text-xs font-black shadow-md";
+      const _stateTxt = document.getElementById('tutorStateText');
+      if (_stateTxt) _stateTxt.textContent = "ยินดีด้วยค่ะคนเก่ง! จบบทเรียนแล้ว 🎉";
+      const _speech = document.getElementById('tutorSpeechText');
+      if (_speech) _speech.textContent = `ครูเอ็มม่า: "ยอดเยี่ยมมากเลยค่ะ! หนูผ่านบทเรียน ${STATE.lid} ครบทุกกิจกรรมแล้ว เก่งมากๆ เลยค่ะ!"`;
+      const modeEl = document.getElementById('footerModeStatus');
+      if (modeEl) modeEl.innerHTML = '<span>🏆 จบบทเรียนสมบูรณ์</span>';
+
+      STATE.earnedStars += 4;
+      const _star = document.getElementById('starCounter'); if (_star) _star.textContent = STATE.earnedStars + ' / 64 Stars';
+
+      const nextNum = STATE.lesson.num + 1;
+      const nextLid = 'L3.' + String(nextNum).padStart(2, '0');
+      const hasNext = nextNum <= 16;
+
+      /* FIX: นับคะแนนจริงจาก STATE.results (เดิมฮาร์ดโค้ด 4/4) */
+      const cnt = {
+        blend:   STATE.results.filter(r=>r.step==='blend'   && r.outcome==='correct').length,
+        segment: STATE.results.filter(r=>r.step==='segment').length,
+        listen:  STATE.results.filter(r=>r.step==='listen'  && r.outcome==='correct').length,
+        read:    STATE.results.filter(r=>r.step==='read'    && r.outcome==='correct').length,
+        mic:     STATE.results.filter(r=>r.via && r.via!=='self' && r.via!=='tap_sentence').length,
+      };
+      const tot = {
+        blend:   (STATE.lesson.blend||[]).length || 4,
+        segment: (STATE.lesson.segment_build||[]).length || 4,
+        listen:  (STATE.lesson.listen_choose||[]).length || 4,
+        read:    (STATE.lesson.sentences||[]).length || 4,
+      };
+      const stage = document.getElementById('appStage');
+      stage.innerHTML = `
+        <div class="text-center space-y-5 max-w-md mx-auto py-2">
+          <div class="text-6xl animate-bounce">🎉</div>
+          
+          <div>
+            <span class="inline-block px-3 py-1 rounded-full bg-orange-100 text-orange-800 text-xs font-black uppercase mb-1">
+              LESSON COMPLETED!
+            </span>
+            <h2 class="font-display font-black text-2xl text-slate-900">
+              จบบทเรียน ${STATE.lid} แล้ว!
+            </h2>
+            <p class="text-xs text-slate-500 mt-0.5">${STATE.lesson.title}</p>
+          </div>
+
+          <div class="p-4 rounded-3xl bg-white border-2 border-orange-200 text-left space-y-2 shadow-sm text-xs font-bold text-slate-700">
+            <div class="flex justify-between"><span>🎚️ 1. ผสมเสียง (Blend):</span><b class="text-emerald-600">${cnt.blend} / ${tot.blend} ผ่าน ✔</b></div>
+            <div class="flex justify-between"><span>🧩 2. เรียงตัวอักษร (Segment):</span><b class="text-emerald-600">${cnt.segment} / ${tot.segment} ผ่าน ✔</b></div>
+            <div class="flex justify-between"><span>🎯 3. ฟังเลือกคำ (Listen):</span><b class="text-emerald-600">${cnt.listen} / ${tot.listen} ผ่าน ✔</b></div>
+            <div class="flex justify-between"><span>🎙️ 4. อ่านประโยค (Sentences):</span><b class="text-emerald-600">${cnt.read} / ${tot.read} ผ่าน ✔</b></div>
+            ${cnt.mic ? `<div class="flex justify-between border-t border-orange-100 pt-2 mt-1"><span>🔊 ตรวจด้วยไมค์:</span><b class="text-sky-600">${cnt.mic} ครั้ง</b></div>` : ''}
+          </div>
+
+          <div class="space-y-2 pt-1">
+            ${hasNext ? `
+              <button onclick="openLesson('${nextLid}')" class="w-full py-3 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-black text-sm uppercase tracking-wide flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25 active:scale-98">
+                <span>▶ ไปบทเรียนถัดไป (${nextLid}) ทันที</span>
+              </button>
+            ` : `
+              <button onclick="alert('🏆 ยินดีด้วย! หนูพิชิต Level 2 ครบทั้ง 16 บทเรียนแล้ว!')" class="w-full py-3 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-sm shadow-xl">
+                <span>🏆 รับเกียรติบัตร Level 2 Master Reader</span>
+              </button>
+            `}
+            <button onclick="openLesson('${STATE.lid}')" class="w-full py-2 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs border border-slate-300">
+              🔄 เล่นบทนี้อีกครั้ง
+            </button>
+            <button onclick="closeLesson()" class="w-full py-2 rounded-2xl bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold text-xs border border-orange-200">
+              🏠 กลับสู่แผนที่รวมด่าน
+            </button>
+          </div>
+        </div>
+      `;
+
+      emmaSpeak(`Wonderful work! You completed lesson ${STATE.lid}. See you in the next lesson!`, `/kidobits/audio/l3/prompt_lesson_done.mp3`);
+    }
+
+    // ================= CHILD ANSWER SUCCESS -> STEP-SPECIFIC PRAISE =================
+    function handleChildSuccess(targetWord, mode) {
+      if (STATE.hasAnswered) return;
+      STATE.hasAnswered = true;
+      STATE.isWaitingForChild = false;
+      stopSentenceMic();
+
+      playChime('success');
+      confetti({ particleCount: 25, spread: 60, origin: { y: 0.6 } });
+
+      const badge = document.getElementById('tutorStateBadge');
+      badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500 text-white text-xs font-black shadow-md";
+      /* FIX: #tutorStateText เป็นลูกของ #tutorStateBadge — เขียน textContent ทับจะลบลูกทิ้ง
+         แล้ว renderSummary() พังเพราะ getElementById('tutorStateText') คืน null */
+      function setBadgeText(txt) {
+        const t = document.getElementById('tutorStateText');
+        if (t) t.textContent = txt;
+        else if (badge) setBadgeText(txt);
+      }
+
+      let praiseUrl = '/kidobits/audio/l3/praise_correct.mp3';
+
+      if (mode === 'blend') {
+        setBadgeText("ยอดเยี่ยมมาก! ผสมเสียงถูกต้อง ⭐⭐⭐");
+        document.getElementById('tutorSpeechText').textContent = `ครูเอ็มม่า: "ยอดเยี่ยมมากค่ะ! รวมเสียงเป็นคำว่า ${targetWord} ได้ถูกต้อง!"`;
+        praiseUrl = '/kidobits/audio/l3/praise_blend.mp3';
+      } else if (mode === 'spell') {
+        setBadgeText("เก่งมากค่ะ! สะกดคำได้ถูกต้องเป๊ะ ⭐⭐⭐");
+        document.getElementById('tutorSpeechText').textContent = `ครูเอ็มม่า: "เก่งมากค่ะ! สะกดคำว่า ${targetWord} ได้ถูกต้องเป๊ะเลย!"`;
+        praiseUrl = '/kidobits/audio/l3/praise_spell.mp3';
+      } else if (mode === 'listen') {
+        setBadgeText("ถูกต้องค่ะ! ฟังเสียงแม่นยำ ⭐⭐⭐");
+        document.getElementById('tutorSpeechText').textContent = `ครูเอ็มม่า: "ถูกต้องค่ะ! หูไวมาก ฟังเสียง ${targetWord} ได้แม่นยำ!"`;
+        praiseUrl = '/kidobits/audio/l3/praise_listen.mp3';
+      } else if (mode === 'mic') {
+        setBadgeText("สุดยอดมาก! อ่านออกเสียงชัดเจน ⭐⭐⭐");
+        document.getElementById('tutorSpeechText').textContent = `ครูเอ็มม่า: "สุดยอดมากค่ะคนเก่ง! ออกเสียงประโยคได้ชัดเจนมากเลย! Good job!"`;
+        praiseUrl = '/kidobits/audio/l3/praise_reading.mp3';
+      } else {
+        setBadgeText("เก่งมากค่ะ! หนูอ่านคล่องแล้ว ⭐⭐⭐");
+        document.getElementById('tutorSpeechText').textContent = `ครูเอ็มม่า: "เก่งมากค่ะ! หนูอ่านประโยคนี้ได้อย่างคล่องแคล่ว!"`;
+        praiseUrl = '/kidobits/audio/l3/praise_correct.mp3';
+      }
+
+      const fb = document.getElementById('stepFeedback');
+      if (fb) fb.innerHTML = '🎉 ถูกต้อง! <b>"' + targetWord + '"</b> เก่งมากค่ะ!';
+
+      playEmmaMp3(praiseUrl, () => {
+        setTimeout(() => {
+          STATE.i++;
+          render();
+        }, 350);
+      });
+    }
+
+
+    // ================= กิจกรรมเฉพาะบทตาม PDF (Walking Vowels · Bossy Hat · Coin Collector ฯลฯ) =================
+    // วิธีคิด: กิจกรรมของบทคุมสกิน/คำอธิบาย/โจทย์บนเวที แต่ยังใช้กลไกเดิม
+    // (ผสมเสียง → แตะตามลำดับ, เรียงคำ → พิมพ์สะกด, ฟังเลือก → ตัวเลือก) เพื่อไม่ให้ระบบที่ผ่านการตรวจแล้วพัง
+    function actSpec(step) {
+      const list = (STATE.lesson && STATE.lesson.act_specs) || [];
+      return list[step === undefined ? STATE.step : step] || null;
+    }
+    function hasAffix(word, af) {
+      if (!af) return false;
+      const w = String(word || '').toLowerCase();
+      return w.includes(String(af).toLowerCase());
+    }
+    function vowelTeamPair(lesson, af) {
+      // จับคู่ ee↔ea, ai↔ay, oa↔ow, igh↔ie, oi↔oy, ou↔ow, er↔ir, au↔aw, kn↔wr
+      const PAIRS = [['ee','ea'],['ai','ay'],['oa','ow'],['igh','ie'],['oi','oy'],['ou','ow'],
+                     ['er','ir'],['ur','ir'],['au','aw'],['kn','wr'],['oo','oo']];
+      for (const [a, b] of PAIRS) {
+        if (af === a) return b;
+      }
+      return null;
+    }
+
+    /* --- การ์ดกิจกรรม: ใช้ HTML ของขั้นนั้นเป็นฐาน แล้วเติมการ์ดคำอธิบายด้านบน --- */
+    function actIntroHTML(sp, extra) {
+      if (!sp) return '';
+      return `
+        <div class="mx-auto max-w-lg p-3 rounded-2xl bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-orange-200 text-left">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-lg">${ACT_ICON[sp.type] || '⭐'}</span>
+            <span class="font-display font-black text-sm text-orange-900">${sp.label}</span>
+          </div>
+          <p class="text-[11px] text-orange-900/70 font-bold leading-snug">${sp.hint || ''}</p>
+          ${extra || ''}
+        </div>`;
+    }
+
+    /* --- STEP 1 wrapper: เดินสระ / หมวกโจรสลัด / รูปปาก / ตัวเงียบ --- */
+    function actPanelStep1(sp, it) {
+      if (!sp) return '';
+      const w = String(it.word || '').toLowerCase();
+      if (sp.type === 'walk' || sp.type === 'mouth') {
+        const a = sp.a, b = sp.b;
+        const inA = hasAffix(w, a), inB = hasAffix(w, b);
+        return actIntroHTML(sp, `
+          <div class="flex items-center justify-center gap-2 mt-2">
+            <span class="px-3 py-1.5 rounded-xl font-mono font-black text-lg ${inA ? 'bg-emerald-500 text-white scale-110' : 'bg-white text-slate-400'} shadow-sm transition-all">${a}</span>
+            <span class="text-lg ${inA ? 'animate-bounce' : ''}">🤝</span>
+            <span class="px-3 py-1.5 rounded-xl font-mono font-black text-lg ${inB ? 'bg-emerald-500 text-white scale-110' : 'bg-white text-slate-400'} shadow-sm transition-all">${b || '·'}</span>
+          </div>
+          <p class="text-center text-[11px] font-black mt-1.5 ${inA || inB ? 'text-emerald-700' : 'text-slate-500'}">
+            ${inA ? `คำนี้สะกดด้วย <b>${a}</b> — สองสระจับมือเดินด้วยกัน` : inB ? `คำนี้สะกดด้วย <b>${b}</b> — สองสระจับมือเดินด้วยกัน` : 'ฟังเสียงสระคู่ให้ดีนะคะ'}
+          </p>`);
+      }
+      if (sp.type === 'hat') {
+        const vowel = (sp.a || 'ar')[0];
+        return actIntroHTML(sp, `
+          <div class="flex items-center justify-center gap-3 mt-2">
+            <span class="relative inline-flex items-center justify-center w-12 h-12 rounded-xl bg-white border-2 border-slate-200 font-display font-black text-xl text-slate-700">${vowel}</span>
+            <span class="text-xl">😰</span>
+            <span class="relative inline-flex items-center justify-center w-12 h-12 rounded-xl bg-amber-400 border-2 border-amber-600 font-display font-black text-xl text-amber-950 shadow-md">
+              r<span class="absolute -top-4 left-1/2 -translate-x-1/2 text-2xl">🏴‍☠️</span>
+            </span>
+            <span class="text-xl">➡️</span>
+            <span class="px-3 py-1.5 rounded-xl bg-orange-500 text-white font-display font-black text-lg">${sp.a}</span>
+          </div>
+          <p class="text-center text-[11px] font-black mt-2 text-orange-900">ตัว r สวมหมวกโจรสลัด บังคับเสียงตัว ${vowel}!</p>`);
+      }
+      if (sp.type === 'silent') {
+        const kn = hasAffix(w, 'kn');
+        return actIntroHTML(sp, `
+          <div class="flex items-center justify-center gap-2 mt-2">
+            <span class="px-3 py-1.5 rounded-xl font-mono font-black text-base ${kn ? 'bg-emerald-500 text-white' : 'bg-white text-slate-400'}">kn</span>
+            <span class="text-xs text-slate-400">k เงียบ</span>
+            <span class="px-3 py-1.5 rounded-xl font-mono font-black text-base ${!kn ? 'bg-emerald-500 text-white' : 'bg-white text-slate-400'}">wr</span>
+            <span class="text-xs text-slate-400">w เงียบ</span>
+          </div>
+          <p class="text-center text-[11px] font-black mt-1.5 text-emerald-700">${kn || !kn ? '🤫 ตัวแรกไม่ออกเสียง — อ่านเฉพาะเสียงที่เหลือ' : ''}</p>`);
+      }
+      if (sp.type === 'story') {
+        return actIntroHTML(sp, `
+          <p class="mt-1.5 text-[11px] font-mono italic text-slate-600 line-clamp-2">"${(STATE.lesson.sentences || [])[STATE.i] || ''}"</p>`);
+      }
+      return actIntroHTML(sp);
+    }
+
+    /* --- STEP 2 wrapper: sorter / slider --- */
+    function actPanelStep2(sp, it) {
+      if (!sp) return '';
+      if (sp.type === 'sort') {
+        const a = sp.a, b = sp.b;
+        const isA = hasAffix(it.word, a), isB = b ? hasAffix(it.word, b) : !isA;
+        return actIntroHTML(sp, `
+          <div class="flex items-center justify-center gap-2 mt-2">
+            <span class="px-4 py-1.5 rounded-xl font-mono font-black text-sm ${isA ? 'bg-emerald-500 text-white scale-105' : 'bg-white text-slate-500'} shadow-sm">${a}</span>
+            <span class="px-4 py-1.5 rounded-xl font-mono font-black text-sm ${isB ? 'bg-emerald-500 text-white scale-105' : 'bg-white text-slate-500'} shadow-sm">${b || 'อื่น ๆ'}</span>
+          </div>
+          <p class="text-center text-[11px] font-black mt-1.5 text-emerald-700">คำนี้อยู่กลุ่ม <b>${isA ? a : (b || 'อื่น ๆ')}</b> ✔</p>`);
+      }
+      if (sp.type === 'slider') {
+        const af = sp.a || 'ar';
+        const g = (it.graphemes || []);
+        const idx = g.findIndex(x => String(x).toLowerCase() === af);
+        return actIntroHTML(sp, `
+          <div class="flex items-center justify-center gap-1.5 mt-2 font-mono font-black text-lg">
+            ${g.map((x, k) => `<span class="px-2.5 py-1 rounded-lg ${k === idx ? 'bg-orange-500 text-white' : 'bg-white text-slate-500'} border border-orange-200 transition-all">${x}</span>`).join('<span class="text-orange-300">+</span>')}
+          </div>
+          <p class="text-center text-[11px] font-black mt-1.5 text-orange-900">เลื่อนชิ้นส่วน <b>${af}</b> ให้เข้าที่ ➔ <b>${it.word}</b></p>`);
+      }
+      return actIntroHTML(sp);
+    }
+
+    /* --- STEP 3 wrapper: maze / coin / map / quiz --- */
+    function actPanelStep3(sp, it) {
+      if (!sp) return '';
+      if (sp.type === 'maze' || sp.type === 'map') {
+        return actIntroHTML(sp, `
+          <div class="flex items-center justify-center gap-1 mt-2">
+            ${(STATE.lesson.listen_choose || []).map((o, k) => `
+              <span class="px-2 py-1 rounded-lg text-[10px] font-black ${o.word === it.word ? 'bg-emerald-500 text-white' : 'bg-white text-slate-400 border border-orange-200'}">${k + 1}</span>`).join('<span class="text-orange-300">→</span>')}
+            <span class="text-lg ml-1">🦊</span>
+          </div>
+          <p class="text-center text-[11px] font-black mt-1.5 text-orange-900">พา Oliver ไปตามทางที่ถูก — ฟังแล้วเลือกคำให้ตรง</p>`);
+      }
+      if (sp.type === 'coin') {
+        return actIntroHTML(sp, `
+          <div class="flex items-center justify-center gap-1.5 mt-2">
+            <span class="text-2xl">🪙</span>
+            <span class="font-mono font-black text-sm text-orange-900">${String(it.word).split('').map(c => `<span class="px-1.5 py-0.5 mx-0.5 rounded bg-white border border-amber-300">${c}</span>`).join('')}</span>
+            <span class="text-2xl">🪙</span>
+          </div>
+          <p class="text-center text-[11px] font-black mt-1.5 text-amber-800">เก็บเหรียญทองให้ครบตามคำที่ได้ยิน</p>`);
+      }
+      return actIntroHTML(sp);
+    }
+
+    /* --- STEP 4 wrapper: voice challenge / speech recording / certificate --- */
+    function actPanelStep4(sp, it) {
+      if (!sp) return '';
+      const isCert = sp.type === 'cert';
+      return actIntroHTML(sp, isCert ? `
+        <div class="mt-2 p-2.5 rounded-xl bg-white border-2 border-amber-300 text-center">
+          <div class="text-2xl">🏅</div>
+          <div class="font-display font-black text-xs text-amber-900 mt-0.5">Master Phonics Explorer</div>
+          <div class="text-[10px] text-slate-500 font-bold">Kidobits Phonics · Level 3</div>
+        </div>` : '');
+    }
+
+    /* --- ติด panel เข้าไปใน stage หลัง render ปกติ --- */
+    function paintActPanel() {
+      if (!STATE.isOpen || STATE.step >= 4) return;
+      const sp = actSpec();
+      if (!sp) return;
+      const stage = document.getElementById('appStage');
+      if (!stage || !stage.firstElementChild) return;
+      const wrap = stage.firstElementChild;
+      const holder = document.createElement('div');
+      holder.className = 'act-holder mb-3';
+      const it = (STATE.step === 0 ? (STATE.lesson.blend || [])[STATE.i]
+                : STATE.step === 1 ? (STATE.lesson.segment_build || [])[STATE.i]
+                : (STATE.lesson.listen_choose || [])[STATE.i]) || {};
+      holder.innerHTML = STATE.step === 0 ? actPanelStep1(sp, it)
+                        : STATE.step === 1 ? actPanelStep2(sp, it)
+                        : actPanelStep3(sp, it);
+      wrap.insertBefore(holder, wrap.firstChild);
+    }
+
+    // CONTROLS & NAVIGATION
+    /* ---- FIX 2026-11-02: many lessons point at w_<word>.mp3 which does not exist.
+       We render a complete g_<word>.mp3 set, so fall back to it. ---- */
+    /* FIX 2026-11-02b: Level 3 renders ONLY g_<word>.mp3 (104 words, all verified 200).
+       The old w_ probe made every play 404, so Emma stayed silent and the play buttons did nothing. */
+    function lessonWordAudio(word) {
+      const w = String(word || '').toLowerCase().replace(/[^a-z']/g, '');
+      return `/kidobits/audio/l3/g_${w}.mp3`;
+    }
+    function probeWordAudio(word) { return lessonWordAudio(word); }
+
+    function refreshContinueBanner() {
+      const wrap = document.getElementById('kbContinueWrap');
+      if (!wrap) return;
+      const lid = lastPlayedLid();
+      if (!lid) { wrap.classList.add('hidden'); return; }
+      const p = progAll()[lid] || {};
+      const lesson = LESSONS[lid] || {};
+      const stepName = ['ผสมเสียง', 'เรียงตัวอักษร', 'ฟังเลือกคำ', 'อ่านประโยค'][p.step] || '';
+      const doneCount = (p.results || []).length;
+      const txt = document.getElementById('kbContinueText');
+      if (txt) txt.textContent = `${lid} · ${lesson.title || ''} — ค้างที่ขั้น ${p.step + 1} (${stepName}) · ตอบแล้ว ${doneCount} ข้อ`;
+      const btn = document.getElementById('kbContinueBtn');
+      if (btn) btn.onclick = function () { openLesson(lid); };
+      wrap.classList.remove('hidden');
+    }
+
+    function openLesson(lid) {
+      unlockAudio();
+      // Pre-warm mic stream on user click so Chrome grants permission smoothly!
+      ensureMic().catch(e => console.log('Mic pre-warm:', e));
+
+      STATE.lid = lid;
+      STATE.lesson = LESSONS[lid];
+      /* FIX: เล่นต่อจากเดิมถ้ายังไม่จบบท */
+      const _resume = progLoad(lid);
+      STATE.step = _resume ? _resume.step : 0;
+      STATE.i = _resume ? _resume.i : 0;
+      STATE.results = _resume && Array.isArray(_resume.results) ? _resume.results.slice() : [];
+      if (_resume && typeof _resume.stars === 'number') STATE.earnedStars = _resume.stars;
+      STATE.hasAnswered = false;
+      STATE.isOpen = true;
+      if (_resume) {
+        setTimeout(function () {
+          const tt = document.getElementById('tutorSpeechText');
+          if (tt) tt.textContent = `ครูเอ็มม่า: "ยินดีต้อนรับกลับค่ะ! เล่นต่อจากขั้นที่ ${STATE.step + 1} เลยนะคะ"`;
+        }, 400);
+      }
+
+      document.getElementById('playerLid').textContent = STATE.lesson.id;
+      document.getElementById('playerTitle').textContent = STATE.lesson.title;
+
+      // Opens immediately! NO START BUTTON!
+      document.getElementById('playerModal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+
+      render();
+    }
+
+    function closeLesson() {
+      try { progSave(); } catch(e) {}
+      STATE.isOpen = false;
+      stopSentenceMic();
+      if (activeVuRaf) {
+        try { cancelAnimationFrame(activeVuRaf); } catch(e) {}
+        activeVuRaf = null;
+      }
+      if (activeVuCtx) {
+        try { activeVuCtx.close(); } catch(e) {}
+        activeVuCtx = null;
+      }
+      if (micStream) {
+        try {
+          micStream.getTracks().forEach(tr => tr.stop());
+        } catch(e) {}
+        micStream = null;
+      }
+      micPermissionGranted = false;
+      if (emmaAudioElem) {
+        try {
+          emmaAudioElem.pause();
+          emmaAudioElem.currentTime = 0;
+          emmaAudioElem.src = '';
+        } catch(e) {}
+        emmaAudioElem = null;
+      }
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      try { if (activeVuRaf) { cancelAnimationFrame(activeVuRaf); activeVuRaf = null; } } catch(e) {}
+      try { if (activeVuCtx) { activeVuCtx.close(); activeVuCtx = null; } } catch(e) {}
+      try { if (activeMediaRec && activeMediaRec.state !== 'inactive') activeMediaRec.stop(); } catch(e) {}
+      activeMediaRec = null; isSentenceListening = false; stopListeningFn = null;
+      document.getElementById('playerModal').classList.add('hidden');
+      document.body.style.overflow = '';
+      try { const st = document.getElementById('appStage'); if (st) st.scrollTop = 0; } catch(e) {}
+      try { refreshContinueBanner(); } catch(e) {}
+    }
+
+    function replayTeacherVoice() {
+      if (STATE.step === 3) {
+        renderSentences();
+      } else {
+        render();
+      }
+    }
+
+    function skipCurrentItem() {
+      STATE.i++;
+      render();
+    }
+
+    function filterWorld(wid) {
+      document.querySelectorAll('.world-tab').forEach(b => {
+        b.classList.remove('active', 'bg-orange-500', 'text-white', 'shadow-md', 'shadow-orange-500/20');
+        b.classList.add('bg-white', 'text-slate-700', 'border', 'border-orange-200');
+      });
+      event.target.classList.add('active', 'bg-orange-500', 'text-white', 'shadow-md', 'shadow-orange-500/20');
+      event.target.classList.remove('bg-white', 'text-slate-700', 'border');
+
+      const sections = document.querySelectorAll('.world-section');
+      if (wid === 'all') {
+        sections.forEach(s => s.classList.remove('hidden'));
+      } else {
+        sections.forEach(s => {
+          if (s.id === wid) s.classList.remove('hidden');
+          else s.classList.add('hidden');
+        });
+      }
+    }
+    try { refreshContinueBanner(); } catch(e) {}
+  </script>
+
+  <!-- Kidobits Theme Floating Bottom Navigation -->
+  <div class="h-24"></div>
+  <nav class="fixed bottom-3 left-3 right-3 max-w-[430px] mx-auto bg-white shadow-[0_10px_30px_rgba(60,30,90,.18)] rounded-full px-4 py-2 flex justify-between border border-[#F3EDF8] z-50">
+    <a href="theme_home.html" class="flex flex-col items-center gap-0.5 min-w-[48px] text-[#9A8FA8] hover:text-black">
+      <span class="w-9 h-9 grid place-items-center rounded-full text-lg">🏠</span>
+      <span class="text-[9px] font-extrabold">Home</span>
+    </a>
+    <a href="theme_phonicsHome.html" class="flex flex-col items-center gap-0.5 min-w-[48px]">
+      <span class="w-9 h-9 grid place-items-center rounded-full bg-[#8B7CFF] text-white shadow text-lg">🔤</span>
+      <span class="text-[9px] font-extrabold text-[#8B7CFF]">Phonics</span>
+    </a>
+    <a href="theme_mathHome.html" class="flex flex-col items-center gap-0.5 min-w-[48px] text-[#9A8FA8] hover:text-black">
+      <span class="w-9 h-9 grid place-items-center rounded-full text-lg">🔢</span>
+      <span class="text-[9px] font-extrabold">Math</span>
+    </a>
+    <a href="theme_chineseHome.html" class="flex flex-col items-center gap-0.5 min-w-[48px] text-[#9A8FA8] hover:text-black">
+      <span class="w-9 h-9 grid place-items-center rounded-full text-lg">🏮</span>
+      <span class="text-[9px] font-extrabold">Chinese</span>
+    </a>
+  </nav>
+
+</body>
+</html>
