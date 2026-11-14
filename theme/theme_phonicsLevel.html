@@ -27,7 +27,7 @@
       
       <!-- Top Bar -->
       <div class="px-5 pt-4 pb-2 flex items-center justify-between gap-1.5 shrink-0 bg-white/90 backdrop-blur z-20">
-        <button onclick="location.href='theme_phonicsHome.html'" class="bg-white border border-[#EBE3F5] px-3.5 py-1.5 rounded-full text-xs font-extrabold text-[#5B4B8A] shadow-sm hover:bg-[#F9F5FF] active:scale-95 transition">
+        <button onclick="if (window.history.length > 1) { window.history.back(); } else { window.location.href=\'theme_phonicsHome.html\'; }" class="bg-white border border-[#EBE3F5] px-3.5 py-1.5 rounded-full text-xs font-extrabold text-[#5B4B8A] shadow-sm hover:bg-[#F9F5FF] active:scale-95 transition">
           ← ล็อบบี้ Phonics
         </button>
         <div class="flex items-center gap-1.5">
