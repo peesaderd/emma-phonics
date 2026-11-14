@@ -1,0 +1,2600 @@
+{
+  "L2.01": {
+    "id": "L2.01",
+    "num": 1,
+    "world": "w1",
+    "world_title": "World 1: Digraphs",
+    "title": "The 'sh' Sound — เสียงคู่กระซิบ /ʃ/",
+    "goal_th": "ผสมคำและออกเสียง /ʃ/ ทั้งต้นคำและท้ายคำ (คำ 4 ตัว)",
+    "length_tag": "คำ 4 ตัวอักษร",
+    "difficulty": 1,
+    "targets": [
+      "ship",
+      "shop",
+      "fish",
+      "dish",
+      "shell",
+      "brush"
+    ],
+    "emojis": {
+      "ship": "🚢",
+      "shop": "🏪",
+      "fish": "🐟",
+      "dish": "🍽️",
+      "shell": "🐚",
+      "brush": "🖌️"
+    },
+    "oliver_script": "Shhh! Today 's' and 'h' make one soft sound: /ʃ/! ship, fish!",
+    "blend": [
+      {
+        "word": "ship",
+        "graphemes": [
+          "sh",
+          "i",
+          "p"
+        ],
+        "ipa": "/ʃɪp/",
+        "th": "เรือเดินสมุทร",
+        "emoji": "🚢"
+      },
+      {
+        "word": "shop",
+        "graphemes": [
+          "sh",
+          "o",
+          "p"
+        ],
+        "ipa": "/ʃɒp/",
+        "th": "ร้านค้า",
+        "emoji": "🏪"
+      },
+      {
+        "word": "fish",
+        "graphemes": [
+          "f",
+          "i",
+          "sh"
+        ],
+        "ipa": "/fɪʃ/",
+        "th": "ปลา",
+        "emoji": "🐟"
+      },
+      {
+        "word": "dish",
+        "graphemes": [
+          "d",
+          "i",
+          "sh"
+        ],
+        "ipa": "/dɪʃ/",
+        "th": "จานอาหาร",
+        "emoji": "🍽️"
+      }
+    ],
+    "segment_build": [
+      {
+        "word": "ship",
+        "graphemes": [
+          "sh",
+          "i",
+          "p"
+        ],
+        "emoji": "🚢"
+      },
+      {
+        "word": "shop",
+        "graphemes": [
+          "sh",
+          "o",
+          "p"
+        ],
+        "emoji": "🏪"
+      },
+      {
+        "word": "fish",
+        "graphemes": [
+          "f",
+          "i",
+          "sh"
+        ],
+        "emoji": "🐟"
+      },
+      {
+        "word": "dish",
+        "graphemes": [
+          "d",
+          "i",
+          "sh"
+        ],
+        "emoji": "🍽️"
+      }
+    ],
+    "listen_choose": [
+      {
+        "word": "ship",
+        "options": [
+          "ship",
+          "shop",
+          "fish",
+          "dish"
+        ],
+        "emoji": "🚢"
+      },
+      {
+        "word": "shop",
+        "options": [
+          "shop",
+          "ship",
+          "shell",
+          "fish"
+        ],
+        "emoji": "🏪"
+      },
+      {
+        "word": "fish",
+        "options": [
+          "fish",
+          "dish",
+          "ship",
+          "brush"
+        ],
+        "emoji": "🐟"
+      },
+      {
+        "word": "dish",
+        "options": [
+          "dish",
+          "fish",
+          "wish",
+          "shop"
+        ],
+        "emoji": "🍽️"
+      }
+    ],
+    "sentences": [
+      "A big black ship is by the shop.",
+      "Oliver put the fresh fish on the dish."
+    ]
+  },
+  "L2.02": {
+    "id": "L2.02",
+    "num": 2,
+    "world": "w1",
+    "world_title": "World 1: Digraphs",
+    "title": "The 'ch' Sound — เสียงฉึกฉักรถไฟ /tʃ/",
+    "goal_th": "ออกเสียงระเบิดลม /tʃ/ ชัดเจน ไม่สับสนกับ sh (คำ 4–5 ตัว)",
+    "length_tag": "คำ 4–5 ตัวอักษร",
+    "difficulty": 1,
+    "targets": [
+      "chip",
+      "chop",
+      "chin",
+      "rich",
+      "bench",
+      "lunch"
+    ],
+    "emojis": {
+      "chip": "🍟",
+      "chop": "🪓",
+      "chin": "🧔",
+      "rich": "💰",
+      "bench": "🪵",
+      "lunch": "🍱"
+    },
+    "oliver_script": "Choo-choo! 'c' and 'h' pop with energy: /tʃ/! chip, bench, lunch!",
+    "blend": [
+      {
+        "word": "chip",
+        "graphemes": [
+          "ch",
+          "i",
+          "p"
+        ],
+        "ipa": "/tʃɪp/",
+        "th": "มันฝรั่งทอด",
+        "emoji": "🍟"
+      },
+      {
+        "word": "chop",
+        "graphemes": [
+          "ch",
+          "o",
+          "p"
+        ],
+        "ipa": "/tʃɒp/",
+        "th": "สับ/ผ่า",
+        "emoji": "🪓"
+      },
+      {
+        "word": "chin",
+        "graphemes": [
+          "ch",
+          "i",
+          "n"
+        ],
+        "ipa": "/tʃɪn/",
+        "th": "คาง",
+        "emoji": "🧔"
+      },
+      {
+        "word": "rich",
+        "graphemes": [
+          "r",
+          "i",
+          "ch"
+        ],
+        "ipa": "/rɪtʃ/",
+        "th": "ร่ำรวย",
+        "emoji": "💰"
+      }
+    ],
+    "segment_build": [
+      {
+        "word": "chip",
+        "graphemes": [
+          "ch",
+          "i",
+          "p"
+        ],
+        "emoji": "🍟"
+      },
+      {
+        "word": "chop",
+        "graphemes": [
+          "ch",
+          "o",
+          "p"
+        ],
+        "emoji": "🪓"
+      },
+      {
+        "word": "chin",
+        "graphemes": [
+          "ch",
+          "i",
+          "n"
+        ],
+        "emoji": "🧔"
+      },
+      {
+        "word": "rich",
+        "graphemes": [
+          "r",
+          "i",
+          "ch"
+        ],
+        "emoji": "💰"
+      }
+    ],
+    "listen_choose": [
+      {
+        "word": "chip",
+        "options": [
+          "chip",
+          "chop",
+          "ship",
+          "chin"
+        ],
+        "emoji": "🍟"
+      },
+      {
+        "word": "chop",
+        "options": [
+          "chop",
+          "chip",
+          "shop",
+          "bench"
+        ],
+        "emoji": "🪓"
+      },
+      {
+        "word": "chin",
+        "options": [
+          "chin",
+          "thin",
+          "rich",
+          "chip"
+        ],
+        "emoji": "🧔"
+      },
+      {
+        "word": "rich",
+        "options": [
+          "rich",
+          "fish",
+          "dish",
+          "lunch"
+        ],
+        "emoji": "💰"
+      }
+    ],
+    "sentences": [
+      "Oliver had a crunchy chip on the bench.",
+      "He will chop the wood before lunch."
+    ]
+  },
+  "L2.03": {
+    "id": "L2.03",
+    "num": 3,
+    "world": "w1",
+    "world_title": "World 1: Digraphs",
+    "title": "The 'th' Sounds — แตะปลายลิ้นที่ฟันหน้า (/θ/ & /ð/)",
+    "goal_th": "วางลิ้นแตะฟันบน พ่นลม /θ/ และสั่นคอ /ð/ (คำ 4–5 ตัว)",
+    "length_tag": "คำ 4–5 ตัวอักษร",
+    "difficulty": 1,
+    "targets": [
+      "thin",
+      "think",
+      "bath",
+      "moth",
+      "this",
+      "that",
+      "them"
+    ],
+    "emojis": {
+      "thin": "📏",
+      "think": "💡",
+      "bath": "🛁",
+      "moth": "🦋",
+      "this": "👉",
+      "that": "👈",
+      "them": "👥"
+    },
+    "oliver_script": "Stick your tongue out a tiny bit: /θ/... thin, bath! and /ð/... this, that!",
+    "blend": [
+      {
+        "word": "thin",
+        "graphemes": [
+          "th",
+          "i",
+          "n"
+        ],
+        "ipa": "/θɪn/",
+        "th": "ผอมบาง",
+        "emoji": "📏"
+      },
+      {
+        "word": "bath",
+        "graphemes": [
+          "b",
+          "a",
+          "th"
+        ],
+        "ipa": "/bɑːθ/",
+        "th": "อ่างอาบน้ำ",
+        "emoji": "🛁"
+      },
+      {
+        "word": "moth",
+        "graphemes": [
+          "m",
+          "o",
+          "th"
+        ],
+        "ipa": "/mɒθ/",
+        "th": "ผีเสื้อกลางคืน",
+        "emoji": "🦋"
+      },
+      {
+        "word": "that",
+        "graphemes": [
+          "th",
+          "a",
+          "t"
+        ],
+        "ipa": "/ðæt/",
+        "th": "สิ่งนั้น",
+        "emoji": "👈"
+      }
+    ],
+    "segment_build": [
+      {
+        "word": "thin",
+        "graphemes": [
+          "th",
+          "i",
+          "n"
+        ],
+        "emoji": "📏"
+      },
+      {
+        "word": "bath",
+        "graphemes": [
+          "b",
+          "a",
+          "th"
+        ],
+        "emoji": "🛁"
+      },
+      {
+        "word": "moth",
+        "graphemes": [
+          "m",
+          "o",
+          "th"
+        ],
+        "emoji": "🦋"
+      },
+      {
+        "word": "that",
+        "graphemes": [
+          "th",
+          "a",
+          "t"
+        ],
+        "emoji": "👈"
+      }
+    ],
+    "listen_choose": [
+      {
+        "word": "thin",
+        "options": [
+          "thin",
+          "chin",
+          "think",
+          "bath"
+        ],
+        "emoji": "📏"
+      },
+      {
+        "word": "bath",
+        "options": [
+          "bath",
+          "math",
+          "moth",
+          "path"
+        ],
+        "emoji": "🛁"
+      },
+      {
+        "word": "moth",
+        "options": [
+          "moth",
+          "bath",
+          "mop",
+          "thin"
+        ],
+        "emoji": "🦋"
+      },
+      {
+        "word": "that",
+        "options": [
+          "that",
+          "this",
+          "them",
+          "then"
+        ],
+        "emoji": "👈"
+      }
+    ],
+    "sentences": [
+      "Think about that little moth in the warm bath.",
+      "This thin cat can run fast."
+    ]
+  },
+  "L2.04": {
+    "id": "L2.04",
+    "num": 4,
+    "world": "w1",
+    "world_title": "World 1: Digraphs",
+    "title": "Endings 'ck', 'ng', 'wh' — เสียงตัวสะกดคู่และคำถาม",
+    "goal_th": "ถอดรหัสตัวสะกดคู่ท้ายคำ -ck, -ng และพยัญชนะต้น wh (คำ 4–5 ตัว)",
+    "length_tag": "คำ 4–5 ตัวอักษร",
+    "difficulty": 1,
+    "targets": [
+      "duck",
+      "lock",
+      "sock",
+      "king",
+      "ring",
+      "song",
+      "whale"
+    ],
+    "emojis": {
+      "duck": "🦆",
+      "lock": "🔒",
+      "sock": "🧦",
+      "king": "👑",
+      "ring": "💍",
+      "song": "🎵",
+      "whale": "🐋"
+    },
+    "oliver_script": "Quack! c+k is /k/, and n+g rings like a bell: /ŋ/! duck, ring, king!",
+    "blend": [
+      {
+        "word": "duck",
+        "graphemes": [
+          "d",
+          "u",
+          "ck"
+        ],
+        "ipa": "/dʌk/",
+        "th": "เป็ด",
+        "emoji": "🦆"
+      },
+      {
+        "word": "lock",
+        "graphemes": [
+          "l",
+          "o",
+          "ck"
+        ],
+        "ipa": "/lɒk/",
+        "th": "แม่กุญแจ",
+        "emoji": "🔒"
+      },
+      {
+        "word": "king",
+        "graphemes": [
+          "k",
+          "i",
+          "ng"
+        ],
+        "ipa": "/kɪŋ/",
+        "th": "พระราชา",
+        "emoji": "👑"
+      },
+      {
+        "word": "ring",
+        "graphemes": [
+          "r",
+          "i",
+          "ng"
+        ],
+        "ipa": "/rɪŋ/",
+        "th": "แหวน",
+        "emoji": "💍"
+      }
+    ],
+    "segment_build": [
+      {
+        "word": "duck",
+        "graphemes": [
+          "d",
+          "u",
+          "ck"
+        ],
+        "emoji": "🦆"
+      },
+      {
+        "word": "lock",
+        "graphemes": [
+          "l",
+          "o",
+          "ck"
+        ],
+        "emoji": "🔒"
+      },
+      {
+        "word": "king",
+        "graphemes": [
+          "k",
+          "i",
+          "ng"
+        ],
+        "emoji": "👑"
+      },
+      {
+        "word": "ring",
+        "graphemes": [
+          "r",
+          "i",
+          "ng"
+        ],
+        "emoji": "💍"
+      }
+    ],
+    "listen_choose": [
+      {
+        "word": "duck",
+        "options": [
+          "duck",
+          "lock",
+          "dock",
+          "sock"
+        ],
+        "emoji": "🦆"
+      },
+      {
+        "word": "lock",
+        "options": [
+          "lock",
+          "rock",
+          "duck",
+          "sock"
+        ],
+        "emoji": "🔒"
+      },
+      {
+        "word": "king",
+        "options": [
+          "king",
+          "ring",
+          "wing",
+          "song"
+        ],
+        "emoji": "👑"
+      },
+      {
+        "word": "ring",
+        "options": [
+          "ring",
+          "king",
+          "sing",
+          "duck"
+        ],
+        "emoji": "💍"
+      }
+    ],
+    "sentences": [
+      "The king has a golden ring and a red sock.",
+      "A yellow duck swims by the big white whale."
+    ]
+  },
+  "L2.05": {
+    "id": "L2.05",
+    "num": 5,
+    "world": "w2",
+    "world_title": "World 2: Blends",
+    "title": "Initial L-Blends — พยัญชนะควบกล้ำ L (bl, cl, fl, pl, sl)",
+    "goal_th": "รูด 2 พยัญชนะติดกันอย่างลื่นไหล ไม่มีเสียงสระอะคั่นกลาง (คำ 4–5 ตัว)",
+    "length_tag": "คำ 4–5 ตัวอักษร",
+    "difficulty": 2,
+    "targets": [
+      "black",
+      "clap",
+      "clock",
+      "flag",
+      "flip",
+      "plum",
+      "sled",
+      "blue"
+    ],
+    "emojis": {
+      "black": "⬛",
+      "clap": "👏",
+      "clock": "⏰",
+      "flag": "🚩",
+      "flip": "🔄",
+      "plum": "🫐",
+      "sled": "🛷",
+      "blue": "💙"
+    },
+    "oliver_script": "Slide smoothly: /b/ + /l/ makes 'bl-'! Clap your hands: c-l-a-p ➔ clap!",
+    "blend": [
+      {
+        "word": "black",
+        "graphemes": [
+          "bl",
+          "a",
+          "ck"
+        ],
+        "ipa": "/blæk/",
+        "th": "สีดำ",
+        "emoji": "⬛"
+      },
+      {
+        "word": "clap",
+        "graphemes": [
+          "cl",
+          "a",
+          "p"
+        ],
+        "ipa": "/klæp/",
+        "th": "ปรบมือ",
+        "emoji": "👏"
+      },
+      {
+        "word": "clock",
+        "graphemes": [
+          "cl",
+          "o",
+          "ck"
+        ],
+        "ipa": "/klɒk/",
+        "th": "นาฬิกา",
+        "emoji": "⏰"
+      },
+      {
+        "word": "flag",
+        "graphemes": [
+          "fl",
+          "a",
+          "g"
+        ],
+        "ipa": "/flæɡ/",
+        "th": "ธงชาติ",
+        "emoji": "🚩"
+      }
+    ],
+    "segment_build": [
+      {
+        "word": "black",
+        "graphemes": [
+          "bl",
+          "a",
+          "ck"
+        ],
+        "emoji": "⬛"
+      },
+      {
+        "word": "clap",
+        "graphemes": [
+          "cl",
+          "a",
+          "p"
+        ],
+        "emoji": "👏"
+      },
+      {
+        "word": "clock",
+        "graphemes": [
+          "cl",
+          "o",
+          "ck"
+        ],
+        "emoji": "⏰"
+      },
+      {
+        "word": "flag",
+        "graphemes": [
+          "fl",
+          "a",
+          "g"
+        ],
+        "emoji": "🚩"
+      }
+    ],
+    "listen_choose": [
+      {
+        "word": "black",
+        "options": [
+          "black",
+          "block",
+          "back",
+          "flag"
+        ],
+        "emoji": "⬛"
+      },
+      {
+        "word": "clap",
+        "options": [
+          "clap",
+          "clock",
+          "cap",
+          "plum"
+        ],
+        "emoji": "👏"
+      },
+      {
+        "word": "clock",
+        "options": [
+          "clock",
+          "lock",
+          "block",
+          "clap"
+        ],
+        "emoji": "⏰"
+      },
+      {
+        "word": "flag",
+        "options": [
+          "flag",
+          "frog",
+          "flat",
+          "black"
+        ],
+        "emoji": "🚩"
+      }
+    ],
+    "sentences": [
+      "A black flag flips above the blue clock.",
+      "Clap your hands for the little green plum."
+    ]
+  },
+  "L2.06": {
+    "id": "L2.06",
+    "num": 6,
+    "world": "w2",
+    "world_title": "World 2: Blends",
+    "title": "Initial R-Blends — พยัญชนะควบกล้ำ R (br, cr, dr, fr, gr, tr)",
+    "goal_th": "ม้วนลิ้นควบกล้ำเสียง R หนักแน่นและชัดเจน (คำ 4–5 ตัว)",
+    "length_tag": "คำ 4–5 ตัวอักษร",
+    "difficulty": 2,
+    "targets": [
+      "brown",
+      "crab",
+      "drum",
+      "frog",
+      "grass",
+      "trip",
+      "train",
+      "truck"
+    ],
+    "emojis": {
+      "brown": "🟫",
+      "crab": "🦀",
+      "drum": "🥁",
+      "frog": "🐸",
+      "grass": "🌿",
+      "trip": "🎒",
+      "train": "🚂",
+      "truck": "🚚"
+    },
+    "oliver_script": "Roll your tongue back for 'r'! brown, crab, frog, drum!",
+    "blend": [
+      {
+        "word": "crab",
+        "graphemes": [
+          "cr",
+          "a",
+          "b"
+        ],
+        "ipa": "/kræb/",
+        "th": "ปู",
+        "emoji": "🦀"
+      },
+      {
+        "word": "drum",
+        "graphemes": [
+          "dr",
+          "u",
+          "m"
+        ],
+        "ipa": "/drʌm/",
+        "th": "กลอง",
+        "emoji": "🥁"
+      },
+      {
+        "word": "frog",
+        "graphemes": [
+          "fr",
+          "o",
+          "g"
+        ],
+        "ipa": "/frɒɡ/",
+        "th": "กบ",
+        "emoji": "🐸"
+      },
+      {
+        "word": "truck",
+        "graphemes": [
+          "tr",
+          "u",
+          "ck"
+        ],
+        "ipa": "/trʌk/",
+        "th": "รถบรรทุก",
+        "emoji": "🚚"
+      }
+    ],
+    "segment_build": [
+      {
+        "word": "crab",
+        "graphemes": [
+          "cr",
+          "a",
+          "b"
+        ],
+        "emoji": "🦀"
+      },
+      {
+        "word": "drum",
+        "graphemes": [
+          "dr",
+          "u",
+          "m"
+        ],
+        "emoji": "🥁"
+      },
+      {
+        "word": "frog",
+        "graphemes": [
+          "fr",
+          "o",
+          "g"
+        ],
+        "emoji": "🐸"
+      },
+      {
+        "word": "truck",
+        "graphemes": [
+          "tr",
+          "u",
+          "ck"
+        ],
+        "emoji": "🚚"
+      }
+    ],
+    "listen_choose": [
+      {
+        "word": "crab",
+        "options": [
+          "crab",
+          "cab",
+          "grab",
+          "frog"
+        ],
+        "emoji": "🦀"
+      },
+      {
+        "word": "drum",
+        "options": [
+          "drum",
+          "drop",
+          "truck",
+          "plum"
+        ],
+        "emoji": "🥁"
+      },
+      {
+        "word": "frog",
+        "options": [
+          "frog",
+          "fog",
+          "flag",
+          "crab"
+        ],
+        "emoji": "🐸"
+      },
+      {
+        "word": "truck",
+        "options": [
+          "truck",
+          "track",
+          "duck",
+          "drum"
+        ],
+        "emoji": "🚚"
+      }
+    ],
+    "sentences": [
+      "A brown frog hops across the green grass.",
+      "The red crab can hear the loud drum on the truck."
+    ]
+  },
+  "L2.07": {
+    "id": "L2.07",
+    "num": 7,
+    "world": "w2",
+    "world_title": "World 2: Blends",
+    "title": "Initial S-Blends — พยัญชนะควบกล้ำ S (sk, sm, sp, st, sw)",
+    "goal_th": "พ่นลมเสียงสั้น /s/ ก่อนควบกล้ำเข้าพยัญชนะตัวถัดไป (คำ 4–5 ตัว)",
+    "length_tag": "คำ 4–5 ตัวอักษร",
+    "difficulty": 2,
+    "targets": [
+      "star",
+      "spin",
+      "spot",
+      "stop",
+      "swim",
+      "skip",
+      "smile",
+      "snap"
+    ],
+    "emojis": {
+      "star": "⭐",
+      "spin": "🌀",
+      "spot": "🔘",
+      "stop": "🛑",
+      "swim": "🏊",
+      "skip": "🦘",
+      "smile": "😊",
+      "snap": "🫰"
+    },
+    "oliver_script": "Ssss-power! /s/ + /t/ makes 'st-'! star, stop, spin, swim!",
+    "blend": [
+      {
+        "word": "star",
+        "graphemes": [
+          "st",
+          "ar"
+        ],
+        "ipa": "/stɑːr/",
+        "th": "ดวงดาว",
+        "emoji": "⭐"
+      },
+      {
+        "word": "spin",
+        "graphemes": [
+          "sp",
+          "i",
+          "n"
+        ],
+        "ipa": "/spɪn/",
+        "th": "หมุนติ้ว",
+        "emoji": "🌀"
+      },
+      {
+        "word": "stop",
+        "graphemes": [
+          "st",
+          "o",
+          "p"
+        ],
+        "ipa": "/stɒp/",
+        "th": "หยุด",
+        "emoji": "🛑"
+      },
+      {
+        "word": "swim",
+        "graphemes": [
+          "sw",
+          "i",
+          "m"
+        ],
+        "ipa": "/swɪm/",
+        "th": "ว่ายน้ำ",
+        "emoji": "🏊"
+      }
+    ],
+    "segment_build": [
+      {
+        "word": "star",
+        "graphemes": [
+          "st",
+          "ar"
+        ],
+        "emoji": "⭐"
+      },
+      {
+        "word": "spin",
+        "graphemes": [
+          "sp",
+          "i",
+          "n"
+        ],
+        "emoji": "🌀"
+      },
+      {
+        "word": "stop",
+        "graphemes": [
+          "st",
+          "o",
+          "p"
+        ],
+        "emoji": "🛑"
+      },
+      {
+        "word": "swim",
+        "graphemes": [
+          "sw",
+          "i",
+          "m"
+        ],
+        "emoji": "🏊"
+      }
+    ],
+    "listen_choose": [
+      {
+        "word": "star",
+        "options": [
+          "star",
+          "stop",
+          "scar",
+          "spin"
+        ],
+        "emoji": "⭐"
+      },
+      {
+        "word": "spin",
+        "options": [
+          "spin",
+          "spot",
+          "swim",
+          "pin"
+        ],
+        "emoji": "🌀"
+      },
+      {
+        "word": "stop",
+        "options": [
+          "stop",
+          "spot",
+          "step",
+          "star"
+        ],
+        "emoji": "🛑"
+      },
+      {
+        "word": "swim",
+        "options": [
+          "swim",
+          "slim",
+          "swim",
+          "spin"
+        ],
+        "emoji": "🏊"
+      }
+    ],
+    "sentences": [
+      "Stop and smile at the bright star in the sky.",
+      "Can you spin fast and swim in the cool lake?"
+    ]
+  },
+  "L2.08": {
+    "id": "L2.08",
+    "num": 8,
+    "world": "w2",
+    "world_title": "World 2: Blends",
+    "title": "Ending Blends — ตัวสะกดควบ 2 ตัวท้าย (-nd, -st, -mp, -nt, -lk)",
+    "goal_th": "ออกเสียงตัวสะกดคู่ท้ายคำชัดเจน ไม่ตัดเสียงตัวใดตัวหนึ่งทิ้ง (คำ 4–5 ตัว)",
+    "length_tag": "คำ 4–5 ตัวอักษร",
+    "difficulty": 2,
+    "targets": [
+      "hand",
+      "sand",
+      "nest",
+      "fast",
+      "lamp",
+      "jump",
+      "tent",
+      "milk",
+      "pink"
+    ],
+    "emojis": {
+      "hand": "✋",
+      "sand": "🏖️",
+      "nest": "🪺",
+      "fast": "⚡",
+      "lamp": "🏮",
+      "jump": "🦘",
+      "tent": "⛺",
+      "milk": "🥛",
+      "pink": "🌸"
+    },
+    "oliver_script": "Blends jump to the back! In 'fast', hear both /s/ and /t/! hand, jump, nest!",
+    "blend": [
+      {
+        "word": "hand",
+        "graphemes": [
+          "h",
+          "a",
+          "nd"
+        ],
+        "ipa": "/hænd/",
+        "th": "มือ",
+        "emoji": "✋"
+      },
+      {
+        "word": "sand",
+        "graphemes": [
+          "s",
+          "a",
+          "nd"
+        ],
+        "ipa": "/sænd/",
+        "th": "ทราย",
+        "emoji": "🏖️"
+      },
+      {
+        "word": "nest",
+        "graphemes": [
+          "n",
+          "e",
+          "st"
+        ],
+        "ipa": "/nest/",
+        "th": "รังนก",
+        "emoji": "🪺"
+      },
+      {
+        "word": "jump",
+        "graphemes": [
+          "j",
+          "u",
+          "mp"
+        ],
+        "ipa": "/dʒʌmp/",
+        "th": "กระโดด",
+        "emoji": "🦘"
+      }
+    ],
+    "segment_build": [
+      {
+        "word": "hand",
+        "graphemes": [
+          "h",
+          "a",
+          "nd"
+        ],
+        "emoji": "✋"
+      },
+      {
+        "word": "sand",
+        "graphemes": [
+          "s",
+          "a",
+          "nd"
+        ],
+        "emoji": "🏖️"
+      },
+      {
+        "word": "nest",
+        "graphemes": [
+          "n",
+          "e",
+          "st"
+        ],
+        "emoji": "🪺"
+      },
+      {
+        "word": "jump",
+        "graphemes": [
+          "j",
+          "u",
+          "mp"
+        ],
+        "emoji": "🦘"
+      }
+    ],
+    "listen_choose": [
+      {
+        "word": "hand",
+        "options": [
+          "hand",
+          "sand",
+          "land",
+          "hard"
+        ],
+        "emoji": "✋"
+      },
+      {
+        "word": "sand",
+        "options": [
+          "sand",
+          "hand",
+          "stand",
+          "band"
+        ],
+        "emoji": "🏖️"
+      },
+      {
+        "word": "nest",
+        "options": [
+          "nest",
+          "best",
+          "fast",
+          "rest"
+        ],
+        "emoji": "🪺"
+      },
+      {
+        "word": "jump",
+        "options": [
+          "jump",
+          "lamp",
+          "camp",
+          "bump"
+        ],
+        "emoji": "🦘"
+      }
+    ],
+    "sentences": [
+      "Jump fast from the warm sand into the green tent.",
+      "Hold my hand and see the bird inside the nest."
+    ]
+  },
+  "L2.09": {
+    "id": "L2.09",
+    "num": 9,
+    "world": "w3",
+    "world_title": "World 3: Magic 'e'",
+    "title": "Magic 'e' with a_e — สระเปลี่ยนเสียงยาว /eɪ/",
+    "goal_th": "เข้าใจกฎ Silent e เปลี่ยนสระ a ให้เปล่งเสียง เอ /eɪ/ (คำ 5–6 ตัว)",
+    "length_tag": "คำ 5–6 ตัวอักษร",
+    "difficulty": 3,
+    "targets": [
+      "cape",
+      "cake",
+      "lake",
+      "gate",
+      "brave",
+      "plate",
+      "tape"
+    ],
+    "emojis": {
+      "cape": "🦸",
+      "cake": "🎂",
+      "lake": "🌊",
+      "gate": "🚪",
+      "brave": "🛡️",
+      "plate": "🍽️",
+      "tape": "📼"
+    },
+    "oliver_script": "Abracadabra! Magic 'e' whispers to 'a': 'Say your own name!' cape, cake, brave!",
+    "blend": [
+      {
+        "word": "cape",
+        "graphemes": [
+          "c",
+          "a",
+          "p",
+          "e"
+        ],
+        "ipa": "/keɪp/",
+        "th": "ผ้าคลุมไหล่",
+        "emoji": "🦸"
+      },
+      {
+        "word": "cake",
+        "graphemes": [
+          "c",
+          "a",
+          "k",
+          "e"
+        ],
+        "ipa": "/keɪk/",
+        "th": "เค้ก",
+        "emoji": "🎂"
+      },
+      {
+        "word": "lake",
+        "graphemes": [
+          "l",
+          "a",
+          "k",
+          "e"
+        ],
+        "ipa": "/leɪk/",
+        "th": "ทะเลสาบ",
+        "emoji": "🌊"
+      },
+      {
+        "word": "brave",
+        "graphemes": [
+          "br",
+          "a",
+          "v",
+          "e"
+        ],
+        "ipa": "/breɪv/",
+        "th": "กล้าหาญ",
+        "emoji": "🛡️"
+      }
+    ],
+    "segment_build": [
+      {
+        "word": "cape",
+        "graphemes": [
+          "c",
+          "a",
+          "p",
+          "e"
+        ],
+        "emoji": "🦸"
+      },
+      {
+        "word": "cake",
+        "graphemes": [
+          "c",
+          "a",
+          "k",
+          "e"
+        ],
+        "emoji": "🎂"
+      },
+      {
+        "word": "lake",
+        "graphemes": [
+          "l",
+          "a",
+          "k",
+          "e"
+        ],
+        "emoji": "🌊"
+      },
+      {
+        "word": "brave",
+        "graphemes": [
+          "br",
+          "a",
+          "v",
+          "e"
+        ],
+        "emoji": "🛡️"
+      }
+    ],
+    "listen_choose": [
+      {
+        "word": "cape",
+        "options": [
+          "cape",
+          "cap",
+          "tape",
+          "cake"
+        ],
+        "emoji": "🦸"
+      },
+      {
+        "word": "cake",
+        "options": [
+          "cake",
+          "lake",
+          "bake",
+          "cape"
+        ],
+        "emoji": "🎂"
+      },
+      {
+        "word": "lake",
+        "options": [
+          "lake",
+          "cake",
+          "late",
+          "make"
+        ],
+        "emoji": "🌊"
+      },
+      {
+        "word": "brave",
+        "options": [
+          "brave",
+          "grave",
+          "cave",
+          "plate"
+        ],
+        "emoji": "🛡️"
+      }
+    ],
+    "sentences": [
+      "The brave boy wore a red cape by the lake.",
+      "Oliver put the sweet cake on the white plate."
+    ]
+  },
+  "L2.10": {
+    "id": "L2.10",
+    "num": 10,
+    "world": "w3",
+    "world_title": "World 3: Magic 'e'",
+    "title": "Magic 'e' with i_e — สระไอเสียงยาว /aɪ/",
+    "goal_th": "เปลี่ยนเสียงสระสั้น /ɪ/ ให้เป็นสระยาว ไอ /aɪ/ ผสมตัวควบกล้ำ (คำ 5–6 ตัว)",
+    "length_tag": "คำ 5–6 ตัวอักษร",
+    "difficulty": 3,
+    "targets": [
+      "pine",
+      "kite",
+      "ride",
+      "bike",
+      "smile",
+      "stripe",
+      "line"
+    ],
+    "emojis": {
+      "pine": "🌲",
+      "kite": "🪁",
+      "ride": "🚴",
+      "bike": "🚲",
+      "smile": "😄",
+      "stripe": "🦓",
+      "line": "📏"
+    },
+    "oliver_script": "Magic 'e' makes 'i' say /aɪ/! pine, bike, kite, stripe!",
+    "blend": [
+      {
+        "word": "pine",
+        "graphemes": [
+          "p",
+          "i",
+          "n",
+          "e"
+        ],
+        "ipa": "/paɪn/",
+        "th": "ต้นสน",
+        "emoji": "🌲"
+      },
+      {
+        "word": "kite",
+        "graphemes": [
+          "k",
+          "i",
+          "t",
+          "e"
+        ],
+        "ipa": "/kaɪt/",
+        "th": "ว่าว",
+        "emoji": "🪁"
+      },
+      {
+        "word": "bike",
+        "graphemes": [
+          "b",
+          "i",
+          "k",
+          "e"
+        ],
+        "ipa": "/baɪk/",
+        "th": "จักรยาน",
+        "emoji": "🚲"
+      },
+      {
+        "word": "stripe",
+        "graphemes": [
+          "str",
+          "i",
+          "p",
+          "e"
+        ],
+        "ipa": "/straɪp/",
+        "th": "ลายทาง",
+        "emoji": "🦓"
+      }
+    ],
+    "segment_build": [
+      {
+        "word": "pine",
+        "graphemes": [
+          "p",
+          "i",
+          "n",
+          "e"
+        ],
+        "emoji": "🌲"
+      },
+      {
+        "word": "kite",
+        "graphemes": [
+          "k",
+          "i",
+          "t",
+          "e"
+        ],
+        "emoji": "🪁"
+      },
+      {
+        "word": "bike",
+        "graphemes": [
+          "b",
+          "i",
+          "k",
+          "e"
+        ],
+        "emoji": "🚲"
+      },
+      {
+        "word": "stripe",
+        "graphemes": [
+          "str",
+          "i",
+          "p",
+          "e"
+        ],
+        "emoji": "🦓"
+      }
+    ],
+    "listen_choose": [
+      {
+        "word": "pine",
+        "options": [
+          "pine",
+          "pin",
+          "pipe",
+          "line"
+        ],
+        "emoji": "🌲"
+      },
+      {
+        "word": "kite",
+        "options": [
+          "kite",
+          "kit",
+          "bite",
+          "white"
+        ],
+        "emoji": "🪁"
+      },
+      {
+        "word": "bike",
+        "options": [
+          "bike",
+          "bake",
+          "like",
+          "hike"
+        ],
+        "emoji": "🚲"
+      },
+      {
+        "word": "stripe",
+        "options": [
+          "stripe",
+          "trip",
+          "smile",
+          "strike"
+        ],
+        "emoji": "🦓"
+      }
+    ],
+    "sentences": [
+      "Oliver will ride his blue bike with a big smile.",
+      "Fly the kite high above the green pine tree."
+    ]
+  },
+  "L2.11": {
+    "id": "L2.11",
+    "num": 11,
+    "world": "w3",
+    "world_title": "World 3: Magic 'e'",
+    "title": "Magic 'e' with o_e & u_e — สระโอและสระอิวเสียงยาว",
+    "goal_th": "เปล่งสระยาว /oʊ/ (โอ) และ /juː/ (อิว/อู) ร่วมกับตัวควบกล้ำ (คำ 5–6 ตัว)",
+    "length_tag": "คำ 5–6 ตัวอักษร",
+    "difficulty": 3,
+    "targets": [
+      "home",
+      "rose",
+      "bone",
+      "stone",
+      "globe",
+      "flute",
+      "cute",
+      "hope"
+    ],
+    "emojis": {
+      "home": "🏡",
+      "rose": "🌹",
+      "bone": "🦴",
+      "stone": "🪨",
+      "globe": "🌐",
+      "flute": "🪈",
+      "cute": "😻",
+      "hope": "✨"
+    },
+    "oliver_script": "Round your lips: /oʊ/ ... stone, globe! and /uː/ ... flute, cute!",
+    "blend": [
+      {
+        "word": "home",
+        "graphemes": [
+          "h",
+          "o",
+          "m",
+          "e"
+        ],
+        "ipa": "/hoʊm/",
+        "th": "บ้าน",
+        "emoji": "🏡"
+      },
+      {
+        "word": "rose",
+        "graphemes": [
+          "r",
+          "o",
+          "s",
+          "e"
+        ],
+        "ipa": "/roʊz/",
+        "th": "ดอกกุหลาบ",
+        "emoji": "🌹"
+      },
+      {
+        "word": "stone",
+        "graphemes": [
+          "st",
+          "o",
+          "n",
+          "e"
+        ],
+        "ipa": "/stoʊn/",
+        "th": "ก้อนหิน",
+        "emoji": "🪨"
+      },
+      {
+        "word": "flute",
+        "graphemes": [
+          "fl",
+          "u",
+          "t",
+          "e"
+        ],
+        "ipa": "/fluːt/",
+        "th": "ขลุ่ย",
+        "emoji": "🪈"
+      }
+    ],
+    "segment_build": [
+      {
+        "word": "home",
+        "graphemes": [
+          "h",
+          "o",
+          "m",
+          "e"
+        ],
+        "emoji": "🏡"
+      },
+      {
+        "word": "rose",
+        "graphemes": [
+          "r",
+          "o",
+          "s",
+          "e"
+        ],
+        "emoji": "🌹"
+      },
+      {
+        "word": "stone",
+        "graphemes": [
+          "st",
+          "o",
+          "n",
+          "e"
+        ],
+        "emoji": "🪨"
+      },
+      {
+        "word": "flute",
+        "graphemes": [
+          "fl",
+          "u",
+          "t",
+          "e"
+        ],
+        "emoji": "🪈"
+      }
+    ],
+    "listen_choose": [
+      {
+        "word": "home",
+        "options": [
+          "home",
+          "hope",
+          "hole",
+          "dome"
+        ],
+        "emoji": "🏡"
+      },
+      {
+        "word": "rose",
+        "options": [
+          "rose",
+          "nose",
+          "rope",
+          "robe"
+        ],
+        "emoji": "🌹"
+      },
+      {
+        "word": "stone",
+        "options": [
+          "stone",
+          "bone",
+          "tone",
+          "cone"
+        ],
+        "emoji": "🪨"
+      },
+      {
+        "word": "flute",
+        "options": [
+          "flute",
+          "cute",
+          "mute",
+          "fruit"
+        ],
+        "emoji": "🪈"
+      }
+    ],
+    "sentences": [
+      "Bring the red rose and the white stone back home.",
+      "Play a sweet song on the little silver flute."
+    ]
+  },
+  "L2.12": {
+    "id": "L2.12",
+    "num": 12,
+    "world": "w3",
+    "world_title": "World 3: Magic 'e'",
+    "title": "Magic 'e' Speed & Blends — ทบทวนสระยาวผสมตัวควบกล้ำ",
+    "goal_th": "ถอดรหัสคำที่มีทั้ง Initial Blend + Magic 'e' ได้อย่างรวดเร็ว (คำ 5–6 ตัว)",
+    "length_tag": "คำ 5–6 ตัวอักษร",
+    "difficulty": 3,
+    "targets": [
+      "plane",
+      "skate",
+      "smoke",
+      "globe",
+      "prize",
+      "slide",
+      "grape",
+      "flame"
+    ],
+    "emojis": {
+      "plane": "✈️",
+      "skate": "⛸️",
+      "smoke": "💨",
+      "globe": "🌍",
+      "prize": "🏆",
+      "slide": "🛝",
+      "grape": "🍇",
+      "flame": "🔥"
+    },
+    "oliver_script": "Speed challenge! Blend at front, magic 'e' at back! plane, prize, globe!",
+    "blend": [
+      {
+        "word": "plane",
+        "graphemes": [
+          "pl",
+          "a",
+          "n",
+          "e"
+        ],
+        "ipa": "/pleɪn/",
+        "th": "เครื่องบิน",
+        "emoji": "✈️"
+      },
+      {
+        "word": "skate",
+        "graphemes": [
+          "sk",
+          "a",
+          "t",
+          "e"
+        ],
+        "ipa": "/skeɪt/",
+        "th": "สเก็ต",
+        "emoji": "⛸️"
+      },
+      {
+        "word": "globe",
+        "graphemes": [
+          "gl",
+          "o",
+          "b",
+          "e"
+        ],
+        "ipa": "/ɡloʊb/",
+        "th": "ลูกโลก",
+        "emoji": "🌍"
+      },
+      {
+        "word": "prize",
+        "graphemes": [
+          "pr",
+          "i",
+          "z",
+          "e"
+        ],
+        "ipa": "/praɪz/",
+        "th": "รางวัล",
+        "emoji": "🏆"
+      }
+    ],
+    "segment_build": [
+      {
+        "word": "plane",
+        "graphemes": [
+          "pl",
+          "a",
+          "n",
+          "e"
+        ],
+        "emoji": "✈️"
+      },
+      {
+        "word": "skate",
+        "graphemes": [
+          "sk",
+          "a",
+          "t",
+          "e"
+        ],
+        "emoji": "⛸️"
+      },
+      {
+        "word": "globe",
+        "graphemes": [
+          "gl",
+          "o",
+          "b",
+          "e"
+        ],
+        "emoji": "🌍"
+      },
+      {
+        "word": "prize",
+        "graphemes": [
+          "pr",
+          "i",
+          "z",
+          "e"
+        ],
+        "emoji": "🏆"
+      }
+    ],
+    "listen_choose": [
+      {
+        "word": "plane",
+        "options": [
+          "plane",
+          "plate",
+          "plan",
+          "lane"
+        ],
+        "emoji": "✈️"
+      },
+      {
+        "word": "skate",
+        "options": [
+          "skate",
+          "state",
+          "snake",
+          "plate"
+        ],
+        "emoji": "⛸️"
+      },
+      {
+        "word": "globe",
+        "options": [
+          "globe",
+          "robe",
+          "glove",
+          "smoke"
+        ],
+        "emoji": "🌍"
+      },
+      {
+        "word": "prize",
+        "options": [
+          "prize",
+          "price",
+          "pride",
+          "rose"
+        ],
+        "emoji": "🏆"
+      }
+    ],
+    "sentences": [
+      "She skates and slides towards the blue globe.",
+      "Fly the fast plane high to win the shiny prize."
+    ]
+  },
+  "L2.13": {
+    "id": "L2.13",
+    "num": 13,
+    "world": "w4",
+    "world_title": "World 4: Compound & Tales",
+    "title": "Compound Words I — คำผสม 2 พยางค์ (6–8 ตัวอักษร)",
+    "goal_th": "นำคำ 2 คำมารวมกันเป็นคำผสม 6–8 ตัวอักษรได้อย่างมั่นใจ",
+    "length_tag": "คำ 6–8 ตัวอักษร 🔥",
+    "difficulty": 4,
+    "targets": [
+      "sunset",
+      "campfire",
+      "backpack",
+      "starfish",
+      "lunchbox"
+    ],
+    "emojis": {
+      "sunset": "🌅",
+      "campfire": "🏕️",
+      "backpack": "🎒",
+      "starfish": "⭐",
+      "lunchbox": "🍱"
+    },
+    "oliver_script": "Mega Words! camp (4) + fire (4) = campfire (8 letters)! backpack, starfish!",
+    "blend": [
+      {
+        "word": "sunset",
+        "graphemes": [
+          "sun",
+          "set"
+        ],
+        "ipa": "/ˈsʌn.set/",
+        "th": "พระอาทิตย์ตกดิน",
+        "emoji": "🌅"
+      },
+      {
+        "word": "campfire",
+        "graphemes": [
+          "camp",
+          "fire"
+        ],
+        "ipa": "/ˈkæmp.faɪər/",
+        "th": "กองไฟแค้มปิ้ง",
+        "emoji": "🏕️"
+      },
+      {
+        "word": "backpack",
+        "graphemes": [
+          "back",
+          "pack"
+        ],
+        "ipa": "/ˈbæk.pæk/",
+        "th": "กระเป๋าเป้",
+        "emoji": "🎒"
+      },
+      {
+        "word": "starfish",
+        "graphemes": [
+          "star",
+          "fish"
+        ],
+        "ipa": "/ˈstɑːr.fɪʃ/",
+        "th": "ปลาดาว",
+        "emoji": "⭐"
+      }
+    ],
+    "segment_build": [
+      {
+        "word": "sunset",
+        "graphemes": [
+          "sun",
+          "set"
+        ],
+        "emoji": "🌅"
+      },
+      {
+        "word": "campfire",
+        "graphemes": [
+          "camp",
+          "fire"
+        ],
+        "emoji": "🏕️"
+      },
+      {
+        "word": "backpack",
+        "graphemes": [
+          "back",
+          "pack"
+        ],
+        "emoji": "🎒"
+      },
+      {
+        "word": "starfish",
+        "graphemes": [
+          "star",
+          "fish"
+        ],
+        "emoji": "⭐"
+      }
+    ],
+    "listen_choose": [
+      {
+        "word": "sunset",
+        "options": [
+          "sunset",
+          "sunlight",
+          "sunrise",
+          "sandbox"
+        ],
+        "emoji": "🌅"
+      },
+      {
+        "word": "campfire",
+        "options": [
+          "campfire",
+          "firework",
+          "camping",
+          "backpack"
+        ],
+        "emoji": "🏕️"
+      },
+      {
+        "word": "backpack",
+        "options": [
+          "backpack",
+          "blackpack",
+          "lunchbox",
+          "pocket"
+        ],
+        "emoji": "🎒"
+      },
+      {
+        "word": "starfish",
+        "options": [
+          "starfish",
+          "goldfish",
+          "catfish",
+          "shellfish"
+        ],
+        "emoji": "⭐"
+      }
+    ],
+    "sentences": [
+      "Oliver packed his red lunchbox into his heavy backpack.",
+      "Watch the pink sunset by the warm campfire."
+    ]
+  },
+  "L2.14": {
+    "id": "L2.14",
+    "num": 14,
+    "world": "w4",
+    "world_title": "World 4: Compound & Tales",
+    "title": "Compound Words II & Expanded Sentences — ขยายประโยคยาว 10–12 คำ",
+    "goal_th": "อ่านประโยคยาว 10–12 คำที่มีคำผสมและคำเชื่อม (into, upon, with)",
+    "length_tag": "ประโยค 10–12 คำ 🔥",
+    "difficulty": 4,
+    "targets": [
+      "sunlight",
+      "bathtub",
+      "frogpond",
+      "windmill",
+      "sandbox"
+    ],
+    "emojis": {
+      "sunlight": "☀️",
+      "bathtub": "🛁",
+      "frogpond": "🐸",
+      "windmill": "🌬️",
+      "sandbox": "🏖️"
+    },
+    "oliver_script": "Sentences grow longer and stronger! sunlight, frogpond, windmill!",
+    "blend": [
+      {
+        "word": "sunlight",
+        "graphemes": [
+          "sun",
+          "light"
+        ],
+        "ipa": "/ˈsʌn.laɪt/",
+        "th": "แสงแดด",
+        "emoji": "☀️"
+      },
+      {
+        "word": "bathtub",
+        "graphemes": [
+          "bath",
+          "tub"
+        ],
+        "ipa": "/ˈbɑːθ.tʌb/",
+        "th": "อ่างอาบน้ำ",
+        "emoji": "🛁"
+      },
+      {
+        "word": "frogpond",
+        "graphemes": [
+          "frog",
+          "pond"
+        ],
+        "ipa": "/ˈfrɒɡ.pɒnd/",
+        "th": "สระน้ำกบ",
+        "emoji": "🐸"
+      },
+      {
+        "word": "windmill",
+        "graphemes": [
+          "wind",
+          "mill"
+        ],
+        "ipa": "/ˈwɪnd.mɪl/",
+        "th": "กังหันลม",
+        "emoji": "🌬️"
+      }
+    ],
+    "segment_build": [
+      {
+        "word": "sunlight",
+        "graphemes": [
+          "sun",
+          "light"
+        ],
+        "emoji": "☀️"
+      },
+      {
+        "word": "bathtub",
+        "graphemes": [
+          "bath",
+          "tub"
+        ],
+        "emoji": "🛁"
+      },
+      {
+        "word": "frogpond",
+        "graphemes": [
+          "frog",
+          "pond"
+        ],
+        "emoji": "🐸"
+      },
+      {
+        "word": "windmill",
+        "graphemes": [
+          "wind",
+          "mill"
+        ],
+        "emoji": "🌬️"
+      }
+    ],
+    "listen_choose": [
+      {
+        "word": "sunlight",
+        "options": [
+          "sunlight",
+          "moonlight",
+          "sunset",
+          "sunshine"
+        ],
+        "emoji": "☀️"
+      },
+      {
+        "word": "bathtub",
+        "options": [
+          "bathtub",
+          "bathroom",
+          "hottub",
+          "sandbox"
+        ],
+        "emoji": "🛁"
+      },
+      {
+        "word": "frogpond",
+        "options": [
+          "frogpond",
+          "fishpond",
+          "froggy",
+          "windmill"
+        ],
+        "emoji": "🐸"
+      },
+      {
+        "word": "windmill",
+        "options": [
+          "windmill",
+          "watermill",
+          "sawmill",
+          "windy"
+        ],
+        "emoji": "🌬️"
+      }
+    ],
+    "sentences": [
+      "The brave green frog jumped into the cool frogpond.",
+      "Warm golden sunlight shone upon the big white windmill."
+    ]
+  },
+  "L2.15": {
+    "id": "L2.15",
+    "num": 15,
+    "world": "w4",
+    "world_title": "World 4: Compound & Tales",
+    "title": "Dialogue & Emotion Reading — อ่านบทสนทนาใส่อารมณ์ (!, ?, \"\")",
+    "goal_th": "สังเกตเครื่องหมายวรรคตอน ปรับน้ำเสียงตื่นเต้น ตกใจ หรือสงสัยตามบทพูด",
+    "length_tag": "บทสนทนาอารมณ์ 🔥",
+    "difficulty": 4,
+    "targets": [
+      "shouted",
+      "asked",
+      "smiled",
+      "crab",
+      "campfire",
+      "backpack"
+    ],
+    "emojis": {
+      "shouted": "📢",
+      "asked": "❓",
+      "smiled": "😊",
+      "crab": "🦀",
+      "campfire": "🔥",
+      "backpack": "🎒"
+    },
+    "oliver_script": "Reading is acting! Exclamation mark: 'Stop!' Question mark: 'Can you see?'",
+    "blend": [
+      {
+        "word": "shouted",
+        "graphemes": [
+          "shout",
+          "ed"
+        ],
+        "ipa": "/ˈʃaʊt.ɪd/",
+        "th": "ตะโกนบอก (!)",
+        "emoji": "📢"
+      },
+      {
+        "word": "asked",
+        "graphemes": [
+          "ask",
+          "ed"
+        ],
+        "ipa": "/ɑːskt/",
+        "th": "ถามสงสัย (?)",
+        "emoji": "❓"
+      },
+      {
+        "word": "smiled",
+        "graphemes": [
+          "smile",
+          "d"
+        ],
+        "ipa": "/smaɪld/",
+        "th": "ยิ้มอย่างสุข",
+        "emoji": "😊"
+      },
+      {
+        "word": "campfire",
+        "graphemes": [
+          "camp",
+          "fire"
+        ],
+        "ipa": "/ˈkæmp.faɪər/",
+        "th": "กองไฟอุ่น",
+        "emoji": "🔥"
+      }
+    ],
+    "segment_build": [
+      {
+        "word": "shouted",
+        "graphemes": [
+          "shout",
+          "ed"
+        ],
+        "emoji": "📢"
+      },
+      {
+        "word": "asked",
+        "graphemes": [
+          "ask",
+          "ed"
+        ],
+        "emoji": "❓"
+      },
+      {
+        "word": "smiled",
+        "graphemes": [
+          "smile",
+          "d"
+        ],
+        "emoji": "😊"
+      },
+      {
+        "word": "campfire",
+        "graphemes": [
+          "camp",
+          "fire"
+        ],
+        "emoji": "🔥"
+      }
+    ],
+    "listen_choose": [
+      {
+        "word": "shouted",
+        "options": [
+          "shouted",
+          "yelled",
+          "screamed",
+          "smiled"
+        ],
+        "emoji": "📢"
+      },
+      {
+        "word": "asked",
+        "options": [
+          "asked",
+          "answered",
+          "said",
+          "shouted"
+        ],
+        "emoji": "❓"
+      },
+      {
+        "word": "smiled",
+        "options": [
+          "smiled",
+          "laughed",
+          "cried",
+          "grinned"
+        ],
+        "emoji": "😊"
+      },
+      {
+        "word": "campfire",
+        "options": [
+          "campfire",
+          "bonfire",
+          "fireplace",
+          "flame"
+        ],
+        "emoji": "🔥"
+      }
+    ],
+    "sentences": [
+      "\"Stop!\" shouted Oliver. \"Look at that giant black crab!\"",
+      "\"Can you see the shining star above our warm campfire?\" asked Emma."
+    ]
+  },
+  "L2.16": {
+    "id": "L2.16",
+    "num": 16,
+    "world": "w4",
+    "world_title": "World 4: Compound & Tales",
+    "title": "Level 2 Grand Adventure Climax — นิทานบทใหญ่ 120 คำ 🏆",
+    "goal_th": "ด่านบอสสุดท้าย: อ่านนิทาน 3 ย่อหน้า รวมทุกกฎของ Level 2 และตอบคำถาม 4 ข้อ",
+    "length_tag": "นิทาน 120 คำ 🏆",
+    "difficulty": 5,
+    "targets": [
+      "sunlight",
+      "backpack",
+      "lunchbox",
+      "bike",
+      "frog",
+      "stone",
+      "shell",
+      "starfish",
+      "sunset",
+      "campfire"
+    ],
+    "emojis": {
+      "sunlight": "☀️",
+      "backpack": "🎒",
+      "lunchbox": "🍱",
+      "bike": "🚲",
+      "frog": "🐸",
+      "stone": "🪨",
+      "shell": "🐚",
+      "starfish": "⭐",
+      "sunset": "🌅",
+      "campfire": "🏕️"
+    },
+    "oliver_script": "This is your Grand Climax! Read the story of Campfire Lake and win your Silver Trophy!",
+    "blend": [
+      {
+        "word": "backpack",
+        "graphemes": [
+          "back",
+          "pack"
+        ],
+        "ipa": "/ˈbæk.pæk/",
+        "th": "กระเป๋าเป้",
+        "emoji": "🎒"
+      },
+      {
+        "word": "lunchbox",
+        "graphemes": [
+          "lunch",
+          "box"
+        ],
+        "ipa": "/ˈlʌntʃ.bɒks/",
+        "th": "กล่องข้าว",
+        "emoji": "🍱"
+      },
+      {
+        "word": "starfish",
+        "graphemes": [
+          "star",
+          "fish"
+        ],
+        "ipa": "/ˈstɑːr.fɪʃ/",
+        "th": "ปลาดาว",
+        "emoji": "⭐"
+      },
+      {
+        "word": "campfire",
+        "graphemes": [
+          "camp",
+          "fire"
+        ],
+        "ipa": "/ˈkæmp.faɪər/",
+        "th": "กองไฟ",
+        "emoji": "🏕️"
+      }
+    ],
+    "segment_build": [
+      {
+        "word": "backpack",
+        "graphemes": [
+          "back",
+          "pack"
+        ],
+        "emoji": "🎒"
+      },
+      {
+        "word": "lunchbox",
+        "graphemes": [
+          "lunch",
+          "box"
+        ],
+        "emoji": "🍱"
+      },
+      {
+        "word": "starfish",
+        "graphemes": [
+          "star",
+          "fish"
+        ],
+        "emoji": "⭐"
+      },
+      {
+        "word": "campfire",
+        "graphemes": [
+          "camp",
+          "fire"
+        ],
+        "emoji": "🏕️"
+      }
+    ],
+    "listen_choose": [
+      {
+        "word": "backpack",
+        "options": [
+          "backpack",
+          "lunchbox",
+          "campfire",
+          "starfish"
+        ],
+        "emoji": "🎒"
+      },
+      {
+        "word": "lunchbox",
+        "options": [
+          "lunchbox",
+          "toolbox",
+          "sandbox",
+          "backpack"
+        ],
+        "emoji": "🍱"
+      },
+      {
+        "word": "starfish",
+        "options": [
+          "starfish",
+          "shellfish",
+          "goldfish",
+          "campfire"
+        ],
+        "emoji": "⭐"
+      },
+      {
+        "word": "campfire",
+        "options": [
+          "campfire",
+          "sunset",
+          "sunlight",
+          "starfish"
+        ],
+        "emoji": "🏕️"
+      }
+    ],
+    "sentences": [
+      "Golden sunlight shone across the green woods to Campfire Lake.",
+      "Oliver built a warm campfire and smiled with great pride."
+    ],
+    "story": {
+      "title": "Oliver and the Mystery of Campfire Lake",
+      "paragraphs": [
+        "Golden sunlight shone across the green woods. Oliver the fox zipped his heavy red backpack and packed his tasty lunchbox inside. He rode his blue bike down the winding path to Campfire Lake.",
+        "By the cool water, a brave green frog sat on a flat stone. \"Look!\" shouted Oliver. \"There is a shiny white shell and a tiny pink starfish in the sand!\"",
+        "The sun began to set with a pink sunset. Oliver built a warm campfire and smiled with great pride. \"What a wonderful adventure!\" he cheered into the bright night."
+      ],
+      "quiz": [
+        {
+          "q": "1. Where did Oliver ride his blue bike to?",
+          "options": [
+            "A) To his school",
+            "B) To Campfire Lake",
+            "C) To the big city mall",
+            "D) To the train station"
+          ],
+          "correct": 1
+        },
+        {
+          "q": "2. What brave animal was sitting on the flat stone by the cool water?",
+          "options": [
+            "A) A brave green frog",
+            "B) A sleeping brown cat",
+            "C) A dancing white duck",
+            "D) A giant black spider"
+          ],
+          "correct": 0
+        },
+        {
+          "q": "3. What shiny treasures did Oliver spot in the sand?",
+          "options": [
+            "A) A gold key and a coin",
+            "B) A white shell and a pink starfish",
+            "C) A red apple and a shoe",
+            "D) A silver fork and a plate"
+          ],
+          "correct": 1
+        },
+        {
+          "q": "4. What did Oliver build when the pink sunset appeared?",
+          "options": [
+            "A) A big treehouse",
+            "B) A warm campfire",
+            "C) A sandcastle with a flag",
+            "D) A wooden boat"
+          ],
+          "correct": 1
+        }
+      ]
+    }
+  }
+}

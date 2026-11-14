@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oliver's English Kingdom - Kidobits Mockup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Sarabun', 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-display {
+      font-family: 'Plus Jakarta Sans', 'Sarabun', sans-serif;
+    }
+    .glow-orange {
+      box-shadow: 0 10px 30px -5px rgba(249, 115, 22, 0.3);
+    }
+    .glow-green {
+      box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.3);
+    }
+    .glow-blue {
+      box-shadow: 0 10px 30px -5px rgba(59, 130, 246, 0.3);
+    }
+    .glow-purple {
+      box-shadow: 0 10px 30px -5px rgba(168, 85, 247, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-[#FFFBF5] text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- Top Navigation Bar -->
+  <header class="bg-white/80 backdrop-blur-md border-b border-orange-100 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="/kidobits/" class="flex items-center space-x-2 text-slate-600 hover:text-orange-600 transition font-semibold text-sm bg-orange-50 hover:bg-orange-100 px-3 py-1.5 rounded-full border border-orange-200">
+          <span>‹</span>
+          <span>กลับหน้าแรก</span>
+        </a>
+        <div class="flex items-center space-x-2 pl-2 border-l border-slate-200">
+          <span class="text-2xl">🦊</span>
+          <div>
+            <div class="font-display font-extrabold text-base text-slate-900 leading-tight">Oliver's English Kingdom</div>
+            <div class="text-[11px] text-orange-600 font-semibold">Kidobits Early English Literacy</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Child Profile & Gamification Stats -->
+      <div class="flex items-center space-x-3 sm:space-x-4">
+        <div class="hidden sm:flex items-center space-x-1.5 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full text-xs font-bold text-amber-700">
+          <span>⭐</span>
+          <span>48 Stars</span>
+        </div>
+        <div class="flex items-center space-x-1.5 bg-orange-50 border border-orange-200 px-3 py-1 rounded-full text-xs font-bold text-orange-600">
+          <span>🔥</span>
+          <span>5 Day Streak</span>
+        </div>
+        <div class="flex items-center space-x-2 bg-slate-100 border border-slate-200 pl-2 pr-3 py-1 rounded-full">
+          <div class="w-6 h-6 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs font-bold">A</div>
+          <span class="text-xs font-bold text-slate-700 hidden sm:inline">Austin</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="max-w-6xl mx-auto px-4 py-6 sm:py-8 w-full flex-1">
+
+    <!-- Mockup Notice Banner -->
+    <div class="mb-6 bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/10 border border-amber-300 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm">
+      <div class="flex items-center space-x-3">
+        <span class="text-2xl">🎨</span>
+        <div>
+          <span class="font-bold text-amber-900 text-sm block">Design Mockup: หน้าหลักภาษาอังกฤษ (Oliver's Hub)</span>
+          <span class="text-xs text-amber-700">จัดหมวดหมู่วิชาภาษาอังกฤษครบ 4 เสาหลักตามมาตรฐานสากล (หน้านี้เป็นตัวอย่างหน้าจอ ยังไม่ผูกระบบการเปลี่ยนหน้า)</span>
+        </div>
+      </div>
+      <a href="mockup_phonics_map.html" class="inline-flex items-center space-x-1.5 bg-orange-600 hover:bg-orange-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition shadow">
+        <span>ดูหน้าเลือกด่าน Phonics Map</span>
+        <span>→</span>
+      </a>
+    </div>
+
+    <!-- Hero / Oliver Greeting Banner -->
+    <section class="relative bg-gradient-to-br from-orange-400 via-amber-400 to-orange-500 rounded-3xl p-6 sm:p-8 text-white shadow-xl overflow-hidden mb-8">
+      <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div class="max-w-xl text-center sm:text-left">
+          <div class="inline-block bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider mb-3">
+            Welcome to English with Oliver 🦊
+          </div>
+          <h1 class="font-display text-2xl sm:text-4xl font-extrabold leading-tight mb-2">
+            พร้อมสนุกกับภาษาอังกฤษหรือยังครับ!
+          </h1>
+          <p class="text-orange-50 text-sm sm:text-base leading-relaxed">
+            เริ่มต้นตั้งแต่การออกเสียงโฟนิกส์ ฝึกพูดคุยกับ Oliver และอ่านนิทานแสนสนุก เรียนวันละ 15 นาที เด็กพูดคล่อง มั่นใจในสำเนียง
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2 justify-center sm:justify-start">
+            <span class="bg-black/20 text-xs px-3 py-1 rounded-lg">🎯 ภารกิจวันนี้: ฝึกผสมคำสระสั้น -at</span>
+            <span class="bg-black/20 text-xs px-3 py-1 rounded-lg">✨ โบนัส: ปลดล็อกสติกเกอร์จิ้งจอกนักสำรวจ</span>
+          </div>
+        </div>
+
+        <!-- Fox Mascot Graphic Badge -->
+        <div class="flex-shrink-0 bg-white/15 backdrop-blur-md p-4 rounded-3xl border border-white/20 text-center flex flex-col items-center">
+          <div class="text-6xl sm:text-7xl mb-2 animate-bounce">🦊</div>
+          <div class="font-display font-extrabold text-sm text-white">Oliver the Fox</div>
+          <div class="text-[11px] text-orange-100">AI Phonics & Speaking Mentor</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 Main Pillars Section -->
+    <section class="mb-10">
+      <div class="flex items-center justify-between mb-5">
+        <div>
+          <h2 class="font-display text-xl sm:text-2xl font-extrabold text-slate-900">4 เสาหลักภาษาอังกฤษ (English Pillars)</h2>
+          <p class="text-xs sm:text-sm text-slate-500">เลือกหมวดหมู่ที่ต้องการฝึกฝนตามระดับความก้าวหน้า</p>
+        </div>
+        <span class="text-xs font-bold text-orange-600 bg-orange-50 px-3 py-1 rounded-full border border-orange-200">
+          Core Curriculum
+        </span>
+      </div>
+
+      <!-- Grid of 4 Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+
+        <!-- Card 1: Phonics Adventure (CORE HERO) -->
+        <div class="bg-white rounded-3xl p-6 border-2 border-orange-500 glow-orange relative overflow-hidden transition-all duration-300 hover:-translate-y-1">
+          <div class="absolute top-0 right-0 bg-orange-500 text-white text-[11px] font-extrabold uppercase px-4 py-1 rounded-bl-xl tracking-wider">
+            ⭐ เสาหลักที่ 1 (แนะนำ)
+          </div>
+
+          <div class="flex items-start space-x-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center text-3xl flex-shrink-0">
+              🔤
+            </div>
+            <div>
+              <div class="text-xs font-extrabold text-orange-600 uppercase tracking-wide">Foundation First</div>
+              <h3 class="font-display text-xl font-extrabold text-slate-900">Phonics Adventure</h3>
+              <p class="text-xs text-slate-500">การออกเสียงและการรูดผสมคำสะกดคำ</p>
+            </div>
+          </div>
+
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+            ปูพื้นฐานการอ่านภาษาอังกฤษจากศูนย์! เรียนเสียงตัวอักษรเดี่ยว (A-Z) ➔ รูดผสมสระสั้น 3 ตัว (CVC) ➔ พยัญชนะคู่และอักษรควบกล้ำ (Digraphs & Blends)
+          </p>
+
+          <!-- Progression Chips -->
+          <div class="grid grid-cols-3 gap-2 mb-4 text-center">
+            <a href="https://m2igen.com/kidobits/v2/index.html" class="bg-emerald-100 hover:bg-emerald-200 border-2 border-emerald-400 rounded-xl p-2 transition block group">
+              <span class="block text-[10px] font-extrabold text-emerald-700 uppercase">Level 1</span>
+              <span class="font-extrabold text-xs text-emerald-950">A - Z Sounds</span>
+              <span class="block text-[10px] text-emerald-700 font-bold group-hover:underline">▶ เล่นด่านนี้</span>
+            </a>
+            <a href="level2_cvc_hub.html" class="bg-amber-100 hover:bg-amber-200 border-2 border-amber-400 rounded-xl p-2 transition block group">
+              <span class="block text-[10px] font-extrabold text-amber-800 uppercase">Level 2</span>
+              <span class="font-extrabold text-xs text-amber-950">Fluent Reader</span>
+              <span class="block text-[10px] text-amber-700 font-bold group-hover:underline">▶ เริ่มเล่น (16 บท)</span>
+            </a>
+            <a href="mockup_phonics_map.html" class="bg-purple-50 border border-purple-200 rounded-xl p-2 hover:bg-purple-100 transition block">
+              <span class="block text-[10px] font-bold text-purple-600 uppercase">Level 3</span>
+              <span class="font-bold text-xs text-purple-900">Digraphs</span>
+              <span class="block text-[10px] text-purple-600">🔒 ปลดล็อกถัดไป</span>
+            </a>
+          </div>
+
+          <!-- Action Buttons -->
+          <a href="https://m2igen.com/kidobits/v2/index.html" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm py-3 px-4 rounded-2xl flex items-center justify-center space-x-2 shadow-md transition mb-2">
+            <span>🟢 เล่น Level 1 (A–Z Phonics Arena)</span>
+            <span>➔</span>
+          </a>
+          <a href="level2_cvc_hub.html" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 font-black text-sm py-3 px-4 rounded-2xl flex items-center justify-center space-x-2 shadow-md transition mb-2">
+            <span>🦊 เล่น Level 2 (Fluent Reader Arena 16 บท)</span>
+            <span>➔</span>
+          </a>
+          <a href="mockup_phonics_map.html" class="w-full bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200 font-bold text-xs py-2 px-3 rounded-xl flex items-center justify-center space-x-1.5 transition">
+            <span>🗺️ ดูแผนที่ Phonics ทั้ง 3 ระดับ</span>
+            <span>➔</span>
+          </a>
+        </div>
+
+        <!-- Card 2: Daily Conversation -->
+        <div class="bg-white rounded-3xl p-6 border border-emerald-200 glow-green relative overflow-hidden transition-all duration-300 hover:-translate-y-1">
+          <div class="flex items-start space-x-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl flex-shrink-0">
+              🗣️
+            </div>
+            <div>
+              <div class="text-xs font-extrabold text-emerald-600 uppercase tracking-wide">Speaking & Oracy</div>
+              <h3 class="font-display text-xl font-extrabold text-slate-900">Daily Conversation</h3>
+              <p class="text-xs text-slate-500">บทสนทนาโต้ตอบกับ Oliver ด้วย AI เสียงจริง</p>
+            </div>
+          </div>
+
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+            ฝึกความมั่นใจในการพูดโต้ตอบเป็นธรรมชาติ คุยกับ Oliver สดๆ เหมือนมีครูฝรั่งส่วนตัว ทักทาย, ถามชื่อ, บอกอารมณ์, สีที่ชอบ, สัตว์เลี้ยง และครอบครัว
+          </p>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 mb-5 space-y-1.5 text-xs">
+            <div class="flex items-center text-slate-700">
+              <span class="text-emerald-500 mr-2 font-bold">✔</span>
+              <span><strong>Unit 1:</strong> Hello & Goodbye ทักทายและบอกลา</span>
+            </div>
+            <div class="flex items-center text-slate-700">
+              <span class="text-emerald-500 mr-2 font-bold">✔</span>
+              <span><strong>Unit 2:</strong> My Name is... แนะนำตัวและเพื่อน</span>
+            </div>
+            <div class="flex items-center text-slate-700">
+              <span class="text-emerald-500 mr-2 font-bold">✔</span>
+              <span><strong>Unit 3:</strong> How Are You? บอกความรู้สึก Happy/Sad</span>
+            </div>
+          </div>
+
+          <button onclick="alert('🗣️ หมวดบทสนทนา (Daily Conversation) เป็น Mockup ในระบบครับ สามารถเชื่อมต่อ Voice AI Chatbot ได้ทันที!')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm py-3 px-4 rounded-2xl flex items-center justify-center space-x-2 shadow-md transition">
+            <span>เริ่มคุยกับ Oliver 🎙️</span>
+            <span class="text-xs bg-emerald-700 px-2 py-0.5 rounded-full">Voice Mode</span>
+          </button>
+        </div>
+
+        <!-- Card 3: Sight Words & Storybook -->
+        <div class="bg-white rounded-3xl p-6 border border-blue-200 glow-blue relative overflow-hidden transition-all duration-300 hover:-translate-y-1">
+          <div class="flex items-start space-x-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center text-3xl flex-shrink-0">
+              📚
+            </div>
+            <div>
+              <div class="text-xs font-extrabold text-blue-600 uppercase tracking-wide">Reading & Comprehension</div>
+              <h3 class="font-display text-xl font-extrabold text-slate-900">Sight Words & Storybook</h3>
+              <p class="text-xs text-slate-500">คลังคำพบบ่อย 50 คำ & นิทานภาพสั้น</p>
+            </div>
+          </div>
+
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+            สะพานเชื่อมสู่การอ่านจริง! เรียนรู้คำศัพท์พบบ่อยนอกเหนือกฎโฟนิกส์ (the, is, was, you, are) พร้อมเปิดอ่านหนังสือนิทานภาพสั้น 2–3 ประโยค
+          </p>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 mb-5 space-y-1.5 text-xs">
+            <div class="flex items-center text-slate-700">
+              <span class="text-blue-500 mr-2 font-bold">📖</span>
+              <span><strong>Book 1:</strong> The Fat Cat on the Red Mat</span>
+            </div>
+            <div class="flex items-center text-slate-700">
+              <span class="text-blue-500 mr-2 font-bold">📖</span>
+              <span><strong>Book 2:</strong> Oliver's Little Box by the Tree</span>
+            </div>
+            <div class="flex items-center text-slate-700">
+              <span class="text-blue-500 mr-2 font-bold">📖</span>
+              <span><strong>Book 3:</strong> A Frog and a Crab in the Sun</span>
+            </div>
+          </div>
+
+          <button onclick="alert('📚 ชั้นหนังสือนิทาน (Storybook) เป็น Mockup ในระบบครับ พร้อมใส่ไฟล์นิทาน Decodable Books 12 เล่ม!')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm py-3 px-4 rounded-2xl flex items-center justify-center space-x-2 shadow-md transition">
+            <span>เปิดชั้นหนังสือนิทาน 📖</span>
+          </button>
+        </div>
+
+        <!-- Card 4: Word Builder & Writing Playground -->
+        <div class="bg-white rounded-3xl p-6 border border-purple-200 glow-purple relative overflow-hidden transition-all duration-300 hover:-translate-y-1">
+          <div class="flex items-start space-x-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-3xl flex-shrink-0">
+              ✍️
+            </div>
+            <div>
+              <div class="text-xs font-extrabold text-purple-600 uppercase tracking-wide">Spelling & Games</div>
+              <h3 class="font-display text-xl font-extrabold text-slate-900">Word Builder Arena</h3>
+              <p class="text-xs text-slate-500">เกมลากอักษรผสมคำ & มินิเกมโฟนิกส์</p>
+            </div>
+          </div>
+
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+            ฝึกสะกดคำผ่านเกมสนุกๆ เช่น กล่องสมบัติปริศนา ลากบล็อกคำศัพท์ให้ตรงกับรูปภาพ และเกมจิ๊กซอว์สะกดคำเพื่อความเข้าใจที่แม่นยำ
+          </p>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 mb-5 space-y-1.5 text-xs">
+            <div class="flex items-center text-slate-700">
+              <span class="text-purple-500 mr-2 font-bold">🎮</span>
+              <span><strong>CVC Slider:</strong> รูดเสียงผสมคำแบบ Interactive</span>
+            </div>
+            <div class="flex items-center text-slate-700">
+              <span class="text-purple-500 mr-2 font-bold">🎮</span>
+              <span><strong>Listen & Choose:</strong> ฟังเสียงแล้วแตะภาพให้ถูกต้อง</span>
+            </div>
+            <div class="flex items-center text-slate-700">
+              <span class="text-purple-500 mr-2 font-bold">🎮</span>
+              <span><strong>Spelling Chest:</strong> หีบสมบัติสะกดคำลุ้นรับดาว</span>
+            </div>
+          </div>
+
+          <button onclick="alert('✍️ Word Builder Playground เป็น Mockup สำหรับมินิเกมลากอักษรผสมคำครับ!')" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-extrabold text-sm py-3 px-4 rounded-2xl flex items-center justify-center space-x-2 shadow-md transition">
+            <span>เข้าสู่เกมผสมคำ 🎮</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Trophy Room / Sticker Album Preview -->
+    <section class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h3 class="font-display font-extrabold text-base text-slate-900">🏆 Oliver's Treehouse Trophy Room (สมุดสะสมสติกเกอร์)</h3>
+          <p class="text-xs text-slate-500">สติกเกอร์และเหรียญตราที่เด็กๆ จะได้รับเมื่อพิชิตแต่ละด่าน</p>
+        </div>
+        <span class="text-xs font-bold text-amber-600 bg-amber-50 px-3 py-1 rounded-full">
+          สะสมแล้ว 6 / 24 ชิ้น
+        </span>
+      </div>
+
+      <div class="grid grid-cols-4 sm:grid-cols-8 gap-3 text-center">
+        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-3">
+          <div class="text-3xl mb-1">🦊</div>
+          <div class="text-[10px] font-bold text-slate-700">Oliver Friend</div>
+        </div>
+        <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-3">
+          <div class="text-3xl mb-1">🍎</div>
+          <div class="text-[10px] font-bold text-slate-700">A-Apple</div>
+        </div>
+        <div class="bg-blue-50 border border-blue-200 rounded-2xl p-3">
+          <div class="text-3xl mb-1">🐱</div>
+          <div class="text-[10px] font-bold text-slate-700">C-Cat</div>
+        </div>
+        <div class="bg-orange-50 border border-orange-200 rounded-2xl p-3">
+          <div class="text-3xl mb-1">🐶</div>
+          <div class="text-[10px] font-bold text-slate-700">D-Dog</div>
+        </div>
+        <div class="bg-purple-50 border border-purple-200 rounded-2xl p-3">
+          <div class="text-3xl mb-1">☀️</div>
+          <div class="text-[10px] font-bold text-slate-700">S-Sun</div>
+        </div>
+        <div class="bg-pink-50 border border-pink-200 rounded-2xl p-3">
+          <div class="text-3xl mb-1">🦁</div>
+          <div class="text-[10px] font-bold text-slate-700">A-Z Master</div>
+        </div>
+        <div class="bg-slate-100 border border-dashed border-slate-300 rounded-2xl p-3 opacity-60">
+          <div class="text-3xl mb-1">🔒</div>
+          <div class="text-[10px] font-bold text-slate-400">CVC Hero</div>
+        </div>
+        <div class="bg-slate-100 border border-dashed border-slate-300 rounded-2xl p-3 opacity-60">
+          <div class="text-3xl mb-1">🔒</div>
+          <div class="text-[10px] font-bold text-slate-400">Digraph Pro</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-400">
+    Kidobits Early English Literacy Curriculum • Designed for Oliver the Fox 🦊 • m2igen.com
+  </footer>
+
+</body>
+</html>

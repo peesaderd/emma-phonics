@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Golden · Player Bar + Hero + Warmup</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  /* example-only scaffolding — NOT part of the design system */
+  .demo-label{max-width:860px;margin:26px auto 8px;padding:0 18px;
+    font:600 12px/1.4 -apple-system,"Noto Sans Thai",sans-serif;
+    color:#8B85A0;letter-spacing:.08em;text-transform:uppercase}
+  .demo-box{max-width:860px;margin:0 auto 26px;padding:0 18px}
+</style>
+</head>
+<body>
+
+<!-- ============ GOLDEN: hero + buddy + pills ============ -->
+<div class="hero">
+  <div class="wrap">
+    <div class="logo">🦉</div>
+    <h1>Kidobits Phonics</h1>
+    <p>อ่านออกเสียงได้จริง เริ่มจากเสียงแรก</p>
+    <div class="pills">
+      <span class="pill">🔤 6 บทหลัก</span>
+      <span class="pill">📚 92 บทเรียน</span>
+      <span class="pill">🎧 ฝึกฟัง</span>
+    </div>
+  </div>
+  <div class="buddy">
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="54" r="30" fill="#fff"/>
+      <circle cx="22" cy="32" r="11" fill="#FFB3D9"/>
+      <circle cx="78" cy="32" r="11" fill="#FFB3D9"/>
+      <circle cx="40" cy="50" r="4.5" fill="#2E2A3B"/>
+      <circle cx="60" cy="50" r="4.5" fill="#2E2A3B"/>
+      <ellipse cx="50" cy="62" rx="6" ry="4" fill="#FFB3D9"/>
+      <path d="M42 72 Q50 78 58 72" stroke="#2E2A3B" stroke-width="2.5"
+            fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ============ GOLDEN: warmup strip ============ -->
+<div class="wrap">
+  <div class="warm" role="button" tabindex="0">
+    <div class="wic">🔤</div>
+    <div>
+      <div class="wt">A–Z Warmup · เริ่มที่นี่</div>
+      <div class="ws">ฟังเสียงตัวอักษรทั้ง 26 ตัว ก่อนเข้า Chapter 1</div>
+    </div>
+    <div class="chev" style="margin-left:auto;color:var(--amber-ink)">›</div>
+  </div>
+</div>
+
+<!-- ============ GOLDEN: level card grid ============ -->
+<div class="demo-label">Chapter card — interactive</div>
+<div class="demo-box">
+  <div class="lvgrid">
+
+    <div class="lvcard" style="background:linear-gradient(135deg,#6C5CE7,#9B8BFF)" role="button" tabindex="0">
+      <div class="anim">🔤</div>
+      <div class="lvmeta">
+        <h2>Letter Sounds &amp; Early Blending</h2>
+        <div class="sub">พยัญชนะและสระพื้นฐาน • 12 บท</div>
+        <span class="prog">เริ่มเลย</span>
+      </div>
+      <div class="chev">›</div>
+    </div>
+
+    <div class="lvcard" style="background:linear-gradient(135deg,#2ECC71,#7BE3A8)" role="button" tabindex="0">
+      <div class="anim">🐱</div>
+      <div class="lvmeta">
+        <h2>Blending &amp; CVC</h2>
+        <div class="sub">ผสมเสียง • 16 บท</div>
+        <span class="prog">4/16 บท</span>
+      </div>
+      <div class="chev">›</div>
+    </div>
+
+    <div class="lvcard" style="background:linear-gradient(135deg,#FFB84D,#FFD98A)" role="button" tabindex="0">
+      <div class="anim">🔗</div>
+      <div class="lvmeta">
+        <h2>Digraphs &amp; Consonant Blends</h2>
+        <div class="sub">เสียงควบกล้ำ • 16 บท</div>
+        <span class="prog done">จบแล้ว ✓</span>
+      </div>
+      <div class="chev">›</div>
+    </div>
+
+    <div class="lvcard" style="background:linear-gradient(135deg,#FF7B9C,#FFA8C0)" role="button" tabindex="0">
+      <div class="anim">🌈</div>
+      <div class="lvmeta">
+        <h2>Vowel Patterns</h2>
+        <div class="sub">สระเสียงยาว • 16 บท</div>
+        <span class="prog">ยังไม่เริ่ม</span>
+      </div>
+      <div class="chev">›</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ GOLDEN: modal + buttons ============ -->
+<div class="demo-label">Sheet + buttons</div>
+<div class="demo-box" style="padding-bottom:40px">
+  <div style="position:relative;border-radius:24px;overflow:hidden;
+              box-shadow:var(--shadow);background:var(--bg);padding:0">
+    <div class="sheet" style="border-radius:24px">
+      <h3>บทที่ L2.04</h3>
+      <div class="sid">i n m — short i</div>
+      <div class="srow">
+        <b>เป้าหมาย</b>
+        <p>ผสมเสียง i n m ให้อ่านคำสั้นได้</p>
+      </div>
+      <div class="srow">
+        <b>คำเป้าหมาย</b>
+        <p>pin · sit · tin · tip</p>
+      </div>
+      <button class="btn play">▶ เริ่มฝึก</button>
+      <button class="btn ghost">ย้อนกลับ</button>
+    </div>
+  </div>
+</div>
+
+<footer>Golden example · ไฟล์นี้ใช้ตรวจว่า design system render ได้จริง</footer>
+
+</body>
+</html>

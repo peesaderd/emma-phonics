@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Kidobits · Phonics Level</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Prompt:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Prompt', 'Noto Sans Thai', -apple-system, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .font-baloo {
+      font-family: 'Baloo 2', 'Prompt', sans-serif;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="m-0 p-0 antialiased">
+  <div class="min-h-[100dvh] w-full flex justify-center items-start sm:items-center px-0 sm:px-4 py-0 sm:py-5" style="background: linear-gradient(180deg,#FDF0F5 0%,#EDE7FF 52%,#DFF5FF 100%);">
+    <div class="w-full max-w-[430px] sm:rounded-[36px] rounded-none overflow-hidden shadow-[0_24px_70px_rgba(90,60,140,.28)] flex flex-col h-[100dvh] sm:h-[860px] sm:max-h-[92vh] relative bg-white text-[#1A1A1A]">
+      
+      <!-- Top Bar -->
+      <div class="px-5 pt-4 pb-2 flex items-center justify-between gap-1.5 shrink-0 bg-white/90 backdrop-blur z-20">
+        <button onclick="location.href='theme_phonicsHome.html'" class="bg-white border border-[#EBE3F5] px-3.5 py-1.5 rounded-full text-xs font-extrabold text-[#5B4B8A] shadow-sm hover:bg-[#F9F5FF] active:scale-95 transition">
+          ← ล็อบบี้ Phonics
+        </button>
+        <div class="flex items-center gap-1.5">
+          <span class="bg-white border border-[#EBE3F5] rounded-full px-2.5 py-1 text-xs font-extrabold flex items-center gap-1 shadow-sm">
+            🔥 <span id="stat-streak">7</span>
+          </span>
+          <span class="bg-white border border-[#EBE3F5] rounded-full px-2.5 py-1 text-xs font-extrabold flex items-center gap-1 shadow-sm">
+            💎 <span id="stat-gems">1/26</span>
+          </span>
+          <span class="bg-white border border-[#EBE3F5] rounded-full px-2.5 py-1 text-xs font-extrabold flex items-center gap-1 shadow-sm">
+            🪙 <span id="stat-coins">240</span>
+          </span>
+          <span class="bg-[#E8FFF0] border border-[#BDE8CC] text-[#1B9A62] rounded-full px-2.5 py-1 text-[11px] font-extrabold flex items-center gap-1.5 shadow-sm">
+            <span class="w-2 h-2 bg-[#1B9A62] rounded-full animate-pulse"></span>ครูเอ็มม่าสด
+          </span>
+        </div>
+      </div>
+
+      <!-- Scrollable Content -->
+      <div class="flex-1 overflow-y-auto no-scrollbar px-5 pt-2 pb-24 space-y-3">
+        
+        <!-- Hero Header Card -->
+        <div id="hero-card" class="bg-gradient-to-br from-[#8B7CFF] to-[#A798FF] rounded-[24px] p-5 text-white shadow-lg relative overflow-hidden">
+          <div class="flex items-center gap-3 relative z-10">
+            <div id="hero-mascot" class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur grid place-items-center text-3xl shrink-0 shadow-inner">
+              🐱
+            </div>
+            <div class="flex-1 min-w-0">
+              <h2 id="hero-title" class="font-extrabold text-[17px] leading-tight drop-shadow-sm">ระดับ 1 • Letter Sounds & Early Blending</h2>
+              <p id="hero-sub" class="text-xs font-bold text-white/90 mt-0.5">12 บทเรียน • 12/12 พร้อมเล่น</p>
+            </div>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="mt-3 relative z-10">
+            <div class="h-2.5 bg-black/20 rounded-full overflow-hidden p-0.5">
+              <div id="hero-bar" class="h-full bg-white rounded-full transition-all duration-500" style="width: 50%;"></div>
+            </div>
+            <p id="hero-progress-text" class="text-xs font-extrabold mt-1.5 text-white/95 flex items-center gap-1">
+              ✅ ผ่านแล้ว 6/12 • 50%
+            </p>
+          </div>
+        </div>
+
+        <!-- Lessons Container -->
+        <div id="lessons-list" class="space-y-3">
+          <!-- Injected via JS -->
+        </div>
+
+      </div>
+
+      <!-- Bottom Navigation Bar -->
+      <nav class="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur shadow-[0_10px_30px_rgba(60,30,90,.18)] rounded-full px-3 py-2 flex justify-between border border-[#F3EDF8] z-30">
+        <button onclick="location.href='theme_home.html'" class="flex flex-col items-center gap-0.5 min-w-[50px] text-[#9A8FA8] hover:text-black transition">
+          <span class="w-9 h-9 grid place-items-center rounded-full text-lg">🏠</span>
+          <span class="text-[10px] font-extrabold">Home</span>
+        </button>
+        <button onclick="location.href='theme_phonicsHome.html'" class="flex flex-col items-center gap-0.5 min-w-[50px] text-black cursor-pointer active:scale-95 transition">
+          <span class="w-9 h-9 grid place-items-center rounded-full bg-[#1A1A1A] text-white shadow text-lg">📖</span>
+          <span class="text-[10px] font-extrabold text-black">Phonics</span>
+        </button>
+        <button onclick="location.href='/math.html'" class="flex flex-col items-center gap-0.5 min-w-[50px] text-[#9A8FA8] hover:text-black transition">
+          <span class="w-9 h-9 grid place-items-center rounded-full text-lg">🧮</span>
+          <span class="text-[10px] font-extrabold">Math</span>
+        </button>
+        <button onclick="location.href='/chinese.html'" class="flex flex-col items-center gap-0.5 min-w-[50px] text-[#9A8FA8] hover:text-black transition">
+          <span class="w-9 h-9 grid place-items-center rounded-full text-lg">🇨🇳</span>
+          <span class="text-[10px] font-extrabold">Chinese</span>
+        </button>
+        <button onclick="location.href='theme_games.html'" class="flex flex-col items-center gap-0.5 min-w-[50px] text-[#9A8FA8] hover:text-black transition">
+          <span class="w-9 h-9 grid place-items-center rounded-full text-lg">🎮</span>
+          <span class="text-[10px] font-extrabold">Games</span>
+        </button>
+        <button onclick="location.href='theme_profile.html'" class="flex flex-col items-center gap-0.5 min-w-[50px] text-[#9A8FA8] hover:text-black transition">
+          <span class="w-9 h-9 grid place-items-center rounded-full text-lg">👤</span>
+          <span class="text-[10px] font-extrabold">Profile</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+
+  <script>
+    const LV1_LESSONS = [
+      { n: 1, id: "L1.01", title: "Listening for first sounds", th: "ฟังและระบุเสียงต้นคำ", chips: ["sun","sock","sit","moon","map","mat"], status: "ยังไม่เล่น" },
+      { n: 2, id: "L1.02", title: "A and S", th: "แยก /æ/ และ /s/", chips: ["apple","ant","ax","sun","sock","sip"], status: "ยังไม่เล่น" },
+      { n: 3, id: "L1.03", title: "T and P", th: "แยก /t/ และ /p/", chips: ["tin","tap","top","pen","pig","pot"], status: "ยังไม่เล่น" },
+      { n: 4, id: "L1.04", title: "I and N", th: "แยก /ɪ/ และ /n/", chips: ["insect","ink","it","nut","net","nap"], status: "ยังไม่เล่น" },
+      { n: 5, id: "L1.05", title: "M and D", th: "แยก /m/ และ /d/", chips: ["moon","map","mat","dog","dig","duck"], status: "ยังไม่เล่น" },
+      { n: 6, id: "L1.06", title: "G and O", th: "แยก /g/ และ /ɒ/", chips: ["goat","gum","gap","octopus","on","ox"], status: "ยังไม่เล่น" },
+      { n: 7, id: "L1.07", title: "C and K", th: "เสียง /k/ ต้นคำ", chips: ["cat","cap","cup","kid","kit","kiss"], status: "ยังไม่เล่น" },
+      { n: 8, id: "L1.08", title: "E and U", th: "แยก /e/ และ /ʌ/", chips: ["egg","elephant","exit","up","umbrella","under"], status: "ยังไม่เล่น" },
+      { n: 9, id: "L1.09", title: "R and H", th: "แยก /r/ และ /h/", chips: ["rabbit","ring","run","hat","hen","hop"], status: "ยังไม่เล่น" },
+      { n: 10, id: "L1.10", title: "B and F", th: "แยก /b/ และ /f/", chips: ["ball","bat","boy","fish","fox","frog"], status: "ยังไม่เล่น" },
+      { n: 11, id: "L1.11", title: "L and J", th: "แยก /l/ และ /dʒ/", chips: ["lion","leg","log","jam","jug","jet"], status: "ยังไม่เล่น" },
+      { n: 12, id: "L1.12", title: "V, W, Y, Z", th: "เสียงพยัญชนะท้ายเซ็ต", chips: ["van","wet","wig","yarn","zip","zoo"], status: "ยังไม่เล่น" }
+    ];
+
+    const LV2_LESSONS = [
+      { n: 1, id: "L2.01", title: "s a t p — first blends", th: "ผสมคำสระ a", chips: ["sat","pat","tap","at"], status: "ยังไม่เล่น" },
+      { n: 2, id: "L2.02", title: "i n m — short i", th: "ผสมเสียง i n m", chips: ["pin","sit","tin","tip"], status: "ยังไม่เล่น" },
+      { n: 3, id: "L2.03", title: "Short a word family -at", th: "อ่านคำลงท้าย -at", chips: ["cat","hat","mat","bat"], status: "ยังไม่เล่น" },
+      { n: 4, id: "L2.04", title: "Short a word family -an", th: "อ่านคำลงท้าย -an", chips: ["can","fan","man","pan"], status: "ยังไม่เล่น" },
+      { n: 5, id: "L2.05", title: "Short a word family -ap", th: "อ่านคำลงท้าย -ap", chips: ["cap","map","nap","tap"], status: "ยังไม่เล่น" },
+      { n: 6, id: "L2.06", title: "Short e word family -en", th: "อ่านคำลงท้าย -en", chips: ["pen","hen","ten"], status: "ยังไม่เล่น" },
+      { n: 7, id: "L2.07", title: "Short e word family -et", th: "อ่านคำลงท้าย -et", chips: ["net","pet","wet","jet"], status: "ยังไม่เล่น" },
+      { n: 8, id: "L2.08", title: "Short i word family -ig", th: "อ่านคำลงท้าย -ig", chips: ["pig","big","dig","wig"], status: "ยังไม่เล่น" },
+      { n: 9, id: "L2.09", title: "Short i word family -in", th: "อ่านคำลงท้าย -in", chips: ["pin","fin","win","bin"], status: "ยังไม่เล่น" },
+      { n: 10, id: "L2.10", title: "Short o word family -og", th: "อ่านคำลงท้าย -og", chips: ["dog","log","fog","jog"], status: "ยังไม่เล่น" },
+      { n: 11, id: "L2.11", title: "Short o word family -ot", th: "อ่านคำลงท้าย -ot", chips: ["pot","hot","dot","cot"], status: "ยังไม่เล่น" },
+      { n: 12, id: "L2.12", title: "Short u word family -ug", th: "อ่านคำลงท้าย -ug", chips: ["bug","rug","mug","hug"], status: "ยังไม่เล่น" },
+      { n: 13, id: "L2.13", title: "Short u word family -un", th: "อ่านคำลงท้าย -un", chips: ["sun","run","fun","bun"], status: "ยังไม่เล่น" },
+      { n: 14, id: "L2.14", title: "Mixed CVC words", th: "เลือกสระที่ถูกต้อง", chips: ["cat","pen","pig","dog","sun"], status: "ยังไม่เล่น" },
+      { n: 15, id: "L2.15", title: "Read short CVC sentences", th: "อ่านประโยคง่าย", chips: ["Sam sat","A cat sat","A pig sat","A dog sat"], status: "ยังไม่เล่น" },
+      { n: 16, id: "L2.16", title: "Level 2 checkpoint", th: "ทดสอบการผสมเสียงและอ่านคำ", chips: ["map","hen","pin","log","sun"], status: "ยังไม่เล่น" }
+    ];
+
+    const LV3_LESSONS = [
+      { n: 1, id: "L3.01", title: "sh", th: "เสียง sh /ʃ/", chips: ["ship","shop","fish","dish"], status: "ยังไม่เล่น" },
+      { n: 2, id: "L3.02", title: "ch", th: "เสียง ch /tʃ/", chips: ["chip","chop","chin","much"], status: "ยังไม่เล่น" },
+      { n: 3, id: "L3.03", title: "th unvoiced", th: "เสียง th /θ/", chips: ["thin","bath","moth","path"], status: "ยังไม่เล่น" },
+      { n: 4, id: "L3.04", title: "th voiced", th: "เสียง th /ð/", chips: ["this","that","them","then"], status: "ยังไม่เล่น" },
+      { n: 5, id: "L3.05", title: "ck and ng", th: "เสียง ck /k/ และ ng /ŋ/", chips: ["duck","sock","back","ring","sing","king"], status: "ยังไม่เล่น" },
+      { n: 6, id: "L3.06", title: "wh; cumulative consonant review", th: "อ่าน wh เป็น /w/ และทบทวน", chips: ["when","whip","which","whack"], status: "ยังไม่เล่น" },
+      { n: 7, id: "L3.07", title: "Initial s blends", th: "พยัญชนะควบ s", chips: ["stop","spin","swim","skip"], status: "ยังไม่เล่น" },
+      { n: 8, id: "L3.08", title: "Initial l blends", th: "พยัญชนะควบ l", chips: ["black","clap","flag","plum"], status: "ยังไม่เล่น" },
+      { n: 9, id: "L3.09", title: "Initial r blends", th: "พยัญชนะควบ r", chips: ["frog","crab","drum","trip"], status: "ยังไม่เล่น" },
+      { n: 10, id: "L3.10", title: "Final blends -nd -st", th: "เสียงควบท้าย -nd -st", chips: ["hand","sand","nest","fast"], status: "ยังไม่เล่น" },
+      { n: 11, id: "L3.11", title: "Final blends -mp -nt", th: "เสียงควบท้าย -mp -nt", chips: ["lamp","jump","tent","mint"], status: "ยังไม่เล่น" },
+      { n: 12, id: "L3.12", title: "Three-consonant blends", th: "เสียงควบสามตัว", chips: ["spring","string","splash","scrub"], status: "ยังไม่เล่น" },
+      { n: 13, id: "L3.13", title: "Digraph vs blend", th: "แยกเสียงรวมและเสียงควบ", chips: ["ship","slip","chop","clap"], status: "ยังไม่เล่น" },
+      { n: 14, id: "L3.14", title: "Word-building with blends", th: "สร้างคำจากหน่วยเสียง", chips: ["frog","stop","flag","hand"], status: "ยังไม่เล่น" },
+      { n: 15, id: "L3.15", title: "Decodable consonant-pattern sentences", th: "อ่านประโยคที่มี digraph และ blend", chips: ["The ship is big","The frog can jump","A fish is in the pond"], status: "ยังไม่เล่น" },
+      { n: 16, id: "L3.16", title: "Level 3 checkpoint", th: "ทดสอบ digraph และ blend", chips: ["shop","thin","duck","stop","crab","hand"], status: "ยังไม่เล่น" }
+    ];
+
+    const LV4_LESSONS = [
+      {
+            "n": 1,
+            "id": "L4.01",
+            "title": "Magic e: a_e",
+            "th": "สระเสียงยาว a_e",
+            "chips": [
+                  "cap",
+                  "cape",
+                  "tap",
+                  "tape",
+                  "mad",
+                  "made"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 2,
+            "id": "L4.02",
+            "title": "Magic e: i_e",
+            "th": "สระเสียงยาว i_e",
+            "chips": [
+                  "pin",
+                  "pine",
+                  "kit",
+                  "kite",
+                  "rid",
+                  "ride"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 3,
+            "id": "L4.03",
+            "title": "Magic e: o_e",
+            "th": "สระเสียงยาว o_e",
+            "chips": [
+                  "hop",
+                  "hope",
+                  "not",
+                  "note",
+                  "rod",
+                  "rode"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 4,
+            "id": "L4.04",
+            "title": "Magic e: u_e",
+            "th": "สระเสียงยาว u_e",
+            "chips": [
+                  "cub",
+                  "cube",
+                  "tub",
+                  "tube",
+                  "cut",
+                  "cute"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 5,
+            "id": "L4.05",
+            "title": "ai and ay",
+            "th": "สระเสียงยาว ai / ay",
+            "chips": [
+                  "rain",
+                  "train",
+                  "tail",
+                  "day",
+                  "play",
+                  "stay"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 6,
+            "id": "L4.06",
+            "title": "ee and ea",
+            "th": "สระเสียงยาว ee / ea",
+            "chips": [
+                  "see",
+                  "tree",
+                  "green",
+                  "sea",
+                  "leaf",
+                  "team"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 7,
+            "id": "L4.07",
+            "title": "oa and ow",
+            "th": "สระเสียงยาว oa / ow",
+            "chips": [
+                  "boat",
+                  "coat",
+                  "road",
+                  "snow",
+                  "grow",
+                  "slow"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 8,
+            "id": "L4.08",
+            "title": "igh and y",
+            "th": "สระเสียงยาว igh / y",
+            "chips": [
+                  "night",
+                  "light",
+                  "bright",
+                  "my",
+                  "fly",
+                  "cry"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 9,
+            "id": "L4.09",
+            "title": "ue and ew",
+            "th": "สระเสียงยาว ue / ew",
+            "chips": [
+                  "blue",
+                  "true",
+                  "glue",
+                  "new",
+                  "few",
+                  "grew"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 10,
+            "id": "L4.10",
+            "title": "oo: long",
+            "th": "เสียง oo สระอูยาว",
+            "chips": [
+                  "moon",
+                  "food",
+                  "spoon",
+                  "pool"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 11,
+            "id": "L4.11",
+            "title": "oo: short",
+            "th": "เสียง oo สระอุสั้น",
+            "chips": [
+                  "book",
+                  "look",
+                  "cook",
+                  "foot"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 12,
+            "id": "L4.12",
+            "title": "ie and e_e",
+            "th": "สระเสียงยาว ie / e_e",
+            "chips": [
+                  "pie",
+                  "tie",
+                  "lie",
+                  "these",
+                  "theme"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 13,
+            "id": "L4.13",
+            "title": "Long vs Short",
+            "th": "เปรียบเทียบสระสั้นและยาว",
+            "chips": [
+                  "cap",
+                  "cape",
+                  "pin",
+                  "pine",
+                  "hop",
+                  "hope"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 14,
+            "id": "L4.14",
+            "title": "Mixed Vowel Teams",
+            "th": "ทบทวนสระผสม",
+            "chips": [
+                  "rain",
+                  "tree",
+                  "boat",
+                  "night",
+                  "blue"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 15,
+            "id": "L4.15",
+            "title": "Long-vowel sentences",
+            "th": "ฝึกอ่านประโยคสระเสียงยาว",
+            "chips": [
+                  "bike",
+                  "road",
+                  "tree",
+                  "green"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 16,
+            "id": "L4.16",
+            "title": "Level 4 Checkpoint",
+            "th": "ทดสอบวัดระดับ Level 4",
+            "chips": [
+                  "cake",
+                  "bike",
+                  "home",
+                  "rain",
+                  "moon",
+                  "night"
+            ],
+            "status": "ยังไม่เล่น"
+      }
+];
+
+    const LV5_LESSONS = [
+      {
+            "n": 1,
+            "id": "L5.01",
+            "title": "ar",
+            "th": "เสียง ar สระอาร์",
+            "chips": [
+                  "car",
+                  "star",
+                  "farm",
+                  "park"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 2,
+            "id": "L5.02",
+            "title": "or",
+            "th": "เสียง or สระออร์",
+            "chips": [
+                  "fork",
+                  "corn",
+                  "storm",
+                  "short"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 3,
+            "id": "L5.03",
+            "title": "er ir ur",
+            "th": "สระเสียงเออร์ r-controlled",
+            "chips": [
+                  "her",
+                  "fern",
+                  "bird",
+                  "girl",
+                  "turn",
+                  "burn"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 4,
+            "id": "L5.04",
+            "title": "air and are",
+            "th": "เสียง air / are สระแอร์",
+            "chips": [
+                  "air",
+                  "chair",
+                  "fair",
+                  "care",
+                  "share",
+                  "square"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 5,
+            "id": "L5.05",
+            "title": "ear patterns",
+            "th": "เสียง ear สระเอียร์และแอร์",
+            "chips": [
+                  "hear",
+                  "near",
+                  "dear",
+                  "bear",
+                  "pear",
+                  "wear"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 6,
+            "id": "L5.06",
+            "title": "oi and oy",
+            "th": "เสียง oi / oy สระออย",
+            "chips": [
+                  "coin",
+                  "boil",
+                  "soil",
+                  "boy",
+                  "toy",
+                  "enjoy"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 7,
+            "id": "L5.07",
+            "title": "ou and ow",
+            "th": "เสียง ou / ow สระเอา",
+            "chips": [
+                  "out",
+                  "cloud",
+                  "shout",
+                  "cow",
+                  "now",
+                  "brown"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 8,
+            "id": "L5.08",
+            "title": "au and aw",
+            "th": "เสียง au / aw สระออ",
+            "chips": [
+                  "haul",
+                  "sauce",
+                  "august",
+                  "saw",
+                  "paw",
+                  "draw"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 9,
+            "id": "L5.09",
+            "title": "Soft c and g",
+            "th": "พยัญชนะเสียงนุ่ม c /s/ และ g /dʒ/",
+            "chips": [
+                  "city",
+                  "cent",
+                  "face",
+                  "giant",
+                  "gem",
+                  "cage"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 10,
+            "id": "L5.10",
+            "title": "ph and silent consonants",
+            "th": "ph และพยัญชนะไม่ออกเสียง (kn, wr, mb)",
+            "chips": [
+                  "phone",
+                  "graph",
+                  "knee",
+                  "know",
+                  "write",
+                  "wrong"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 11,
+            "id": "L5.11",
+            "title": "Final -le, y and ey",
+            "th": "คำลงท้าย -le, y และ ey",
+            "chips": [
+                  "apple",
+                  "little",
+                  "candle",
+                  "happy",
+                  "funny",
+                  "key"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 12,
+            "id": "L5.12",
+            "title": "Syllable division",
+            "th": "การแบ่งพยางค์คำ 2 พยางค์",
+            "chips": [
+                  "rabbit",
+                  "sunset",
+                  "picnic",
+                  "robot"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 13,
+            "id": "L5.13",
+            "title": "Prefixes un- re-",
+            "th": "คำอุปสรรค un- และ re-",
+            "chips": [
+                  "unhappy",
+                  "unlock",
+                  "redo",
+                  "replay"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 14,
+            "id": "L5.14",
+            "title": "Suffixes -ing and -ed",
+            "th": "คำปัจจัย -ing และ -ed",
+            "chips": [
+                  "jumping",
+                  "playing",
+                  "jumped",
+                  "played",
+                  "wanted"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 15,
+            "id": "L5.15",
+            "title": "Exception words",
+            "th": "คำยกเว้นและการสะกดเสียงสระพิเศษ",
+            "chips": [
+                  "said",
+                  "one",
+                  "two",
+                  "have",
+                  "all",
+                  "small"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 16,
+            "id": "L5.16",
+            "title": "Level 5 checkpoint",
+            "th": "ทดสอบวัดระดับ Level 5",
+            "chips": [
+                  "star",
+                  "bird",
+                  "coin",
+                  "cloud",
+                  "knee",
+                  "rabbit"
+            ],
+            "status": "ยังไม่เล่น"
+      }
+];
+
+    const LV6_LESSONS = [
+      {
+            "n": 1,
+            "id": "L6.01",
+            "title": "Phrase reading",
+            "th": "ฝึกอ่านกลุ่มคำและวลีสั้น",
+            "chips": [
+                  "park",
+                  "bed",
+                  "tree"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 2,
+            "id": "L6.02",
+            "title": "High-frequency words",
+            "th": "ทบทวนคำศัพท์พบบ่อย (Sight words)",
+            "chips": [
+                  "said"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 3,
+            "id": "L6.03",
+            "title": "Punctuation & expression",
+            "th": "การอ่านตามเครื่องหมายวรรคตอนและน้ำเสียง",
+            "chips": [
+                  "stop",
+                  "jump",
+                  "day"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 4,
+            "id": "L6.04",
+            "title": "Who and what",
+            "th": "จับใจความ: ใครและทำอะไร",
+            "chips": [
+                  "dog",
+                  "water"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 5,
+            "id": "L6.05",
+            "title": "Where and when",
+            "th": "จับใจความ: ที่ไหนและเมื่อไหร่",
+            "chips": [
+                  "night",
+                  "park"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 6,
+            "id": "L6.06",
+            "title": "First, next, last",
+            "th": "ลำดับเหตุการณ์ในเรื่องสั้น",
+            "chips": [
+                  "pot",
+                  "water"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 7,
+            "id": "L6.07",
+            "title": "Cause and effect",
+            "th": "เหตุและผลในเรื่องราว",
+            "chips": [
+                  "rain",
+                  "night",
+                  "wet"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 8,
+            "id": "L6.08",
+            "title": "Making predictions",
+            "th": "การคาดคะเนเหตุการณ์",
+            "chips": [
+                  "rain",
+                  "coat",
+                  "cloud"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 9,
+            "id": "L6.09",
+            "title": "Story 1: The Red Kite",
+            "th": "นิทานสั้น: ว่าวสีแดง",
+            "chips": [
+                  "kite",
+                  "blew"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 10,
+            "id": "L6.10",
+            "title": "The Lost Pup",
+            "th": "นิทานสั้น: ลูกสุนัขหลงทาง",
+            "chips": [
+                  "tree",
+                  "home"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 11,
+            "id": "L6.11",
+            "title": "The Seed",
+            "th": "นิทานสั้น: เมล็ดพืชเติบโต",
+            "chips": [
+                  "soil",
+                  "rain",
+                  "sun"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 12,
+            "id": "L6.12",
+            "title": "A Rainy Day",
+            "th": "นิทานสั้น: วันฝนตกแสนสนุก",
+            "chips": [
+                  "rain",
+                  "jumped"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 13,
+            "id": "L6.13",
+            "title": "Reading dialogue",
+            "th": "ฝึกอ่านบทสนทนาตัวละคร",
+            "chips": [
+                  "play",
+                  "said"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 14,
+            "id": "L6.14",
+            "title": "Retelling",
+            "th": "การเล่าเรื่องซ้ำด้วยตนเอง",
+            "chips": [
+                  "sand",
+                  "sea",
+                  "fish"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 15,
+            "id": "L6.15",
+            "title": "Fluency practice",
+            "th": "ฝึกอ่านออกเสียงอย่างคล่องแคล่ว",
+            "chips": [
+                  "bird"
+            ],
+            "status": "ยังไม่เล่น"
+      },
+      {
+            "n": 16,
+            "id": "L6.16",
+            "title": "Final reading assessment",
+            "th": "แบบทดสอบการอ่านวัดระดับจบหลักสูตร",
+            "chips": [
+                  "fox",
+                  "box",
+                  "note",
+                  "tree",
+                  "toy"
+            ],
+            "status": "ยังไม่เล่น"
+      }
+];
+
+    const q = new URLSearchParams(location.search);
+    const lv = parseInt(q.get('lv') || '1', 10);
+
+    const isLv6 = (lv === 6);
+    const isLv5 = (lv === 5);
+    const isLv4 = (lv === 4);
+    const isLv3 = (lv === 3);
+    const isLv2 = (lv === 2);
+    const lessons = isLv6 ? LV6_LESSONS : (isLv5 ? LV5_LESSONS : (isLv4 ? LV4_LESSONS : (isLv3 ? LV3_LESSONS : (isLv2 ? LV2_LESSONS : LV1_LESSONS))));
+
+    // Set Hero UI
+    const heroCard = document.getElementById('hero-card');
+    const heroMascot = document.getElementById('hero-mascot');
+    const heroTitle = document.getElementById('hero-title');
+    const heroSub = document.getElementById('hero-sub');
+    const heroBar = document.getElementById('hero-bar');
+    const heroProg = document.getElementById('hero-progress-text');
+
+    if (isLv6) {
+      heroCard.className = "bg-gradient-to-br from-[#A29BFE] to-[#FD79A8] rounded-[24px] p-5 text-white shadow-lg relative overflow-hidden";
+      heroMascot.textContent = "🦄";
+      heroTitle.textContent = "ระดับ 6 • Fluency & Decodable Stories";
+      heroSub.textContent = "16 บทเรียน • 16/16 พร้อมเล่น";
+      heroBar.style.width = "0%";
+      heroProg.textContent = "ยังไม่เริ่มเล่น • 0/16";
+    } else if (isLv5) {
+      heroCard.className = "bg-gradient-to-br from-[#00CEC9] to-[#0984E3] rounded-[24px] p-5 text-white shadow-lg relative overflow-hidden";
+      heroMascot.textContent = "🐬";
+      heroTitle.textContent = "ระดับ 5 • Advanced Phonics & Morphology";
+      heroSub.textContent = "16 บทเรียน • 16/16 พร้อมเล่น";
+      heroBar.style.width = "0%";
+      heroProg.textContent = "ยังไม่เริ่มเล่น • 0/16";
+    } else if (isLv4) {
+      heroCard.className = "bg-gradient-to-br from-[#FF9F43] to-[#EE5253] rounded-[24px] p-5 text-white shadow-lg relative overflow-hidden";
+      heroMascot.textContent = "🦁";
+      heroTitle.textContent = "ระดับ 4 • Long Vowels & Vowel Teams";
+      heroSub.textContent = "16 บทเรียน • 16/16 พร้อมเล่น";
+      heroBar.style.width = "0%";
+      heroProg.textContent = "ยังไม่เริ่มเล่น • 0/16";
+    } else if (isLv3) {
+      heroCard.className = "bg-gradient-to-br from-[#6C5CE7] to-[#4834D4] rounded-[24px] p-5 text-white shadow-lg relative overflow-hidden";
+      heroMascot.textContent = "🦉";
+      heroTitle.textContent = "ระดับ 3 • Digraphs & Consonant Blends";
+      heroSub.textContent = "16 บทเรียน • 16/16 พร้อมเล่น";
+      heroBar.style.width = "0%";
+      heroProg.textContent = "ยังไม่เริ่มเล่น • 0/16";
+    } else if (isLv2) {
+      heroCard.className = "bg-gradient-to-br from-[#7ED9A8] to-[#4EB87E] rounded-[24px] p-5 text-white shadow-lg relative overflow-hidden";
+      heroMascot.textContent = "🐸";
+      heroTitle.textContent = "ระดับ 2 • Blending & CVC";
+      heroSub.textContent = "16 บทเรียน • 16/16 พร้อมเล่น";
+      heroBar.style.width = "19%";
+      heroProg.textContent = "✅ ผ่านแล้ว 3/16 • 19%";
+    } else {
+      heroCard.className = "bg-gradient-to-br from-[#8B7CFF] to-[#A798FF] rounded-[24px] p-5 text-white shadow-lg relative overflow-hidden";
+      heroMascot.textContent = "🐱";
+      heroTitle.textContent = "ระดับ 1 • Letter Sounds & Early Blending";
+      heroSub.textContent = "12 บทเรียน • 12/12 พร้อมเล่น";
+      heroBar.style.width = "50%";
+      heroProg.textContent = "✅ ผ่านแล้ว 6/12 • 50%";
+    }
+
+    // Render Lesson Cards
+    const listEl = document.getElementById('lessons-list');
+    listEl.innerHTML = lessons.map(item => {
+      const badgeBg = isLv6 ? "bg-[#A29BFE]"
+        : isLv5 ? "bg-[#00CEC9]"
+        : isLv4 ? "bg-[#FF9F43]"
+        : isLv3 ? "bg-[#6C5CE7]"
+        : isLv2 ? "bg-[#7ED9A8]"
+        : "bg-[#8B7CFF]";
+      return `
+        <button onclick="location.href='theme_phonicsLesson.html?lesson=${item.id}'" 
+                class="w-full text-left bg-white border border-[#F1EAF7] rounded-[24px] p-4 flex gap-3.5 shadow-sm hover:shadow-md hover:border-[#E4D7F5] active:scale-[0.98] transition">
+          <span class="w-11 h-11 rounded-full ${badgeBg} text-white grid place-items-center font-extrabold text-base shrink-0 shadow-sm">
+            ${item.n}
+          </span>
+          <div class="flex-1 min-w-0">
+            <b class="block font-extrabold text-[15px] leading-tight text-[#1A1A1A]">${item.title}</b>
+            <span class="block text-xs font-semibold text-[#7B7488] mt-0.5">${item.th}</span>
+            <div class="flex flex-wrap gap-1 mt-2.5">
+              ${item.chips.map(c => `<span class="bg-[#F7F3FF] text-[#5B4B8A] px-2.5 py-1 rounded-full text-[11px] font-bold">${c}</span>`).join('')}
+            </div>
+            <span class="inline-block mt-2.5 bg-[#FFF8E0] text-[#8C6D1F] border border-[#FFE8A3] px-2.5 py-1 rounded-full text-[11px] font-extrabold">
+              ⏱ ${item.status} • แตะเพื่อเล่น →
+            </span>
+          </div>
+        </button>
+      `;
+    }).join('');
+  </script>
+</body>
+</html>

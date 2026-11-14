@@ -1,0 +1,53 @@
+KIDOBITS — REMAINING IMAGE PROMPTS (12 words: L6 + L4)
+====================================================================
+
+NAME EACH FILE EXACTLY AS SHOWN (e.g. the.png). Zip them and send the link.
+
+[01] FILE NAME: the.png
+     ภาพที่ต้องการ: หนังสือเปิดมีตัวอักษรบนหน้า (ไม่มีคำว่า the)
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: หนังสือเปิดมีตัวอักษรบนหน้า (ไม่มีคำว่า the).
+
+[02] FILE NAME: you.png
+     ภาพที่ต้องการ: เด็กชี้มือมาที่ผู้อ่าน
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เด็กชี้มือมาที่ผู้อ่าน.
+
+[03] FILE NAME: pot.png
+     ภาพที่ต้องการ: หม้อปรุงอาหารมีฝาและหูจับ
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: หม้อปรุงอาหารมีฝาและหูจับ.
+
+[04] FILE NAME: box.png
+     ภาพที่ต้องการ: กล่องกระดาษแข็งมีฝาเปิด
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: กล่องกระดาษแข็งมีฝาเปิด.
+
+[05] FILE NAME: home.png
+     ภาพที่ต้องการ: บ้านหลังคาแดงมีปล่องไฟ
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: บ้านหลังคาแดงมีปล่องไฟ.
+
+[06] FILE NAME: bike.png
+     ภาพที่ต้องการ: จักรยานสีแดง
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: จักรยานสีแดง.
+
+[07] FILE NAME: cake.png
+     ภาพที่ต้องการ: เค้กวันเกิดมีเทียน
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เค้กวันเกิดมีเทียน.
+
+[08] FILE NAME: lie.png
+     ภาพที่ต้องการ: เด็กนอนหงายบนเตียง
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เด็กนอนหงายบนเตียง.
+
+[09] FILE NAME: pie.png
+     ภาพที่ต้องการ: พายแอปเปิล
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: พายแอปเปิล.
+
+[10] FILE NAME: theme.png
+     ภาพที่ต้องการ: ภาพธีมวันเกิด (ลูกโป่งและเค้ก)
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ภาพธีมวันเกิด (ลูกโป่งและเค้ก).
+
+[11] FILE NAME: these.png
+     ภาพที่ต้องการ: มือชี้ของหลายชิ้น
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: มือชี้ของหลายชิ้น.
+
+[12] FILE NAME: tie.png
+     ภาพที่ต้องการ: เนกไทสีน้ำเงิน
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เนกไทสีน้ำเงิน.
+

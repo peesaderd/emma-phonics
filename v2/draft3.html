@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kidobits — Game Lobby UI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow:#FFD966;
+    --sky:#4CC9F0;
+    --grape:#9B5DE5;
+    --coral:#FF7B54;
+    --mint:#06D6A0;
+    --pink:#F72585;
+    --ink:#18181b;
+    --white:#FFFFFF;
+    --screen-bg:#FFF4DA;
+    --muted:#6f6f74;
+    --yellow-soft:#FFE9A8;
+    --mint-soft:#C6F7E6;
+    --sky-soft:#D2F3FF;
+    --coral-soft:#FFE0D6;
+    --grape-soft:#E4D1FF;
+    --pink-soft:#FFD2E4;
+    --font-display:'Baloo 2','Noto Sans Thai',sans-serif;
+    --font-body:'Noto Sans Thai',sans-serif;
+    --grad-yellow:linear-gradient(150deg,#FFE86B 0%,#FFC93C 55%,#FFB300 100%);
+    --grad-mint:linear-gradient(150deg,#6BFFB8 0%,#06D6A0 55%,#00B383 100%);
+    --grad-sky:linear-gradient(150deg,#7DE3FF 0%,#4CC9F0 55%,#1FA8D6 100%);
+    --grad-purple:linear-gradient(150deg,#C99BFF 0%,#9B5DE5 55%,#7B3FD1 100%);
+    --grad-coral:linear-gradient(150deg,#FFA07A 0%,#FF7B54 55%,#E85A32 100%);
+    --grad-pink:linear-gradient(150deg,#FF8FD0 0%,#F72585 55%,#C9106A 100%);
+    --grad-grey:linear-gradient(150deg,#B4A9D0 0%,#8E8AA3 55%,#636079 100%);
+    --glow-yellow:rgba(255,201,60,.22);
+    --glow-mint:rgba(6,214,160,.22);
+    --glow-sky:rgba(76,201,240,.22);
+    --glow-purple:rgba(155,93,229,.22);
+    --glow-coral:rgba(255,123,84,.22);
+    --glow-pink:rgba(247,37,133,.22);
+    --hi:inset 0 2px 0 rgba(255,255,255,.55);
+    --sh:inset 0 -6px 0 rgba(0,0,0,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  button{font:inherit;border:none;background:none;color:inherit;cursor:pointer}
+  svg{display:block}
+  body{
+    font-family:var(--font-body);
+    color:var(--ink);
+    background-color:#FFF3D8;
+    -webkit-font-smoothing:antialiased;
+  }
+  .bg-scene{position:fixed;inset:0;z-index:-1;pointer-events:none;background-repeat:no-repeat;
+    background-image:
+      radial-gradient(circle at 12% 20%, rgba(247,37,133,.16) 0 7px, transparent 8px),
+      radial-gradient(circle at 26% 68%, rgba(6,214,160,.18) 0 6px, transparent 7px),
+      radial-gradient(circle at 80% 22%, rgba(76,201,240,.18) 0 6px, transparent 7px),
+      radial-gradient(circle at 90% 66%, rgba(255,123,84,.16) 0 7px, transparent 8px),
+      radial-gradient(circle at 46% 86%, rgba(255,201,60,.22) 0 7px, transparent 8px),
+      radial-gradient(circle at 64% 6%, rgba(155,93,229,.15) 0 6px, transparent 7px),
+      radial-gradient(circle at 6% 44%, rgba(255,201,60,.16) 0 5px, transparent 6px),
+      radial-gradient(circle at 92% 40%, rgba(6,214,160,.14) 0 5px, transparent 6px),
+      radial-gradient(680px 460px at 50% -100px, rgba(255,224,102,.78), transparent 70%),
+      radial-gradient(560px 480px at -6% 92%, rgba(6,214,160,.26), transparent 70%),
+      radial-gradient(560px 480px at 106% 96%, rgba(76,201,240,.30), transparent 70%);
+  }
+  :focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:inherit}
+
+  /* ---------- chunky primitives ---------- */
+  .chunky{border:3px solid var(--ink)}
+  .press{transition:transform .08s ease,box-shadow .08s ease}
+  .press:active{transform:translateY(4px);box-shadow:0 0 0 var(--ink)!important}
+
+  /* ---------- page chrome ---------- */
+  .page-head{text-align:center;padding:44px 20px 6px}
+  .page-head .brand{display:inline-flex;align-items:center;gap:14px}
+  .page-head .mascot{width:58px;height:58px;border-radius:50%;background:var(--white);border:3px solid var(--ink);box-shadow:0 5px 0 var(--ink);display:flex;align-items:center;justify-content:center}
+  .page-head .mascot svg{width:44px;height:44px}
+  .page-head h1{font-family:var(--font-display);font-weight:800;font-size:34px;letter-spacing:.5px}
+  .page-head p{color:var(--muted);font-size:14px;margin-top:2px}
+  .page-head .pt{text-align:left}
+
+  .flow{max-width:760px;margin:0 auto;padding:10px 20px 96px}
+
+  .section-label{display:flex;align-items:center;gap:12px;margin:46px 0 16px}
+  .sec-num{font-family:var(--font-display);font-weight:800;font-size:14px;color:#fff;background:var(--ink);padding:4px 10px;border-radius:10px;flex:none}
+  .sec-title{font-family:var(--font-display);font-weight:800;font-size:21px;line-height:1}
+  .sec-note{color:var(--muted);font-size:13px;margin-left:auto;text-align:right}
+
+  /* ---------- phone frame ---------- */
+  .frame{position:relative;width:390px;max-width:100%;margin:0 auto;background:var(--screen-bg);border:4px solid var(--ink);border-radius:38px;overflow:hidden;box-shadow:0 8px 0 rgba(24,24,27,.14),0 28px 60px rgba(24,24,27,.16)}
+  .frame--wide{width:390px}
+  @media (min-width:760px){
+    .frame--wide{width:616px}
+    .frame--wide .lvl-grid{grid-template-columns:repeat(3,1fr)}
+  }
+  .statusbar{height:30px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:var(--screen-bg)}
+  .statusbar .time{font-family:var(--font-display);font-weight:800;font-size:13px}
+  .sb-icons{display:flex;align-items:center;gap:6px}
+  .home-indicator{height:22px;display:flex;align-items:center;justify-content:center;background:var(--screen-bg)}
+  .home-indicator::after{content:"";width:118px;height:5px;border-radius:99px;background:rgba(24,24,27,.3)}
+
+  .screen{position:relative;background-color:var(--screen-bg);background-image:radial-gradient(rgba(24,24,27,.05) 1.5px, transparent 1.5px);background-size:20px 20px;padding:14px 16px 20px}
+
+  /* ---------- chips ---------- */
+  .chip{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 11px;border-radius:99px;border:3px solid var(--ink);background:linear-gradient(150deg,#ffffff,#f2efe7);box-shadow:0 3px 0 var(--ink),var(--hi),var(--sh);font-family:var(--font-display);font-weight:800;font-size:14px;flex:none}
+  .chip svg{width:17px;height:17px}
+  .chip--coin{background:var(--grad-yellow);box-shadow:0 3px 0 var(--ink),0 0 0 4px var(--glow-yellow),var(--hi),var(--sh)}
+  .chip--streak{background:var(--grad-coral);color:var(--ink);box-shadow:0 3px 0 var(--ink),0 0 0 4px var(--glow-coral),var(--hi),var(--sh)}
+  .chip--gear{width:40px;padding:0;justify-content:center;background:var(--grad-sky);box-shadow:0 3px 0 var(--ink),0 0 0 4px var(--glow-sky),var(--hi),var(--sh)}
+
+  /* ---------- lobby HUD ---------- */
+  .hud{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+  .hud-logo{width:46px;height:46px;border-radius:50%;background:var(--grad-yellow);border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink),0 0 0 4px var(--glow-yellow),var(--hi),var(--sh);display:flex;align-items:center;justify-content:center;flex:none}
+  .hud-logo svg{width:36px;height:36px}
+  .hud-name{font-family:var(--font-display);font-weight:800;font-size:20px;margin-right:auto}
+  .hud-right{display:flex;align-items:center;gap:7px}
+
+  .lobby-title{font-family:var(--font-display);font-weight:800;font-size:24px;line-height:1.1}
+  .lobby-sub{color:var(--muted);font-size:13px;margin:2px 0 16px}
+
+  /* ---------- level cards ---------- */
+  .lvl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .lvl-card{position:relative;border:3px solid var(--ink);border-radius:22px;box-shadow:0 6px 0 var(--ink),var(--hi),var(--sh);padding:11px;overflow:hidden;display:flex;flex-direction:column}
+  .lvl-1{background:var(--grad-yellow);box-shadow:0 6px 0 var(--ink),0 0 0 4px var(--glow-yellow),var(--hi),var(--sh)}
+  .lvl-2{background:var(--grad-mint);box-shadow:0 6px 0 var(--ink),0 0 0 4px var(--glow-mint),var(--hi),var(--sh)}
+  .lvl-3{background:var(--grad-sky);box-shadow:0 6px 0 var(--ink),0 0 0 4px var(--glow-sky),var(--hi),var(--sh)}
+  .lvl-4{background:var(--grad-purple);box-shadow:0 6px 0 var(--ink),0 0 0 4px var(--glow-purple),var(--hi),var(--sh)}
+  .lvl-5{background:var(--grad-coral);box-shadow:0 6px 0 var(--ink),0 0 0 4px var(--glow-coral),var(--hi),var(--sh)}
+  .lvl-6{background:var(--grad-pink);box-shadow:0 6px 0 var(--ink),0 0 0 4px var(--glow-pink),var(--hi),var(--sh)}
+  .lvl-card.locked{background:var(--grad-grey);box-shadow:0 6px 0 var(--ink),var(--hi),var(--sh)}
+  .lvl-head{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+  .lvl-badge{width:44px;height:44px;border-radius:50%;background:linear-gradient(150deg,#ffffff,#ece8de);border:3px solid var(--ink);box-shadow:0 3px 0 var(--ink),var(--hi),var(--sh);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:22px;flex:none}
+  .lvl-title{font-family:var(--font-display);font-weight:800;font-size:15px;line-height:1.12;color:var(--ink)}
+  .lvl-panel{background:linear-gradient(150deg,#ffffff,#f5f2ea);border:3px solid var(--ink);border-radius:14px;padding:9px 10px;margin-top:auto;display:flex;flex-direction:column;gap:8px;box-shadow:var(--hi),var(--sh)}
+  .lvl-pill{align-self:flex-start;background:linear-gradient(150deg,#3a3a40,#18181b);color:#fff;font-family:var(--font-display);font-weight:800;font-size:11px;padding:3px 9px;border-radius:99px;box-shadow:var(--hi)}
+  .lvl-progress{position:relative;height:14px;border:2px solid var(--ink);border-radius:99px;background:linear-gradient(180deg,#f0ede4,#e3dfd2);overflow:hidden}
+  .lvl-progress .fill{position:absolute;top:0;bottom:0;left:0;background:linear-gradient(180deg,#FFE86B,#FFC93C 45%,#FFB300);border-radius:99px 0 0 99px;box-shadow:inset 0 2px 0 rgba(255,255,255,.65)}
+  .lvl-progress .notches{position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 13px,var(--ink) 13px 15px)}
+  .lvl-stars{display:flex;gap:3px}
+  .lvl-stars .star{width:17px;height:17px;color:var(--yellow)}
+  .lvl-stars .star.empty{color:#E2DCCB}
+
+  .ribbon{position:absolute;top:10px;right:-24px;transform:rotate(38deg);transform-origin:center;font-family:var(--font-display);font-weight:800;font-size:11px;color:var(--ink);background:var(--grad-coral);border:2px solid var(--ink);padding:3px 26px;box-shadow:0 2px 0 var(--ink),var(--hi);white-space:nowrap}
+  .ribbon--done{background:var(--grad-mint);color:var(--ink)}
+
+  .lvl-lock{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;background:linear-gradient(150deg,rgba(255,255,255,.55),rgba(220,216,238,.5));border-radius:19px}
+  .seal{width:64px;height:64px;border-radius:50%;background:var(--grad-purple);border:3px solid var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 0 var(--ink),0 0 0 4px var(--glow-purple),var(--hi),var(--sh)}
+  .seal svg{width:30px;height:30px}
+  .lock-label{background:linear-gradient(150deg,#3a3a40,#18181b);color:#fff;font-family:var(--font-display);font-weight:800;font-size:13px;padding:5px 13px;border-radius:99px;box-shadow:var(--hi)}
+
+  /* ---------- lobby actions ---------- */
+  .lobby-actions{display:flex;gap:12px;margin-top:16px}
+  .btn{font-family:var(--font-display);font-weight:800;border:3px solid var(--ink);border-radius:18px;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 6px 0 var(--ink),var(--hi),var(--sh);transition:transform .08s ease,box-shadow .08s ease,background .15s ease,filter .15s ease}
+  .btn:active{transform:translateY(6px);box-shadow:0 0 0 var(--ink)}
+  .btn svg{width:24px;height:24px}
+  .btn-play{flex:0 0 48%;height:62px;background:var(--grad-yellow);box-shadow:0 6px 0 var(--ink),0 0 0 4px var(--glow-yellow),var(--hi),var(--sh);font-size:21px}
+  .btn-map{flex:1;height:62px;background:var(--grad-sky);box-shadow:0 6px 0 var(--ink),0 0 0 4px var(--glow-sky),var(--hi),var(--sh);font-size:17px}
+
+  /* ---------- question HUD ---------- */
+  .hud-q{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .btn-back{width:48px;height:48px;border-radius:16px;background:linear-gradient(150deg,#ffffff,#f2efe7);border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink),var(--hi),var(--sh);display:flex;align-items:center;justify-content:center;flex:none}
+  .btn-back svg{width:24px;height:24px}
+  .gems{display:flex;gap:7px;flex:1;justify-content:center}
+  .gem{width:26px;height:26px;color:#E7E1CE}
+  .gem.filled{color:#FFC93C}
+  .gem.now{transform:scale(1.12)}
+  .chip-score{background:linear-gradient(150deg,#ffffff,#f2efe7)}
+
+  /* ---------- question card ---------- */
+  .qcard{background:radial-gradient(rgba(24,24,27,.04) 1px, transparent 1px),linear-gradient(180deg,#ffffff,#fcfaf5);background-size:14px 14px,100% 100%;border:4px solid var(--ink);border-radius:28px;box-shadow:0 8px 0 var(--ink),var(--hi),var(--sh);padding:22px 20px}
+  .q-label{display:inline-flex;margin:0 auto 20px;background:linear-gradient(150deg,#3a3a40,#18181b);color:#fff;font-weight:700;font-size:13px;padding:6px 14px;border-radius:99px;box-shadow:var(--hi)}
+  .q-label-wrap{text-align:center}
+
+  .speaker-zone{display:flex;align-items:center;justify-content:center;margin-bottom:22px}
+  .speaker-wrap{position:relative;width:84px;height:84px}
+  .ripple{position:absolute;inset:0;border-radius:50%;border:3px solid var(--ink);opacity:0;animation:ripple 1.7s ease-out infinite}
+  .ripple:nth-child(2){animation-delay:.55s}
+  .ripple:nth-child(3){animation-delay:1.1s}
+  @keyframes ripple{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.9);opacity:0}}
+  .speaker-btn{position:relative;z-index:2;width:84px;height:84px;border-radius:50%;background:var(--grad-yellow);border:4px solid var(--ink);box-shadow:0 6px 0 var(--ink),0 0 0 4px var(--glow-yellow),var(--hi),var(--sh);display:flex;align-items:center;justify-content:center}
+  .speaker-btn:active{transform:translateY(6px);box-shadow:0 0 0 var(--ink)}
+  .speaker-btn svg{width:40px;height:40px}
+
+  .options{display:flex;gap:12px}
+  .opt{flex:1 1 0;min-width:0;border:3px solid var(--ink);border-radius:18px;box-shadow:0 4px 0 var(--ink),var(--hi),var(--sh);padding:10px 8px 12px;display:flex;flex-direction:column;align-items:center;gap:9px;position:relative;transition:transform .1s ease,box-shadow .1s ease,filter .15s ease}
+  .opt:hover{filter:brightness(1.06)}
+  .opt:active{transform:translateY(4px);box-shadow:0 0 0 var(--ink);filter:brightness(.93)}
+  .opt--mint{background:linear-gradient(150deg,#C9F9E6,#8FF0D2)}
+  .opt--sky{background:linear-gradient(150deg,#D9F6FF,#9BE4FA)}
+  .opt--coral{background:linear-gradient(150deg,#FFE7DD,#FFC6B0)}
+  .opt-img{width:100%;aspect-ratio:1/1;background:linear-gradient(180deg,#ffffff,#f7f5ef);border:2px solid var(--ink);border-radius:13px;display:flex;align-items:center;justify-content:center;box-shadow:var(--hi)}
+  .opt-img svg{width:62%;height:62%}
+  .opt-word{font-family:var(--font-display);font-weight:800;font-size:17px;line-height:1}
+
+  .opt.correct{background:var(--grad-mint);box-shadow:0 4px 0 var(--ink),0 0 0 4px rgba(6,214,160,.4),var(--hi),var(--sh)}
+  .opt.correct .opt-img{border-color:var(--ink);background:#fff}
+  .opt-check{position:absolute;top:-14px;right:-14px;width:36px;height:36px;border-radius:50%;background:linear-gradient(150deg,#ffffff,#e9e5da);border:3px solid var(--ink);box-shadow:0 3px 0 var(--ink),0 0 0 4px rgba(6,214,160,.3),var(--hi);display:flex;align-items:center;justify-content:center}
+  .opt-check svg{width:20px;height:20px}
+  .spark{position:absolute;width:16px;height:16px;color:var(--yellow);animation:twinkle 1.3s ease-in-out infinite}
+  .spark.tl{top:-20px;left:-14px}
+  .spark.tr{top:-24px;right:-22px;animation-delay:.4s}
+  @keyframes twinkle{0%,100%{transform:scale(.6) rotate(0deg);opacity:.4}50%{transform:scale(1.15) rotate(20deg);opacity:1}}
+
+  .praise{display:flex;align-items:center;gap:8px;justify-content:center;margin:22px auto 0;width:max-content;background:var(--grad-yellow);border:3px solid var(--ink);border-radius:99px;padding:11px 22px;box-shadow:0 5px 0 var(--ink),0 0 0 4px var(--glow-yellow),var(--hi),var(--sh);font-family:var(--font-display);font-weight:800;font-size:18px;animation:bob 2.2s ease-in-out infinite;position:relative}
+  .praise svg{width:19px;height:19px;color:var(--pink)}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+  .q-actions{display:flex;gap:12px;margin-top:18px}
+  .btn-ghost{flex:1;height:58px;background:linear-gradient(150deg,#ffffff,#f2efe7);font-size:18px}
+  .btn-next{flex:1.5;height:58px;background:var(--grad-yellow);box-shadow:0 6px 0 var(--ink),0 0 0 4px var(--glow-yellow),var(--hi),var(--sh);font-size:20px}
+
+  /* ---------- celebrate ---------- */
+  .screen-celebrate{background:var(--screen-bg);overflow:hidden}
+  .burst{position:absolute;width:380px;height:380px;left:50%;top:44%;transform:translate(-50%,-50%);border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,217,102,.5) 0deg 14deg,rgba(255,244,214,0) 14deg 28deg);z-index:0}
+  .celebrate{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:30px 22px 26px}
+  .stars{display:flex;gap:12px;margin-bottom:10px}
+  .star{width:56px;height:56px;color:var(--yellow);animation:pop 1.8s ease-in-out infinite}
+  .star:nth-child(2){animation-delay:.2s}
+  .star:nth-child(3){animation-delay:.4s}
+  @keyframes pop{0%,100%{transform:scale(1)}50%{transform:scale(1.18) translateY(-4px)}}
+  .celebrate-title{font-family:var(--font-display);font-weight:800;font-size:36px;line-height:1;color:var(--yellow);-webkit-text-stroke:2.5px var(--ink);text-shadow:0 5px 0 var(--ink);paint-order:stroke fill}
+  .celebrate-sub{font-weight:700;font-size:16px;margin-top:8px}
+  .medallion{position:relative;width:176px;height:176px;border-radius:50%;background:var(--grad-yellow);border:4px solid var(--ink);box-shadow:0 8px 0 var(--ink),0 0 0 4px var(--glow-yellow),inset 0 0 0 7px var(--white),var(--hi),var(--sh);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:26px 0 22px}
+  .medallion .num{font-family:var(--font-display);font-weight:800;font-size:46px;line-height:1}
+  .medallion .lbl{font-weight:700;font-size:14px;margin-top:5px}
+  .coin-chip{position:absolute;display:flex;align-items:center;gap:4px;font-family:var(--font-display);font-weight:800;font-size:14px}
+  .coin-chip svg{width:20px;height:20px}
+  .coin-a{left:10%;top:40%;animation:fall 2.8s ease-in infinite}
+  .coin-b{right:8%;top:56%;animation:fall 3.4s ease-in infinite .7s}
+  .coin-c{left:20%;top:72%;animation:fall 3s ease-in infinite 1.3s}
+  @keyframes fall{0%{transform:translateY(-8px) rotate(-10deg);opacity:0}25%{opacity:1}100%{transform:translateY(120px) rotate(12deg);opacity:0}}
+  .btn-next-level{width:100%;max-width:300px;height:66px;background:var(--grad-yellow);box-shadow:0 6px 0 var(--ink),0 0 0 4px var(--glow-yellow),var(--hi),var(--sh);font-size:24px}
+  .btn-next-level svg{width:26px;height:26px}
+
+  .confetti{position:absolute;inset:0;pointer-events:none;z-index:0}
+  .confetti span{position:absolute;display:block;animation:drift 4s ease-in-out infinite}
+  .confetti .a{width:12px;height:12px;background:var(--pink);left:8%;top:16%;border-radius:3px}
+  .confetti .b{width:10px;height:10px;background:var(--sky);right:10%;top:12%;border-radius:50%}
+  .confetti .c{width:14px;height:8px;background:var(--mint);left:14%;top:66%;border-radius:2px}
+  .confetti .d{width:10px;height:14px;background:var(--coral);right:14%;top:70%;border-radius:2px;animation-delay:.6s}
+  .confetti .e{width:11px;height:11px;background:var(--grape);left:78%;top:30%;clip-path:polygon(50% 0,100% 100%,0 100%)}
+  .confetti .f{width:10px;height:10px;background:var(--yellow);left:6%;top:40%;border-radius:50%;animation-delay:1.1s}
+  @keyframes drift{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-14px) rotate(30deg)}}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-scene" aria-hidden="true"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="g-star" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFE45C"/>
+      <stop offset=".5" stop-color="#FFC93C"/>
+      <stop offset="1" stop-color="#FF9F1C"/>
+    </linearGradient>
+    <radialGradient id="g-mascot" cx=".38" cy=".28" r=".95">
+      <stop offset="0" stop-color="#FFF1B8"/>
+      <stop offset=".55" stop-color="#FFD966"/>
+      <stop offset="1" stop-color="#FFC93C"/>
+    </radialGradient>
+    <symbol id="mascot" viewBox="0 0 64 80">
+      <line x1="32" y1="17" x2="32" y2="7" stroke="#18181b" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="32" cy="5" r="5" fill="#F72585" stroke="#18181b" stroke-width="2.5"/>
+      <circle cx="32" cy="47" r="29" fill="url(#g-mascot)" stroke="#18181b" stroke-width="3.5"/>
+      <circle cx="22" cy="43" r="4.6" fill="#18181b"/>
+      <circle cx="42" cy="43" r="4.6" fill="#18181b"/>
+      <circle cx="23.8" cy="41" r="1.6" fill="#fff"/>
+      <circle cx="43.8" cy="41" r="1.6" fill="#fff"/>
+      <circle cx="15.5" cy="54" r="5" fill="#FF7B54" stroke="#18181b" stroke-width="2"/>
+      <circle cx="48.5" cy="54" r="5" fill="#FF7B54" stroke="#18181b" stroke-width="2"/>
+      <path d="M24.5 52q7.5 9 15 0" stroke="#18181b" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-speaker" viewBox="0 0 24 24">
+      <path d="M4 9.5v5h3.5l4.5 4v-13l-4.5 4H4z" fill="#18181b"/>
+      <path d="M15.5 8.8a3.6 3.6 0 0 1 0 6.4" stroke="#18181b" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M18 6.5a7 7 0 0 1 0 11" stroke="#18181b" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="#18181b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="4" y="10" width="16" height="10.5" rx="3" fill="#fff"/>
+      <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="#18181b" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 12.5l4.5 4.5L19 7"/>
+    </symbol>
+    <symbol id="i-star" viewBox="0 0 24 24">
+      <path d="M12 2.4l2.95 6.05 6.55.85-4.8 4.5 1.25 6.5L12 17.1l-5.95 3.2 1.25-6.5-4.8-4.5 6.55-.85z" fill="url(#g-star)" stroke="#18181b" stroke-width="1.2" stroke-linejoin="round"/>
+      <circle cx="9.4" cy="9" r="1.6" fill="#fff" opacity=".85"/>
+    </symbol>
+    <symbol id="i-star-empty" viewBox="0 0 24 24">
+      <path d="M12 2.4l2.95 6.05 6.55.85-4.8 4.5 1.25 6.5L12 17.1l-5.95 3.2 1.25-6.5-4.8-4.5 6.55-.85z" fill="#DFD8C4" stroke="#18181b" stroke-width="1.2" stroke-linejoin="round" stroke-opacity=".4"/>
+    </symbol>
+    <symbol id="i-gem" viewBox="0 0 24 24">
+      <path d="M12 2l7.5 7.5L12 22 4.5 9.5z" fill="currentColor" stroke="#18181b" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M4.5 9.5h15" stroke="#18181b" stroke-width="1.8"/>
+      <path d="M12 2L9 9.5l3 3.5 3-3.5z" fill="#fff" opacity=".4"/>
+    </symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="#18181b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14.5 5.5L8 12l6.5 6.5"/>
+    </symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24">
+      <path d="M12 2c1.1 5 4.1 8 9 9-4.9 1-7.9 4-9 9-1.1-5-4.1-8-9-9 4.9-1 7.9-4 9-9z" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-fire" viewBox="0 0 24 24">
+      <path d="M12 3c1 4.2 5 5.6 5 10a5 5 0 0 1-10 0c0-2.2 1-3.6 2-5.2.5 1.6 1.6 2.2 2.2 2.2 0-2.6-.6-5 1.8-7z" fill="#18181b"/>
+    </symbol>
+    <symbol id="i-coin" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="8.5" fill="#FFB703" stroke="#18181b" stroke-width="2.2"/>
+      <path d="M12 8.4l1.1 2.3 2.5.35-1.8 1.75.4 2.5L12 14.3l-2.2 1 .4-2.5-1.8-1.75 2.5-.35z" fill="#fff"/>
+    </symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="3.6" fill="none" stroke="#18181b" stroke-width="2.4"/>
+      <path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M18.7 5.3L17 7M7 17l-1.7 1.7" stroke="#18181b" stroke-width="2.4" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-map" viewBox="0 0 24 24" fill="none" stroke="#18181b" stroke-width="2.2" stroke-linejoin="round">
+      <path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/>
+      <path d="M9 3v15M15 6v15"/>
+    </symbol>
+    <symbol id="i-play" viewBox="0 0 24 24">
+      <path d="M8 5.2l11 6.8-11 6.8z" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-pixel" viewBox="0 0 16 16">
+      <rect x="2" y="2" width="4" height="4" fill="#FFD966"/>
+      <rect x="8" y="3" width="2" height="2" fill="#FFD966"/>
+      <rect x="2" y="8" width="4" height="3" fill="#4CC9F0"/>
+      <rect x="6" y="9" width="2" height="2" fill="#4CC9F0"/>
+      <rect x="8" y="7" width="4" height="4" fill="#9B5DE5"/>
+      <rect x="12" y="9" width="2" height="2" fill="#9B5DE5"/>
+      <rect x="0" y="13" width="16" height="3" fill="#06D6A0"/>
+    </symbol>
+    <symbol id="i-sig" viewBox="0 0 16 12" fill="#18181b">
+      <rect x="1" y="7" width="3" height="5" rx="1"/>
+      <rect x="6" y="4" width="3" height="8" rx="1"/>
+      <rect x="11" y="1" width="3" height="11" rx="1"/>
+    </symbol>
+    <symbol id="i-wifi" viewBox="0 0 16 12" fill="none" stroke="#18181b" stroke-width="1.8" stroke-linecap="round">
+      <path d="M2 4.5a9 9 0 0 1 12 0"/>
+      <path d="M4.5 7.5a5.5 5.5 0 0 1 7 0"/>
+      <path d="M8 10.5h.01"/>
+    </symbol>
+    <symbol id="i-batt" viewBox="0 0 25 12" fill="none">
+      <rect x=".5" y=".5" width="21" height="11" rx="3" stroke="#18181b"/>
+      <rect x="2.5" y="2.5" width="15" height="7" rx="1.5" fill="#18181b"/>
+      <path d="M23 4v4a2.2 2.2 0 0 0 0-4z" fill="#18181b"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="page-head">
+  <div class="brand">
+    <span class="mascot"><svg><use href="#mascot"/></svg></span>
+    <div class="pt">
+      <h1>Kidobits</h1>
+      <p>Phonics game for Thai kids 4–7 · game lobby UI</p>
+    </div>
+  </div>
+</header>
+
+<main class="flow">
+
+  <!-- ============ SCREEN 1 · LOBBY ============ -->
+  <div class="section-label">
+    <span class="sec-num">01</span>
+    <span class="sec-title">Game Lobby</span>
+    <span class="sec-note">collectible level cards</span>
+  </div>
+  <div class="frame frame--wide" data-od-id="screen-lobby">
+    <div class="statusbar">
+      <span class="time">9:41</span>
+      <span class="sb-icons">
+        <svg width="16" height="12"><use href="#i-sig"/></svg>
+        <svg width="16" height="12"><use href="#i-wifi"/></svg>
+        <svg width="24" height="12"><use href="#i-batt"/></svg>
+      </span>
+    </div>
+
+    <div class="screen">
+      <div class="hud">
+        <button class="hud-logo" aria-label="Kidobits"><svg><use href="#mascot"/></svg></button>
+        <span class="hud-name">Kidobits</span>
+        <div class="hud-right">
+          <button class="chip chip--coin press"><svg><use href="#i-coin"/></svg>128</button>
+          <button class="chip chip--streak press"><svg><use href="#i-fire"/></svg>5</button>
+          <button class="chip chip--gear press" aria-label="ตั้งค่า"><svg><use href="#i-gear"/></svg></button>
+        </div>
+      </div>
+
+      <div class="lobby-title">เลือกบทเรียน</div>
+      <div class="lobby-sub">เก็บดาวให้ครบ 3 ดวงในทุกบท!</div>
+
+      <div class="lvl-grid">
+        <div class="lvl-card lvl-1" data-od-id="level-card-1">
+          <span class="ribbon ribbon--done">เสร็จแล้ว</span>
+          <div class="lvl-head">
+            <span class="lvl-badge">1</span>
+            <span class="lvl-title">Short vowels</span>
+          </div>
+          <div class="lvl-panel">
+            <span class="lvl-pill">8 บทเรียน</span>
+            <div class="lvl-progress"><span class="fill" style="width:100%"></span><span class="notches"></span></div>
+            <div class="lvl-stars">
+              <svg class="star"><use href="#i-star"/></svg>
+              <svg class="star"><use href="#i-star"/></svg>
+              <svg class="star"><use href="#i-star"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="lvl-card lvl-2" data-od-id="level-card-2">
+          <span class="ribbon">กำลังเรียน</span>
+          <div class="lvl-head">
+            <span class="lvl-badge">2</span>
+            <span class="lvl-title">Long vowels</span>
+          </div>
+          <div class="lvl-panel">
+            <span class="lvl-pill">10 บทเรียน</span>
+            <div class="lvl-progress"><span class="fill" style="width:40%"></span><span class="notches"></span></div>
+            <div class="lvl-stars">
+              <svg class="star"><use href="#i-star"/></svg>
+              <svg class="star empty"><use href="#i-star-empty"/></svg>
+              <svg class="star empty"><use href="#i-star-empty"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="lvl-card lvl-3" data-od-id="level-card-3">
+          <div class="lvl-head">
+            <span class="lvl-badge">3</span>
+            <span class="lvl-title">Consonant blends</span>
+          </div>
+          <div class="lvl-panel">
+            <span class="lvl-pill">8 บทเรียน</span>
+            <div class="lvl-progress"><span class="fill" style="width:0%"></span><span class="notches"></span></div>
+            <div class="lvl-stars">
+              <svg class="star empty"><use href="#i-star-empty"/></svg>
+              <svg class="star empty"><use href="#i-star-empty"/></svg>
+              <svg class="star empty"><use href="#i-star-empty"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="lvl-card lvl-4 locked" data-od-id="level-card-4">
+          <div class="lvl-head">
+            <span class="lvl-badge">4</span>
+            <span class="lvl-title">Digraphs</span>
+          </div>
+          <div class="lvl-panel">
+            <span class="lvl-pill">7 บทเรียน</span>
+            <div class="lvl-progress"><span class="fill" style="width:0%"></span><span class="notches"></span></div>
+            <div class="lvl-stars">
+              <svg class="star empty"><use href="#i-star-empty"/></svg>
+              <svg class="star empty"><use href="#i-star-empty"/></svg>
+              <svg class="star empty"><use href="#i-star-empty"/></svg>
+            </div>
+          </div>
+          <div class="lvl-lock">
+            <span class="seal"><svg><use href="#i-lock"/></svg></span>
+            <span class="lock-label">อีก 2 บท</span>
+          </div>
+        </div>
+
+        <div class="lvl-card lvl-5 locked" data-od-id="level-card-5">
+          <div class="lvl-head">
+            <span class="lvl-badge">5</span>
+            <span class="lvl-title">R-controlled vowels</span>
+          </div>
+          <div class="lvl-panel">
+            <span class="lvl-pill">6 บทเรียน</span>
+            <div class="lvl-progress"><span class="fill" style="width:0%"></span><span class="notches"></span></div>
+            <div class="lvl-stars">
+              <svg class="star empty"><use href="#i-star-empty"/></svg>
+              <svg class="star empty"><use href="#i-star-empty"/></svg>
+              <svg class="star empty"><use href="#i-star-empty"/></svg>
+            </div>
+          </div>
+          <div class="lvl-lock">
+            <span class="seal"><svg><use href="#i-lock"/></svg></span>
+            <span class="lock-label">อีก 3 บท</span>
+          </div>
+        </div>
+
+        <div class="lvl-card lvl-6 locked" data-od-id="level-card-6">
+          <div class="lvl-head">
+            <span class="lvl-badge">6</span>
+            <span class="lvl-title">Diphthongs</span>
+          </div>
+          <div class="lvl-panel">
+            <span class="lvl-pill">5 บทเรียน</span>
+            <div class="lvl-progress"><span class="fill" style="width:0%"></span><span class="notches"></span></div>
+            <div class="lvl-stars">
+              <svg class="star empty"><use href="#i-star-empty"/></svg>
+              <svg class="star empty"><use href="#i-star-empty"/></svg>
+              <svg class="star empty"><use href="#i-star-empty"/></svg>
+            </div>
+          </div>
+          <div class="lvl-lock">
+            <span class="seal"><svg><use href="#i-lock"/></svg></span>
+            <span class="lock-label">อีก 4 บท</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lobby-actions">
+        <button class="btn btn-play press" data-od-id="btn-play"><svg><use href="#i-play"/></svg>เล่นเลย</button>
+        <button class="btn btn-map press" data-od-id="btn-map"><svg><use href="#i-map"/></svg>แผนที่</button>
+      </div>
+    </div>
+
+    <div class="home-indicator"></div>
+  </div>
+
+  <!-- ============ SCREEN 2 · QUESTION (normal) ============ -->
+  <div class="section-label">
+    <span class="sec-num">02</span>
+    <span class="sec-title">Lesson Question</span>
+    <span class="sec-note">normal state</span>
+  </div>
+  <div class="frame" data-od-id="screen-question-a">
+    <div class="statusbar">
+      <span class="time">9:41</span>
+      <span class="sb-icons">
+        <svg width="16" height="12"><use href="#i-sig"/></svg>
+        <svg width="16" height="12"><use href="#i-wifi"/></svg>
+        <svg width="24" height="12"><use href="#i-batt"/></svg>
+      </span>
+    </div>
+
+    <div class="screen">
+      <div class="hud-q">
+        <button class="btn-back press" aria-label="ย้อนกลับ"><svg><use href="#i-chev"/></svg></button>
+        <div class="gems" aria-hidden="true">
+          <svg class="gem filled"><use href="#i-gem"/></svg>
+          <svg class="gem filled"><use href="#i-gem"/></svg>
+          <svg class="gem filled now"><use href="#i-gem"/></svg>
+          <svg class="gem"><use href="#i-gem"/></svg>
+        </div>
+        <span class="chip chip-score"><svg><use href="#i-star"/></svg>12</span>
+      </div>
+
+      <div class="qcard">
+        <div class="q-label-wrap"><span class="q-label">ขั้นที่ 3 · ฟังเลือกคำ</span></div>
+        <div class="speaker-zone">
+          <div class="speaker-wrap">
+            <span class="ripple"></span>
+            <span class="ripple"></span>
+            <span class="ripple"></span>
+            <button class="speaker-btn" data-od-id="speaker-btn-a" aria-label="ฟังเสียง"><svg><use href="#i-speaker"/></svg></button>
+          </div>
+        </div>
+        <div class="options">
+          <button class="opt opt--mint" data-od-id="option-cat">
+            <span class="opt-img"><svg><use href="#i-pixel"/></svg></span>
+            <span class="opt-word">cat</span>
+          </button>
+          <button class="opt opt--sky" data-od-id="option-dog">
+            <span class="opt-img"><svg><use href="#i-pixel"/></svg></span>
+            <span class="opt-word">dog</span>
+          </button>
+          <button class="opt opt--coral" data-od-id="option-sun">
+            <span class="opt-img"><svg><use href="#i-pixel"/></svg></span>
+            <span class="opt-word">sun</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="q-actions">
+        <button class="btn btn-ghost press" data-od-id="btn-back-a">ย้อน</button>
+        <button class="btn btn-next press" data-od-id="btn-next-a">ต่อไป</button>
+      </div>
+    </div>
+
+    <div class="home-indicator"></div>
+  </div>
+
+  <!-- ============ SCREEN 2 · QUESTION (correct) ============ -->
+  <div class="section-label">
+    <span class="sec-num">02</span>
+    <span class="sec-title">Lesson Question</span>
+    <span class="sec-note">correct answer</span>
+  </div>
+  <div class="frame" data-od-id="screen-question-b">
+    <div class="statusbar">
+      <span class="time">9:41</span>
+      <span class="sb-icons">
+        <svg width="16" height="12"><use href="#i-sig"/></svg>
+        <svg width="16" height="12"><use href="#i-wifi"/></svg>
+        <svg width="24" height="12"><use href="#i-batt"/></svg>
+      </span>
+    </div>
+
+    <div class="screen">
+      <div class="hud-q">
+        <button class="btn-back press" aria-label="ย้อนกลับ"><svg><use href="#i-chev"/></svg></button>
+        <div class="gems" aria-hidden="true">
+          <svg class="gem filled"><use href="#i-gem"/></svg>
+          <svg class="gem filled"><use href="#i-gem"/></svg>
+          <svg class="gem filled now"><use href="#i-gem"/></svg>
+          <svg class="gem"><use href="#i-gem"/></svg>
+        </div>
+        <span class="chip chip-score"><svg><use href="#i-star"/></svg>12</span>
+      </div>
+
+      <div class="qcard">
+        <div class="q-label-wrap"><span class="q-label">ขั้นที่ 3 · ฟังเลือกคำ</span></div>
+        <div class="speaker-zone">
+          <div class="speaker-wrap">
+            <span class="ripple"></span>
+            <span class="ripple"></span>
+            <span class="ripple"></span>
+            <button class="speaker-btn" data-od-id="speaker-btn-b" aria-label="ฟังเสียง"><svg><use href="#i-speaker"/></svg></button>
+          </div>
+        </div>
+        <div class="options">
+          <button class="opt opt--mint correct" data-od-id="option-cat-correct">
+            <svg class="spark tl"><use href="#i-spark"/></svg>
+            <svg class="spark tr"><use href="#i-spark"/></svg>
+            <span class="opt-check"><svg><use href="#i-check"/></svg></span>
+            <span class="opt-img"><svg><use href="#i-pixel"/></svg></span>
+            <span class="opt-word">cat</span>
+          </button>
+          <button class="opt opt--sky" data-od-id="option-dog-b">
+            <span class="opt-img"><svg><use href="#i-pixel"/></svg></span>
+            <span class="opt-word">dog</span>
+          </button>
+          <button class="opt opt--coral" data-od-id="option-sun-b">
+            <span class="opt-img"><svg><use href="#i-pixel"/></svg></span>
+            <span class="opt-word">sun</span>
+          </button>
+        </div>
+        <div class="praise">
+          <svg><use href="#i-spark"/></svg>
+          เก่งมาก!
+          <svg><use href="#i-spark"/></svg>
+        </div>
+      </div>
+
+      <div class="q-actions">
+        <button class="btn btn-ghost press" data-od-id="btn-back-b">ย้อน</button>
+        <button class="btn btn-next press" data-od-id="btn-next-b">ต่อไป</button>
+      </div>
+    </div>
+
+    <div class="home-indicator"></div>
+  </div>
+
+  <!-- ============ SCREEN 3 · LEVEL COMPLETE ============ -->
+  <div class="section-label">
+    <span class="sec-num">03</span>
+    <span class="sec-title">Level Complete</span>
+    <span class="sec-note">celebration</span>
+  </div>
+  <div class="frame" data-od-id="screen-complete">
+    <div class="statusbar">
+      <span class="time">9:41</span>
+      <span class="sb-icons">
+        <svg width="16" height="12"><use href="#i-sig"/></svg>
+        <svg width="16" height="12"><use href="#i-wifi"/></svg>
+        <svg width="24" height="12"><use href="#i-batt"/></svg>
+      </span>
+    </div>
+
+    <div class="screen screen-celebrate">
+      <div class="burst"></div>
+      <div class="confetti" aria-hidden="true">
+        <span class="a"></span><span class="b"></span><span class="c"></span>
+        <span class="d"></span><span class="e"></span><span class="f"></span>
+      </div>
+
+      <div class="celebrate">
+        <div class="stars" aria-hidden="true">
+          <svg class="star"><use href="#i-star"/></svg>
+          <svg class="star"><use href="#i-star"/></svg>
+          <svg class="star"><use href="#i-star"/></svg>
+        </div>
+        <h2 class="celebrate-title">จบบทแล้ว!</h2>
+        <p class="celebrate-sub">สุดยอดไปเลย!</p>
+        <div class="medallion" data-od-id="score-medallion">
+          <span class="coin-chip coin-a"><svg><use href="#i-coin"/></svg>+10</span>
+          <span class="coin-chip coin-b"><svg><use href="#i-coin"/></svg>+5</span>
+          <span class="coin-chip coin-c"><svg><use href="#i-coin"/></svg>+10</span>
+          <span class="num">8/10</span>
+          <span class="lbl">คะแนน</span>
+        </div>
+        <button class="btn btn-next-level press" data-od-id="btn-next-level"><svg><use href="#i-play"/></svg>บทต่อไป</button>
+      </div>
+    </div>
+
+    <div class="home-indicator"></div>
+  </div>
+
+</main>
+
+</body>
+</html>

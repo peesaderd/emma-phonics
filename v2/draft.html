@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kidobits — Phonics Learning UI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFEFB;
+    --surface:#FFFFFF;
+    --fg:#18181b;
+    --accent:#FFD966;
+    --success:#7FD99A;
+    --error:#FF8A8A;
+    --muted:oklch(0.52 0.01 0);
+    --muted-2:oklch(0.70 0.005 0);
+    --border:oklch(0.95 0.006 95);
+    --track:oklch(0.96 0.005 95);
+    --img-ph:oklch(0.945 0.005 95);
+    --accent-deep:oklch(0.82 0.13 92);
+    --accent-soft:oklch(0.965 0.045 95);
+    --success-ink:oklch(0.5 0.13 155);
+    --page-bg:oklch(0.955 0.006 95);
+    --shadow-sm:0 1px 2px rgba(24,24,27,.04),0 4px 12px rgba(24,24,27,.05);
+    --shadow-card:0 2px 6px rgba(24,24,27,.04),0 14px 32px rgba(24,24,27,.07);
+    --font-display:'Baloo 2','Noto Sans Thai',sans-serif;
+    --font-body:'Noto Sans Thai',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{min-height:100%}
+  body{
+    font-family:var(--font-body);
+    color:var(--fg);
+    background:var(--page-bg);
+    background-image:radial-gradient(1200px 500px at 50% -120px,oklch(0.97 0.05 95),transparent 70%);
+    -webkit-font-smoothing:antialiased;
+  }
+  button{font:inherit;border:none;background:none;color:inherit;cursor:pointer}
+  svg{display:block}
+
+  :focus-visible{outline:3px solid var(--accent-deep);outline-offset:2px;border-radius:inherit}
+
+  /* ---------- Page chrome ---------- */
+  .page-head{padding:44px 24px 8px;text-align:center}
+  .ph-brand{display:inline-flex;align-items:center;gap:14px}
+  .ph-logo{width:56px;height:56px;border-radius:50%;background:var(--surface);box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center}
+  .ph-logo svg{width:42px;height:42px}
+  .page-head h1{font-family:var(--font-display);font-weight:800;font-size:30px;letter-spacing:.5px}
+  .page-head p{color:var(--muted);font-size:14px;margin-top:3px}
+  .page-head .ph-text{text-align:left}
+
+  /* ---------- Screens board ---------- */
+  .screens{display:flex;flex-wrap:wrap;gap:44px 36px;justify-content:center;max-width:1420px;margin:0 auto;padding:28px 24px 88px}
+  .frame-wrap{width:390px;max-width:100%}
+  .frame-caption{display:flex;align-items:center;gap:10px;margin:0 4px 12px}
+  .cap-num{font-family:var(--font-display);font-weight:800;font-size:13px;color:var(--fg);background:var(--accent);border-radius:8px;padding:3px 9px}
+  .cap-name{font-weight:600;font-size:14px;color:var(--muted)}
+  .frame{
+    width:100%;height:700px;background:var(--bg);
+    border-radius:44px;border:1px solid oklch(0.93 0.006 95);
+    box-shadow:0 6px 18px rgba(24,24,27,.06),0 30px 70px rgba(24,24,27,.09);
+    overflow:hidden;display:flex;flex-direction:column;
+  }
+
+  /* ---------- Status bar + home indicator ---------- */
+  .statusbar{height:30px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 26px;color:var(--fg)}
+  .statusbar .time{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+  .sb-icons{display:flex;align-items:center;gap:6px}
+  .sb-icons svg{color:var(--fg)}
+  .home-indicator{height:20px;flex:none;display:flex;align-items:center;justify-content:center}
+  .home-indicator::after{content:"";width:118px;height:5px;border-radius:99px;background:oklch(0.3 0 0 / .28)}
+
+  /* ---------- Screen shell ---------- */
+  .screen{flex:1;display:flex;flex-direction:column;padding:0 16px 20px;min-height:0}
+  .screen-scroll{overflow-y:auto}
+
+  /* ---------- Lobby (Screen 1) ---------- */
+  .app-header{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;padding:10px 4px 12px;background:var(--bg)}
+  .app-logo{width:42px;height:42px;border-radius:50%;background:var(--surface);box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;flex:none}
+  .app-logo svg{width:32px;height:32px}
+  .app-name{font-family:var(--font-display);font-weight:800;font-size:20px;letter-spacing:.3px}
+  .app-header .spacer{flex:1}
+  .points-chip{display:flex;align-items:center;gap:6px;background:var(--accent-soft);border-radius:99px;padding:7px 12px;font-family:var(--font-display);font-weight:700;font-size:14px}
+  .points-chip svg{width:15px;height:15px;color:oklch(0.75 0.15 80)}
+
+  .lobby-head{padding:4px 4px 14px}
+  .lobby-head h2{font-weight:800;font-size:24px;line-height:1.25}
+  .lobby-head p{color:var(--muted);font-size:14px;margin-top:3px}
+
+  .level-list{display:flex;flex-direction:column;gap:10px;padding-bottom:6px}
+  .level-card{display:flex;align-items:center;gap:14px;background:var(--surface);border-radius:24px;padding:13px 16px;box-shadow:var(--shadow-sm);position:relative}
+  .level-card.current{box-shadow:var(--shadow-sm),0 0 0 2px var(--accent)}
+  .level-card.locked{opacity:.58}
+  .level-num{width:52px;height:52px;border-radius:50%;background:var(--accent);color:var(--fg);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:23px;flex:none}
+  .level-num svg{width:24px;height:24px}
+  .level-card.done .level-num{background:var(--success);color:#fff}
+  .level-card.locked .level-num{background:var(--track);color:var(--muted)}
+  .level-body{flex:1;min-width:0}
+  .level-title{font-family:var(--font-display);font-weight:700;font-size:16px;line-height:1.15}
+  .level-meta{color:var(--muted);font-size:13px;margin-top:3px}
+  .progress{height:6px;border-radius:99px;background:var(--track);margin-top:9px;overflow:hidden}
+  .progress>span{display:block;height:100%;border-radius:99px;background:var(--accent)}
+  .level-card.done .progress>span{background:var(--success)}
+
+  /* ---------- Question top bar ---------- */
+  .topbar{display:flex;align-items:center;gap:10px;padding:10px 2px 14px;flex:none}
+  .icon-btn{width:44px;height:44px;border-radius:14px;background:var(--surface);box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;flex:none;transition:transform .15s,box-shadow .15s}
+  .icon-btn:hover{box-shadow:var(--shadow-card);transform:translateY(-1px)}
+  .icon-btn svg{width:22px;height:22px}
+  .steps{display:flex;gap:6px;flex:1}
+  .seg{height:8px;flex:1;border-radius:99px;background:var(--track)}
+  .seg.on{background:var(--accent)}
+  .seg.now{background:var(--accent-deep)}
+  .step-count{font-family:var(--font-display);font-weight:700;font-size:13px;color:var(--muted);min-width:30px;text-align:right}
+
+  /* ---------- Question card ---------- */
+  .qcard{background:var(--surface);border-radius:28px;box-shadow:var(--shadow-card);padding:24px;margin-top:auto}
+  .q-label{text-align:center;color:var(--muted);font-size:13px;font-weight:600;margin-bottom:18px}
+  .audio-row{display:flex;align-items:center;justify-content:center;gap:22px;margin-bottom:22px}
+  .wave{display:flex;align-items:center;gap:4px;height:30px}
+  .wave .bar{width:4px;border-radius:99px;background:var(--fg);opacity:.8;transform-origin:center;animation:wave 1.15s ease-in-out infinite}
+  .wave .bar:nth-child(1){height:13px;animation-delay:0s}
+  .wave .bar:nth-child(2){height:21px;animation-delay:.12s}
+  .wave .bar:nth-child(3){height:30px;animation-delay:.24s}
+  .wave .bar:nth-child(4){height:20px;animation-delay:.36s}
+  .wave .bar:nth-child(5){height:11px;animation-delay:.48s}
+  @keyframes wave{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+  .speaker-btn{width:72px;height:72px;border-radius:50%;background:var(--accent);box-shadow:0 6px 18px oklch(0.82 0.13 92 / .55);display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s;flex:none}
+  .speaker-btn:hover{transform:scale(1.05);box-shadow:0 8px 24px oklch(0.82 0.13 92 / .7)}
+  .speaker-btn:active{transform:scale(.96)}
+  .speaker-btn svg{width:34px;height:34px;color:var(--fg)}
+
+  .options{display:flex;gap:11px}
+  .option{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:9px}
+  .opt-img{width:100%;max-width:96px;aspect-ratio:1/1;border-radius:18px;background:var(--img-ph);color:oklch(0.76 0.006 90);display:flex;align-items:center;justify-content:center;position:relative;transition:box-shadow .15s,transform .15s}
+  .opt-img svg{width:34px;height:34px}
+  .option:hover .opt-img{box-shadow:0 0 0 3px var(--accent);transform:translateY(-2px)}
+  .opt-word{font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--fg)}
+  .opt-check{position:absolute;top:-8px;right:-8px;width:27px;height:27px;border-radius:50%;background:var(--success);color:var(--fg);display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:var(--shadow-sm)}
+  .opt-check svg{width:16px;height:16px}
+  .option.correct .opt-img{box-shadow:0 0 0 3px var(--success)}
+
+  .correct-pill{display:flex;width:max-content;align-items:center;gap:8px;margin:20px auto 0;background:var(--success);color:var(--fg);font-weight:700;font-size:15px;padding:11px 20px;border-radius:99px}
+  .correct-pill svg{width:18px;height:18px}
+
+  /* ---------- Actions ---------- */
+  .actions{display:flex;gap:12px;margin-top:auto;padding-top:16px;flex:none}
+  .btn{height:56px;border-radius:18px;font-weight:700;font-size:17px;display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s,background .15s}
+  .btn:active{transform:scale(.98)}
+  .btn-ghost{flex:1;background:var(--surface);box-shadow:inset 0 0 0 2px var(--border);color:var(--fg)}
+  .btn-ghost:hover{box-shadow:inset 0 0 0 2px var(--accent-deep)}
+  .btn-primary{flex:1.5;background:var(--accent);color:var(--fg);box-shadow:0 4px 14px oklch(0.82 0.13 92 / .5)}
+  .btn-primary:hover{background:var(--accent-deep)}
+
+  /* ---------- Level complete (Screen 4) ---------- */
+  .celebrate{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 20px}
+  .stars{display:flex;gap:10px;margin-bottom:14px}
+  .star{width:46px;height:46px;color:var(--accent);animation:pop 1.7s ease-in-out infinite}
+  .star:nth-child(2){animation-delay:.18s}
+  .star:nth-child(3){animation-delay:.36s}
+  .star.off{color:var(--track);animation:none}
+  @keyframes pop{0%,100%{transform:scale(1)}50%{transform:scale(1.12) translateY(-2px)}}
+  .celebrate h2{font-weight:800;font-size:30px;line-height:1.2}
+  .celebrate .sub{color:var(--muted);font-size:15px;margin-top:6px}
+  .score-circle{width:154px;height:154px;border-radius:50%;background:var(--accent);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:26px 0;box-shadow:0 14px 36px oklch(0.82 0.13 92 / .5),inset 0 0 0 8px oklch(1 0 0 / .55)}
+  .score-num{font-family:var(--font-display);font-weight:800;font-size:40px;line-height:1}
+  .score-label{font-size:13px;font-weight:600;color:oklch(0.3 0 0 / .62);margin-top:7px}
+  .celebrate .btn-primary{width:100%;max-width:290px;flex:none}
+
+  @media (max-width:460px){
+    .frame{height:660px}
+    .page-head h1{font-size:26px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="mascot" viewBox="0 0 64 78">
+      <line x1="32" y1="16" x2="32" y2="7" stroke="#18181b" stroke-opacity=".5" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="32" cy="4.5" r="4.5" fill="oklch(0.78 0.15 80)"/>
+      <circle cx="32" cy="46" r="29" fill="#FFD966"/>
+      <circle cx="32" cy="46" r="29" fill="none" stroke="#18181b" stroke-opacity=".1" stroke-width="2"/>
+      <circle cx="22.5" cy="42" r="4" fill="#18181b"/>
+      <circle cx="41.5" cy="42" r="4" fill="#18181b"/>
+      <circle cx="24" cy="40.4" r="1.4" fill="#fff"/>
+      <circle cx="43" cy="40.4" r="1.4" fill="#fff"/>
+      <circle cx="16" cy="53" r="4.4" fill="oklch(0.86 0.09 55)" opacity=".95"/>
+      <circle cx="48" cy="53" r="4.4" fill="oklch(0.86 0.09 55)" opacity=".95"/>
+      <path d="M25.5 52q6.5 8 13 0" stroke="#18181b" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-speaker" viewBox="0 0 24 24">
+      <path d="M4 9.5v5h3.5l4.5 4v-13l-4.5 4H4z" fill="currentColor"/>
+      <path d="M15.5 8.8a3.6 3.6 0 0 1 0 6.4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <path d="M18 6.5a7 7 0 0 1 0 11" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="4.5" y="10.5" width="15" height="9.5" rx="2.8"/>
+      <path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 12.5l4.5 4.5L19 7"/>
+    </symbol>
+    <symbol id="i-star" viewBox="0 0 24 24">
+      <path d="M12 2.6l2.85 5.9 6.4.85-4.7 4.45 1.2 6.35L12 17.1l-5.75 3.05 1.2-6.35-4.7-4.45 6.4-.85z" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14.5 5.5L8 12l6.5 6.5"/>
+    </symbol>
+    <symbol id="i-img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3.5" y="4.5" width="17" height="15" rx="3"/>
+      <circle cx="9" cy="9.5" r="1.5"/>
+      <path d="M4.5 16.5l4.5-4.5 3 3 3.5-3.5 4 4"/>
+    </symbol>
+    <symbol id="i-batt" viewBox="0 0 25 12" fill="none">
+      <rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor"/>
+      <rect x="2.5" y="2.5" width="15" height="7" rx="1.5" fill="currentColor"/>
+      <path d="M23 4v4a2.2 2.2 0 0 0 0-4z" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-wifi" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+      <path d="M2 4.5a9 9 0 0 1 12 0"/>
+      <path d="M4.5 7.5a5.5 5.5 0 0 1 7 0"/>
+      <path d="M8 10.5h.01"/>
+    </symbol>
+    <symbol id="i-sig" viewBox="0 0 16 12" fill="currentColor">
+      <rect x="1" y="7" width="3" height="5" rx="1"/>
+      <rect x="6" y="4" width="3" height="8" rx="1"/>
+      <rect x="11" y="1" width="3" height="11" rx="1"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="page-head">
+  <div class="ph-brand">
+    <span class="ph-logo"><svg><use href="#mascot"/></svg></span>
+    <div class="ph-text">
+      <h1>Kidobits</h1>
+      <p>Phonics learning app · Thai children 4–7 · UI screens</p>
+    </div>
+  </div>
+</header>
+
+<main class="screens">
+
+  <!-- SCREEN 1 · LESSON LOBBY -->
+  <section class="frame-wrap" data-od-id="screen-lobby">
+    <div class="frame-caption"><span class="cap-num">01</span><span class="cap-name">Lesson Lobby</span></div>
+    <div class="frame">
+      <div class="statusbar">
+        <span class="time">9:41</span>
+        <span class="sb-icons">
+          <svg width="16" height="12"><use href="#i-sig"/></svg>
+          <svg width="16" height="12"><use href="#i-wifi"/></svg>
+          <svg width="24" height="12"><use href="#i-batt"/></svg>
+        </span>
+      </div>
+
+      <div class="screen screen-scroll">
+        <div class="app-header">
+          <span class="app-logo"><svg><use href="#mascot"/></svg></span>
+          <span class="app-name">Kidobits</span>
+          <span class="spacer"></span>
+          <span class="points-chip"><svg><use href="#i-star"/></svg>120</span>
+        </div>
+
+        <div class="lobby-head">
+          <h2>เลือกบทเรียน</h2>
+          <p>มาเรียนโฟนิกส์สนุก ๆ ไปด้วยกันนะ!</p>
+        </div>
+
+        <div class="level-list">
+          <div class="level-card done" data-od-id="level-card-1">
+            <div class="level-num"><svg><use href="#i-check"/></svg></div>
+            <div class="level-body">
+              <div class="level-title">Level 1 · Short vowels</div>
+              <div class="level-meta">8 บทเรียน</div>
+              <div class="progress"><span style="width:100%"></span></div>
+            </div>
+          </div>
+
+          <div class="level-card current" data-od-id="level-card-2">
+            <div class="level-num">2</div>
+            <div class="level-body">
+              <div class="level-title">Level 2 · Long vowels</div>
+              <div class="level-meta">10 บทเรียน</div>
+              <div class="progress"><span style="width:40%"></span></div>
+            </div>
+          </div>
+
+          <div class="level-card locked" data-od-id="level-card-3">
+            <div class="level-num"><svg><use href="#i-lock"/></svg></div>
+            <div class="level-body">
+              <div class="level-title">Level 3 · Consonant blends</div>
+              <div class="level-meta">8 บทเรียน</div>
+              <div class="progress"></div>
+            </div>
+          </div>
+
+          <div class="level-card locked" data-od-id="level-card-4">
+            <div class="level-num"><svg><use href="#i-lock"/></svg></div>
+            <div class="level-body">
+              <div class="level-title">Level 4 · Digraphs</div>
+              <div class="level-meta">7 บทเรียน</div>
+              <div class="progress"></div>
+            </div>
+          </div>
+
+          <div class="level-card locked" data-od-id="level-card-5">
+            <div class="level-num"><svg><use href="#i-lock"/></svg></div>
+            <div class="level-body">
+              <div class="level-title">Level 5 · R-controlled vowels</div>
+              <div class="level-meta">6 บทเรียน</div>
+              <div class="progress"></div>
+            </div>
+          </div>
+
+          <div class="level-card locked" data-od-id="level-card-6">
+            <div class="level-num"><svg><use href="#i-lock"/></svg></div>
+            <div class="level-body">
+              <div class="level-title">Level 6 · Diphthongs</div>
+              <div class="level-meta">5 บทเรียน</div>
+              <div class="progress"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-indicator"></div>
+    </div>
+  </section>
+
+  <!-- SCREEN 2 · LESSON QUESTION (A) -->
+  <section class="frame-wrap" data-od-id="screen-question-a">
+    <div class="frame-caption"><span class="cap-num">02</span><span class="cap-name">Lesson Question · A</span></div>
+    <div class="frame">
+      <div class="statusbar">
+        <span class="time">9:41</span>
+        <span class="sb-icons">
+          <svg width="16" height="12"><use href="#i-sig"/></svg>
+          <svg width="16" height="12"><use href="#i-wifi"/></svg>
+          <svg width="24" height="12"><use href="#i-batt"/></svg>
+        </span>
+      </div>
+
+      <div class="screen">
+        <div class="topbar">
+          <button class="icon-btn" aria-label="ย้อนกลับ"><svg><use href="#i-chev"/></svg></button>
+          <div class="steps"><span class="seg on"></span><span class="seg on"></span><span class="seg now"></span><span class="seg"></span></div>
+          <span class="step-count">3/4</span>
+        </div>
+
+        <div class="qcard">
+          <p class="q-label">ขั้นที่ 3 · ฟังเลือกคำ</p>
+          <div class="audio-row">
+            <div class="wave"><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+            <button class="speaker-btn" data-od-id="speaker-btn-a" aria-label="ฟังเสียง"><svg><use href="#i-speaker"/></svg></button>
+          </div>
+          <div class="options">
+            <button class="option" data-od-id="option-cat">
+              <span class="opt-img"><svg><use href="#i-img"/></svg></span>
+              <span class="opt-word">cat</span>
+            </button>
+            <button class="option" data-od-id="option-dog">
+              <span class="opt-img"><svg><use href="#i-img"/></svg></span>
+              <span class="opt-word">dog</span>
+            </button>
+            <button class="option" data-od-id="option-sun">
+              <span class="opt-img"><svg><use href="#i-img"/></svg></span>
+              <span class="opt-word">sun</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-ghost" data-od-id="btn-back-a">ย้อน</button>
+          <button class="btn btn-primary" data-od-id="btn-next-a">ต่อไป</button>
+        </div>
+      </div>
+
+      <div class="home-indicator"></div>
+    </div>
+  </section>
+
+  <!-- SCREEN 2 · LESSON QUESTION (B) -->
+  <section class="frame-wrap" data-od-id="screen-question-b">
+    <div class="frame-caption"><span class="cap-num">02</span><span class="cap-name">Lesson Question · B</span></div>
+    <div class="frame">
+      <div class="statusbar">
+        <span class="time">9:41</span>
+        <span class="sb-icons">
+          <svg width="16" height="12"><use href="#i-sig"/></svg>
+          <svg width="16" height="12"><use href="#i-wifi"/></svg>
+          <svg width="24" height="12"><use href="#i-batt"/></svg>
+        </span>
+      </div>
+
+      <div class="screen">
+        <div class="topbar">
+          <button class="icon-btn" aria-label="ย้อนกลับ"><svg><use href="#i-chev"/></svg></button>
+          <div class="steps"><span class="seg on"></span><span class="seg on"></span><span class="seg now"></span><span class="seg"></span></div>
+          <span class="step-count">3/4</span>
+        </div>
+
+        <div class="qcard">
+          <p class="q-label">ขั้นที่ 3 · ฟังเลือกคำ</p>
+          <div class="audio-row">
+            <div class="wave"><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+            <button class="speaker-btn" data-od-id="speaker-btn-b" aria-label="ฟังเสียง"><svg><use href="#i-speaker"/></svg></button>
+          </div>
+          <div class="options">
+            <button class="option" data-od-id="option-hen">
+              <span class="opt-img"><svg><use href="#i-img"/></svg></span>
+              <span class="opt-word">hen</span>
+            </button>
+            <button class="option" data-od-id="option-pig">
+              <span class="opt-img"><svg><use href="#i-img"/></svg></span>
+              <span class="opt-word">pig</span>
+            </button>
+            <button class="option" data-od-id="option-fox">
+              <span class="opt-img"><svg><use href="#i-img"/></svg></span>
+              <span class="opt-word">fox</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-ghost" data-od-id="btn-back-b">ย้อน</button>
+          <button class="btn btn-primary" data-od-id="btn-next-b">ต่อไป</button>
+        </div>
+      </div>
+
+      <div class="home-indicator"></div>
+    </div>
+  </section>
+
+  <!-- SCREEN 3 · SUCCESS FEEDBACK -->
+  <section class="frame-wrap" data-od-id="screen-success">
+    <div class="frame-caption"><span class="cap-num">03</span><span class="cap-name">Success Feedback</span></div>
+    <div class="frame">
+      <div class="statusbar">
+        <span class="time">9:41</span>
+        <span class="sb-icons">
+          <svg width="16" height="12"><use href="#i-sig"/></svg>
+          <svg width="16" height="12"><use href="#i-wifi"/></svg>
+          <svg width="24" height="12"><use href="#i-batt"/></svg>
+        </span>
+      </div>
+
+      <div class="screen">
+        <div class="topbar">
+          <button class="icon-btn" aria-label="ย้อนกลับ"><svg><use href="#i-chev"/></svg></button>
+          <div class="steps"><span class="seg on"></span><span class="seg on"></span><span class="seg now"></span><span class="seg"></span></div>
+          <span class="step-count">3/4</span>
+        </div>
+
+        <div class="qcard">
+          <p class="q-label">ขั้นที่ 3 · ฟังเลือกคำ</p>
+          <div class="audio-row">
+            <div class="wave"><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+            <button class="speaker-btn" data-od-id="speaker-btn-success" aria-label="ฟังเสียง"><svg><use href="#i-speaker"/></svg></button>
+          </div>
+          <div class="options">
+            <button class="option correct" data-od-id="option-cat-correct">
+              <span class="opt-img"><svg><use href="#i-img"/></svg><span class="opt-check"><svg><use href="#i-check"/></svg></span></span>
+              <span class="opt-word">cat</span>
+            </button>
+            <button class="option" data-od-id="option-dog-success">
+              <span class="opt-img"><svg><use href="#i-img"/></svg></span>
+              <span class="opt-word">dog</span>
+            </button>
+            <button class="option" data-od-id="option-sun-success">
+              <span class="opt-img"><svg><use href="#i-img"/></svg></span>
+              <span class="opt-word">sun</span>
+            </button>
+          </div>
+          <div class="correct-pill"><svg><use href="#i-check"/></svg>เก่งมาก!</div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-ghost" data-od-id="btn-back-success">ย้อน</button>
+          <button class="btn btn-primary" data-od-id="btn-next-success">ต่อไป</button>
+        </div>
+      </div>
+
+      <div class="home-indicator"></div>
+    </div>
+  </section>
+
+  <!-- SCREEN 4 · LEVEL COMPLETE -->
+  <section class="frame-wrap" data-od-id="screen-complete">
+    <div class="frame-caption"><span class="cap-num">04</span><span class="cap-name">Level Complete</span></div>
+    <div class="frame">
+      <div class="statusbar">
+        <span class="time">9:41</span>
+        <span class="sb-icons">
+          <svg width="16" height="12"><use href="#i-sig"/></svg>
+          <svg width="16" height="12"><use href="#i-wifi"/></svg>
+          <svg width="24" height="12"><use href="#i-batt"/></svg>
+        </span>
+      </div>
+
+      <div class="screen">
+        <div class="celebrate">
+          <div class="stars" aria-hidden="true">
+            <svg class="star"><use href="#i-star"/></svg>
+            <svg class="star"><use href="#i-star"/></svg>
+            <svg class="star off"><use href="#i-star"/></svg>
+          </div>
+          <h2>จบบทแล้ว!</h2>
+          <p class="sub">ทำได้ดีมาก ไปบทต่อไปกันเลย</p>
+          <div class="score-circle" data-od-id="score-circle">
+            <span class="score-num">8/10</span>
+            <span class="score-label">คะแนน</span>
+          </div>
+          <button class="btn btn-primary" data-od-id="btn-next-level">บทต่อไป</button>
+        </div>
+      </div>
+
+      <div class="home-indicator"></div>
+    </div>
+  </section>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="th"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kidobits Phonics</title>
+<meta name="theme-color" content="#7C5CFF">
+<style>
+:root{
+  --bg:#FFF9F0; --ink:#2E2A3B; --muted:#8B85A0; --line:#F0E8FF;
+  --purple:#7C5CFF; --purple-d:#5B4B8A;
+  --shadow:0 6px 18px rgba(90,60,150,.12); --r:24px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Thai",
+  "Sarabun",Roboto,sans-serif;background:var(--bg);color:var(--ink);
+  line-height:1.5;padding:0 0 40px;overflow-x:hidden}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+
+/* ---------- header band (per level colour) ---------- */
+.band{position:relative;padding:20px 0 62px;border-radius:0 0 32px 32px;
+  overflow:hidden;box-shadow:0 8px 24px rgba(90,60,150,.22)}
+.band:before{content:"";position:absolute;width:210px;height:210px;border-radius:50%;
+  background:rgba(255,255,255,.14);top:-100px;left:-60px}
+.band:after{content:"";position:absolute;width:130px;height:130px;border-radius:50%;
+  background:rgba(255,255,255,.10);bottom:-60px;right:30px}
+.band .wrap{position:relative;z-index:2}
+.back{background:rgba(255,255,255,.92);border:0;border-radius:14px;padding:9px 14px;
+  font-family:inherit;font-size:.85rem;font-weight:900;color:#5B4B8A;
+  cursor:pointer;display:inline-flex;align-items:center;gap:5px;
+  box-shadow:0 3px 10px rgba(60,30,120,.16)}
+.hero{display:flex;align-items:center;gap:14px;margin-top:16px}
+.anim{width:76px;height:76px;flex:0 0 76px;border-radius:26px;background:#fff;
+  display:grid;place-items:center;box-shadow:0 6px 16px rgba(60,30,120,.2)}
+.anim svg{width:58px;height:58px;display:block}
+.hero h1{margin:0;font-size:1.14rem;font-weight:900;color:#fff;line-height:1.28;
+  text-shadow:0 1px 3px rgba(50,20,110,.24)}
+.hero .sub{font-size:.78rem;color:rgba(255,255,255,.94);margin-top:4px;font-weight:600}
+.bar{margin-top:13px;height:11px;border-radius:99px;background:rgba(255,255,255,.34);
+  overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:#fff;
+  transition:width .4s ease}
+.barlab{font-size:.72rem;font-weight:900;color:#fff;margin-top:6px;
+  display:flex;justify-content:space-between;opacity:.95}
+
+/* ---------- resume banner ---------- */
+.resume{display:flex;justify-content:space-between;align-items:center;gap:12px;
+  background:linear-gradient(135deg,#1E9E5A 0%,#34C77B 100%);color:#fff;
+  padding:13px 16px;border-radius:20px;margin:-40px 0 18px;position:relative;z-index:5;
+  font-size:.86rem;box-shadow:0 6px 18px rgba(30,158,90,.3);cursor:pointer}
+.resume b{font-size:.92rem}
+.resume .go{background:rgba(255,255,255,.95);border:0;color:#15864A;
+  padding:8px 16px;border-radius:999px;font-weight:900;font-size:.8rem;
+  white-space:nowrap;font-family:inherit}
+
+/* ---------- lesson cards ---------- */
+.grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:4px}
+@media(min-width:600px){.grid{grid-template-columns:1fr 1fr}}
+.card{background:#fff;border-radius:20px;padding:14px 15px;position:relative;
+  display:flex;gap:13px;align-items:flex-start;cursor:pointer;
+  box-shadow:var(--shadow);border:2px solid #fff;
+  transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease}
+.card:active{transform:scale(.975)}
+.card.done{border-color:#B6EFCE;background:linear-gradient(180deg,#F7FFFA 0%,#fff 60%)}
+.card.doing{border-color:#FFDE9E;background:linear-gradient(180deg,#FFFBF0 0%,#fff 60%)}
+.num{width:44px;height:44px;flex:0 0 44px;border-radius:15px;
+  display:grid;place-items:center;font-size:.92rem;font-weight:900;color:#fff;
+  box-shadow:0 3px 9px rgba(60,30,120,.18)}
+.cbody{flex:1;min-width:0}
+.ctitle{font-size:.9rem;font-weight:800;line-height:1.34;margin:0;
+  overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.cgoal{font-size:.74rem;color:var(--muted);margin-top:4px;font-weight:600;
+  overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.chip{font-size:.67rem;font-weight:800;padding:3px 9px;border-radius:99px;
+  background:#F5F1FF;color:#6B5AA8}
+.chip.ok{background:#E4F9EC;color:#15864A}
+.chip.wait{background:#F1EDF9;color:#8B7FB0}
+.st{flex:0 0 auto;font-size:1.05rem;line-height:1;margin-top:2px}
+
+footer{text-align:center;color:var(--muted);font-size:.74rem;margin-top:30px;line-height:1.7}
+
+/* ---------- modal ---------- */
+.modal{position:fixed;inset:0;background:rgba(40,32,66,.55);backdrop-filter:blur(3px);
+  display:none;align-items:flex-end;justify-content:center;z-index:50}
+.modal.on{display:flex}
+.sheet{background:#fff;width:100%;max-width:560px;border-radius:28px 28px 0 0;
+  padding:22px 20px 30px;max-height:84vh;overflow:auto}
+.sheet .sh{display:flex;gap:13px;align-items:center;margin-bottom:6px}
+.sheet .san{width:58px;height:58px;flex:0 0 58px;border-radius:20px;
+  display:grid;place-items:center;background:#F7F3FF}
+.sheet .san svg{width:46px;height:46px}
+.sheet h3{margin:0;font-size:1.06rem;font-weight:900;line-height:1.3}
+.sheet .sid{font-size:.74rem;color:var(--muted);font-weight:800;margin-top:3px}
+.srow{margin:14px 0;background:#FAF7FF;border-radius:16px;padding:12px 14px}
+.srow b{font-size:.75rem;color:var(--purple-d);display:block;margin-bottom:4px;
+  font-weight:900;letter-spacing:.2px}
+.srow p{margin:0;font-size:.88rem;color:#4A4560;font-weight:600}
+.btn{width:100%;border:0;border-radius:16px;padding:15px;font-size:.95rem;
+  font-weight:900;font-family:inherit;margin-top:12px;cursor:pointer}
+.btn.ghost{background:#F1EDF9;color:var(--purple-d)}
+.btn.play{color:#fff;box-shadow:0 6px 16px rgba(90,60,150,.28)}
+.btn:disabled{opacity:.55}
+@media(min-width:640px){.modal{align-items:center}.sheet{border-radius:28px}}
+</style>  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#7C5CFF">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Kidobits">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+</head><body>
+
+<div class="band" id="band">
+  <div class="wrap">
+    <button class="back" id="back">‹ กลับหน้าระดับ</button>
+    <div class="hero" id="hero"></div>
+    <div class="bar"><i id="barfill" style="width:0%"></i></div>
+    <div class="barlab"><span id="barl">ผ่านแล้ว 0</span><span id="barr"></span></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div id="resumeSlot"></div>
+  <div class="grid" id="grid"></div>
+  <footer>Kidobits Phonics v2 · ฉบับร่างเพื่อพัฒนา<br>
+  ยังไม่ผ่านการรับรองหลักสูตรหรือผลทดสอบกับเด็ก</footer>
+</div>
+
+<div class="modal" id="modal"><div class="sheet" id="sheet"></div></div>
+
+<script>
+const DATA = {"levels":[{"level":1,"name":"Letter Sounds & Early Blending","count":12,"color":"#6C5CE7","icon":"🔤","lessons":[{"id":"L1.01","num":1,"title":"Listening for first sounds","goal":"ฟั งและระบุเสียงต้นคำ","targets":"sun, sock, sit | moon, map, mat","status":"ready"},{"id":"L1.02","num":2,"title":"A and S","goal":"แยก /æ/ และ /s/","targets":"apple, ant, ax | sun, sock, sip","status":"ready"},{"id":"L1.03","num":3,"title":"T and P","goal":"แยก /t/ และ /p/","targets":"tin, tap, top | pen, pig, pot","status":"ready"},{"id":"L1.04","num":4,"title":"I and N","goal":"แยก /ɪ/ และ /n/","targets":"insect, ink, it | net, nap, nut","status":"ready"},{"id":"L1.05","num":5,"title":"M and D","goal":"แยก /m/ และ /d/","targets":"moon, map, mat | dog, dig, dot","status":"ready"},{"id":"L1.06","num":6,"title":"G and O","goal":"แยก /g/ และสระสั้น /ɒ/ หรือ /ɑ/ ตามสำเนียง","targets":"goat, gum, gap | octopus, on, ox","status":"ready"},{"id":"L1.07","num":7,"title":"C and K","goal":"เรียนเสียง /k/ สะกดด้วย c หรือ k","targets":"cat, cup, cap | kit, kid, king","status":"ready"},{"id":"L1.08","num":8,"title":"E and U","goal":"แยกสระสั้น /ɛ/ และ /ʌ/","targets":"egg, end, elf | up, under, umbrella","status":"ready"},{"id":"L1.09","num":9,"title":"F, H and L","goal":"แยกเสียง /f/, /h/, /l/","targets":"fish, fan, fin | hat, hen, hop | log, leg, lip","status":"ready"},{"id":"L1.10","num":10,"title":"B, R and J","goal":"แยกเสียง /b/, /r/, /dʒ/","targets":"ball, bat, bed | red, run, rat | jam, jet, jog","status":"ready"},{"id":"L1.11","num":11,"title":"V, W and Y","goal":"ฝึกแยก /v/, /w/, /j/ ด้วยรูปปาก","targets":"van, vet, vest | web, wet, win | yes, yam, yell","status":"ready"},{"id":"L1.12","num":12,"title":"qu, x, z and cumulative review","goal":"เชื่อม qu กับ /k/+/w/, x กับ /k/+/s/ และ z กับ /z/; ทบทวนตัวอักษรแบบสุ่ม","targets":"queen, quick, quiz | fox, box, six | zip, zoo, zebra","status":"ready"}]},{"level":2,"name":"Blending & CVC","count":16,"color":"#2ECC71","icon":"🐱","lessons":[{"id":"L2.01","num":1,"title":"s a t p — first blends","goal":"ผสมคำสระ a","targets":"sat, pat, tap, at","status":"ready"},{"id":"L2.02","num":2,"title":"i n m — short i","goal":"ผสมเสียง i n m","targets":"pin, sit, tin, tip","status":"ready"},{"id":"L2.03","num":3,"title":"Short a word family -at","goal":"อ่านคำลงท้าย -at","targets":"cat, hat, mat, bat","status":"ready"},{"id":"L2.04","num":4,"title":"Short a word family -an","goal":"อ่านคำลงท้าย -an","targets":"can, fan, man, pan","status":"ready"},{"id":"L2.05","num":5,"title":"Short a word family -ap","goal":"อ่านคำลงท้าย -ap","targets":"cap, map, nap, tap","status":"ready"},{"id":"L2.06","num":6,"title":"Short e word family -en","goal":"อ่านคำลงท้าย -en","targets":"pen, hen, ten, men","status":"ready"},{"id":"L2.07","num":7,"title":"Short e word family -et","goal":"อ่านคำลงท้าย -et","targets":"net, pet, wet, jet","status":"ready"},{"id":"L2.08","num":8,"title":"Short i word family -ig","goal":"อ่านคำลงท้าย -ig","targets":"pig, big, dig, wig","status":"ready"},{"id":"L2.09","num":9,"title":"Short i word family -in","goal":"อ่านคำลงท้าย -in","targets":"pin, fin, win, bin","status":"ready"},{"id":"L2.10","num":10,"title":"Short o word family -og","goal":"อ่านคำลงท้าย -og","targets":"dog, log, fog, jog","status":"ready"},{"id":"L2.11","num":11,"title":"Short o word family -ot","goal":"อ่านคำลงท้าย -ot","targets":"pot, hot, dot, cot","status":"ready"},{"id":"L2.12","num":12,"title":"Short u word family -ug","goal":"อ่านคำลงท้าย -ug","targets":"bug, rug, mug, hug","status":"ready"},{"id":"L2.13","num":13,"title":"Short u word family -un","goal":"อ่านคำลงท้าย -un","targets":"sun, run, fun, bun","status":"ready"},{"id":"L2.14","num":14,"title":"Mixed CVC words","goal":"เลือกสระที่ถูกต้อง","targets":"cat, pen, pig, dog, sun","status":"ready"},{"id":"L2.15","num":15,"title":"Read short CVC sentences","goal":"อ่านประโยคง่าย","targets":"Sam sat. | A cat sat. | A pig sat. | A dog sat.","status":"ready"},{"id":"L2.16","num":16,"title":"Level 2 checkpoint","goal":"ทดสอบการผสมเสียงและอ่านคำ","targets":"map, hen, pin, log, cup, sun","status":"ready"}]},{"level":3,"name":"Digraphs & Consonant Blends","count":16,"color":"#FFB84D","icon":"🔗","lessons":[{"id":"L3.01","num":1,"title":"sh","goal":"เสียง sh /ʃ/","targets":"ship, shop, fish, dish","status":"ready"},{"id":"L3.02","num":2,"title":"ch","goal":"เสียง ch /tʃ/","targets":"chip, chop, chin, much","status":"ready"},{"id":"L3.03","num":3,"title":"th unvoiced","goal":"เสียง th /θ/","targets":"thin, bath, moth, path","status":"ready"},{"id":"L3.04","num":4,"title":"th voiced","goal":"เสียง th /ð/","targets":"this, that, them, then","status":"ready"},{"id":"L3.05","num":5,"title":"ck and ng","goal":"เสียง ck /k/ และ ng /ŋ/","targets":"duck, sock, back | ring, sing, king","status":"ready"},{"id":"L3.06","num":6,"title":"wh; cumulative consonant review","goal":"อ่าน wh เป็น /w/ ในสำเนียงที่เลือก และทบทวน sh/ch/th/ck/ng; ย้าย ph ไป L5.10","targets":"when, whip, which, whack | ship, chin, duck, ring","status":"ready"},{"id":"L3.07","num":7,"title":"Initial s blends","goal":"พยัญชนะควบ s","targets":"stop, spin, swim, skip","status":"ready"},{"id":"L3.08","num":8,"title":"Initial l blends","goal":"พยัญชนะควบ l","targets":"black, clap, flag, plum","status":"ready"},{"id":"L3.09","num":9,"title":"Initial r blends","goal":"พยัญชนะควบ r","targets":"frog, crab, drum, trip","status":"ready"},{"id":"L3.10","num":10,"title":"Final blends -nd -st","goal":"เสียงควบท้าย","targets":"hand, sand, nest, fast","status":"ready"},{"id":"L3.11","num":11,"title":"Final blends -mp -nt","goal":"เสียงควบท้าย","targets":"lamp, jump, tent, mint","status":"ready"},{"id":"L3.12","num":12,"title":"Three-consonant blends","goal":"เสียงควบสามตัว","targets":"spring, string, splash, scrub","status":"ready"},{"id":"L3.13","num":13,"title":"Digraph vs blend","goal":"แยกเสียงรวมและเสียงควบ","targets":"ship, slip, chop, clap","status":"ready"},{"id":"L3.14","num":14,"title":"Word-building with blends","goal":"สร้างคำจากหน่วยเสียง","targets":"frog, stop, flag, hand","status":"ready"},{"id":"L3.15","num":15,"title":"Decodable consonant-pattern sentences","goal":"อ่านเองโดยใช้รูปสะกดที่เรียนแล้ว พร้อมคำพบบ่อยที่สอนไว้","targets":"The ship is big. | The frog can jump. | A fish is in the pond.","status":"ready"},{"id":"L3.16","num":16,"title":"Level 3 checkpoint","goal":"ทดสอบ digraph และ blend","targets":"shop, thin, duck, stop, crab, hand","status":"ready"}]},{"level":4,"name":"Vowel Patterns","count":16,"color":"#FF7B9C","icon":"🌈","lessons":[{"id":"L4.01","num":1,"title":"Magic e: a_e","goal":"สระเสียงยาว a","targets":"cap/cape, tap/tape, mad/made","status":"ready"},{"id":"L4.02","num":2,"title":"Magic e: i_e","goal":"สระเสียงยาว i","targets":"pin/pine, kit/kite, rid/ride","status":"ready"},{"id":"L4.03","num":3,"title":"Magic e: o_e","goal":"สระเสียงยาว o","targets":"hop/hope, not/note, rod/rode","status":"ready"},{"id":"L4.04","num":4,"title":"Magic e: u_e","goal":"สระเสียงยาว u","targets":"cub/cube, tub/tube, cut/cute","status":"ready"},{"id":"L4.05","num":5,"title":"ai and ay","goal":"รูปสะกดเสียง /eɪ/","targets":"rain, train, tail | day, play, stay","status":"ready"},{"id":"L4.06","num":6,"title":"ee and ea","goal":"รูปสะกดเสียง /iː/","targets":"see, tree, green | sea, leaf, team","status":"ready"},{"id":"L4.07","num":7,"title":"oa and ow","goal":"รูปสะกดเสียง /oʊ/ หรือ /əʊ/","targets":"boat, coat, road | snow, grow, slow","status":"ready"},{"id":"L4.08","num":8,"title":"igh and y","goal":"รูปสะกดเสียง /aɪ/","targets":"night, light, bright | my, fly, cry","status":"ready"},{"id":"L4.09","num":9,"title":"ue and ew","goal":"เสียงยาว u /uː/ หรือ /juː/","targets":"blue, true, glue | new, few, grew","status":"ready"},{"id":"L4.10","num":10,"title":"oo: long","goal":"เสียง /uː/","targets":"moon, food, spoon, pool","status":"ready"},{"id":"L4.11","num":11,"title":"oo: short","goal":"เสียง /ʊ/","targets":"book, look, cook, foot","status":"ready"},{"id":"L4.12","num":12,"title":"ie /aɪ/ and e_e /iː/","goal":"อ่านรูปสะกดสระเพิ่มเติม; ย้าย ey และคำหลายพยางค์ไป L5.11","targets":"pie, tie, lie | these, theme, complete","status":"ready"},{"id":"L4.13","num":13,"title":"Long vs short vowels","goal":"แยกสระสั้น-ยาว","targets":"cap/cape, pin/pine, hop/hope, cub/cube","status":"ready"},{"id":"L4.14","num":14,"title":"Mixed vowel teams","goal":"อ่านรูปสะกดหลายแบบ","targets":"rain, tree, boat, night, blue","status":"ready"},{"id":"L4.15","num":15,"title":"Long-vowel sentences","goal":"อ่านประโยคเสียงยาว","targets":"I can ride a bike. | The goat is on the road. | We see a green tree.","status":"ready"},{"id":"L4.16","num":16,"title":"Level 4 checkpoint","goal":"ทดสอบเสียงสั้นและยาว","targets":"cake, bike, home, rain, moon, night","status":"ready"}]},{"level":5,"name":"Advanced Phonics & Word Structure","count":16,"color":"#4DB8FF","icon":"⭐","lessons":[{"id":"L5.01","num":1,"title":"ar","goal":"เสียง r-controlled ar","targets":"car, star, farm, park","status":"ready"},{"id":"L5.02","num":2,"title":"or","goal":"เสียง r-controlled or","targets":"fork, corn, storm, short","status":"ready"},{"id":"L5.03","num":3,"title":"er ir ur","goal":"เสียง /ɜːr/ หรือ /ɝ/","targets":"her, fern | bird, girl | turn, burn","status":"ready"},{"id":"L5.04","num":4,"title":"air and are","goal":"เสียง /ɛər/ หรือ /er/","targets":"air, chair, fair | care, share, square","status":"ready"},{"id":"L5.05","num":5,"title":"ear patterns","goal":"รูปสะกด ear หลายเสียง","targets":"hear, near, dear | bear, pear, wear","status":"ready"},{"id":"L5.06","num":6,"title":"oi and oy","goal":"เสียง /ɔɪ/","targets":"coin, boil, soil | boy, toy, enjoy","status":"ready"},{"id":"L5.07","num":7,"title":"ou and ow","goal":"เสียง /aʊ/","targets":"out, cloud, shout | cow, now, brown","status":"ready"},{"id":"L5.08","num":8,"title":"au and aw","goal":"เสียง /ɔː/ หรือ /ɔ/","targets":"haul, sauce, August | saw, paw, draw","status":"ready"},{"id":"L5.09","num":9,"title":"Soft c and g","goal":"เสียง c /s/ และ g /dʒ/","targets":"city, cent, face | giant, gem, cage","status":"ready"},{"id":"L5.10","num":10,"title":"ph and silent consonants","goal":"อ่าน ph /f/ และรูปสะกด kn/wr/mb; ทุกคำต้องมีเสียงที่เคยเรียนหรือสอนในบท","targets":"phone, graph | knee, know, write, wrong, lamb","status":"ready"},{"id":"L5.11","num":11,"title":"Final -le, y and ey","goal":"แยกพยางค์ท้าย -le และเสียง /i/ ท้าย y/ey โดยสอนทีละกลุ่ม","targets":"apple, little, candle | happy, funny | key, monkey, valley","status":"ready"},{"id":"L5.12","num":12,"title":"Syllable division","goal":"แบ่งพยางค์และอ่านคำยาว","targets":"rabbit, sunset, picnic, robot","status":"ready"},{"id":"L5.13","num":13,"title":"Prefixes un- re-","goal":"เติมคำหน้า","targets":"unhappy, unlock, redo, replay","status":"ready"},{"id":"L5.14","num":14,"title":"Suffixes -ing and -ed","goal":"ฝึกเติม -ing และเสียง -ed ทั้ง /t/, /d/, /ɪd/ พร้อมหลักสะกดที่เกี่ยวข้อง","targets":"jumping, playing | jumped, played, wanted","status":"ready"},{"id":"L5.15","num":15,"title":"Exception words and alternative vowel spellings","goal":"ทบทวนคำพบบ่อยเดิมและสอนรูปที่ต้องใช้ในเรื่องอ่าน: all, small, water, school, grew, blew","targets":"said, one, two, does, have | all, small, water, school, grew, blew","status":"ready"},{"id":"L5.16","num":16,"title":"Level 5 checkpoint","goal":"ทดสอบการอ่านคำซั บซ้อน","targets":"star, bird, coin, cloud, knee, rabbit","status":"ready"}]},{"level":6,"name":"Fluency & Comprehension","count":16,"color":"#B57BFF","icon":"📖","lessons":[{"id":"L6.01","num":1,"title":"Phrase reading","goal":"อ่านกลุ่มคำจากรูปสะกดที่เรียนแล้ว","targets":"in the park | on the bed | by the tree","status":"ready"},{"id":"L6.02","num":2,"title":"High-frequency word review","goal":"ทบทวนคำพบบ่อยที่สอนมาก่อนและเพิ่ม were/there; แยกส่วนที่ถอดเสียงได้กับส่วนพิเศษ","targets":"the, said, was, were, there, you","status":"ready"},{"id":"L6.03","num":3,"title":"Punctuation and expression","goal":"อ่านตามเครื่องหมายด้วยข้อความที่ควบคุมรูปสะกดแล้ว","targets":"Stop! | Can you jump? | What a fun day!","status":"ready"},{"id":"L6.04","num":4,"title":"Who and what","goal":"อ่านแล้วระบุใครทำอะไร","targets":"The dog ran to Ben. Ben gave it water.","status":"ready"},{"id":"L6.05","num":5,"title":"Where and when","goal":"อ่านแล้วระบุสถานที่และเวลา","targets":"At night, Sam went to the park with Dad.","status":"ready"},{"id":"L6.06","num":6,"title":"First, next, last","goal":"เรียงเหตุการณ์จากเรื่อง","targets":"First, Tom put a seed in a pot. Next, he gave it water. Last, a shoot grew.","status":"ready"},{"id":"L6.07","num":7,"title":"Cause and effect","goal":"ตอบเหตุและผลโดยอ้างข้อความ","targets":"It rained at night, so the grass was wet.","status":"ready"},{"id":"L6.08","num":8,"title":"Making predictions","goal":"คาดเดาอย่างมีเหตุผลและแยกสิ่งที่ข้อความบอกกับสิ่งที่คาด","targets":"The sky was dark. Sam got his raincoat.","status":"ready"},{"id":"L6.09","num":9,"title":"Story 1: The Red Kite","goal":"อ่านเรื่องสั้นและจับใจความ","targets":"Ben had a red kite. The wind blew. The kite went high. Ben smiled.","status":"ready"},{"id":"L6.10","num":10,"title":"The Lost Pup","goal":"อ่านเรื่องและจับใจความ","targets":"A pup was lost. Ben saw it by a tree. He took the pup home.","status":"ready"},{"id":"L6.11","num":11,"title":"The Seed","goal":"อ่านเรื่องและเรียงการเติบโต","targets":"A seed lay in the soil. Rain fell. The sun shone. A green shoot grew.","status":"ready"},{"id":"L6.12","num":12,"title":"A Rainy Day","goal":"อ่านเรื่องและจับใจความ","targets":"Rain fell on the roof. Sam put on his boots. He jumped in a puddle.","status":"ready"},{"id":"L6.13","num":13,"title":"Reading dialogue","goal":"อ่านบทสนทนาเป็นประโยคสมบูรณ์และแยกผู้พูด","targets":"“Can we play?” asked Ben. “Yes, we can,” said Mum.","status":"ready"},{"id":"L6.14","num":14,"title":"Retelling","goal":"เล่าตามลำดับโดยไม่แต่งข้อเท็จจริงเพิ่ม","targets":"Ben found a shell. He showed it to Dad. They put it on a shelf.","status":"ready"},{"id":"L6.15","num":15,"title":"Fluency practice","goal":"อ่านซ้ำโดยรักษาความถูกต้องและจังหวะ ไม่แข่งขันความเร็ว","targets":"The bird sat on a branch. It sang in the warm sun.","status":"ready"},{"id":"L6.16","num":16,"title":"Final reading assessment","goal":"อ่านเองก่อนฟังตัวอย่าง แยกคะแนนอ่านกับความเข้าใจ","targets":"A fox saw a small box. In the box was a note. The note said, “Look by the tree.” The fox ran to the tree and found a toy.","status":"ready"}]}]};
+const SVG = {"1":"<svg viewBox=\"0 0 100 100\" width=\"100%\" height=\"100%\"><defs><linearGradient id=\"g6C5CE7\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#6C5CE7\"/><stop offset=\"1\" stop-color=\"#A78BFF\"/></linearGradient></defs><circle cx=\"50\" cy=\"52\" r=\"34\" fill=\"url(#g6C5CE7)\"/><path d=\"M24 30 L28 8 L46 24 Z\" fill=\"#6C5CE7\"/><path d=\"M76 30 L72 8 L54 24 Z\" fill=\"#6C5CE7\"/><path d=\"M29 27 L31 16 L41 25 Z\" fill=\"#FFB3C9\"/><path d=\"M71 27 L69 16 L59 25 Z\" fill=\"#FFB3C9\"/><circle cx=\"40\" cy=\"48\" r=\"5\" fill=\"#2E2A3B\"/><circle cx=\"60\" cy=\"48\" r=\"5\" fill=\"#2E2A3B\"/><circle cx=\"41.8\" cy=\"46.3\" r=\"1.7\" fill=\"#fff\"/><circle cx=\"61.8\" cy=\"46.3\" r=\"1.7\" fill=\"#fff\"/><ellipse cx=\"33\" cy=\"60\" rx=\"6\" ry=\"4\" fill=\"#FF8FB0\" opacity=\".55\"/><ellipse cx=\"67\" cy=\"60\" rx=\"6\" ry=\"4\" fill=\"#FF8FB0\" opacity=\".55\"/><path d=\"M46 58 Q50 62 54 58\" stroke=\"#2E2A3B\" stroke-width=\"2.4\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M50 62 Q46 68 44 71 M50 62 Q54 68 56 71\" stroke=\"#2E2A3B\" stroke-width=\"1.6\" fill=\"none\" stroke-linecap=\"round\" opacity=\".6\"/></svg>","2":"<svg viewBox=\"0 0 100 100\" width=\"100%\" height=\"100%\"><defs><linearGradient id=\"gf2ECC71\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#2ECC71\"/><stop offset=\"1\" stop-color=\"#7BEAA4\"/></linearGradient></defs><circle cx=\"32\" cy=\"34\" r=\"15\" fill=\"url(#gf2ECC71)\"/><circle cx=\"68\" cy=\"34\" r=\"15\" fill=\"url(#gf2ECC71)\"/><circle cx=\"32\" cy=\"34\" r=\"9\" fill=\"#fff\"/><circle cx=\"68\" cy=\"34\" r=\"9\" fill=\"#fff\"/><circle cx=\"33\" cy=\"34\" r=\"4.6\" fill=\"#2E2A3B\"/><circle cx=\"67\" cy=\"34\" r=\"4.6\" fill=\"#2E2A3B\"/><circle cx=\"34.4\" cy=\"32.6\" r=\"1.5\" fill=\"#fff\"/><circle cx=\"68.4\" cy=\"32.6\" r=\"1.5\" fill=\"#fff\"/><ellipse cx=\"50\" cy=\"62\" rx=\"36\" ry=\"28\" fill=\"url(#gf2ECC71)\"/><path d=\"M32 66 Q50 82 68 66\" stroke=\"#2E2A3B\" stroke-width=\"2.6\" fill=\"none\" stroke-linecap=\"round\"/><ellipse cx=\"26\" cy=\"62\" rx=\"6\" ry=\"4\" fill=\"#FF8FB0\" opacity=\".5\"/><ellipse cx=\"74\" cy=\"62\" rx=\"6\" ry=\"4\" fill=\"#FF8FB0\" opacity=\".5\"/></svg>","3":"<svg viewBox=\"0 0 100 100\" width=\"100%\" height=\"100%\"><defs><linearGradient id=\"gxFF9F43\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#FF9F43\"/><stop offset=\"1\" stop-color=\"#FFC978\"/></linearGradient></defs><path d=\"M22 34 L18 6 L48 26 Z\" fill=\"url(#gxFF9F43)\"/><path d=\"M78 34 L82 6 L52 26 Z\" fill=\"url(#gxFF9F43)\"/><path d=\"M50 20 C74 20 86 40 86 56 C86 76 70 90 50 90 C30 90 14 76 14 56 C14 40 26 20 50 20 Z\" fill=\"url(#gxFF9F43)\"/><path d=\"M50 54 C60 54 68 64 68 72 C68 82 60 90 50 90 C40 90 32 82 32 72 C32 64 40 54 50 54 Z\" fill=\"#FFF6EA\"/><circle cx=\"38\" cy=\"52\" r=\"4.8\" fill=\"#2E2A3B\"/><circle cx=\"62\" cy=\"52\" r=\"4.8\" fill=\"#2E2A3B\"/><circle cx=\"39.6\" cy=\"50.5\" r=\"1.6\" fill=\"#fff\"/><circle cx=\"63.6\" cy=\"50.5\" r=\"1.6\" fill=\"#fff\"/><ellipse cx=\"50\" cy=\"70\" rx=\"5\" ry=\"3.6\" fill=\"#2E2A3B\"/><path d=\"M50 74 Q46 80 43 82 M50 74 Q54 80 57 82\" stroke=\"#2E2A3B\" stroke-width=\"1.7\" fill=\"none\" stroke-linecap=\"round\" opacity=\".55\"/></svg>","4":"<svg viewBox=\"0 0 100 100\" width=\"100%\" height=\"100%\"><defs><linearGradient id=\"gbFF7B9C\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#FF7B9C\"/><stop offset=\"1\" stop-color=\"#FFB3C9\"/></linearGradient></defs><ellipse cx=\"36\" cy=\"26\" rx=\"8\" ry=\"22\" fill=\"url(#gbFF7B9C)\" transform=\"rotate(-10 36 26)\"/><ellipse cx=\"64\" cy=\"26\" rx=\"8\" ry=\"22\" fill=\"url(#gbFF7B9C)\" transform=\"rotate(10 64 26)\"/><ellipse cx=\"36\" cy=\"27\" rx=\"3.6\" ry=\"14\" fill=\"#FFC7D8\" transform=\"rotate(-10 36 27)\"/><ellipse cx=\"64\" cy=\"27\" rx=\"3.6\" ry=\"14\" fill=\"#FFC7D8\" transform=\"rotate(10 64 27)\"/><circle cx=\"50\" cy=\"60\" r=\"32\" fill=\"url(#gbFF7B9C)\"/><circle cx=\"39\" cy=\"56\" r=\"4.6\" fill=\"#2E2A3B\"/><circle cx=\"61\" cy=\"56\" r=\"4.6\" fill=\"#2E2A3B\"/><circle cx=\"40.5\" cy=\"54.5\" r=\"1.6\" fill=\"#fff\"/><circle cx=\"62.5\" cy=\"54.5\" r=\"1.6\" fill=\"#fff\"/><ellipse cx=\"50\" cy=\"68\" rx=\"4\" ry=\"3\" fill=\"#FF7B9C\"/><path d=\"M50 71 L50 74 M50 74 Q46 79 43 77 M50 74 Q54 79 57 77\" stroke=\"#2E2A3B\" stroke-width=\"1.7\" fill=\"none\" stroke-linecap=\"round\" opacity=\".6\"/><ellipse cx=\"32\" cy=\"66\" rx=\"5\" ry=\"3.4\" fill=\"#FF8FB0\" opacity=\".5\"/><ellipse cx=\"68\" cy=\"66\" rx=\"5\" ry=\"3.4\" fill=\"#FF8FB0\" opacity=\".5\"/></svg>","5":"<svg viewBox=\"0 0 100 100\" width=\"100%\" height=\"100%\"><defs><linearGradient id=\"gd4DB8FF\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#4DB8FF\"/><stop offset=\"1\" stop-color=\"#9BD8FF\"/></linearGradient></defs><path d=\"M20 66 C20 40 38 22 62 22 C76 22 86 30 88 40 C74 34 62 36 54 44 C46 52 42 62 42 76 C40 86 28 88 22 80 C19 76 20 70 20 66 Z\" fill=\"url(#gd4DB8FF)\"/><path d=\"M62 22 C58 12 66 6 74 8 C70 14 70 20 66 26 Z\" fill=\"#4DB8FF\"/><ellipse cx=\"66\" cy=\"60\" rx=\"20\" ry=\"10\" fill=\"#E8F7FF\" opacity=\".75\" transform=\"rotate(-18 66 60)\"/><circle cx=\"34\" cy=\"46\" r=\"5\" fill=\"#2E2A3B\"/><circle cx=\"35.8\" cy=\"44.4\" r=\"1.7\" fill=\"#fff\"/><path d=\"M22 56 Q30 60 38 54\" stroke=\"#2E2A3B\" stroke-width=\"2.2\" fill=\"none\" stroke-linecap=\"round\" opacity=\".7\"/><circle cx=\"76\" cy=\"26\" r=\"3\" fill=\"#fff\" opacity=\".9\"/><circle cx=\"84\" cy=\"34\" r=\"2\" fill=\"#fff\" opacity=\".7\"/></svg>","6":"<svg viewBox=\"0 0 100 100\" width=\"100%\" height=\"100%\"><defs><linearGradient id=\"goB57BFF\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#B57BFF\"/><stop offset=\"1\" stop-color=\"#E3BFFF\"/></linearGradient></defs><path d=\"M22 30 L26 12 L40 26 Z\" fill=\"#B57BFF\"/><path d=\"M78 30 L74 12 L60 26 Z\" fill=\"#B57BFF\"/><ellipse cx=\"50\" cy=\"56\" rx=\"34\" ry=\"32\" fill=\"url(#goB57BFF)\"/><ellipse cx=\"50\" cy=\"66\" rx=\"22\" ry=\"20\" fill=\"#FFF1FA\" opacity=\".85\"/><circle cx=\"37\" cy=\"50\" r=\"12\" fill=\"#fff\"/><circle cx=\"63\" cy=\"50\" r=\"12\" fill=\"#fff\"/><circle cx=\"37\" cy=\"50\" r=\"6\" fill=\"#2E2A3B\"/><circle cx=\"63\" cy=\"50\" r=\"6\" fill=\"#2E2A3B\"/><circle cx=\"39\" cy=\"47.8\" r=\"2\" fill=\"#fff\"/><circle cx=\"65\" cy=\"47.8\" r=\"2\" fill=\"#fff\"/><path d=\"M50 58 L45 66 L55 66 Z\" fill=\"#FFB84D\"/><circle cx=\"34\" cy=\"78\" r=\"3\" fill=\"#B57BFF\" opacity=\".45\"/><circle cx=\"50\" cy=\"82\" r=\"3\" fill=\"#B57BFF\" opacity=\".45\"/><circle cx=\"66\" cy=\"78\" r=\"3\" fill=\"#B57BFF\" opacity=\".45\"/></svg>"};
+const params = new URLSearchParams(location.search);
+let lvN = parseInt(params.get('lv')||'1', 10);
+let lv = DATA.levels.find(l => l.level===lvN) || DATA.levels[0];
+document.title = 'ระดับ '+lv.level+' — '+lv.name;
+
+document.getElementById('back').addEventListener('click', ()=> location.href='index.html');
+
+const PKEY = 'kb_prog_v1';
+function progAll(){ try{ return JSON.parse(localStorage.getItem(PKEY)) || {}; }catch(e){ return {}; } }
+function progOf(L){ const p = progAll()[L.id]; if(!p) return 'none';
+  if(p.done) return 'done';
+  if(p.step!==undefined && (p.step>0 || p.i>0)) return 'doing';
+  return 'none'; }
+
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function lighten(hex,f){
+  const n=parseInt(hex.slice(1),16);
+  let r=(n>>16)&255,g=(n>>8)&255,b=n&255;
+  r=Math.min(255,Math.round(r+(255-r)*f));
+  g=Math.min(255,Math.round(g+(255-g)*f));
+  b=Math.min(255,Math.round(b+(255-b)*f));
+  return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);
+}
+function shortTgt(t){ if(!t) return '—';
+  const w=t.split(/[|,]/).map(s=>s.trim()).filter(Boolean);
+  return w.length?w.join(' · '):'—'; }
+function targets2Chips(t){
+  if(!t) return [];
+  return t.split('|').map(s=>s.trim()).filter(Boolean).slice(0,3);
+}
+
+/* ---------- render hero ---------- */
+const band=document.getElementById('band');
+band.style.background='linear-gradient(150deg,'+lv.color+' 0%,'+lighten(lv.color,.32)+' 62%,'+lighten(lv.color,.58)+' 100%)';
+const readyN = lv.lessons.filter(l=>l.status==='ready').length;
+const now = progAll();
+const doneN = lv.lessons.filter(L=>progOf(L)==='done').length;
+
+document.getElementById('hero').innerHTML =
+  '<div class="anim">'+(SVG[lv.level]||'')+'</div>'+
+  '<div><h1>ระดับ '+lv.level+' · '+esc(lv.name)+'</h1>'+
+  '<div class="sub">'+lv.count+' บทเรียน · '+readyN+'/'+lv.count+' พร้อมเล่น</div></div>';
+const pct = Math.round(doneN/lv.count*100);
+document.getElementById('barfill').style.width = pct+'%';
+document.getElementById('barl').textContent = '✅ ผ่านแล้ว '+doneN+'/'+lv.count;
+document.getElementById('barr').textContent = pct+'%';
+
+/* ---------- resume ---------- */
+const doingL = lv.lessons.filter(L=>progOf(L)==='doing');
+if(doingL.length){
+  const L=doingL[0], p=now[L.id]||{};
+  const b=document.createElement('div');
+  b.className='resume';
+  b.innerHTML='<div><b>▶️ เล่นต่อ</b> · บทที่ '+L.num+' — '+esc(L.title)+
+    '<div style="font-size:.76rem;opacity:.9;margin-top:2px">ขั้นที่ '+((p.step||0)+1)+'</div></div>'+
+    '<button class="go">เล่นต่อ</button>';
+  b.addEventListener('click', ()=>{ location.href='lesson.html?id='+encodeURIComponent(L.id)+'&lv='+lv.level; });
+  document.getElementById('resumeSlot').appendChild(b);
+}
+
+/* ---------- lesson cards ---------- */
+const grid=document.getElementById('grid');
+lv.lessons.forEach(L=>{
+  const pg=progOf(L);
+  const c=document.createElement('div');
+  c.className='card'+(pg==='done'?' done':pg==='doing'?' doing':'');
+  const chips = targets2Chips(L.targets).map(t=>'<span class="chip">'+esc(t)+'</span>').join('');
+  const pgChip = pg==='done'?'<span class="chip ok">✅ ผ่านแล้ว</span>'
+                :pg==='doing'?'<span class="chip" style="background:#FEF3C7;color:#B45309">🟡 กำลังเล่น</span>'
+                :'<span class="chip wait">⬜ ยังไม่เล่น</span>';
+  c.innerHTML =
+    '<div class="num" style="background:linear-gradient(140deg,'+lv.color+' 0%,'+lighten(lv.color,.34)+' 100%)">'+L.num+'</div>'+
+    '<div class="cbody">'+
+      '<p class="ctitle">'+esc(L.title)+'</p>'+
+      '<div class="cgoal">'+esc(L.goal||shortTgt(L.targets))+'</div>'+
+      '<div class="chips">'+pgChip+chips+'</div>'+
+    '</div>'+
+    '<div class="st">'+(pg==='done'?'✅':pg==='doing'?'🟡':'›')+'</div>';
+  c.addEventListener('click', ()=> openSheet(L));
+  grid.appendChild(c);
+});
+
+/* ---------- sheet ---------- */
+function openSheet(L){
+  const m=document.getElementById('modal'), s=document.getElementById('sheet');
+  const ready=L.status==='ready';
+  const pg=progOf(L);
+  const p=now[L.id]||{};
+  s.innerHTML =
+    '<div class="sh"><div class="san">'+(SVG[lv.level]||'')+'</div>'+
+      '<div><h3>'+esc(L.title)+'</h3>'+
+      '<div class="sid">'+esc(L.id)+' · ระดับ '+lv.level+' บทที่ '+L.num+'</div></div></div>'+
+    (L.goal?'<div class="srow"><b>เป้าหมาย</b><p>'+esc(L.goal)+'</p></div>':'')+
+    '<div class="srow"><b>คำเป้าหมาย</b><p>'+esc(L.targets||'—')+'</p></div>'+
+    '<div class="srow"><b>สถานะ</b><p>'+
+      (ready?'พร้อมเล่น ✅':'ยังอยู่ระหว่างพัฒนา 🚧')+
+      (pg==='done'?' · <b style="color:#15864A">เล่นจบแล้ว</b>':
+       pg==='doing'?' · <b style="color:#B45309">กำลังเล่นค้างอยู่ (ขั้นที่ '+((p.step||0)+1)+')</b>':'')+
+      '</p></div>'+
+    '<button class="btn '+(ready?'play':'ghost')+'" id="sbtn" '+(ready?'':'disabled')+
+      (ready?' style="background:linear-gradient(135deg,'+lv.color+' 0%,'+lighten(lv.color,.3)+' 100%)"':'')+
+      '>'+(ready?(pg==='doing'?'▶ เล่นต่อจากจุดเดิม':'เริ่มบทเรียน ▶'):'ยังไม่พร้อม — เร็ว ๆ นี้')+'</button>'+
+    '<button class="btn ghost" id="sclose">ปิด</button>';
+  m.classList.add('on');
+  s.querySelector('#sclose').addEventListener('click', closeSheet);
+  const b=s.querySelector('#sbtn');
+  if(ready) b.addEventListener('click', ()=>{ closeSheet(); location.href='lesson.html?id='+encodeURIComponent(L.id)+'&lv='+lv.level; });
+}
+function closeSheet(){ document.getElementById('modal').classList.remove('on'); }
+document.getElementById('modal').addEventListener('click', e=>{
+  if(e.target===document.getElementById('modal')) closeSheet(); });
+</script><script id="kbPwaReg">
+(function(){
+  if(!('serviceWorker' in navigator)) return;
+  window.addEventListener("load", function(){
+    navigator.serviceWorker.register('sw.js', { scope: './' }).catch(function(err){
+      console.warn('[pwa] sw register failed', err.message);
+    });
+  });
+})();
+</script>
+</body></html>

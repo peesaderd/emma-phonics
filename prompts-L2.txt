@@ -1,0 +1,99 @@
+KIDOBITS — LEVEL 2 IMAGE PROMPTS (21 words) + L1 top-up (2 words)
+======================================================================
+
+IMPORTANT: name each file exactly as the FILE NAME line (e.g. can.png).
+For "ten" use exactly the numeral 10 (digits are fine). Every other image must contain NO text or letters.
+Zip all of them and send the link.
+
+[01] FILE NAME: can.png
+     Thai: กระป๋องเหล็กมีฝาดึง
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: กระป๋องเหล็กมีฝาดึง.
+
+[02] FILE NAME: man.png
+     Thai: ผู้ชายยืนยิ้ม
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ผู้ชายยืนยิ้ม.
+
+[03] FILE NAME: pan.png
+     Thai: กระทะมีด้ามจับ
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: กระทะมีด้ามจับ.
+
+[04] FILE NAME: ten.png
+     Thai: เลข 10 ตัวใหญ่บนพื้นหลังขาว
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เลข 10 ตัวใหญ่บนพื้นหลังขาว.
+
+[05] FILE NAME: pet.png
+     Thai: แมวน้อยน่ารัก
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: แมวน้อยน่ารัก.
+
+[06] FILE NAME: jet.png
+     Thai: เครื่องบินเจ็ทบินขึ้น
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เครื่องบินเจ็ทบินขึ้น.
+
+[07] FILE NAME: big.png
+     Thai: ช้างตัวใหญ่
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ช้างตัวใหญ่.
+
+[08] FILE NAME: wig.png
+     Thai: วิกผมสีน้ำตาล
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: วิกผมสีน้ำตาล.
+
+[09] FILE NAME: win.png
+     Thai: ถ้วยรางวัลพร้อมริบบิ้น
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ถ้วยรางวัลพร้อมริบบิ้น.
+
+[10] FILE NAME: bin.png
+     Thai: ถังขยะมีฝา
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ถังขยะมีฝา.
+
+[11] FILE NAME: fog.png
+     Thai: หมอกหนาปกคลุมต้นไม้
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: หมอกหนาปกคลุมต้นไม้.
+
+[12] FILE NAME: jog.png
+     Thai: คนวิ่งออกกำลังกาย
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: คนวิ่งออกกำลังกาย.
+
+[13] FILE NAME: hot.png
+     Thai: แสงแดดและเปลวไฟ
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: แสงแดดและเปลวไฟ.
+
+[14] FILE NAME: dot.png
+     Thai: จุดวงกลมสีแดง
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: จุดวงกลมสีแดง.
+
+[15] FILE NAME: cot.png
+     Thai: เตียงผ้าใบพับได้
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เตียงผ้าใบพับได้.
+
+[16] FILE NAME: bug.png
+     Thai: ด้วงตัวเล็ก
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ด้วงตัวเล็ก.
+
+[17] FILE NAME: rug.png
+     Thai: พรมปูพื้นลายทาง
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: พรมปูพื้นลายทาง.
+
+[18] FILE NAME: mug.png
+     Thai: แก้วมัคมีหูจับ
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: แก้วมัคมีหูจับ.
+
+[19] FILE NAME: hug.png
+     Thai: คนสองคนกอดกัน
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: คนสองคนกอดกัน.
+
+[20] FILE NAME: fun.png
+     Thai: ลูกโป่งสีสันและของเล่น
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ลูกโป่งสีสันและของเล่น.
+
+[21] FILE NAME: bun.png
+     Thai: ขนมปังกลมอบ
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ขนมปังกลมอบ.
+
+[22] FILE NAME: on.png
+     Thai: สวิตช์ไฟเปิด
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: สวิตช์ไฟเปิด.
+
+[23] FILE NAME: quiz.png
+     Thai: กระดาษคำถามกับดินสอ
+     Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: กระดาษคำถามกับดินสอ.
+

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kidobits Phonics · Lessons</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Kanit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style><style>
+:root{
+  --bg:#12082B; --bg2:#1A0B2E; --panel:#221041; --panel2:#2A1653;
+  --ink:#0A0418; --fg:#FFFEF5; --muted:#A99FC9;
+  --cyan:#00F5FF; --gold:#FFD700; --pink:#FF1493; --lime:#39FF14;
+  --shadow:8px 8px 0 var(--ink); --shadow-sm:5px 5px 0 var(--ink);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:'Kanit',-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Thai",
+  "Sarabun",Roboto,sans-serif;background:var(--bg);color:var(--fg);
+  background-image:
+    radial-gradient(900px 500px at 15% -10%,rgba(0,245,255,.16),transparent 65%),
+    radial-gradient(800px 460px at 92% 8%,rgba(255,20,147,.14),transparent 65%),
+    radial-gradient(700px 700px at 50% 115%,rgba(57,255,20,.08),transparent 70%);
+  background-attachment:fixed;line-height:1.5;padding:0 0 44px;overflow-x:hidden}
+.wrap{max-width:880px;margin:0 auto;padding:0 18px;position:relative;z-index:1}
+
+/* ---------- player bar ---------- */
+.pbar{display:flex;align-items:center;gap:12px;padding:16px 0 14px;position:relative;z-index:3}
+.pavatar{width:56px;height:56px;flex:0 0 56px;border-radius:50%;background:var(--panel);
+  border:4px solid var(--ink);box-shadow:3px 3px 0 var(--ink);display:grid;place-items:center;
+  font-size:26px;overflow:hidden;animation:bob 2.8s ease-in-out infinite}
+.pavatar svg{width:42px;height:42px;display:block}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.pinfo{flex:1;min-width:0}
+.pname{font-family:'Fredoka','Kanit',sans-serif;font-size:.95rem;font-weight:700;color:var(--fg);line-height:1.2}
+.plvl{display:inline-block;margin-top:4px;font-family:'Fredoka','Kanit',sans-serif;
+  font-size:.66rem;font-weight:700;letter-spacing:1px;color:var(--ink);background:var(--gold);
+  border:2.5px solid var(--ink);border-radius:8px;padding:2px 8px;box-shadow:2px 2px 0 var(--ink)}
+.pmeta{font-size:.7rem;color:var(--muted);margin-top:3px;font-weight:500}
+.pgem{display:flex;align-items:center;gap:6px;font-family:'Fredoka','Kanit',sans-serif;
+  font-weight:700;font-size:.82rem;background:var(--panel);border:3px solid var(--ink);
+  border-radius:12px;padding:7px 12px;box-shadow:var(--shadow-sm);color:var(--gold)}
+.pgear{width:42px;height:42px;flex:0 0 42px;border-radius:12px;background:var(--panel);
+  border:3px solid var(--ink);box-shadow:var(--shadow-sm);display:grid;place-items:center;
+  font-size:18px;cursor:pointer}
+
+/* ---------- banner ---------- */
+.banner{position:relative;background:linear-gradient(150deg,var(--panel),var(--bg2));
+  border:4px solid var(--ink);border-radius:22px;padding:18px;margin-bottom:22px;
+  box-shadow:var(--shadow);overflow:hidden}
+.banner:before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(500px 200px at 78% -30%,rgba(255,215,0,.18),transparent 70%)}
+.brow{display:flex;gap:14px;align-items:flex-start;position:relative;z-index:2}
+.bicon{width:54px;height:54px;flex:0 0 54px;border-radius:15px;background:var(--gold);
+  border:4px solid var(--ink);box-shadow:3px 3px 0 var(--ink);display:grid;place-items:center;font-size:26px}
+.btitle{font-family:'Fredoka','Kanit',sans-serif;font-size:1.05rem;font-weight:700;
+  color:var(--gold);line-height:1.25;text-shadow:2px 2px 0 var(--ink)}
+.bsub{font-size:.78rem;color:var(--muted);margin-top:4px;font-weight:500;line-height:1.45}
+.btags{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.btag{font-family:'Fredoka','Kanit',sans-serif;font-size:.66rem;font-weight:700;
+  background:var(--panel2);color:var(--cyan);border:2.5px solid var(--ink);
+  border-radius:8px;padding:3px 9px;box-shadow:2px 2px 0 var(--ink)}
+.bpath{margin-top:12px;font-family:'Fredoka','Kanit',sans-serif;font-size:.68rem;
+  font-weight:700;color:var(--muted);letter-spacing:1.5px;position:relative;z-index:2}
+
+/* ---------- warmup strip ---------- */
+.warm{background:linear-gradient(150deg,var(--panel2),var(--bg2));border:4px solid var(--ink);
+  border-radius:20px;padding:15px;display:flex;align-items:center;gap:14px;margin-bottom:20px;
+  cursor:pointer;box-shadow:var(--shadow);transition:transform .09s ease,box-shadow .09s ease}
+.warm:hover{transform:translate(-2px,-2px);box-shadow:10px 10px 0 var(--ink)}
+.warm:active{transform:translate(5px,5px);box-shadow:3px 3px 0 var(--ink)}
+.warm .wi{width:60px;height:60px;flex:0 0 60px;border-radius:16px;background:var(--gold);
+  border:4px solid var(--ink);box-shadow:3px 3px 0 var(--ink);display:grid;place-items:center;font-size:30px}
+.warm .wt{flex:1;min-width:0}
+.warm .w1{font-family:'Fredoka','Kanit',sans-serif;font-size:.95rem;font-weight:700;
+  color:var(--gold);line-height:1.3}
+.warm .w2{font-size:.76rem;color:var(--muted);margin-top:3px;font-weight:500}
+.warm .ws{font-family:'Fredoka','Kanit',sans-serif;font-size:.85rem;font-weight:700;
+  color:var(--ink);background:var(--cyan);border:3px solid var(--ink);border-radius:12px;
+  padding:8px 12px;box-shadow:3px 3px 0 var(--ink)}
+
+/* ---------- section head ---------- */
+.shead{display:flex;align-items:baseline;gap:10px;margin:0 0 14px;flex-wrap:wrap}
+.shead h2{margin:0;font-family:'Fredoka','Kanit',sans-serif;font-size:1.08rem;
+  font-weight:700;color:var(--fg);display:flex;align-items:center;gap:7px}
+.ssub{font-size:.72rem;color:var(--muted);font-weight:500}
+.scount{margin-left:auto;font-family:'Fredoka','Kanit',sans-serif;font-size:.7rem;
+  font-weight:700;color:var(--ink);background:var(--cyan);border:2.5px solid var(--ink);
+  border-radius:8px;padding:3px 9px;box-shadow:2px 2px 0 var(--ink);white-space:nowrap}
+
+/* ---------- chapter cards ---------- */
+.lvgrid{display:grid;grid-template-columns:1fr;gap:18px}
+.card{position:relative;background:linear-gradient(150deg,var(--panel),var(--bg2));
+  border:4px solid var(--ink);border-radius:22px;padding:16px;box-shadow:var(--shadow);
+  overflow:hidden;transition:transform .09s ease,box-shadow .09s ease}
+.card:not(.locked){cursor:pointer}
+.card:not(.locked):hover{transform:translate(-2px,-2px);box-shadow:10px 10px 0 var(--ink)}
+.card:not(.locked):active{transform:translate(5px,5px);box-shadow:3px 3px 0 var(--ink)}
+.card.locked{filter:saturate(.35) brightness(.72);cursor:not-allowed}
+.card .strip{position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--c,#6C5CE7);
+  border-right:3px solid var(--ink)}
+.card .top{display:flex;align-items:flex-start;gap:12px;margin-left:6px}
+.badge{width:52px;height:52px;flex:0 0 52px;border-radius:15px;display:grid;place-items:center;
+  font-size:24px;position:relative;background:var(--c,#6C5CE7);border:4px solid var(--ink);
+  box-shadow:3px 3px 0 var(--ink)}
+.badge .n{position:absolute;right:-7px;bottom:-7px;width:24px;height:24px;border-radius:8px;
+  background:var(--fg);color:var(--ink);border:3px solid var(--ink);display:grid;place-items:center;
+  font-family:'Fredoka','Kanit',sans-serif;font-size:.68rem;font-weight:700}
+.stars{display:flex;gap:3px;margin-left:auto;font-size:.82rem;line-height:1}
+.stars span{color:#3A2A5E}
+.stars span.on{color:var(--gold);text-shadow:0 0 8px rgba(255,215,0,.6)}
+.hd{margin-left:6px;margin-top:12px}
+.hd .ch{display:inline-block;font-family:'Fredoka','Kanit',sans-serif;font-size:.62rem;
+  font-weight:700;letter-spacing:1.2px;color:var(--ink);background:var(--cyan);
+  border:2.5px solid var(--ink);border-radius:7px;padding:2px 7px;box-shadow:2px 2px 0 var(--ink);
+  margin-bottom:5px}
+.hd .en{font-family:'Fredoka','Kanit',sans-serif;font-size:.98rem;font-weight:700;
+  color:var(--fg);line-height:1.25}
+.hd .th{font-size:.75rem;color:var(--muted);font-weight:500;margin-top:3px}
+.desc{margin-left:6px;margin-top:9px;font-size:.76rem;color:#CFC7E6;font-weight:400;line-height:1.55}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin:11px 0 0 6px}
+.tag{font-family:'Fredoka','Kanit',sans-serif;font-size:.64rem;font-weight:700;
+  background:var(--panel2);color:var(--fg);border:2.5px solid var(--ink);border-radius:7px;
+  padding:3px 8px;box-shadow:2px 2px 0 var(--ink)}
+.foot{display:flex;align-items:center;gap:10px;margin:14px 0 0 6px;padding-top:12px;
+  border-top:2px dashed #3A2A5E}
+.pct{font-family:'Fredoka','Kanit',sans-serif;font-size:1.05rem;font-weight:700;
+  color:var(--gold);min-width:52px}
+.pct.zero{color:var(--muted)}
+.barbox{flex:1;height:12px;border:3px solid var(--ink);border-radius:8px;background:#0D0620;
+  overflow:hidden;box-shadow:2px 2px 0 var(--ink)}
+.barfill{height:100%;background:linear-gradient(90deg,var(--lime),var(--cyan));width:0%;
+  transition:width .4s ease}
+.enter{font-family:'Fredoka','Kanit',sans-serif;font-size:.74rem;font-weight:700;padding:9px 13px;
+  border-radius:11px;border:3px solid var(--ink);background:var(--gold);color:var(--ink);
+  box-shadow:3px 3px 0 var(--ink);cursor:pointer;white-space:nowrap;flex:0 0 auto}
+.enter:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.enter[disabled]{background:#4A3A6E;color:#9A8FBA;cursor:not-allowed}
+
+footer{text-align:center;color:var(--muted);font-size:.72rem;margin-top:34px;line-height:1.7}
+@media(min-width:760px){.lvgrid{grid-template-columns:1fr 1fr}}
+</style>
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ PLAYER BAR ============ -->
+  <div class="pbar">
+    <div class="pavatar" id="pav"></div>
+    <div class="pinfo">
+      <div class="pname" id="pname">Kidobits Learner</div>
+      <span class="plvl" id="plvl">LVL 1</span>
+      <div class="pmeta" id="pmeta">0/92 บท</div>
+    </div>
+    <div class="pgem">💎 <span id="pgem">0</span></div>
+    <div class="pgear" id="pgear" role="button" tabindex="0" aria-label="ตั้งค่า">⚙️</div>
+  </div>
+
+  <!-- ============ BANNER ============ -->
+  <div class="banner">
+    <div class="brow">
+      <div class="bicon">📚</div>
+      <div style="flex:1;min-width:0">
+        <div class="btitle">KIDOBITS LESSONS</div>
+        <div class="bsub">หน้านี้เป็นบทเรียนเท่านั้น ยังไม่เข้าแบบฝึกหัด</div>
+        <div class="btags">
+          <span class="btag" id="bt-ch">6 บทหลัก</span>
+          <span class="btag">Warmup</span>
+          <span class="btag" id="bt-only">Lessons only</span>
+        </div>
+      </div>
+    </div>
+    <div class="bpath" id="warmpath">WARMUP → CH 6</div>
+  </div>
+
+  <!-- ============ WARMUP STRIP ============ -->
+  <div class="warm" id="warmcard" role="button" tabindex="0">
+    <div class="wi">🔤</div>
+    <div class="wt">
+      <div class="w1">START HERE • เริ่มที่นี่</div>
+      <div class="w2">A–Z Warmup · ปรับหู ฟังเสียงตัวอักษรทั้ง 26 ตัว</div>
+    </div>
+    <div class="ws">›</div>
+  </div>
+
+  <!-- ============ SECTION HEAD ============ -->
+  <div class="shead">
+    <h2>📚 บทเรียนทั้งหมด</h2>
+    <span class="ssub" id="sdesc">Warmup + 6 บทหลัก</span>
+    <span class="scount" id="scount">92 บทย่อย</span>
+  </div>
+
+  <!-- ============ CHAPTER GRID ============ -->
+  <div class="lvgrid" id="lvgrid"></div>
+
+  <footer>Kidobits Phonics · ฉบับร่างเพื่อพัฒนา<br>
+  ยังไม่ผ่านการรับรองหลักสูตรหรือผลทดสอบกับเด็ก</footer>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="sheet" id="sheet"></div>
+</div>
+
+<script>
+const DATA = {"levels":[{"level":1,"name":"Letter Sounds & Early Blending","count":12,"color":"#6C5CE7","icon":"🔤","lessons":[{"id":"L1.01","num":1,"title":"Listening for first sounds","goal":"ฟั งและระบุเสียงต้นคำ","targets":"sun, sock, sit | moon, map, mat","status":"ready"},{"id":"L1.02","num":2,"title":"A and S","goal":"แยก /æ/ และ /s/","targets":"apple, ant, ax | sun, sock, sip","status":"ready"},{"id":"L1.03","num":3,"title":"T and P","goal":"แยก /t/ และ /p/","targets":"tin, tap, top | pen, pig, pot","status":"ready"},{"id":"L1.04","num":4,"title":"I and N","goal":"แยก /ɪ/ และ /n/","targets":"insect, ink, it | net, nap, nut","status":"ready"},{"id":"L1.05","num":5,"title":"M and D","goal":"แยก /m/ และ /d/","targets":"moon, map, mat | dog, dig, dot","status":"ready"},{"id":"L1.06","num":6,"title":"G and O","goal":"แยก /g/ และสระสั้น /ɒ/ หรือ /ɑ/ ตามสำเนียง","targets":"goat, gum, gap | octopus, on, ox","status":"ready"},{"id":"L1.07","num":7,"title":"C and K","goal":"เรียนเสียง /k/ สะกดด้วย c หรือ k","targets":"cat, cup, cap | kit, kid, king","status":"ready"},{"id":"L1.08","num":8,"title":"E and U","goal":"แยกสระสั้น /ɛ/ และ /ʌ/","targets":"egg, end, elf | up, under, umbrella","status":"ready"},{"id":"L1.09","num":9,"title":"F, H and L","goal":"แยกเสียง /f/, /h/, /l/","targets":"fish, fan, fin | hat, hen, hop | log, leg, lip","status":"ready"},{"id":"L1.10","num":10,"title":"B, R and J","goal":"แยกเสียง /b/, /r/, /dʒ/","targets":"ball, bat, bed | red, run, rat | jam, jet, jog","status":"ready"},{"id":"L1.11","num":11,"title":"V, W and Y","goal":"ฝึกแยก /v/, /w/, /j/ ด้วยรูปปาก","targets":"van, vet, vest | web, wet, win | yes, yam, yell","status":"ready"},{"id":"L1.12","num":12,"title":"qu, x, z and cumulative review","goal":"เชื่อม qu กับ /k/+/w/, x กับ /k/+/s/ และ z กับ /z/; ทบทวนตัวอักษรแบบสุ่ม","targets":"queen, quick, quiz | fox, box, six | zip, zoo, zebra","status":"ready"}]},{"level":2,"name":"Blending & CVC","count":16,"color":"#2ECC71","icon":"🐱","lessons":[{"id":"L2.01","num":1,"title":"s a t p — first blends","goal":"ผสมคำสระ a","targets":"sat, pat, tap, at","status":"ready"},{"id":"L2.02","num":2,"title":"i n m — short i","goal":"ผสมเสียง i n m","targets":"pin, sit, tin, tip","status":"ready"},{"id":"L2.03","num":3,"title":"Short a word family -at","goal":"อ่านคำลงท้าย -at","targets":"cat, hat, mat, bat","status":"ready"},{"id":"L2.04","num":4,"title":"Short a word family -an","goal":"อ่านคำลงท้าย -an","targets":"can, fan, man, pan","status":"ready"},{"id":"L2.05","num":5,"title":"Short a word family -ap","goal":"อ่านคำลงท้าย -ap","targets":"cap, map, nap, tap","status":"ready"},{"id":"L2.06","num":6,"title":"Short e word family -en","goal":"อ่านคำลงท้าย -en","targets":"pen, hen, ten, men","status":"ready"},{"id":"L2.07","num":7,"title":"Short e word family -et","goal":"อ่านคำลงท้าย -et","targets":"net, pet, wet, jet","status":"ready"},{"id":"L2.08","num":8,"title":"Short i word family -ig","goal":"อ่านคำลงท้าย -ig","targets":"pig, big, dig, wig","status":"ready"},{"id":"L2.09","num":9,"title":"Short i word family -in","goal":"อ่านคำลงท้าย -in","targets":"pin, fin, win, bin","status":"ready"},{"id":"L2.10","num":10,"title":"Short o word family -og","goal":"อ่านคำลงท้าย -og","targets":"dog, log, fog, jog","status":"ready"},{"id":"L2.11","num":11,"title":"Short o word family -ot","goal":"อ่านคำลงท้าย -ot","targets":"pot, hot, dot, cot","status":"ready"},{"id":"L2.12","num":12,"title":"Short u word family -ug","goal":"อ่านคำลงท้าย -ug","targets":"bug, rug, mug, hug","status":"ready"},{"id":"L2.13","num":13,"title":"Short u word family -un","goal":"อ่านคำลงท้าย -un","targets":"sun, run, fun, bun","status":"ready"},{"id":"L2.14","num":14,"title":"Mixed CVC words","goal":"เลือกสระที่ถูกต้อง","targets":"cat, pen, pig, dog, sun","status":"ready"},{"id":"L2.15","num":15,"title":"Read short CVC sentences","goal":"อ่านประโยคง่าย","targets":"Sam sat. | A cat sat. | A pig sat. | A dog sat.","status":"ready"},{"id":"L2.16","num":16,"title":"Level 2 checkpoint","goal":"ทดสอบการผสมเสียงและอ่านคำ","targets":"map, hen, pin, log, cup, sun","status":"ready"}]},{"level":3,"name":"Digraphs & Consonant Blends","count":16,"color":"#FFB84D","icon":"🔗","lessons":[{"id":"L3.01","num":1,"title":"sh","goal":"เสียง sh /ʃ/","targets":"ship, shop, fish, dish","status":"ready"},{"id":"L3.02","num":2,"title":"ch","goal":"เสียง ch /tʃ/","targets":"chip, chop, chin, much","status":"ready"},{"id":"L3.03","num":3,"title":"th unvoiced","goal":"เสียง th /θ/","targets":"thin, bath, moth, path","status":"ready"},{"id":"L3.04","num":4,"title":"th voiced","goal":"เสียง th /ð/","targets":"this, that, them, then","status":"ready"},{"id":"L3.05","num":5,"title":"ck and ng","goal":"เสียง ck /k/ และ ng /ŋ/","targets":"duck, sock, back | ring, sing, king","status":"ready"},{"id":"L3.06","num":6,"title":"wh; cumulative consonant review","goal":"อ่าน wh เป็น /w/ ในสำเนียงที่เลือก และทบทวน sh/ch/th/ck/ng; ย้าย ph ไป L5.10","targets":"when, whip, which, whack | ship, chin, duck, ring","status":"ready"},{"id":"L3.07","num":7,"title":"Initial s blends","goal":"พยัญชนะควบ s","targets":"stop, spin, swim, skip","status":"ready"},{"id":"L3.08","num":8,"title":"Initial l blends","goal":"พยัญชนะควบ l","targets":"black, clap, flag, plum","status":"ready"},{"id":"L3.09","num":9,"title":"Initial r blends","goal":"พยัญชนะควบ r","targets":"frog, crab, drum, trip","status":"ready"},{"id":"L3.10","num":10,"title":"Final blends -nd -st","goal":"เสียงควบท้าย","targets":"hand, sand, nest, fast","status":"ready"},{"id":"L3.11","num":11,"title":"Final blends -mp -nt","goal":"เสียงควบท้าย","targets":"lamp, jump, tent, mint","status":"ready"},{"id":"L3.12","num":12,"title":"Three-consonant blends","goal":"เสียงควบสามตัว","targets":"spring, string, splash, scrub","status":"ready"},{"id":"L3.13","num":13,"title":"Digraph vs blend","goal":"แยกเสียงรวมและเสียงควบ","targets":"ship, slip, chop, clap","status":"ready"},{"id":"L3.14","num":14,"title":"Word-building with blends","goal":"สร้างคำจากหน่วยเสียง","targets":"frog, stop, flag, hand","status":"ready"},{"id":"L3.15","num":15,"title":"Decodable consonant-pattern sentences","goal":"อ่านเองโดยใช้รูปสะกดที่เรียนแล้ว พร้อมคำพบบ่อยที่สอนไว้","targets":"The ship is big. | The frog can jump. | A fish is in the pond.","status":"ready"},{"id":"L3.16","num":16,"title":"Level 3 checkpoint","goal":"ทดสอบ digraph และ blend","targets":"shop, thin, duck, stop, crab, hand","status":"ready"}]},{"level":4,"name":"Vowel Patterns","count":16,"color":"#FF7B9C","icon":"🌈","lessons":[{"id":"L4.01","num":1,"title":"Magic e: a_e","goal":"สระเสียงยาว a","targets":"cap/cape, tap/tape, mad/made","status":"ready"},{"id":"L4.02","num":2,"title":"Magic e: i_e","goal":"สระเสียงยาว i","targets":"pin/pine, kit/kite, rid/ride","status":"ready"},{"id":"L4.03","num":3,"title":"Magic e: o_e","goal":"สระเสียงยาว o","targets":"hop/hope, not/note, rod/rode","status":"ready"},{"id":"L4.04","num":4,"title":"Magic e: u_e","goal":"สระเสียงยาว u","targets":"cub/cube, tub/tube, cut/cute","status":"ready"},{"id":"L4.05","num":5,"title":"ai and ay","goal":"รูปสะกดเสียง /eɪ/","targets":"rain, train, tail | day, play, stay","status":"ready"},{"id":"L4.06","num":6,"title":"ee and ea","goal":"รูปสะกดเสียง /iː/","targets":"see, tree, green | sea, leaf, team","status":"ready"},{"id":"L4.07","num":7,"title":"oa and ow","goal":"รูปสะกดเสียง /oʊ/ หรือ /əʊ/","targets":"boat, coat, road | snow, grow, slow","status":"ready"},{"id":"L4.08","num":8,"title":"igh and y","goal":"รูปสะกดเสียง /aɪ/","targets":"night, light, bright | my, fly, cry","status":"ready"},{"id":"L4.09","num":9,"title":"ue and ew","goal":"เสียงยาว u /uː/ หรือ /juː/","targets":"blue, true, glue | new, few, grew","status":"ready"},{"id":"L4.10","num":10,"title":"oo: long","goal":"เสียง /uː/","targets":"moon, food, spoon, pool","status":"ready"},{"id":"L4.11","num":11,"title":"oo: short","goal":"เสียง /ʊ/","targets":"book, look, cook, foot","status":"ready"},{"id":"L4.12","num":12,"title":"ie /aɪ/ and e_e /iː/","goal":"อ่านรูปสะกดสระเพิ่มเติม; ย้าย ey และคำหลายพยางค์ไป L5.11","targets":"pie, tie, lie | these, theme, complete","status":"ready"},{"id":"L4.13","num":13,"title":"Long vs short vowels","goal":"แยกสระสั้น-ยาว","targets":"cap/cape, pin/pine, hop/hope, cub/cube","status":"ready"},{"id":"L4.14","num":14,"title":"Mixed vowel teams","goal":"อ่านรูปสะกดหลายแบบ","targets":"rain, tree, boat, night, blue","status":"ready"},{"id":"L4.15","num":15,"title":"Long-vowel sentences","goal":"อ่านประโยคเสียงยาว","targets":"I can ride a bike. | The goat is on the road. | We see a green tree.","status":"ready"},{"id":"L4.16","num":16,"title":"Level 4 checkpoint","goal":"ทดสอบเสียงสั้นและยาว","targets":"cake, bike, home, rain, moon, night","status":"ready"}]},{"level":5,"name":"Advanced Phonics & Word Structure","count":16,"color":"#4DB8FF","icon":"⭐","lessons":[{"id":"L5.01","num":1,"title":"ar","goal":"เสียง r-controlled ar","targets":"car, star, farm, park","status":"ready"},{"id":"L5.02","num":2,"title":"or","goal":"เสียง r-controlled or","targets":"fork, corn, storm, short","status":"ready"},{"id":"L5.03","num":3,"title":"er ir ur","goal":"เสียง /ɜːr/ หรือ /ɝ/","targets":"her, fern | bird, girl | turn, burn","status":"ready"},{"id":"L5.04","num":4,"title":"air and are","goal":"เสียง /ɛər/ หรือ /er/","targets":"air, chair, fair | care, share, square","status":"ready"},{"id":"L5.05","num":5,"title":"ear patterns","goal":"รูปสะกด ear หลายเสียง","targets":"hear, near, dear | bear, pear, wear","status":"ready"},{"id":"L5.06","num":6,"title":"oi and oy","goal":"เสียง /ɔɪ/","targets":"coin, boil, soil | boy, toy, enjoy","status":"ready"},{"id":"L5.07","num":7,"title":"ou and ow","goal":"เสียง /aʊ/","targets":"out, cloud, shout | cow, now, brown","status":"ready"},{"id":"L5.08","num":8,"title":"au and aw","goal":"เสียง /ɔː/ หรือ /ɔ/","targets":"haul, sauce, August | saw, paw, draw","status":"ready"},{"id":"L5.09","num":9,"title":"Soft c and g","goal":"เสียง c /s/ และ g /dʒ/","targets":"city, cent, face | giant, gem, cage","status":"ready"},{"id":"L5.10","num":10,"title":"ph and silent consonants","goal":"อ่าน ph /f/ และรูปสะกด kn/wr/mb; ทุกคำต้องมีเสียงที่เคยเรียนหรือสอนในบท","targets":"phone, graph | knee, know, write, wrong, lamb","status":"ready"},{"id":"L5.11","num":11,"title":"Final -le, y and ey","goal":"แยกพยางค์ท้าย -le และเสียง /i/ ท้าย y/ey โดยสอนทีละกลุ่ม","targets":"apple, little, candle | happy, funny | key, monkey, valley","status":"ready"},{"id":"L5.12","num":12,"title":"Syllable division","goal":"แบ่งพยางค์และอ่านคำยาว","targets":"rabbit, sunset, picnic, robot","status":"ready"},{"id":"L5.13","num":13,"title":"Prefixes un- re-","goal":"เติมคำหน้า","targets":"unhappy, unlock, redo, replay","status":"ready"},{"id":"L5.14","num":14,"title":"Suffixes -ing and -ed","goal":"ฝึกเติม -ing และเสียง -ed ทั้ง /t/, /d/, /ɪd/ พร้อมหลักสะกดที่เกี่ยวข้อง","targets":"jumping, playing | jumped, played, wanted","status":"ready"},{"id":"L5.15","num":15,"title":"Exception words and alternative vowel spellings","goal":"ทบทวนคำพบบ่อยเดิมและสอนรูปที่ต้องใช้ในเรื่องอ่าน: all, small, water, school, grew, blew","targets":"said, one, two, does, have | all, small, water, school, grew, blew","status":"ready"},{"id":"L5.16","num":16,"title":"Level 5 checkpoint","goal":"ทดสอบการอ่านคำซั บซ้อน","targets":"star, bird, coin, cloud, knee, rabbit","status":"ready"}]},{"level":6,"name":"Fluency & Comprehension","count":16,"color":"#B57BFF","icon":"📖","lessons":[{"id":"L6.01","num":1,"title":"Phrase reading","goal":"อ่านกลุ่มคำจากรูปสะกดที่เรียนแล้ว","targets":"in the park | on the bed | by the tree","status":"ready"},{"id":"L6.02","num":2,"title":"High-frequency word review","goal":"ทบทวนคำพบบ่อยที่สอนมาก่อนและเพิ่ม were/there; แยกส่วนที่ถอดเสียงได้กับส่วนพิเศษ","targets":"the, said, was, were, there, you","status":"ready"},{"id":"L6.03","num":3,"title":"Punctuation and expression","goal":"อ่านตามเครื่องหมายด้วยข้อความที่ควบคุมรูปสะกดแล้ว","targets":"Stop! | Can you jump? | What a fun day!","status":"ready"},{"id":"L6.04","num":4,"title":"Who and what","goal":"อ่านแล้วระบุใครทำอะไร","targets":"The dog ran to Ben. Ben gave it water.","status":"ready"},{"id":"L6.05","num":5,"title":"Where and when","goal":"อ่านแล้วระบุสถานที่และเวลา","targets":"At night, Sam went to the park with Dad.","status":"ready"},{"id":"L6.06","num":6,"title":"First, next, last","goal":"เรียงเหตุการณ์จากเรื่อง","targets":"First, Tom put a seed in a pot. Next, he gave it water. Last, a shoot grew.","status":"ready"},{"id":"L6.07","num":7,"title":"Cause and effect","goal":"ตอบเหตุและผลโดยอ้างข้อความ","targets":"It rained at night, so the grass was wet.","status":"ready"},{"id":"L6.08","num":8,"title":"Making predictions","goal":"คาดเดาอย่างมีเหตุผลและแยกสิ่งที่ข้อความบอกกับสิ่งที่คาด","targets":"The sky was dark. Sam got his raincoat.","status":"ready"},{"id":"L6.09","num":9,"title":"Story 1: The Red Kite","goal":"อ่านเรื่องสั้นและจับใจความ","targets":"Ben had a red kite. The wind blew. The kite went high. Ben smiled.","status":"ready"},{"id":"L6.10","num":10,"title":"The Lost Pup","goal":"อ่านเรื่องและจับใจความ","targets":"A pup was lost. Ben saw it by a tree. He took the pup home.","status":"ready"},{"id":"L6.11","num":11,"title":"The Seed","goal":"อ่านเรื่องและเรียงการเติบโต","targets":"A seed lay in the soil. Rain fell. The sun shone. A green shoot grew.","status":"ready"},{"id":"L6.12","num":12,"title":"A Rainy Day","goal":"อ่านเรื่องและจับใจความ","targets":"Rain fell on the roof. Sam put on his boots. He jumped in a puddle.","status":"ready"},{"id":"L6.13","num":13,"title":"Reading dialogue","goal":"อ่านบทสนทนาเป็นประโยคสมบูรณ์และแยกผู้พูด","targets":"“Can we play?” asked Ben. “Yes, we can,” said Mum.","status":"ready"},{"id":"L6.14","num":14,"title":"Retelling","goal":"เล่าตามลำดับโดยไม่แต่งข้อเท็จจริงเพิ่ม","targets":"Ben found a shell. He showed it to Dad. They put it on a shelf.","status":"ready"},{"id":"L6.15","num":15,"title":"Fluency practice","goal":"อ่านซ้ำโดยรักษาความถูกต้องและจังหวะ ไม่แข่งขันความเร็ว","targets":"The bird sat on a branch. It sang in the warm sun.","status":"ready"},{"id":"L6.16","num":16,"title":"Final reading assessment","goal":"อ่านเองก่อนฟังตัวอย่าง แยกคะแนนอ่านกับความเข้าใจ","targets":"A fox saw a small box. In the box was a note. The note said, “Look by the tree.” The fox ran to the tree and found a toy.","status":"ready"}]}]};
+const SVG = {"1":"<svg viewBox=\"0 0 100 100\" width=\"100%\" height=\"100%\"><defs><linearGradient id=\"g6C5CE7\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#6C5CE7\"/><stop offset=\"1\" stop-color=\"#A78BFF\"/></linearGradient></defs><circle cx=\"50\" cy=\"52\" r=\"34\" fill=\"url(#g6C5CE7)\"/><path d=\"M24 30 L28 8 L46 24 Z\" fill=\"#6C5CE7\"/><path d=\"M76 30 L72 8 L54 24 Z\" fill=\"#6C5CE7\"/><path d=\"M29 27 L31 16 L41 25 Z\" fill=\"#FFB3C9\"/><path d=\"M71 27 L69 16 L59 25 Z\" fill=\"#FFB3C9\"/><circle cx=\"40\" cy=\"48\" r=\"5\" fill=\"#2E2A3B\"/><circle cx=\"60\" cy=\"48\" r=\"5\" fill=\"#2E2A3B\"/><circle cx=\"41.8\" cy=\"46.3\" r=\"1.7\" fill=\"#fff\"/><circle cx=\"61.8\" cy=\"46.3\" r=\"1.7\" fill=\"#fff\"/><ellipse cx=\"33\" cy=\"60\" rx=\"6\" ry=\"4\" fill=\"#FF8FB0\" opacity=\".55\"/><ellipse cx=\"67\" cy=\"60\" rx=\"6\" ry=\"4\" fill=\"#FF8FB0\" opacity=\".55\"/><path d=\"M46 58 Q50 62 54 58\" stroke=\"#2E2A3B\" stroke-width=\"2.4\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M50 62 Q46 68 44 71 M50 62 Q54 68 56 71\" stroke=\"#2E2A3B\" stroke-width=\"1.6\" fill=\"none\" stroke-linecap=\"round\" opacity=\".6\"/></svg>","2":"<svg viewBox=\"0 0 100 100\" width=\"100%\" height=\"100%\"><defs><linearGradient id=\"gf2ECC71\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#2ECC71\"/><stop offset=\"1\" stop-color=\"#7BEAA4\"/></linearGradient></defs><circle cx=\"32\" cy=\"34\" r=\"15\" fill=\"url(#gf2ECC71)\"/><circle cx=\"68\" cy=\"34\" r=\"15\" fill=\"url(#gf2ECC71)\"/><circle cx=\"32\" cy=\"34\" r=\"9\" fill=\"#fff\"/><circle cx=\"68\" cy=\"34\" r=\"9\" fill=\"#fff\"/><circle cx=\"33\" cy=\"34\" r=\"4.6\" fill=\"#2E2A3B\"/><circle cx=\"67\" cy=\"34\" r=\"4.6\" fill=\"#2E2A3B\"/><circle cx=\"34.4\" cy=\"32.6\" r=\"1.5\" fill=\"#fff\"/><circle cx=\"68.4\" cy=\"32.6\" r=\"1.5\" fill=\"#fff\"/><ellipse cx=\"50\" cy=\"62\" rx=\"36\" ry=\"28\" fill=\"url(#gf2ECC71)\"/><path d=\"M32 66 Q50 82 68 66\" stroke=\"#2E2A3B\" stroke-width=\"2.6\" fill=\"none\" stroke-linecap=\"round\"/><ellipse cx=\"26\" cy=\"62\" rx=\"6\" ry=\"4\" fill=\"#FF8FB0\" opacity=\".5\"/><ellipse cx=\"74\" cy=\"62\" rx=\"6\" ry=\"4\" fill=\"#FF8FB0\" opacity=\".5\"/></svg>","3":"<svg viewBox=\"0 0 100 100\" width=\"100%\" height=\"100%\"><defs><linearGradient id=\"gxFF9F43\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#FF9F43\"/><stop offset=\"1\" stop-color=\"#FFC978\"/></linearGradient></defs><path d=\"M22 34 L18 6 L48 26 Z\" fill=\"url(#gxFF9F43)\"/><path d=\"M78 34 L82 6 L52 26 Z\" fill=\"url(#gxFF9F43)\"/><path d=\"M50 20 C74 20 86 40 86 56 C86 76 70 90 50 90 C30 90 14 76 14 56 C14 40 26 20 50 20 Z\" fill=\"url(#gxFF9F43)\"/><path d=\"M50 54 C60 54 68 64 68 72 C68 82 60 90 50 90 C40 90 32 82 32 72 C32 64 40 54 50 54 Z\" fill=\"#FFF6EA\"/><circle cx=\"38\" cy=\"52\" r=\"4.8\" fill=\"#2E2A3B\"/><circle cx=\"62\" cy=\"52\" r=\"4.8\" fill=\"#2E2A3B\"/><circle cx=\"39.6\" cy=\"50.5\" r=\"1.6\" fill=\"#fff\"/><circle cx=\"63.6\" cy=\"50.5\" r=\"1.6\" fill=\"#fff\"/><ellipse cx=\"50\" cy=\"70\" rx=\"5\" ry=\"3.6\" fill=\"#2E2A3B\"/><path d=\"M50 74 Q46 80 43 82 M50 74 Q54 80 57 82\" stroke=\"#2E2A3B\" stroke-width=\"1.7\" fill=\"none\" stroke-linecap=\"round\" opacity=\".55\"/></svg>","4":"<svg viewBox=\"0 0 100 100\" width=\"100%\" height=\"100%\"><defs><linearGradient id=\"gbFF7B9C\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#FF7B9C\"/><stop offset=\"1\" stop-color=\"#FFB3C9\"/></linearGradient></defs><ellipse cx=\"36\" cy=\"26\" rx=\"8\" ry=\"22\" fill=\"url(#gbFF7B9C)\" transform=\"rotate(-10 36 26)\"/><ellipse cx=\"64\" cy=\"26\" rx=\"8\" ry=\"22\" fill=\"url(#gbFF7B9C)\" transform=\"rotate(10 64 26)\"/><ellipse cx=\"36\" cy=\"27\" rx=\"3.6\" ry=\"14\" fill=\"#FFC7D8\" transform=\"rotate(-10 36 27)\"/><ellipse cx=\"64\" cy=\"27\" rx=\"3.6\" ry=\"14\" fill=\"#FFC7D8\" transform=\"rotate(10 64 27)\"/><circle cx=\"50\" cy=\"60\" r=\"32\" fill=\"url(#gbFF7B9C)\"/><circle cx=\"39\" cy=\"56\" r=\"4.6\" fill=\"#2E2A3B\"/><circle cx=\"61\" cy=\"56\" r=\"4.6\" fill=\"#2E2A3B\"/><circle cx=\"40.5\" cy=\"54.5\" r=\"1.6\" fill=\"#fff\"/><circle cx=\"62.5\" cy=\"54.5\" r=\"1.6\" fill=\"#fff\"/><ellipse cx=\"50\" cy=\"68\" rx=\"4\" ry=\"3\" fill=\"#FF7B9C\"/><path d=\"M50 71 L50 74 M50 74 Q46 79 43 77 M50 74 Q54 79 57 77\" stroke=\"#2E2A3B\" stroke-width=\"1.7\" fill=\"none\" stroke-linecap=\"round\" opacity=\".6\"/><ellipse cx=\"32\" cy=\"66\" rx=\"5\" ry=\"3.4\" fill=\"#FF8FB0\" opacity=\".5\"/><ellipse cx=\"68\" cy=\"66\" rx=\"5\" ry=\"3.4\" fill=\"#FF8FB0\" opacity=\".5\"/></svg>","5":"<svg viewBox=\"0 0 100 100\" width=\"100%\" height=\"100%\"><defs><linearGradient id=\"gd4DB8FF\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#4DB8FF\"/><stop offset=\"1\" stop-color=\"#9BD8FF\"/></linearGradient></defs><path d=\"M20 66 C20 40 38 22 62 22 C76 22 86 30 88 40 C74 34 62 36 54 44 C46 52 42 62 42 76 C40 86 28 88 22 80 C19 76 20 70 20 66 Z\" fill=\"url(#gd4DB8FF)\"/><path d=\"M62 22 C58 12 66 6 74 8 C70 14 70 20 66 26 Z\" fill=\"#4DB8FF\"/><ellipse cx=\"66\" cy=\"60\" rx=\"20\" ry=\"10\" fill=\"#E8F7FF\" opacity=\".75\" transform=\"rotate(-18 66 60)\"/><circle cx=\"34\" cy=\"46\" r=\"5\" fill=\"#2E2A3B\"/><circle cx=\"35.8\" cy=\"44.4\" r=\"1.7\" fill=\"#fff\"/><path d=\"M22 56 Q30 60 38 54\" stroke=\"#2E2A3B\" stroke-width=\"2.2\" fill=\"none\" stroke-linecap=\"round\" opacity=\".7\"/><circle cx=\"76\" cy=\"26\" r=\"3\" fill=\"#fff\" opacity=\".9\"/><circle cx=\"84\" cy=\"34\" r=\"2\" fill=\"#fff\" opacity=\".7\"/></svg>","6":"<svg viewBox=\"0 0 100 100\" width=\"100%\" height=\"100%\"><defs><linearGradient id=\"goB57BFF\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#B57BFF\"/><stop offset=\"1\" stop-color=\"#E3BFFF\"/></linearGradient></defs><path d=\"M22 30 L26 12 L40 26 Z\" fill=\"#B57BFF\"/><path d=\"M78 30 L74 12 L60 26 Z\" fill=\"#B57BFF\"/><ellipse cx=\"50\" cy=\"56\" rx=\"34\" ry=\"32\" fill=\"url(#goB57BFF)\"/><ellipse cx=\"50\" cy=\"66\" rx=\"22\" ry=\"20\" fill=\"#FFF1FA\" opacity=\".85\"/><circle cx=\"37\" cy=\"50\" r=\"12\" fill=\"#fff\"/><circle cx=\"63\" cy=\"50\" r=\"12\" fill=\"#fff\"/><circle cx=\"37\" cy=\"50\" r=\"6\" fill=\"#2E2A3B\"/><circle cx=\"63\" cy=\"50\" r=\"6\" fill=\"#2E2A3B\"/><circle cx=\"39\" cy=\"47.8\" r=\"2\" fill=\"#fff\"/><circle cx=\"65\" cy=\"47.8\" r=\"2\" fill=\"#fff\"/><path d=\"M50 58 L45 66 L55 66 Z\" fill=\"#FFB84D\"/><circle cx=\"34\" cy=\"78\" r=\"3\" fill=\"#B57BFF\" opacity=\".45\"/><circle cx=\"50\" cy=\"82\" r=\"3\" fill=\"#B57BFF\" opacity=\".45\"/><circle cx=\"66\" cy=\"78\" r=\"3\" fill=\"#B57BFF\" opacity=\".45\"/></svg>"};
+const PANDA = "<svg viewBox=\"0 0 100 100\" width=\"100%\" height=\"100%\"><circle cx=\"24\" cy=\"26\" r=\"14\" fill=\"#2E2A3B\"/><circle cx=\"76\" cy=\"26\" r=\"14\" fill=\"#2E2A3B\"/><circle cx=\"50\" cy=\"54\" r=\"34\" fill=\"#F5F1FF\"/><ellipse cx=\"36\" cy=\"48\" rx=\"9\" ry=\"11\" fill=\"#2E2A3B\" transform=\"rotate(-12 36 48)\"/><ellipse cx=\"64\" cy=\"48\" rx=\"9\" ry=\"11\" fill=\"#2E2A3B\" transform=\"rotate(12 64 48)\"/><circle cx=\"37\" cy=\"47\" r=\"4.6\" fill=\"#fff\"/><circle cx=\"63\" cy=\"47\" r=\"4.6\" fill=\"#fff\"/><circle cx=\"37.6\" cy=\"47.6\" r=\"2.6\" fill=\"#2E2A3B\"/><circle cx=\"63.6\" cy=\"47.6\" r=\"2.6\" fill=\"#2E2A3B\"/><ellipse cx=\"50\" cy=\"64\" rx=\"5\" ry=\"3.6\" fill=\"#2E2A3B\"/><path d=\"M50 68 Q46 74 43 76 M50 68 Q54 74 57 76\" stroke=\"#2E2A3B\" stroke-width=\"1.7\" fill=\"none\" stroke-linecap=\"round\" opacity=\".55\"/><ellipse cx=\"26\" cy=\"62\" rx=\"5.5\" ry=\"3.6\" fill=\"#FF8FB0\" opacity=\".45\"/><ellipse cx=\"74\" cy=\"62\" rx=\"5.5\" ry=\"3.6\" fill=\"#FF8FB0\" opacity=\".45\"/></svg>";
+
+const PKEY = 'kb_prog_v1';
+
+/* ---------------- helpers ---------------- */
+function PROG(){
+  try{ return JSON.parse(localStorage.getItem(PKEY)) || {}; }catch(e){ return {}; }
+}
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+
+/* ---------------- chapter copy (design layer only) ---------------- */
+const META = {
+  1:{en:'Alphabet & Letter Sounds',
+     th:'พยัญชนะและสระพื้นฐาน • พื้นฐานเสียงแต่ละตัว',
+     desc:'รู้จักรูปตัวอักษรกับเสียงพื้นฐานแบบโฟนิกส์ เน้นฟัง-ออกเสียง ไม่ต้องจำชื่อตัวอักษรท่องจำ',
+     tags:['Phonics','Sound First']},
+  2:{en:'Blending & Short Vowels',
+     th:'ผสมเสียง • สระสั้น CVC',
+     desc:'ฝึกผสมพยัญชนะกับสระสั้นให้อ่านคำ CVC ได้จริง เริ่มจาก -at -an -ap ไปจนคล่อง',
+     tags:['CVC','Short Vowel']},
+  3:{en:'Digraphs & Blends',
+     th:'เสียงควบกล้ำ • sh, ch, th, bl, cr',
+     desc:'เสียงคู่และเสียงควบที่เจอบ่อยในคำสั้น ฝึกหูจับเสียงควบให้คล่องก่อนไปผสมสระ',
+     tags:['Digraph','Blends']},
+  4:{en:'Long Vowels & Magic E',
+     th:'สระยาว Magic E • cake, bike, rope',
+     desc:'เข้าใจกฎ Magic E ให้เสียงสระยาวขึ้น อ่านคำยาวขึ้นแบบมีหลักการ ไม่ต้องท่องจำ',
+     tags:['Magic E','a-e','i-e']},
+  5:{en:'R-controlled & Diphthongs',
+     th:'สระควบคุม R • car, boy, cow, saw',
+     desc:'เสียงพิเศษที่เปลี่ยนเมื่อเจอ R และเสียงสระผสม oy, ow, ar อ่านให้เป็นธรรมชาติ',
+     tags:['ar','oy','ow']},
+  6:{en:'Fluency & Comprehension',
+     th:'อ่านคล่อง • ประโยคและเรื่องสั้น',
+     desc:'รวมทุกเสียงที่เรียนมา อ่านกลุ่มคำ ประโยค และเรื่องสั้นให้ลื่นไหล เข้าใจความหมาย',
+     tags:['Fluency','Reading']}
+};
+
+/* ---------------- read progress (same key as level.html) ---------------- */
+const prog = PROG();
+const isDone = id => !!(prog[id] || {}).done;
+const isStarted = id => { const p = prog[id]; return !!(p && (p.done || (p.step !== undefined && p.step > 0) || (p.i !== undefined && p.i > 0))); };
+
+const allLessons = DATA.levels.flatMap(lv => lv.lessons);
+const totalLessons = allLessons.length;
+const doneTotal = allLessons.filter(l => isDone(l.id)).length;
+
+/* ---------------- player bar ---------------- */
+const lvlNum = Math.min(99, 1 + Math.floor(doneTotal / 4));
+const gems = doneTotal * 25;
+document.getElementById('pav').innerHTML = PANDA;
+document.getElementById('pname').textContent = 'Kidobits Learner';
+document.getElementById('plvl').textContent = 'LVL ' + lvlNum;
+document.getElementById('pmeta').textContent = doneTotal + '/' + totalLessons + ' บท';
+document.getElementById('pgem').textContent = gems.toLocaleString();
+
+/* ---------------- per-chapter stats + unlock rule ---------------- */
+const stats = DATA.levels.map(lv => {
+  const total = lv.lessons.length;
+  const done = lv.lessons.filter(l => isDone(l.id)).length;
+  const started = lv.lessons.filter(l => isStarted(l.id)).length;
+  return {total, done, started, pct: total ? Math.round(done / total * 100) : 0};
+});
+
+/* unlock: CH n opens when EVERY lesson of CH n-1 has been entered/played */
+const unlocked = stats.map((s, i) => i === 0 ? true : stats[i-1].started === stats[i-1].total && stats[i-1].total > 0);
+
+function starsFor(pct){ return pct >= 90 ? 3 : pct >= 60 ? 2 : pct > 0 ? 1 : 0; }
+
+/* ---------------- render chapter cards ---------------- */
+const grid = document.getElementById('lvgrid');
+
+DATA.levels.forEach((lv, idx) => {
+  const s = stats[idx];
+  const prev = DATA.levels[idx-1];
+  const locked = !unlocked[idx];
+  const m = META[lv.level] || {en:lv.name, th:'', desc:'', tags:[]};
+  const st = starsFor(s.pct);
+
+  const card = document.createElement('div');
+  card.className = 'card' + (locked ? ' locked' : '');
+  card.style.setProperty('--c', lv.color);
+  if (!locked) { card.tabIndex = 0; card.setAttribute('role','button'); }
+
+  let btnLabel;
+  if (locked) btnLabel = '🔒 ล็อก • ทำ CH ' + prev.level + ' ให้ครบ';
+  else if (s.done === s.total) btnLabel = '↻ ทบทวนอีกครั้ง';
+  else if (s.started > 0) btnLabel = '📖 เรียนต่อ →';
+  else btnLabel = '📖 เข้าเรียน →';
+
+  card.innerHTML =
+    '<div class="strip"></div>' +
+    '<div class="top">' +
+      '<div class="badge">' + lv.icon + '<span class="n">' + lv.level + '</span></div>' +
+      '<div class="stars">' +
+        [1,2,3].map(i => '<span class="' + (i <= st ? 'on' : '') + '">★</span>').join('') +
+      '</div>' +
+    '</div>' +
+    '<div class="hd">' +
+      '<span class="ch">CH ' + lv.level + '</span>' +
+      '<div class="en">' + esc(m.en) + '</div>' +
+      '<div class="th">' + esc(m.th) + '</div>' +
+    '</div>' +
+    '<div class="desc">' + esc(m.desc) + '</div>' +
+    '<div class="tags">' +
+      m.tags.map(t => '<span class="tag">' + esc(t) + '</span>').join('') +
+      '<span class="tag">' + s.total + ' บท</span>' +
+      (s.started > 0 && s.done < s.total ? '<span class="tag">เรียนแล้ว ' + s.started + '</span>' : '') +
+    '</div>' +
+    '<div class="foot">' +
+      '<div class="pct' + (s.pct === 0 ? ' zero' : '') + '">' + s.pct + '%</div>' +
+      '<div class="barbox"><div class="barfill" style="width:' + s.pct + '%"></div></div>' +
+      '<button class="enter"' + (locked ? ' disabled' : '') + '>' + btnLabel + '</button>' +
+    '</div>';
+
+  if (!locked) {
+    const go = () => { location.href = 'level.html?lv=' + lv.level; };
+    card.addEventListener('click', go);
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+    });
+  }
+  grid.appendChild(card);
+});
+
+/* ---------------- header numbers ---------------- */
+document.getElementById('bt-ch').textContent = DATA.levels.length + ' บทหลัก';
+document.getElementById('sdesc').textContent = 'Warmup + ' + DATA.levels.length + ' บทหลัก';
+document.getElementById('scount').textContent = totalLessons + ' บทย่อย';
+document.getElementById('warmpath').textContent = 'WARMUP → CH ' + DATA.levels.length;
+
+/* ---------------- warmup strip -> az.html ---------------- */
+const warm = document.getElementById('warmcard');
+const goWarm = () => { location.href = 'az.html'; };
+warm.addEventListener('click', goWarm);
+warm.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goWarm(); }
+});
+
+/* ---------------- settings sheet ---------------- */
+const modal = document.getElementById('modal');
+const sheet = document.getElementById('sheet');
+document.getElementById('pgear').addEventListener('click', () => {
+  sheet.innerHTML =
+    '<h3>⚙️ ตั้งค่า</h3>' +
+    '<div class="sid">Kidobits Phonics · Lessons</div>' +
+    '<div class="srow"><b>ความคืบหน้า</b><p>' +
+      doneTotal + ' จาก ' + totalLessons + ' บทที่ทำเสร็จแล้ว</p></div>' +
+    '<div class="srow"><b>การปลดล็อก</b><p>' +
+      'บทถัดไปจะเปิดเมื่อเข้าเรียนครบทุกบทของบทก่อนหน้า</p></div>' +
+    '<button class="btn ghost" id="sreset">↺ รีเซ็ตความคืบหน้า</button>' +
+    '<button class="btn play" id="sclose">ปิด</button>';
+  modal.classList.add('on');
+  document.getElementById('sclose').addEventListener('click', () => modal.classList.remove('on'));
+  document.getElementById('sreset').addEventListener('click', () => {
+    localStorage.removeItem(PKEY);
+    location.reload();
+  });
+});
+modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('on'); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') modal.classList.remove('on'); });
+
+</script>
+</body>
+</html>

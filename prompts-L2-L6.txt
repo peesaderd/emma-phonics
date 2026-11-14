@@ -1,0 +1,957 @@
+KIDOBITS PHONICS - IMAGE PROMPTS (PART 2)
+======================================================================
+A-Z flashcards (26 words) are ALREADY DONE. Do not redo them.
+This file = the REMAINING 265 words used in the listen-and-choose exercise.
+
+HOW TO USE: copy one block at a time into Meta AI. Each block is
+a complete command. Output: square PNG, plain white background.
+
+ALREADY DONE (skip these): apple, ball, cat, dog, egg, fish, fox, goat, hat, insect, jam, kite, log, moon, net, octopus, pig, queen, robot, sun, tin, umbrella, van, web, yo-yo, zebra
+
+======================================================================
+LEVEL 1  -  39 words
+======================================================================
+
+--- AT ---
+A cute cartoon illustration of a red arrow pointing at a target for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SAT ---
+A cute cartoon illustration of a child sitting for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- MAT ---
+A cute cartoon illustration of a floor mat for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PAT ---
+A cute cartoon illustration of patting a cat for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TAP ---
+A cute cartoon illustration of a water tap for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- ANT ---
+A cute cartoon illustration of a small black ant carrying a crumb, side view for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- AX ---
+A cute cartoon illustration of a wooden-handled axe with a grey blade for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SOCK ---
+A cute cartoon illustration of a striped sock for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TOP ---
+A cute cartoon illustration of a spinning top for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PEN ---
+A cute cartoon illustration of a blue pen for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- INK ---
+A cute cartoon illustration of an ink bottle for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- IT ---
+A cute cartoon illustration of a package for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- NAP ---
+A cute cartoon illustration of a napping baby for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- MAP ---
+A cute cartoon illustration of a treasure map for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- DIG ---
+A cute cartoon illustration of a hand digging soil for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- GUM ---
+A cute cartoon illustration of a pink gum ball for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- GAP ---
+A cute cartoon illustration of a gap between blocks for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- ON ---
+A cute cartoon illustration of a ball on a box for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CUP ---
+A cute cartoon illustration of a red mug with a handle and steam rising for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CAP ---
+A cute cartoon illustration of a blue baseball cap with a brim for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- KIT ---
+A cute cartoon illustration of an open first-aid kit box with a red cross for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- KID ---
+A cute cartoon illustration of a child for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- END ---
+A cute cartoon illustration of a finish line flag on a road for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- ELF ---
+A cute cartoon illustration of a small elf with a pointed green hat and pointy ears for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- UP ---
+A cute cartoon illustration of an up arrow for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- UNDER ---
+A cute cartoon illustration of a cat under a table for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- FAN ---
+A cute cartoon illustration of an open pink folding hand fan for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- FIN ---
+A cute cartoon illustration of a fish fin for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- HEN ---
+A cute cartoon illustration of a hen for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BAT ---
+A cute cartoon illustration of a brown bat with spread wings for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BED ---
+A cute cartoon illustration of a small bed with a pillow and blue blanket for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- RED ---
+A cute cartoon illustration of a red crayon for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- RUN ---
+A cute cartoon illustration of a running child for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- VET ---
+A cute cartoon illustration of a vet with a puppy for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- VEST ---
+A cute cartoon illustration of a red vest for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- WET ---
+A cute cartoon illustration of a wet umbrella for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- QUICK ---
+A cute cartoon illustration of a running rabbit for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- QUIZ ---
+A cute cartoon illustration of a quiz clipboard for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BOX ---
+A cute cartoon illustration of a brown cardboard box with open flaps for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+======================================================================
+LEVEL 2  -  41 words
+======================================================================
+
+--- SAT ---
+A cute cartoon illustration of a child sitting for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PAT ---
+A cute cartoon illustration of patting a cat for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TAP ---
+A cute cartoon illustration of a water tap for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- AT ---
+A cute cartoon illustration of a red arrow pointing at a target for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PIN ---
+A cute cartoon illustration of a push pin for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SIT ---
+A cute cartoon illustration of a child sitting for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TIP ---
+A cute cartoon illustration of a pencil tip for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- MAT ---
+A cute cartoon illustration of a floor mat for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BAT ---
+A cute cartoon illustration of a brown bat with spread wings for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CAN ---
+A cute cartoon illustration of a metal food can for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- FAN ---
+A cute cartoon illustration of an open pink folding hand fan for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- MAN ---
+A cute cartoon illustration of a man for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PAN ---
+A cute cartoon illustration of a frying pan for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CAP ---
+A cute cartoon illustration of a blue baseball cap with a brim for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- MAP ---
+A cute cartoon illustration of a treasure map for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- NAP ---
+A cute cartoon illustration of a napping baby for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PEN ---
+A cute cartoon illustration of a blue pen for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- HEN ---
+A cute cartoon illustration of a hen for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TEN ---
+A cute cartoon illustration of ten fingers for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PET ---
+A cute cartoon illustration of a pet puppy for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- WET ---
+A cute cartoon illustration of a wet umbrella for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- JET ---
+A cute cartoon illustration of a jet plane for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BIG ---
+A cute cartoon illustration of a big elephant next to a small mouse for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- DIG ---
+A cute cartoon illustration of a hand digging soil for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- WIG ---
+A cute cartoon illustration of a curly wig for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- FIN ---
+A cute cartoon illustration of a fish fin for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- WIN ---
+A cute cartoon illustration of a gold trophy for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BIN ---
+A cute cartoon illustration of a green trash bin for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- FOG ---
+A cute cartoon illustration of grey fog over trees for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- JOG ---
+A cute cartoon illustration of a person jogging for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- POT ---
+A cute cartoon illustration of a cooking pot for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- HOT ---
+A cute cartoon illustration of a hot steaming cup for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- DOT ---
+A cute cartoon illustration of a big polka dot circle for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- COT ---
+A cute cartoon illustration of a baby cot for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BUG ---
+A cute cartoon illustration of a green bug with antennae for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- RUG ---
+A cute cartoon illustration of a rug for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- MUG ---
+A cute cartoon illustration of a mug for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- HUG ---
+A cute cartoon illustration of two friends hugging for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- RUN ---
+A cute cartoon illustration of a running child for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- FUN ---
+A cute cartoon illustration of confetti and balloons party for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BUN ---
+A cute cartoon illustration of a round bread bun for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+======================================================================
+LEVEL 3  -  51 words
+======================================================================
+
+--- SHIP ---
+A cute cartoon illustration of a blue ship on water for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SHOP ---
+A cute cartoon illustration of a small shop store for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- DISH ---
+A cute cartoon illustration of a white plate for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CHIP ---
+A cute cartoon illustration of a potato chip for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CHOP ---
+A cute cartoon illustration of a kitchen cleaver chopping a carrot for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CHIN ---
+A cute cartoon illustration of a child's chin and smile for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- MUCH ---
+A cute cartoon illustration of a big pile of coins for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- THIN ---
+A cute cartoon illustration of a thin stick for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BATH ---
+A cute cartoon illustration of bath for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- MOTH ---
+A cute cartoon illustration of a brown moth for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PATH ---
+A cute cartoon illustration of a winding path for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- THIS ---
+A cute cartoon illustration of a hand pointing at one object for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- THAT ---
+A cute cartoon illustration of a pointing hand at an object for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- THEM ---
+A cute cartoon illustration of three children for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- THEN ---
+A cute cartoon illustration of an arrow sequence for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- DUCK ---
+A cute cartoon illustration of a yellow duck for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SOCK ---
+A cute cartoon illustration of a striped sock for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BACK ---
+A cute cartoon illustration of back for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- RING ---
+A cute cartoon illustration of a golden ring for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SING ---
+A cute cartoon illustration of a child singing with notes for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- KING ---
+A cute cartoon illustration of a king with crown and robe for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- WHEN ---
+A cute cartoon illustration of a clock with a question mark for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- WHIP ---
+A cute cartoon illustration of a whip for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- WHICH ---
+A cute cartoon illustration of three objects with a question mark for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- WHACK ---
+A cute cartoon illustration of a hammer hitting a nail for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- STOP ---
+A cute cartoon illustration of a red stop sign for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SPIN ---
+A cute cartoon illustration of a spinning top for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SWIM ---
+A cute cartoon illustration of a child swimming for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SKIP ---
+A cute cartoon illustration of a child skipping rope for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BLACK ---
+A cute cartoon illustration of black for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CLAP ---
+A cute cartoon illustration of clap for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- FLAG ---
+A cute cartoon illustration of a waving red flag for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PLUM ---
+A cute cartoon illustration of a purple plum for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- FROG ---
+A cute cartoon illustration of a green frog for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CRAB ---
+A cute cartoon illustration of a red crab with claws for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- DRUM ---
+A cute cartoon illustration of a red toy drum for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TRIP ---
+A cute cartoon illustration of a suitcase for a trip for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- HAND ---
+A cute cartoon illustration of an open hand for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SAND ---
+A cute cartoon illustration of a pile of sand for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- NEST ---
+A cute cartoon illustration of a bird nest with eggs for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- FAST ---
+A cute cartoon illustration of a cheetah running fast for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- LAMP ---
+A cute cartoon illustration of a table lamp for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- JUMP ---
+A cute cartoon illustration of a child jumping for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TENT ---
+A cute cartoon illustration of a camping tent for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- MINT ---
+A cute cartoon illustration of a mint leaf for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SPRING ---
+A cute cartoon illustration of a flower sprouting in spring for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- STRING ---
+A cute cartoon illustration of a ball of string for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SPLASH ---
+A cute cartoon illustration of water splashing for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SCRUB ---
+A cute cartoon illustration of a brush scrubbing for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SLIP ---
+A cute cartoon illustration of a person slipping for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- POND ---
+A cute cartoon illustration of a small pond with lily pads for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+======================================================================
+LEVEL 4  -  68 words
+======================================================================
+
+--- CAP ---
+A cute cartoon illustration of a blue baseball cap with a brim for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CAPE ---
+A cute cartoon illustration of cape for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TAP ---
+A cute cartoon illustration of a water tap for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TAPE ---
+A cute cartoon illustration of a roll of tape for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- MAD ---
+A cute cartoon illustration of an angry face for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- MADE ---
+A cute cartoon illustration of a finished clay pot for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PIN ---
+A cute cartoon illustration of a push pin for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PINE ---
+A cute cartoon illustration of a pine tree for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- KIT ---
+A cute cartoon illustration of an open first-aid kit box with a red cross for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- RID ---
+A cute cartoon illustration of a tidy clean room for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- RIDE ---
+A cute cartoon illustration of a child riding a bike for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- HOP ---
+A cute cartoon illustration of a rabbit hopping for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- HOPE ---
+A cute cartoon illustration of a seedling with sunlight for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- NOT ---
+A cute cartoon illustration of a red X mark for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- NOTE ---
+A cute cartoon illustration of a musical note for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- ROD ---
+A cute cartoon illustration of a fishing rod for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- RODE ---
+A cute cartoon illustration of a child riding a horse for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CUB ---
+A cute cartoon illustration of a small bear cub for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CUBE ---
+A cute cartoon illustration of a blue 3D cube for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TUB ---
+A cute cartoon illustration of a bathtub for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TUBE ---
+A cute cartoon illustration of a toothpaste tube for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CUT ---
+A cute cartoon illustration of scissors cutting paper for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CUTE ---
+A cute cartoon illustration of a cute kitten with big eyes for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- RAIN ---
+A cute cartoon illustration of rain drops from a cloud for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TRAIN ---
+A cute cartoon illustration of a blue train for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TAIL ---
+A cute cartoon illustration of an animal tail for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- DAY ---
+A cute cartoon illustration of a bright sunny day with blue sky for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PLAY ---
+A cute cartoon illustration of children playing with a ball for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- STAY ---
+A cute cartoon illustration of a dog staying in place for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SEE ---
+A cute cartoon illustration of eyes looking for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TREE ---
+A cute cartoon illustration of a green tree for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- GREEN ---
+A cute cartoon illustration of a green leaf for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SEA ---
+A cute cartoon illustration of blue sea waves for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- LEAF ---
+A cute cartoon illustration of a green leaf for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TEAM ---
+A cute cartoon illustration of three children as a team for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BOAT ---
+A cute cartoon illustration of boat for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- COAT ---
+A cute cartoon illustration of a red winter coat for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- ROAD ---
+A cute cartoon illustration of a grey road for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SNOW ---
+A cute cartoon illustration of falling snowflakes for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- GROW ---
+A cute cartoon illustration of a plant growing taller for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SLOW ---
+A cute cartoon illustration of a turtle walking slowly for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- NIGHT ---
+A cute cartoon illustration of a night sky with stars and moon for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- LIGHT ---
+A cute cartoon illustration of a glowing light bulb for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BRIGHT ---
+A cute cartoon illustration of bright for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- MY ---
+A cute cartoon illustration of a child pointing at themselves for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- FLY ---
+A cute cartoon illustration of a fly insect with wings for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CRY ---
+A cute cartoon illustration of a child crying with a tear for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BLUE ---
+A cute cartoon illustration of blue for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TRUE ---
+A cute cartoon illustration of a green check mark for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- GLUE ---
+A cute cartoon illustration of a glue bottle for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- NEW ---
+A cute cartoon illustration of a shiny new gift for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- FEW ---
+A cute cartoon illustration of three small stars for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- GREW ---
+A cute cartoon illustration of a sprout growing from soil for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- FOOD ---
+A cute cartoon illustration of a plate of food for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SPOON ---
+A cute cartoon illustration of a silver spoon for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- POOL ---
+A cute cartoon illustration of a swimming pool for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BOOK ---
+A cute cartoon illustration of book for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- LOOK ---
+A cute cartoon illustration of eyes looking for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- COOK ---
+A cute cartoon illustration of a cook with a chef hat and pan for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- FOOT ---
+A cute cartoon illustration of a bare foot for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PIE ---
+A cute cartoon illustration of a slice of apple pie for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TIE ---
+A cute cartoon illustration of a necktie for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- LIE ---
+A cute cartoon illustration of a child lying on the floor for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- THESE ---
+A cute cartoon illustration of three objects in a row for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- THEME ---
+A cute cartoon illustration of a party theme decoration for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BIKE ---
+A cute cartoon illustration of bike for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CAKE ---
+A cute cartoon illustration of cake for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- HOME ---
+A cute cartoon illustration of a small house for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+======================================================================
+LEVEL 5  -  86 words
+======================================================================
+
+--- CAR ---
+A cute cartoon illustration of car for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- STAR ---
+A cute cartoon illustration of a yellow star for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- FARM ---
+A cute cartoon illustration of a red barn on a green field for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PARK ---
+A cute cartoon illustration of a park with a bench and tree for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- FORK ---
+A cute cartoon illustration of a silver fork for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CORN ---
+A cute cartoon illustration of a yellow corn cob for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- STORM ---
+A cute cartoon illustration of dark clouds with lightning for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SHORT ---
+A cute cartoon illustration of a short pencil next to a long one for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- HER ---
+A cute cartoon illustration of a girl with a flower for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- FERN ---
+A cute cartoon illustration of a green fern leaf for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BIRD ---
+A cute cartoon illustration of bird for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- GIRL ---
+A cute cartoon illustration of a happy girl for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TURN ---
+A cute cartoon illustration of a curved arrow turning for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BURN ---
+A cute cartoon illustration of burn for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- AIR ---
+A cute cartoon illustration of air for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CHAIR ---
+A cute cartoon illustration of a wooden chair for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- FAIR ---
+A cute cartoon illustration of a ferris wheel at a fair for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CARE ---
+A cute cartoon illustration of care for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SHARE ---
+A cute cartoon illustration of two children sharing a toy for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SQUARE ---
+A cute cartoon illustration of a blue square shape for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- HEAR ---
+A cute cartoon illustration of an ear with sound waves for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- NEAR ---
+A cute cartoon illustration of two houses close together for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- DEAR ---
+A cute cartoon illustration of dear for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BEAR ---
+A cute cartoon illustration of bear for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PEAR ---
+A cute cartoon illustration of a green pear for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- WEAR ---
+A cute cartoon illustration of a child wearing a hat for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- COIN ---
+A cute cartoon illustration of a gold coin for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BOIL ---
+A cute cartoon illustration of boil for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SOIL ---
+A cute cartoon illustration of brown soil with a sprout for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BOY ---
+A cute cartoon illustration of boy for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TOY ---
+A cute cartoon illustration of a toy teddy bear for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- ENJOY ---
+A cute cartoon illustration of enjoy for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- OUT ---
+A cute cartoon illustration of a cat going out a door for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CLOUD ---
+A cute cartoon illustration of a fluffy white cloud for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SHOUT ---
+A cute cartoon illustration of a child shouting with a speech bubble for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- COW ---
+A cute cartoon illustration of a black and white cow for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- NOW ---
+A cute cartoon illustration of a clock showing now for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BROWN ---
+A cute cartoon illustration of brown for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- HAUL ---
+A cute cartoon illustration of a wheelbarrow full of sand for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SAUCE ---
+A cute cartoon illustration of a bottle of tomato sauce for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- AUGUST ---
+A cute cartoon illustration of august for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SAW ---
+A cute cartoon illustration of a hand saw for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PAW ---
+A cute cartoon illustration of a paw print for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- DRAW ---
+A cute cartoon illustration of a hand drawing with a pencil for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CITY ---
+A cute cartoon illustration of city for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CENT ---
+A cute cartoon illustration of cent for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- FACE ---
+A cute cartoon illustration of a smiling child's face for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- GIANT ---
+A cute cartoon illustration of a giant standing tall for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- GEM ---
+A cute cartoon illustration of a purple shiny gem for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CAGE ---
+A cute cartoon illustration of cage for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PHONE ---
+A cute cartoon illustration of a smartphone for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- GRAPH ---
+A cute cartoon illustration of a bar graph chart for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- KNEE ---
+A cute cartoon illustration of a human knee for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- KNOW ---
+A cute cartoon illustration of a head with a lightbulb for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- WRITE ---
+A cute cartoon illustration of a hand writing with a pencil for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- WRONG ---
+A cute cartoon illustration of a red X mark for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- LAMB ---
+A cute cartoon illustration of a white lamb for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- LITTLE ---
+A cute cartoon illustration of a tiny mouse for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- CANDLE ---
+A cute cartoon illustration of candle for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- HAPPY ---
+A cute cartoon illustration of a happy smiling face for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- FUNNY ---
+A cute cartoon illustration of funny for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- KEY ---
+A cute cartoon illustration of a golden key for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- MONKEY ---
+A cute cartoon illustration of a brown monkey for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- VALLEY ---
+A cute cartoon illustration of a green valley between hills for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- RABBIT ---
+A cute cartoon illustration of a white rabbit for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SUNSET ---
+A cute cartoon illustration of a sunset over the sea for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PICNIC ---
+A cute cartoon illustration of a picnic blanket with basket for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- UNHAPPY ---
+A cute cartoon illustration of an unhappy sad face for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- UNLOCK ---
+A cute cartoon illustration of an open padlock for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- REDO ---
+A cute cartoon illustration of a circular arrow symbol for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- REPLAY ---
+A cute cartoon illustration of a replay button symbol for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- JUMPING ---
+A cute cartoon illustration of a jumping child for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PLAYING ---
+A cute cartoon illustration of children playing for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- JUMPED ---
+A cute cartoon illustration of a child jumping high for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PLAYED ---
+A cute cartoon illustration of a child playing for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- WANTED ---
+A cute cartoon illustration of a wanted poster for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SAID ---
+A cute cartoon illustration of a speech bubble for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- ONE ---
+A cute cartoon illustration of one red apple for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TWO ---
+A cute cartoon illustration of two red apples for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- HAVE ---
+A cute cartoon illustration of a child holding a gift for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- ALL ---
+A cute cartoon illustration of all for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SMALL ---
+A cute cartoon illustration of a small ant next to a big leaf for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- WATER ---
+A cute cartoon illustration of a glass of water for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SCHOOL ---
+A cute cartoon illustration of a school building for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- GREW ---
+A cute cartoon illustration of a sprout growing from soil for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BLEW ---
+A cute cartoon illustration of blew for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+======================================================================
+LEVEL 6  -  23 words
+======================================================================
+
+--- PARK ---
+A cute cartoon illustration of a park with a bench and tree for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BED ---
+A cute cartoon illustration of a small bed with a pillow and blue blanket for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TREE ---
+A cute cartoon illustration of a green tree for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SAID ---
+A cute cartoon illustration of a speech bubble for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- THE ---
+A cute cartoon illustration of a book for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- YOU ---
+A cute cartoon illustration of a hand pointing at the viewer for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- STOP ---
+A cute cartoon illustration of a red stop sign for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- JUMP ---
+A cute cartoon illustration of a child jumping for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- DAY ---
+A cute cartoon illustration of a bright sunny day with blue sky for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- WATER ---
+A cute cartoon illustration of a glass of water for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- NIGHT ---
+A cute cartoon illustration of a night sky with stars and moon for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- POT ---
+A cute cartoon illustration of a cooking pot for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- RAIN ---
+A cute cartoon illustration of rain drops from a cloud for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- WET ---
+A cute cartoon illustration of a wet umbrella for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BLEW ---
+A cute cartoon illustration of blew for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- HOME ---
+A cute cartoon illustration of a small house for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- SOIL ---
+A cute cartoon illustration of brown soil with a sprout for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- JUMPED ---
+A cute cartoon illustration of a child jumping high for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- PLAY ---
+A cute cartoon illustration of children playing with a ball for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BIRD ---
+A cute cartoon illustration of bird for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- BOX ---
+A cute cartoon illustration of a brown cardboard box with open flaps for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- NOTE ---
+A cute cartoon illustration of a musical note for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.
+
+--- TOY ---
+A cute cartoon illustration of a toy teddy bear for a children's phonics flashcard. Flat vector style, thick rounded outlines, soft pastel colors, simple shapes, centered composition, plain white background, NO text, NO letters in image. Square 1:1, clean and friendly, suitable for ages 4-7.

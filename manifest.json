@@ -1,0 +1,62 @@
+{
+  "name": "Kidobits",
+  "short_name": "Kidobits",
+  "description": "Kidobits - บทเรียน Phonics · Chinese · Math สำหรับเด็ก",
+  "id": "/",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "orientation": "any",
+  "background_color": "#FB8C2C",
+  "theme_color": "#FB8C2C",
+  "lang": "th",
+  "dir": "ltr",
+  "categories": ["education", "kids"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Chinese",
+      "short_name": "Chinese",
+      "url": "/chinese.html",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Math",
+      "short_name": "Math",
+      "url": "/math.html",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Phonics L2",
+      "short_name": "L2 CVC",
+      "url": "/level2_cvc_hub.html",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Phonics L3",
+      "short_name": "L3 Digraph",
+      "url": "/level3_digraph_hub.html",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

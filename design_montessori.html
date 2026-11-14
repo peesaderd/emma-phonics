@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="th" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kidobits Singapore Math - Nordic Montessori Wood (Pizza Slicer)</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Prompt"', 'sans-serif'],
+            thai: ['"Prompt"', 'sans-serif']
+          },
+          colors: {
+            linen: '#FBF8F3',
+            'linen-dark': '#F4EFE6',
+            wood: {
+              birch: '#F1E6D2',
+              'birch-dark': '#E2CEAF',
+              beech: '#D9C2A4',
+              walnut: '#6F4E37',
+              'walnut-deep': '#4A3323',
+              'walnut-rim': '#5A3D2A'
+            },
+            sage: {
+              DEFAULT: '#84A98C',
+              hover: '#73977B',
+              light: '#EAF0EB',
+              dark: '#52796F'
+            },
+            terracotta: {
+              DEFAULT: '#E07A5F',
+              hover: '#CC6C53',
+              light: '#FAEDE9'
+            },
+            honey: {
+              DEFAULT: '#E9C46A',
+              light: '#FDF6E2',
+              dark: '#D4A338'
+            },
+            stone: {
+              charcoal: '#3D405B',
+              muted: '#6C757D'
+            }
+          },
+          boxShadow: {
+            'wood-soft': '0 8px 24px -4px rgba(111, 78, 55, 0.08), 0 4px 8px -2px rgba(111, 78, 55, 0.04)',
+            'wood-raised': '0 12px 28px -6px rgba(90, 61, 42, 0.16), 0 4px 10px -2px rgba(90, 61, 42, 0.08), inset 0 2px 0 rgba(255,255,255,0.7), inset 0 -3px 0 rgba(0,0,0,0.06)',
+            'wood-token': '0 6px 14px -2px rgba(74, 51, 35, 0.18), inset 0 2px 1px rgba(255,255,255,0.8), inset 0 -2px 0 rgba(74, 51, 35, 0.15)',
+            'board-depth': '0 20px 40px -10px rgba(58, 38, 24, 0.25), 0 8px 16px -4px rgba(58, 38, 24, 0.12), inset 0 4px 6px rgba(255,255,255,0.3), inset 0 -6px 10px rgba(0,0,0,0.25)',
+            'carved-in': 'inset 0 3px 6px rgba(0,0,0,0.12), inset 0 1px 2px rgba(0,0,0,0.15), 0 1px 1px rgba(255,255,255,0.8)',
+            'tactile-btn': '0 6px 0 #5E7A63, 0 10px 18px rgba(82, 121, 111, 0.25)',
+            'tactile-terracotta': '0 6px 0 #B85840, 0 10px 18px rgba(224, 122, 95, 0.28)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Subtle linen/paper tactile texture */
+    .bg-nordic-linen {
+      background-color: #FBF8F3;
+      background-image: radial-gradient(#E8E1D3 0.8px, transparent 0.8px), radial-gradient(#EDE6DA 0.8px, #FBF8F3 0.8px);
+      background-size: 32px 32px;
+      background-position: 0 0, 16px 16px;
+    }
+    /* Wood grain subtle sheen */
+    .wood-grain-radial {
+      background: radial-gradient(circle at 45% 42%, #7B573D 0%, #684832 55%, #553925 85%, #462F1E 100%);
+    }
+    .pizza-dough-wood {
+      background: radial-gradient(circle at 48% 45%, #F7E9CE 0%, #E8D3B0 60%, #DCBF94 100%);
+    }
+    .pizza-sauce-matte {
+      background: radial-gradient(circle at 48% 48%, #E87A60 0%, #D86347 70%, #C44F35 100%);
+    }
+    .cheese-wood-slice {
+      background: radial-gradient(circle at 50% 50%, #FFF3DB 0%, #F8E3B6 80%, #ECD098 100%);
+    }
+    /* Tactile button press simulation */
+    .wood-interactive:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #5E7A63, 0 4px 8px rgba(82, 121, 111, 0.2);
+    }
+    .token-interactive:active {
+      transform: translateY(2px) scale(0.98);
+    }
+  </style>
+</head>
+<body class="h-full bg-nordic-linen text-stone-charcoal font-sans antialiased select-none flex flex-col justify-between overflow-x-hidden">
+
+  <!-- ================= TOP APP BAR / MONTESSORI STAGE NAV ================= -->
+  <header class="w-full max-w-7xl mx-auto px-6 pt-5 pb-3">
+    <div class="flex items-center justify-between gap-4">
+      
+      <!-- Back / Curriculum Map -->
+      <a href="javascript:void(0)" class="inline-flex items-center gap-2.5 px-4 py-2.5 bg-white/80 hover:bg-white rounded-full border border-wood-beech/60 shadow-sm text-stone-charcoal font-medium text-sm transition-all hover:scale-102 active:scale-98">
+        <span class="material-symbols-rounded text-xl text-stone-charcoal">arrow_back</span>
+        <span class="font-thai tracking-tight font-medium">แผนผังการเรียนรู้</span>
+      </a>
+
+      <!-- Progress Track / Scandinavian Wooden Pegs -->
+      <div class="hidden md:flex items-center gap-2 bg-[#F3ECE1]/90 px-3.5 py-1.5 rounded-full border border-wood-beech/50 shadow-inner">
+        <!-- Step 1: Complete -->
+        <div class="flex items-center gap-1.5 px-3 py-1 bg-white rounded-full text-xs font-semibold text-stone-charcoal shadow-xs">
+          <span class="w-2 h-2 rounded-full bg-sage"></span>
+          <span class="font-thai text-[13px]">G1: ทำความรู้จัก</span>
+          <span class="material-symbols-rounded text-sm text-sage">check</span>
+        </div>
+        <span class="text-wood-beech/70 text-xs">›</span>
+        
+        <!-- Step 2: Active (Current) -->
+        <div class="flex items-center gap-2 px-3.5 py-1 bg-honey-light rounded-full text-xs font-bold text-stone-charcoal border border-honey/60 shadow-sm">
+          <span class="w-2.5 h-2.5 rounded-full bg-terracotta animate-pulse"></span>
+          <span class="font-thai text-[13px] text-wood-walnut-deep font-bold">G2: หั่นพิซซ่าไม้</span>
+          <span class="text-[10px] uppercase tracking-wider bg-honey px-1.5 py-0.2 rounded text-stone-charcoal font-bold">เล่นอยู่</span>
+        </div>
+        <span class="text-wood-beech/70 text-xs">›</span>
+
+        <!-- Step 3: Locked -->
+        <div class="flex items-center gap-1.5 px-3 py-1 text-xs font-medium text-stone-muted/80">
+          <span class="material-symbols-rounded text-sm text-stone-muted/60">lock</span>
+          <span class="font-thai text-[13px]">G3: บอนด์ตัวเลข</span>
+        </div>
+        <span class="text-wood-beech/70 text-xs">›</span>
+
+        <!-- Step 4: Trophy -->
+        <div class="flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-stone-muted/70">
+          <span class="material-symbols-rounded text-sm text-stone-muted/60">emoji_events</span>
+          <span class="font-thai text-[13px]">G4: บอสกล่องไม้</span>
+        </div>
+      </div>
+
+      <!-- Right HUD: Natural Badges & Ambient Audio -->
+      <div class="flex items-center gap-2.5">
+        <!-- Star Token -->
+        <div class="flex items-center gap-1.5 bg-[#FFF9E8] border border-honey/50 px-3 py-1.5 rounded-full shadow-xs">
+          <span class="material-symbols-rounded text-lg text-honey-dark fill-1">grade</span>
+          <span class="text-xs font-extrabold text-stone-charcoal">3/3</span>
+        </div>
+
+        <!-- Pine Nut / XP Token -->
+        <div class="flex items-center gap-1.5 bg-[#EBF2EE] border border-sage/40 px-3 py-1.5 rounded-full shadow-xs">
+          <span class="material-symbols-rounded text-lg text-sage font-bold">compost</span>
+          <span class="text-xs font-extrabold text-stone-charcoal">480 XP</span>
+        </div>
+
+        <!-- Mute / Ambient Sounds -->
+        <button class="w-9 h-9 rounded-full bg-white/80 hover:bg-white border border-wood-beech/60 flex items-center justify-center text-stone-charcoal shadow-xs transition hover:scale-105 active:scale-95" title="เสียงสภาพแวดล้อมสงบ">
+          <span class="material-symbols-rounded text-lg text-stone-charcoal">volume_up</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= MAIN MONTESSORI LESSON STAGE ================= -->
+  <main class="w-full max-w-7xl mx-auto px-6 py-2 flex-1 flex flex-col justify-center">
+
+    <!-- QUESTION BANNER (Deeply Carved Minimalist Wooden Block) -->
+    <div class="flex flex-col items-center justify-center mb-5">
+      <div class="relative bg-gradient-to-b from-[#F7F1E5] to-[#EFE6D4] px-10 py-3.5 rounded-3xl border-2 border-wood-beech/70 shadow-wood-raised flex items-center justify-center gap-4">
+        <!-- Left subtle leaf motif -->
+        <span class="text-sage text-lg font-serif">❖</span>
+        <!-- Carved Numbers -->
+        <h1 class="text-3xl md:text-4xl font-extrabold tracking-wide text-wood-walnut-deep drop-shadow-sm font-sans flex items-center gap-3">
+          <span>1</span>
+          <span class="text-terracotta text-2xl font-bold">+</span>
+          <span>1</span>
+          <span class="text-stone-charcoal/70 text-2xl font-medium">=</span>
+          <span class="text-terracotta font-extrabold bg-[#FDFBF7] px-3.5 py-0.5 rounded-2xl border-2 border-dashed border-terracotta/60 shadow-carved-in">?</span>
+        </h1>
+        <!-- Right subtle leaf motif -->
+        <span class="text-sage text-lg font-serif">❖</span>
+      </div>
+      <p class="font-thai text-stone-charcoal/80 text-sm mt-2 font-medium tracking-normal text-center">
+        นับจำนวนชิ้นพิซซ่าไม้ทั้งหมดบนถาด เพื่อค้นหาผลรวม
+      </p>
+    </div>
+
+    <!-- MAIN INTERACTIVE ARENA: BYTE THE WOODEN ROBOT + TURNED WALNUT PIZZA BOARD -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-5xl mx-auto w-full my-auto">
+
+      <!-- LEFT: BYTE THE HANDCRAFTED WOODEN ROBOT COMPANION (4 cols) -->
+      <div class="lg:col-span-4 flex flex-col items-center lg:items-end order-2 lg:order-1">
+        
+        <!-- Speech Bubble (Warm Hand-stitched Paper / Linen Card) -->
+        <div class="relative bg-white/95 rounded-2xl p-4.5 mb-3 border border-wood-beech/70 shadow-wood-soft max-w-xs text-left">
+          <p class="font-thai text-[14px] leading-relaxed text-stone-charcoal font-medium">
+            "น้องๆ ลองนับชิ้นพิซซ่าไม้ดูสิครับ มี <span class="font-bold text-terracotta">1 ชิ้น</span> ทางซ้าย รวมกับ <span class="font-bold text-terracotta">อีก 1 ชิ้น</span> ทางขวา รวมเป็นกี่ชิ้นเอ่ย? 🪵🍕"
+          </p>
+          <!-- Speech Pointer (pointing down-right towards Byte) -->
+          <div class="absolute -bottom-2.5 left-10 lg:left-24 w-5 h-5 bg-white border-r border-b border-wood-beech/70 transform rotate-45"></div>
+        </div>
+
+        <!-- Handcrafted Wooden Mascot Avatar (Byte Robot Carved in Beech & Sage) -->
+        <div class="relative group cursor-pointer">
+          <!-- Outer Soft Glow Aura -->
+          <div class="w-48 h-48 rounded-full bg-[#EFE4D2]/70 border-4 border-white flex items-center justify-center shadow-wood-soft p-2">
+            
+            <!-- SVG: Minimalist Scandinavian Wooden Robot 'Byte' -->
+            <svg class="w-full h-full" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="beechBody" x1="0" y1="0" x2="0" y2="100%">
+                  <stop offset="0%" stop-color="#F5EBD9"/>
+                  <stop offset="60%" stop-color="#E7D4BC"/>
+                  <stop offset="100%" stop-color="#D6BFA4"/>
+                </linearGradient>
+                <linearGradient id="walnutJoint" x1="0" y1="0" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#7D583F"/>
+                  <stop offset="100%" stop-color="#553A26"/>
+                </linearGradient>
+                <linearGradient id="sageAccent" x1="0" y1="0" x2="0" y2="100%">
+                  <stop offset="0%" stop-color="#93B89B"/>
+                  <stop offset="100%" stop-color="#73977B"/>
+                </linearGradient>
+                <filter id="softShadow" x="-10%" y="-10%" width="120%" height="130%">
+                  <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#4A3323" flood-opacity="0.15"/>
+                </filter>
+              </defs>
+
+              <!-- Pedestal Shadow -->
+              <ellipse cx="100" cy="180" rx="55" ry="10" fill="#D3C3AE" opacity="0.6"/>
+
+              <!-- Robot Wooden Body / Rounded Block -->
+              <rect x="58" y="92" width="84" height="70" rx="24" fill="url(#beechBody)" filter="url(#softShadow)"/>
+              <!-- Wooden Belly Inlay Plate (Matte Sage Paint) -->
+              <rect x="72" y="105" width="56" height="44" rx="14" fill="#EAF0EB" stroke="#84A98C" stroke-width="2"/>
+              <!-- Singapore Math Bar Graphic on Belly -->
+              <rect x="80" y="122" width="18" height="12" rx="3" fill="#E07A5F"/>
+              <rect x="102" y="122" width="18" height="12" rx="3" fill="#84A98C"/>
+              <circle cx="100" cy="114" r="3" fill="#6F4E37"/>
+
+              <!-- Robot Wooden Neck Dowel -->
+              <rect x="90" y="80" width="20" height="16" rx="4" fill="url(#walnutJoint)"/>
+
+              <!-- Robot Wooden Head (Soft Cubic Chamfered Edges) -->
+              <rect x="52" y="32" width="96" height="54" rx="20" fill="url(#beechBody)" filter="url(#softShadow)"/>
+              
+              <!-- Wooden Antenna with Wooden Ball -->
+              <line x1="100" y1="32" x2="100" y2="18" stroke="#7D583F" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="100" cy="14" r="7" fill="url(#sageAccent)"/>
+
+              <!-- Robot Wooden Ear Pegs (Turned Wood Pegs) -->
+              <rect x="42" y="47" width="12" height="22" rx="5" fill="url(#walnutJoint)"/>
+              <rect x="146" y="47" width="12" height="22" rx="5" fill="url(#walnutJoint)"/>
+
+              <!-- Dark Wood Recessed Eye Visor Screen -->
+              <rect x="66" y="45" width="68" height="28" rx="12" fill="#4A3323"/>
+
+              <!-- Peaceful Glowing Cyan/Mint Eyes (Awake & Cheerful) -->
+              <ellipse cx="84" cy="59" rx="6" ry="6" fill="#84A98C"/>
+              <circle cx="85" cy="57" r="2" fill="#EAF0EB"/>
+              <ellipse cx="116" cy="59" rx="6" ry="6" fill="#84A98C"/>
+              <circle cx="117" cy="57" r="2" fill="#EAF0EB"/>
+
+              <!-- Carved Smile Notch -->
+              <path d="M93 76 Q100 81 107 76" stroke="#7D583F" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+              <!-- Handcrafted Wooden Arms / Dowels with Rounded Paws -->
+              <!-- Left Arm (Resting friendly) -->
+              <path d="M58 108 C42 118 40 135 50 148" stroke="#E7D4BC" stroke-width="12" stroke-linecap="round"/>
+              <circle cx="50" cy="148" r="8" fill="url(#walnutJoint)"/>
+              
+              <!-- Right Arm (Waving politely) -->
+              <path d="M142 108 C158 100 168 85 160 70" stroke="#E7D4BC" stroke-width="12" stroke-linecap="round"/>
+              <circle cx="160" cy="68" r="8" fill="url(#sageAccent)"/>
+            </svg>
+
+          </div>
+
+          <!-- Wooden Name Tag Plaque -->
+          <div class="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-[#5A3D2A] text-[#FBF8F3] px-3.5 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase border border-wood-beech/60 shadow-sm flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-sage"></span>
+            BYTE WOODBOT
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT / CENTER: THE PIZZA SLICER ON TURNED WALNUT BOARD (8 cols) -->
+      <div class="lg:col-span-8 flex flex-col items-center justify-center order-1 lg:order-2">
+
+        <!-- THE MONTESSORI WOODEN WORKBENCH TRAY (Birch Frame with Walnut Turned Board) -->
+        <div class="relative w-full max-w-[480px] aspect-square flex items-center justify-center p-3">
+          
+          <!-- Outer Turned Walnut Board with Turned Wooden Handle & Rim (Natural Wood Lathe Finish) -->
+          <div class="relative w-[360px] md:w-[410px] h-[360px] md:h-[410px] rounded-full wood-grain-radial border-[12px] border-wood-walnut-rim shadow-board-depth flex items-center justify-center">
+
+            <!-- Wooden Board Handle (Right/Bottom turned handle) -->
+            <div class="absolute -bottom-7 w-12 h-16 bg-wood-walnut-rim rounded-b-2xl border-4 border-t-0 border-[#432C1D] shadow-md flex items-end justify-center pb-2">
+              <!-- Hole for hanging on kitchen wall -->
+              <div class="w-3.5 h-3.5 rounded-full bg-[#342215] border border-white/10"></div>
+            </div>
+
+            <!-- Concentric Wood Lathe Grooves (Detailing craftmanship) -->
+            <div class="absolute inset-2 rounded-full border border-black/15 pointer-events-none"></div>
+            <div class="absolute inset-5 rounded-full border border-black/10 pointer-events-none"></div>
+
+            <!-- ================= THE WOODEN PIZZA (Divided Cleanly into 2 Pieces) ================= -->
+            <div class="relative w-[280px] md:w-[316px] h-[280px] md:h-[316px] rounded-full p-2.5 pizza-dough-wood shadow-inner flex items-center justify-center overflow-hidden">
+              
+              <!-- Clean Separation Cut Groove (Vertical Slice Gap) -->
+              <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                <!-- Clean Dark Wood Carved Cut Line -->
+                <div class="w-2.5 h-full bg-wood-walnut-deep shadow-carved-in rounded-full opacity-90"></div>
+              </div>
+
+              <!-- PIZZA SLICE 1: LEFT HALF (Natural Wood Texture + Painted Pepperoni Pegs) -->
+              <div class="relative w-1/2 h-full rounded-l-full bg-gradient-to-r from-[#FCECD0] to-[#F5DEB3] border-r-2 border-wood-walnut flex flex-col items-center justify-center p-3 overflow-hidden shadow-inner group cursor-pointer transition-transform hover:-translate-x-1">
+                
+                <!-- Sauce Rim -->
+                <div class="absolute inset-1 rounded-l-full border-[6px] border-[#D65F45]/80 pointer-events-none"></div>
+
+                <!-- Handcrafted Pepperoni Wooden Inlays -->
+                <div class="absolute top-10 left-8 w-6 h-6 rounded-full bg-terracotta border border-[#BA4F36] shadow-sm flex items-center justify-center">
+                  <div class="w-1.5 h-1.5 rounded-full bg-[#993A24] opacity-50"></div>
+                </div>
+                <div class="absolute bottom-12 left-10 w-7 h-7 rounded-full bg-terracotta border border-[#BA4F36] shadow-sm flex items-center justify-center">
+                  <div class="w-1.5 h-1.5 rounded-full bg-[#993A24] opacity-50"></div>
+                </div>
+                <div class="absolute top-24 left-18 w-5 h-5 rounded-full bg-terracotta border border-[#BA4F36] shadow-sm flex items-center justify-center">
+                  <div class="w-1 h-1 rounded-full bg-[#993A24] opacity-50"></div>
+                </div>
+
+                <!-- Montessori Olive / Basil Pegs (Sage Dots) -->
+                <div class="absolute top-16 left-20 w-3 h-3 rounded-full bg-sage border border-sage-dark/30 shadow-xs"></div>
+                <div class="absolute bottom-22 left-6 w-3 h-3 rounded-full bg-sage border border-sage-dark/30 shadow-xs"></div>
+
+                <!-- Large Wooden Inlaid Pizza Slice Number Token (Inside Slice Center) -->
+                <div class="z-10 flex flex-col items-center justify-center">
+                  <div class="w-14 h-14 rounded-full bg-white/90 border-2 border-wood-beech/80 shadow-wood-token flex items-center justify-center">
+                    <span class="text-2xl font-black text-stone-charcoal font-sans">1</span>
+                  </div>
+                  <span class="font-thai text-[11px] font-bold text-wood-walnut-deep mt-1 bg-white/70 px-2 py-0.5 rounded-full shadow-2xs">
+                    ชิ้นที่ 1
+                  </span>
+                </div>
+
+              </div>
+
+              <!-- PIZZA SLICE 2: RIGHT HALF (Natural Wood Texture + Painted Pepperoni Pegs) -->
+              <div class="relative w-1/2 h-full rounded-r-full bg-gradient-to-l from-[#FCECD0] to-[#F5DEB3] border-l-2 border-wood-walnut flex flex-col items-center justify-center p-3 overflow-hidden shadow-inner group cursor-pointer transition-transform hover:translate-x-1">
+                
+                <!-- Sauce Rim -->
+                <div class="absolute inset-1 rounded-r-full border-[6px] border-[#D65F45]/80 pointer-events-none"></div>
+
+                <!-- Handcrafted Pepperoni Wooden Inlays -->
+                <div class="absolute top-12 right-9 w-7 h-7 rounded-full bg-terracotta border border-[#BA4F36] shadow-sm flex items-center justify-center">
+                  <div class="w-1.5 h-1.5 rounded-full bg-[#993A24] opacity-50"></div>
+                </div>
+                <div class="absolute bottom-11 right-8 w-6 h-6 rounded-full bg-terracotta border border-[#BA4F36] shadow-sm flex items-center justify-center">
+                  <div class="w-1.5 h-1.5 rounded-full bg-[#993A24] opacity-50"></div>
+                </div>
+                <div class="absolute top-22 right-18 w-5 h-5 rounded-full bg-terracotta border border-[#BA4F36] shadow-sm flex items-center justify-center">
+                  <div class="w-1 h-1 rounded-full bg-[#993A24] opacity-50"></div>
+                </div>
+
+                <!-- Montessori Olive / Basil Pegs (Sage Dots) -->
+                <div class="absolute top-28 right-5 w-3 h-3 rounded-full bg-sage border border-sage-dark/30 shadow-xs"></div>
+                <div class="absolute bottom-20 right-20 w-3 h-3 rounded-full bg-sage border border-sage-dark/30 shadow-xs"></div>
+
+                <!-- Large Wooden Inlaid Pizza Slice Number Token (Inside Slice Center) -->
+                <div class="z-10 flex flex-col items-center justify-center">
+                  <div class="w-14 h-14 rounded-full bg-white/90 border-2 border-wood-beech/80 shadow-wood-token flex items-center justify-center">
+                    <span class="text-2xl font-black text-stone-charcoal font-sans">2</span>
+                  </div>
+                  <span class="font-thai text-[11px] font-bold text-wood-walnut-deep mt-1 bg-white/70 px-2 py-0.5 rounded-full shadow-2xs">
+                    ชิ้นที่ 2
+                  </span>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- ================= MINIMALIST WOODEN NUMBER TOKENS RESTING NEATLY ON BOARD RIM ================= -->
+            <!-- Token '1' Resting on Walnut Board Rim (West-Northwest) -->
+            <div class="absolute top-1/2 -left-4 -translate-y-1/2 z-30 flex flex-col items-center">
+              <div class="w-13 h-13 rounded-2xl bg-[#F6EDDC] border-2 border-wood-beech shadow-wood-raised flex items-center justify-center cursor-pointer transition-transform hover:scale-105 active:scale-95 token-interactive">
+                <span class="text-2xl font-extrabold text-wood-walnut-deep font-sans">1</span>
+              </div>
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-honey-light/90 bg-wood-walnut-deep/80 px-1.5 py-0.2 rounded mt-1 shadow-2xs">
+                ชิ้นซ้าย
+              </span>
+            </div>
+
+            <!-- Token '2' Resting on Walnut Board Rim (East-Northeast) -->
+            <div class="absolute top-1/2 -right-4 -translate-y-1/2 z-30 flex flex-col items-center">
+              <div class="w-13 h-13 rounded-2xl bg-[#F6EDDC] border-2 border-wood-beech shadow-wood-raised flex items-center justify-center cursor-pointer transition-transform hover:scale-105 active:scale-95 token-interactive">
+                <span class="text-2xl font-extrabold text-wood-walnut-deep font-sans">2</span>
+              </div>
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-honey-light/90 bg-wood-walnut-deep/80 px-1.5 py-0.2 rounded mt-1 shadow-2xs">
+                ชิ้นขวา
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ================= ANSWER SELECTION: TACTILE SCANDINAVIAN WOODEN TILES ================= -->
+    <div class="max-w-xl mx-auto w-full mt-2 mb-4 text-center">
+      <div class="text-xs font-semibold uppercase tracking-wider text-stone-muted/90 mb-2 font-thai">
+        เลือกคำตอบที่ถูกต้อง:
+      </div>
+
+      <!-- 4 Tactile Wooden Number Blocks (1, 2, 3, 4) -->
+      <div class="grid grid-cols-4 gap-3 md:gap-4 px-4">
+        
+        <!-- Tile 1 -->
+        <button class="relative aspect-square rounded-2xl bg-[#F8F1E3] hover:bg-[#F3E7D3] border-2 border-wood-beech/80 shadow-wood-raised flex items-center justify-center text-3xl font-extrabold text-stone-charcoal transition-all hover:-translate-y-1 active:translate-y-1 font-sans">
+          <span>1</span>
+        </button>
+
+        <!-- Tile 2: CORRECT / SELECTED STATE (Honey Birch with Walnut Bevel & Subtle Green Indicator) -->
+        <button class="relative aspect-square rounded-2xl bg-[#F3D794] border-3 border-wood-walnut shadow-wood-raised flex flex-col items-center justify-center text-3xl font-black text-wood-walnut-deep ring-4 ring-sage/30 transition-all transform -translate-y-1 font-sans">
+          <span>2</span>
+          <!-- Active Beech Pip / Check Indicator -->
+          <div class="absolute -top-2.5 -right-2.5 w-6 h-6 rounded-full bg-sage border-2 border-white flex items-center justify-center shadow-sm">
+            <span class="material-symbols-rounded text-sm text-white font-bold">check</span>
+          </div>
+        </button>
+
+        <!-- Tile 3 -->
+        <button class="relative aspect-square rounded-2xl bg-[#F8F1E3] hover:bg-[#F3E7D3] border-2 border-wood-beech/80 shadow-wood-raised flex items-center justify-center text-3xl font-extrabold text-stone-charcoal transition-all hover:-translate-y-1 active:translate-y-1 font-sans">
+          <span>3</span>
+        </button>
+
+        <!-- Tile 4 -->
+        <button class="relative aspect-square rounded-2xl bg-[#F8F1E3] hover:bg-[#F3E7D3] border-2 border-wood-beech/80 shadow-wood-raised flex items-center justify-center text-3xl font-extrabold text-stone-charcoal transition-all hover:-translate-y-1 active:translate-y-1 font-sans">
+          <span>4</span>
+        </button>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ================= BOTTOM ACTION HUD (Matte Sage & Terracotta Wooden Buttons) ================= -->
+  <footer class="w-full max-w-7xl mx-auto px-6 py-4 border-t border-wood-beech/40 bg-[#FAF6EE]/80 backdrop-blur-xs">
+    <div class="flex items-center justify-between gap-4">
+
+      <!-- Left Utility Actions: Montessori Audio Voice & Hint Peg -->
+      <div class="flex items-center gap-3">
+        <!-- Listen to Problem / Thai Speech -->
+        <button class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/90 hover:bg-white rounded-full border border-wood-beech/70 shadow-sm text-stone-charcoal font-medium text-sm transition hover:scale-102 active:scale-98">
+          <span class="material-symbols-rounded text-lg text-wood-walnut">volume_up</span>
+          <span class="font-thai text-[13px] font-medium">ฟังเสียงโจทย์</span>
+        </button>
+
+        <!-- Wooden Hint Dowel -->
+        <button class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/90 hover:bg-white rounded-full border border-wood-beech/70 shadow-sm text-stone-charcoal font-medium text-sm transition hover:scale-102 active:scale-98">
+          <span class="material-symbols-rounded text-lg text-honey-dark">lightbulb</span>
+          <span class="font-thai text-[13px] font-medium">ขอคำใบ้ไม้</span>
+        </button>
+      </div>
+
+      <!-- Right Primary Action: Tactile Matte Sage Wooden Button "ตรวจคำตอบ (+25 XP)" -->
+      <div>
+        <button class="wood-interactive inline-flex items-center gap-3 px-8 py-3 bg-sage hover:bg-sage-hover text-white rounded-2xl font-bold text-base shadow-tactile-btn transition-all duration-150">
+          <span class="material-symbols-rounded text-xl">rocket_launch</span>
+          <span class="font-thai text-base tracking-wide font-semibold">ตรวจคำตอบ (+25 XP)</span>
+        </button>
+      </div>
+
+    </div>
+  </footer>
+
+</body>
+</html>

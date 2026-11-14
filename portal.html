@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kidobits · 1-on-1 AI Tutor Portal</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Nunito:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Fraunces', 'Georgia', 'serif'],
+            sans: ['Plus Jakarta Sans', 'Nunito', 'sans-serif'],
+            rounded: ['Nunito', 'Plus Jakarta Sans', 'sans-serif'],
+            thai: ['Prompt', 'sans-serif']
+          },
+          boxShadow: {
+            'soft': '0 4px 20px -2px rgba(45, 38, 30, 0.06)',
+            'card-warm': '0 20px 50px -12px rgba(45, 38, 30, 0.12), 0 0 0 1px rgba(231, 226, 216, 0.8)',
+            'btn-green': '0 6px 0 0 #205c43, 0 12px 24px rgba(32, 92, 67, 0.25)',
+            'btn-coral': '0 6px 0 0 #a53b26, 0 12px 24px rgba(165, 59, 38, 0.25)',
+            'btn-amber': '0 6px 0 0 #b45309, 0 12px 24px rgba(180, 83, 9, 0.25)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #FDFBF7;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #2C2623;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .btn-press:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 currentColor;
+    }
+    /* Subtle decorative card border */
+    .card-frame {
+      transition: transform 0.28s cubic-bezier(0.34, 1.3, 0.64, 1), box-shadow 0.28s ease;
+    }
+    .card-frame:hover {
+      transform: translateY(-8px);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-amber-200">
+
+  <!-- ========================================================================= -->
+  <!-- TOP STICKY APP BAR (WARM STORYBOOK HUD)                                   -->
+  <!-- ========================================================================= -->
+  <header class="w-full bg-white/90 backdrop-blur-md border-b border-[#EAE4D8] sticky top-0 z-50 shadow-soft">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="/portal.html" class="flex items-center gap-3 group">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-400 via-orange-400 to-amber-300 flex items-center justify-center text-white text-2xl shadow-sm border-2 border-white group-hover:scale-105 transition-transform">
+          🦁
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5 leading-tight">
+            <span class="font-serif text-2xl font-bold text-[#2C2623] tracking-tight">Kidobits</span>
+            <span class="bg-[#FAF3E6] border border-[#E8DEC8] text-[#8C5D23] text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full shadow-2xs">ACADEMY</span>
+          </div>
+          <span class="text-[11px] text-[#4DA68E] font-bold tracking-wide flex items-center gap-1 mt-0.5">
+            <span class="w-2 h-2 rounded-full bg-[#4DA68E] animate-ping"></span>
+            1-on-1 AI Tutor Platform
+          </span>
+        </div>
+      </a>
+
+      <!-- Center Player Status Badges -->
+      <div class="hidden sm:flex items-center gap-2.5">
+        <!-- 7-day Streak -->
+        <div class="flex items-center gap-1.5 bg-[#FAF6EE] border border-[#EDE6D8] px-3.5 py-1.5 rounded-full shadow-soft text-[#8C4A28] font-bold text-xs">
+          <span class="text-base">🔥</span>
+          <span>7d Streak</span>
+        </div>
+        <!-- Stars Counter -->
+        <div class="flex items-center gap-1.5 bg-[#FAF6EE] border border-[#EDE6D8] px-3.5 py-1.5 rounded-full shadow-soft text-[#2C2623] font-bold text-xs">
+          <svg class="w-4 h-4 text-[#F5B041]" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          <span id="portalStarsBadge">320 Stars</span>
+        </div>
+        <!-- Energy -->
+        <div class="flex items-center gap-1.5 bg-[#FAF6EE] border border-[#EDE6D8] px-3.5 py-1.5 rounded-full shadow-soft text-[#2C2623] font-bold text-xs">
+          <span class="text-amber-500">⚡</span>
+          <span>3/3 Energy</span>
+        </div>
+      </div>
+
+      <!-- Right Action & Profile Avatar -->
+      <div class="flex items-center gap-3">
+        <a href="/Kidobits_Singapore_Math_Worksheets_K_to_P6.pdf" target="_blank" class="hidden md:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-[#E0D7C6] hover:bg-[#FAF6EE] text-[#5C5144] font-bold text-xs shadow-soft transition-all">
+          <i class="fa-solid fa-file-pdf text-red-500"></i>
+          <span>PDF Books</span>
+        </a>
+        <div class="w-11 h-11 rounded-full bg-[#EAF0F4] border-2 border-white shadow-soft flex items-center justify-center text-xl cursor-pointer hover:scale-105 transition-transform" title="Explorer Profile">
+          👦🏻
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- HERO BANNER SECTION (STORYBOOK INTRO)                                     -->
+  <!-- ========================================================================= -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 flex flex-col items-center">
+    
+    <!-- Title Header -->
+    <div class="text-center flex flex-col items-center gap-2 mb-8">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FAF3E6] border border-[#E8DEC8] text-[#8C5D23] font-bold text-[11px] uppercase tracking-wider shadow-2xs">
+        <span class="text-sm">✨</span>
+        <span>CHOOSE YOUR LEARNING ADVENTURE · 15 MIN DAILY</span>
+      </div>
+      <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#2C2623] mt-1">
+        เลือกการ์ดวิชาเพื่อเริ่มเรียน 1-on-1 AI Tutor
+      </h1>
+      <p class="text-sm sm:text-base text-[#6E655C] font-medium max-w-2xl leading-relaxed">
+        ฝึกออกเสียงภาษาอังกฤษ พินอินภาษาจีน และวิธีคิดคณิตศาสตร์สิงคโปร์ แบบเห็นภาพจริงกับเพื่อนหุ่นยนต์ AI
+      </p>
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- 3 HERO SUBJECT CARDS GRID (WARM STORYBOOK STYLE)                        -->
+    <!-- ======================================================================= -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 w-full max-w-6xl items-stretch">
+      
+      <!-- =================================================================== -->
+      <!-- CARD 1: ENGLISH PHONICS (OLIVER THE FOX & EMMA)                     -->
+      <!-- =================================================================== -->
+      <div class="card-frame bg-white rounded-[36px] p-5 shadow-card-warm border-2 border-[#EBE5D8] flex flex-col justify-between relative overflow-hidden group">
+        
+        <!-- Top Pill Tag -->
+        <div class="flex items-center justify-between pb-3 mb-2 border-b border-[#F0EBE0]">
+          <span class="px-3 py-1 rounded-full bg-[#E6F3EE] text-[#2D6A4F] text-[11px] font-black uppercase tracking-wider flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-[#4DA68E]"></span>
+            ENGLISH PHONICS
+          </span>
+          <span class="text-xs font-bold text-[#8C8276]">Level 1–6</span>
+        </div>
+
+        <!-- Mascot Artwork Frame -->
+        <div class="relative h-60 w-full rounded-[28px] overflow-hidden border-2 border-[#E8E2D5] shadow-inner mb-4 group-hover:scale-[1.01] transition-transform">
+          <!-- Background image of Oliver the Fox -->
+          <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAnNGVA6VVIAuePmuKkmusMLNJDOp2RW6kUN880eRuOfhR4Oy4gIJVEU80vIaJXT_kF-2Ow6h2XLcsmKAe1pAExj0Pc0X4XdPw0_m5qRMJUtiCuMMDxHZsB-aRtRvg5jLSV__pgWlo7vu6-NpS7frBQchVHBz_aTsXlbmcKdZSqkTkONMvxAH5tDXqu6sW4URFdSNQ5e4IPakzjXGffL_M3-_pHz_D4UOfPm0BzLfyVDQXJmUebS7Kh');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/70 via-transparent to-transparent"></div>
+          
+          <!-- Bottom overlay badge -->
+          <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white z-10">
+            <span class="font-extrabold text-base drop-shadow-md">Oliver the Fox 🦊</span>
+            <span class="bg-[#2D6A4F] text-white text-[11px] font-black px-2.5 py-0.5 rounded-full border border-emerald-300 shadow-sm">Jolly Phonics</span>
+          </div>
+        </div>
+
+        <!-- Card Content Body -->
+        <div class="flex-1 flex flex-col justify-between space-y-4">
+          <div>
+            <h2 class="font-serif text-2xl font-bold text-[#2C2623] leading-snug">English Phonics</h2>
+            <p class="text-xs font-semibold text-[#4DA68E] mt-0.5">Jolly Phonics & Oxford Reading Tree</p>
+            <p class="text-[12.5px] text-[#6E655C] font-normal leading-relaxed mt-2">
+              ฝึกสะกดคำภาษาอังกฤษ CVC, สระเสียงสั้น และ Digraphs โดยมี AI ตรวจจับเสียงอ่านทีละ Phoneme แบบสดๆ
+            </p>
+          </div>
+
+          <!-- Feature Bullets Box -->
+          <div class="bg-[#FAF8F4] rounded-2xl p-3 border border-[#F0EAE0] space-y-2 text-[11.5px] font-semibold text-[#5C5349]">
+            <div class="flex items-center gap-2">
+              <span class="text-sm">🗣️</span>
+              <span>AI Speech Recognition: ตรวจเสียงอ่านสด</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-sm">📖</span>
+              <span>นิทานสะกดคำ Interactive 72 บทเรียน</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-sm">🎯</span>
+              <span>ครอบคลุมหลักสูตร Jolly Phonics สากล</span>
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <button onclick="window.location.href='/littlewood/'" class="btn-press w-full py-3.5 px-4 rounded-2xl bg-[#4DA68E] text-white font-extrabold text-sm uppercase tracking-wide flex items-center justify-center gap-2 shadow-btn-green hover:bg-[#3f917b] transition-all cursor-pointer">
+            <i class="fa-solid fa-play text-xs"></i>
+            <span>เข้าเรียน English (Littlewood)</span>
+          </button>
+        </div>
+
+      </div>
+
+
+      <!-- =================================================================== -->
+      <!-- CARD 2: CHINESE PINYIN (BAO BAO THE PANDA)                          -->
+      <!-- =================================================================== -->
+      <div class="card-frame bg-white rounded-[36px] p-5 shadow-card-warm border-2 border-[#EBE5D8] flex flex-col justify-between relative overflow-hidden group">
+        
+        <!-- Top Pill Tag -->
+        <div class="flex items-center justify-between pb-3 mb-2 border-b border-[#F0EBE0]">
+          <span class="px-3 py-1 rounded-full bg-[#FCEEE9] text-[#A53B26] text-[11px] font-black uppercase tracking-wider flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-[#E06D44]"></span>
+            CHINESE PINYIN
+          </span>
+          <span class="text-xs font-bold text-[#8C8276]">HSK 1–3 · YCT</span>
+        </div>
+
+        <!-- Mascot Artwork Frame -->
+        <div class="relative h-60 w-full rounded-[28px] overflow-hidden border-2 border-[#E8E2D5] shadow-inner mb-4 group-hover:scale-[1.01] transition-transform">
+          <!-- Background image of BaoBao the Panda -->
+          <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA6NDLOWnQkT643ROWPwuqgsvRSH5OXCcoLNxDDOQcJAjzAyCCeMJ-m8dTuQSP1lNm4bbGDjUKVjWZSNC--xiCSNXczRBFxrQIqoN1nckHkMSGkEGS-CFYVLgO5pt-JraOz3DWUkTYSVeWOa8y-nXgOg0vKPxj2zYuI-4hjC-sO9CnaznSPAFPwh-ISo-bdTzquZigTcaFRz2VNW9kpW-PEosJ9jkV-Fjy1h_soqr1AbKO_KyutFbS4');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-rose-950/70 via-transparent to-transparent"></div>
+          
+          <!-- Bottom overlay badge -->
+          <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white z-10">
+            <span class="font-extrabold text-base drop-shadow-md">BaoBao the Panda 🐼</span>
+            <span class="bg-[#A53B26] text-white text-[11px] font-black px-2.5 py-0.5 rounded-full border border-rose-300 shadow-sm">HSK & YCT</span>
+          </div>
+        </div>
+
+        <!-- Card Content Body -->
+        <div class="flex-1 flex flex-col justify-between space-y-4">
+          <div>
+            <h2 class="font-serif text-2xl font-bold text-[#2C2623] leading-snug">Chinese Pinyin</h2>
+            <p class="text-xs font-semibold text-[#E06D44] mt-0.5">HSK Primary & YCT Standards</p>
+            <p class="text-[12.5px] text-[#6E655C] font-normal leading-relaxed mt-2">
+              เรียนภาษาจีนพื้นฐาน พินอิน 4 วรรณยุกต์ และลำดับขีดอักษรจีน พร้อม AI ตรวจจับระดับเสียงพิตช์แม่นยำ
+            </p>
+          </div>
+
+          <!-- Feature Bullets Box -->
+          <div class="bg-[#FAF8F4] rounded-2xl p-3 border border-[#F0EAE0] space-y-2 text-[11.5px] font-semibold text-[#5C5349]">
+            <div class="flex items-center gap-2">
+              <span class="text-sm">🎵</span>
+              <span>Tone Visualizer: กราฟเทียบ 4 วรรณยุกต์สด</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-sm">✍️</span>
+              <span>ลากนิ้วคัดลำดับขีดอักษรจีน (Stroke Order)</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-sm">🏮</span>
+              <span>300 คำศัพท์ชีวิตประจำวันตามกรอบ HSK</span>
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <button onclick="window.location.href='/chinese.html'" class="btn-press w-full py-3.5 px-4 rounded-2xl bg-[#E06D44] text-white font-extrabold text-sm uppercase tracking-wide flex items-center justify-center gap-2 shadow-btn-coral hover:bg-[#c95932] transition-all cursor-pointer">
+            <i class="fa-solid fa-play text-xs"></i>
+            <span>เข้าเรียน Chinese (BaoBao)</span>
+          </button>
+        </div>
+
+      </div>
+
+
+      <!-- =================================================================== -->
+      <!-- CARD 3: SINGAPORE MATH (BYTE THE ROBOT)                             -->
+      <!-- =================================================================== -->
+      <div class="card-frame bg-white rounded-[36px] p-5 shadow-card-warm border-2 border-[#EBE5D8] flex flex-col justify-between relative overflow-hidden group">
+        
+        <!-- Top Pill Tag -->
+        <div class="flex items-center justify-between pb-3 mb-2 border-b border-[#F0EBE0]">
+          <span class="px-3 py-1 rounded-full bg-[#FEF3C7] text-[#92400E] text-[11px] font-black uppercase tracking-wider flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-[#F59E0B]"></span>
+            SINGAPORE MATH
+          </span>
+          <span class="text-xs font-bold text-[#8C8276]">K to P6 · CPA</span>
+        </div>
+
+        <!-- Mascot Artwork Frame -->
+        <div class="relative h-60 w-full rounded-[28px] overflow-hidden border-2 border-[#E8E2D5] shadow-inner mb-4 group-hover:scale-[1.01] transition-transform">
+          <!-- Background image of Byte the Robot -->
+          <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBHksqVZBP33AdB7SBePohnI436a833Alt5m24EaqSXHo_51QD_COD17yzWyvS-OjfGNwwj2L11V06c5XaVlzbe0f4-PU5dxhQtDuDEaIYIaMNgJtC6u8bv8z8Sg9noHlJxif87TwPTpLh3SOea5aIhlnFjoKHc0-i6qNrDOJo5IZSXfA-fPR3lgdSiVx9V8M4GD9CrhnwEmrsHb2sHuBXD6NzvCidjCzbNxsH2DvaastbYZ4KwuCuk');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-blue-950/70 via-transparent to-transparent"></div>
+          
+          <!-- Bottom overlay badge -->
+          <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white z-10">
+            <span class="font-extrabold text-base drop-shadow-md">Byte the Robot 🤖</span>
+            <span class="bg-[#B45309] text-white text-[11px] font-black px-2.5 py-0.5 rounded-full border border-amber-300 shadow-sm">KooBits & CPA</span>
+          </div>
+        </div>
+
+        <!-- Card Content Body -->
+        <div class="flex-1 flex flex-col justify-between space-y-4">
+          <div>
+            <h2 class="font-serif text-2xl font-bold text-[#2C2623] leading-snug">Singapore Math</h2>
+            <p class="text-xs font-semibold text-[#D97706] mt-0.5">Concrete-Pictorial-Abstract (Bar Model)</p>
+            <p class="text-[12.5px] text-[#6E655C] font-normal leading-relaxed mt-2">
+              เรียนรู้คณิตศาสตร์ผ่านสื่อการสอนจับต้องได้ เช่น Pizza Slicer, Ten-Frames, และตราชั่งสมดุล
+            </p>
+          </div>
+
+          <!-- Feature Bullets Box -->
+          <div class="bg-[#FAF8F4] rounded-2xl p-3 border border-[#F0EAE0] space-y-2 text-[11.5px] font-semibold text-[#5C5349]">
+            <div class="flex items-center gap-2">
+              <span class="text-sm">🍕</span>
+              <span>Pizza Slicer: หั่นพิซซ่าเรียนรู้บวกเลข 12 ด่าน</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-sm">⚖️</span>
+              <span>Number Bonds, กรอบสิบ และตราชั่งสมดุล</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-sm">🤖</span>
+              <span>Byte AI Tutor: ถามนำกระตุ้นคิด ไม่เฉลยตรงๆ</span>
+            </div>
+          </div>
+
+          <!-- Action Button (Links to our new app.html!) -->
+          <button onclick="window.location.href='/app.html'" class="btn-press w-full py-3.5 px-4 rounded-2xl bg-[#F59E0B] text-white font-extrabold text-sm uppercase tracking-wide flex items-center justify-center gap-2 shadow-btn-amber hover:bg-[#d97706] transition-all cursor-pointer">
+            <i class="fa-solid fa-play text-xs"></i>
+            <span>เข้าเรียน Math (Kidobits App)</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- BOTTOM FOOTER CALLOUT (PARENT HUB & WORKBOOKS)                           -->
+    <!-- ======================================================================= -->
+    <div class="w-full max-w-6xl mt-12 bg-white rounded-[32px] p-6 shadow-soft border border-[#EDE6D8] flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <div class="w-14 h-14 rounded-2xl bg-[#F7EFE2] flex items-center justify-center text-3xl">
+          📊
+        </div>
+        <div>
+          <h3 class="font-serif text-lg font-bold text-[#2C2623]">ระบบติดตามผลสำหรับผู้ปกครอง (Parent Dashboard)</h3>
+          <p class="text-xs text-[#7D746B] mt-0.5">ดูกราฟเวลาเรียน สถิติความแม่นยำ และรายงานพัฒนาการของน้องได้ตลอด 24 ชั่วโมง</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/app.html" class="px-5 py-2.5 rounded-full bg-[#FAF5EB] hover:bg-[#F2E8D5] text-[#784D19] font-bold text-xs border border-[#E0D5BE] transition-all">
+          เปิดดู Parent Report
+        </a>
+        <a href="/Kidobits_Singapore_Math_Worksheets_K_to_P6.pdf" target="_blank" class="px-5 py-2.5 rounded-full bg-[#2C2623] hover:bg-stone-800 text-white font-bold text-xs shadow-sm transition-all flex items-center gap-1.5">
+          <i class="fa-solid fa-download"></i>
+          <span>ดาวน์โหลดแบบฝึกหัด PDF</span>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Clean Storybook Footer -->
+  <footer class="w-full py-6 text-center text-xs font-semibold text-[#8C8276] border-t border-[#EAE4D8] mt-10">
+    Kidobits Academy · Joyful 1-on-1 AI Tutoring (English · Chinese · Singapore Math)
+  </footer>
+
+  <script>
+    // Sync stars from localStorage if available
+    const savedStars = localStorage.getItem('kidobits_app_stars') || '320';
+    const badge = document.getElementById('portalStarsBadge');
+    if (badge) badge.textContent = `${savedStars} Stars`;
+  </script>
+</body>
+</html>

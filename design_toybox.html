@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kidobits Math Arcade - หั่นพิซซ่าแสนสนุก</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=Prompt:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "secondary-fixed-dim": "#4edea3",
+            "error": "#ba1a1a",
+            "primary-container": "#ffd12e",
+            "tertiary-fixed": "#ffdad9",
+            "on-background": "#121b32",
+            "tertiary-container": "#ffc9c8",
+            "on-primary-fixed": "#231b00",
+            "secondary-fixed": "#6ffbbe",
+            "primary-fixed": "#ffe086",
+            "on-secondary-fixed-variant": "#005236",
+            "surface": "#faf8ff",
+            "on-tertiary-fixed-variant": "#920020",
+            "on-tertiary-container": "#b31f33",
+            "on-secondary-fixed": "#002113",
+            "on-secondary": "#ffffff",
+            "on-primary": "#ffffff",
+            "secondary": "#006c49",
+            "surface-container-highest": "#dbe1ff",
+            "surface-container": "#eaedff",
+            "on-error": "#ffffff",
+            "on-tertiary-fixed": "#410009",
+            "on-primary-fixed-variant": "#574500",
+            "surface-dim": "#d1d9f9",
+            "surface-container-lowest": "#ffffff",
+            "surface-bright": "#faf8ff",
+            "inverse-surface": "#283048",
+            "background": "#faf8ff",
+            "on-tertiary": "#ffffff",
+            "surface-variant": "#dbe1ff",
+            "on-primary-container": "#715a00",
+            "on-error-container": "#93000a",
+            "surface-container-high": "#e3e7ff",
+            "primary-fixed-dim": "#eec21a",
+            "on-surface": "#121b32",
+            "on-secondary-container": "#00714d",
+            "outline-variant": "#d1c6ac",
+            "inverse-primary": "#eec21a",
+            "tertiary-fixed-dim": "#ffb3b3",
+            "primary": "#735c00",
+            "outline": "#7f7660",
+            "secondary-container": "#6cf8bb",
+            "on-surface-variant": "#4d4633",
+            "surface-tint": "#735c00",
+            "inverse-on-surface": "#eef0ff",
+            "tertiary": "#b52234",
+            "surface-container-low": "#f2f3ff",
+            "error-container": "#ffdad6"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "headline-lg": ["Plus Jakarta Sans", "Prompt", "sans-serif"],
+            "headline-md": ["Plus Jakarta Sans", "Prompt", "sans-serif"],
+            "headline-sm": ["Plus Jakarta Sans", "Prompt", "sans-serif"],
+            "label-lg": ["Plus Jakarta Sans", "Prompt", "sans-serif"],
+            "label-md": ["Plus Jakarta Sans", "Prompt", "sans-serif"],
+            "label-sm": ["Plus Jakarta Sans", "Prompt", "sans-serif"],
+            "body-lg": ["Plus Jakarta Sans", "Prompt", "sans-serif"],
+            "body-md": ["Plus Jakarta Sans", "Prompt", "sans-serif"],
+            "body-sm": ["Plus Jakarta Sans", "Prompt", "sans-serif"],
+            "display": ["Plus Jakarta Sans", "Prompt", "sans-serif"]
+          },
+          "fontSize": {
+            "display": ["48px", { "lineHeight": "56px", "fontWeight": "800" }],
+            "headline-lg": ["36px", { "lineHeight": "44px", "fontWeight": "800" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "700" }],
+            "label-lg": ["16px", { "lineHeight": "20px", "fontWeight": "800" }],
+            "label-md": ["14px", { "lineHeight": "18px", "fontWeight": "700" }],
+            "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "700" }],
+            "body-lg": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "500" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Plus Jakarta Sans', 'Prompt', sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .toybox-shadow {
+      box-shadow: 0 6px 0 0 #bfa116;
+    }
+    .toybox-shadow-blue {
+      box-shadow: 0 6px 0 0 #0284c7;
+    }
+    .toybox-shadow-green {
+      box-shadow: 0 6px 0 0 #005236;
+    }
+    .toybox-shadow-neutral {
+      box-shadow: 0 4px 0 0 #d1d9f9;
+    }
+    .btn-press:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 0 currentColor;
+    }
+  </style>
+</head>
+<body class="bg-[#FFFDF5] text-on-surface w-screen h-screen overflow-hidden flex flex-col justify-between selection:bg-primary-container">
+<!-- ================= TOP HUD & STEPPER ================= -->
+<header class="w-full bg-surface-container-lowest shadow-sm px-4 lg:px-8 py-2.5 flex-none z-30">
+<div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+<!-- Exit & Back to Map -->
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 bg-surface-container px-3.5 py-2 rounded-full border-2 border-surface-container-highest hover:bg-surface-dim active:translate-y-1 transition-all text-on-surface font-label-md text-label-md">
+<span class="material-symbols-outlined text-lg leading-none" data-icon="arrow_back">arrow_back</span>
+<span class="font-headline-sm text-headline-sm">แผนที่เกม</span>
+</button>
+</div>
+<!-- Center Game Progression Stepper -->
+<nav class="hidden md:flex items-center gap-2 lg:gap-3 bg-surface-container-low px-3 py-1.5 rounded-full border border-surface-container-highest">
+<!-- Step 1: Completed -->
+<div class="flex items-center gap-1.5 px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full text-label-sm font-label-sm border border-secondary">
+<span class="material-symbols-outlined text-sm font-bold" data-icon="check_circle">check_circle</span>
+<span>G1: แนะนำตัว ★</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-sm" data-icon="chevron_right">chevron_right</span>
+<!-- Step 2: Active Playing -->
+<div class="flex items-center gap-1.5 px-4 py-1.5 bg-primary-container text-on-primary-fixed rounded-full text-label-md font-label-md shadow-md border-2 border-surface-container-lowest ring-2 ring-primary">
+<span class="material-symbols-outlined text-base animate-spin text-primary" data-icon="autorenew">autorenew</span>
+<span class="font-bold">G2: หั่นพิซซ่า 🍕 กำลังเล่น</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-sm" data-icon="chevron_right">chevron_right</span>
+<!-- Step 3: Locked -->
+<div class="flex items-center gap-1.5 px-3 py-1 bg-surface text-on-surface-variant opacity-60 rounded-full text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-sm" data-icon="lock">lock</span>
+<span>G3: บอนด์ตัวเลข</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-sm" data-icon="chevron_right">chevron_right</span>
+<!-- Step 4: Boss Locked -->
+<div class="flex items-center gap-1.5 px-3 py-1 bg-surface text-on-surface-variant opacity-60 rounded-full text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-sm" data-icon="military_tech">military_tech</span>
+<span>G4: บอสใหญ่ 🏆</span>
+</div>
+</nav>
+<!-- Right HUD Counters & Actions -->
+<div class="flex items-center gap-2 sm:gap-3">
+<!-- Stars Meter -->
+<div class="flex items-center gap-1 bg-primary-fixed px-3 py-1.5 rounded-full border border-primary text-on-primary-fixed">
+<span class="material-symbols-outlined text-base text-yellow-600" data-icon="hotel_class" style="font-variation-settings: 'FILL' 1;">hotel_class</span>
+<span class="font-label-md text-label-md">3/3</span>
+</div>
+<!-- Gem Counter -->
+<div class="flex items-center gap-1 bg-surface-container-high px-3 py-1.5 rounded-full border border-surface-container-highest text-on-surface">
+<span class="material-symbols-outlined text-base text-sky-500" data-icon="diamond" style="font-variation-settings: 'FILL' 1;">diamond</span>
+<span class="font-label-md text-label-md">15</span>
+</div>
+<!-- Coin Counter -->
+<div class="flex items-center gap-1 bg-primary-container px-3 py-1.5 rounded-full border border-outline-variant text-on-primary-container">
+<span class="material-symbols-outlined text-base text-amber-700" data-icon="toll" style="font-variation-settings: 'FILL' 1;">toll</span>
+<span class="font-label-md text-label-md">480</span>
+</div>
+<!-- Audio Settings Button -->
+<button class="w-10 h-10 rounded-full bg-surface-container-highest hover:bg-surface-dim flex items-center justify-center text-on-surface transition-transform active:scale-95">
+<span class="material-symbols-outlined text-xl" data-icon="volume_up">volume_up</span>
+</button>
+</div>
+</div>
+</header>
+<!-- ================= MAIN GAME ARENA (16:9 Desktop Full Canvas) ================= -->
+<main class="flex-1 max-w-7xl mx-auto w-full px-4 lg:px-8 py-2 flex flex-col justify-between overflow-hidden">
+<!-- Top Challenge Header & Equation Banner -->
+<div class="flex flex-col items-center justify-center relative">
+<div class="inline-flex items-center gap-3 bg-white px-8 py-2 rounded-full border-4 border-primary-container shadow-md">
+<span class="material-symbols-outlined text-amber-500 text-2xl" data-icon="auto_awesome">auto_awesome</span>
+<h1 class="font-display text-display text-primary tracking-wider leading-none">
+          1 + 1 = ?
+        </h1>
+<span class="material-symbols-outlined text-amber-500 text-2xl" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">นับจำนวนชิ้นพิซซ่าทั้งหมดบนกระดานไม้</p>
+</div>
+<!-- Center Playfield: Mascot & Pizza Prop -->
+<div class="grid grid-cols-12 items-center gap-6 my-auto">
+<!-- Left Mascot Column (Robot Byte) -->
+<div class="col-span-12 md:col-span-4 flex flex-col items-center md:items-start justify-center relative">
+<!-- Speech Bubble -->
+<div class="relative bg-white border-3 border-secondary-fixed-dim rounded-2xl p-4 shadow-lg mb-2 max-w-xs animate-bounce" style="animation-duration: 3s;">
+<p class="font-headline-sm text-headline-sm text-on-surface leading-tight text-center md:text-left">
+            "มานับชิ้นพิซซ่ากันเถอะ! มีพิซซ่ากี่ชิ้นนะ? 🍕🤖"
+          </p>
+<!-- Speech triangle pointer -->
+<div class="absolute -bottom-3 left-10 w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-t-[14px] border-t-white"></div>
+</div>
+<!-- Mascot Avatar -->
+<div class="relative w-48 h-48 md:w-56 md:h-56 rounded-full p-2 bg-gradient-to-b from-sky-200 via-white to-amber-100 shadow-xl border-4 border-white flex items-center justify-center">
+<img alt="Byte the friendly helper robot avatar icon" class="w-full h-full object-cover rounded-full filter drop-shadow-md" src="https://lh3.googleusercontent.com/aida/AEtjO1V2ZSJY8nbc4wuzyuMZwJVJoqgrt2K1vIQwmot_IqhRn66b70zWwBEzHx3xQ_8hgl5LN3TDQNlurEIDOAbgki4zF9dzSY9gxJbQDlRs0gwe6GGAhslBDLxHv9OcBxGFpNDJnRtqUzo2sWviKMM4gtvSkcGBKGsFDT12EMHGLeuiLemtbcJyisla2PUMhUkHaQd8RPljlXGKmeNfGZ0KuFi2grBjjsgs_MohDa6rQ1xK4KXY9vK48gBlhCg"/>
+<!-- Byte Floating Name Tag -->
+<div class="absolute -bottom-2 bg-secondary text-on-secondary px-4 py-1 rounded-full text-label-sm font-label-sm border-2 border-white shadow">
+            BYTE BOT
+          </div>
+</div>
+</div>
+<!-- Center / Right Physical Prop: Wooden Board with Pizza -->
+<div class="col-span-12 md:col-span-8 flex flex-col items-center justify-center">
+<!-- Tactile Pizza Board Container -->
+<div class="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-full bg-[#78350f] p-4 shadow-2xl border-8 border-[#542407] flex items-center justify-center" style="box-shadow: 0 16px 32px rgba(84, 36, 7, 0.35);">
+<!-- Outer Board Grain Ring -->
+<div class="w-full h-full rounded-full bg-[#92400e] border-4 border-[#b45309] p-3 flex items-center justify-center relative">
+<!-- Board Wooden Handle -->
+<div class="absolute -bottom-12 w-14 h-20 bg-[#78350f] border-4 border-[#542407] rounded-b-2xl shadow-lg -z-10"></div>
+<!-- Whole Pizza Base -->
+<div class="w-full h-full rounded-full bg-[#f59e0b] border-8 border-[#d97706] shadow-inner relative flex overflow-hidden">
+<!-- Left Pizza Slice (Slice #1) -->
+<div class="w-1/2 h-full bg-[#fbbf24] border-r-4 border-[#b45309] relative flex flex-col items-center justify-center p-2 group hover:bg-[#fde68a] transition-colors cursor-pointer">
+<!-- Pepperoni pieces -->
+<div class="w-8 h-8 rounded-full bg-tertiary border-2 border-tertiary-fixed shadow-md absolute top-8 left-8 flex items-center justify-center">
+<div class="w-2 h-2 rounded-full bg-red-400 opacity-70"></div>
+</div>
+<div class="w-7 h-7 rounded-full bg-tertiary border-2 border-tertiary-fixed shadow-md absolute bottom-12 left-10"></div>
+<div class="w-9 h-9 rounded-full bg-tertiary border-2 border-tertiary-fixed shadow-md absolute top-28 right-4"></div>
+<!-- Cheese Melting Swirls -->
+<div class="w-12 h-3 bg-yellow-100 rounded-full opacity-80 rotate-12 absolute top-20 left-4"></div>
+<!-- Floating Tactile Number Badge 1 -->
+<div class="z-10 w-14 h-14 rounded-full bg-white border-4 border-primary text-primary flex items-center justify-center shadow-lg font-display text-headline-lg animate-pulse">
+                  1
+                </div>
+<span class="z-10 mt-2 px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm border border-surface-container-highest">ชิ้นที่ 1</span>
+</div>
+<!-- Right Pizza Slice (Slice #2) -->
+<div class="w-1/2 h-full bg-[#fbbf24] relative flex flex-col items-center justify-center p-2 group hover:bg-[#fde68a] transition-colors cursor-pointer">
+<!-- Pepperoni pieces -->
+<div class="w-9 h-9 rounded-full bg-tertiary border-2 border-tertiary-fixed shadow-md absolute top-10 right-8"></div>
+<div class="w-8 h-8 rounded-full bg-tertiary border-2 border-tertiary-fixed shadow-md absolute bottom-10 right-10"></div>
+<div class="w-7 h-7 rounded-full bg-tertiary border-2 border-tertiary-fixed shadow-md absolute top-24 left-4"></div>
+<!-- Cheese Melting Swirls -->
+<div class="w-10 h-3 bg-yellow-100 rounded-full opacity-80 -rotate-12 absolute bottom-24 right-4"></div>
+<!-- Floating Tactile Number Badge 2 -->
+<div class="z-10 w-14 h-14 rounded-full bg-white border-4 border-primary text-primary flex items-center justify-center shadow-lg font-display text-headline-lg animate-pulse">
+                  2
+                </div>
+<span class="z-10 mt-2 px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm border border-surface-container-highest">ชิ้นที่ 2</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive 3D Number Buttons Array -->
+<div class="flex flex-col items-center justify-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">เลือกคำตอบที่ถูกต้อง:</span>
+<div class="flex items-center justify-center gap-4 sm:gap-6 flex-wrap">
+<!-- Button 1 -->
+<button class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-sky-400 border-4 border-white text-white font-display text-headline-lg toybox-shadow-blue flex flex-col items-center justify-center transition-all duration-150 hover:-translate-y-1 active:translate-y-1 active:shadow-none btn-press">
+<span>1</span>
+</button>
+<!-- Button 2 (Selected & Active Glow) -->
+<button class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-primary-container border-4 border-white text-on-primary-container font-display text-headline-lg toybox-shadow flex flex-col items-center justify-center transition-all duration-150 ring-4 ring-primary scale-105 active:translate-y-1 active:shadow-none btn-press relative">
+<span>2</span>
+<!-- Selected Mini Check Badge -->
+<div class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center shadow-md border-2 border-white">
+<span class="material-symbols-outlined text-sm font-bold" data-icon="check" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</button>
+<!-- Button 3 -->
+<button class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-sky-400 border-4 border-white text-white font-display text-headline-lg toybox-shadow-blue flex flex-col items-center justify-center transition-all duration-150 hover:-translate-y-1 active:translate-y-1 active:shadow-none btn-press">
+<span>3</span>
+</button>
+<!-- Button 4 -->
+<button class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-sky-400 border-4 border-white text-white font-display text-headline-lg toybox-shadow-blue flex flex-col items-center justify-center transition-all duration-150 hover:-translate-y-1 active:translate-y-1 active:shadow-none btn-press">
+<span>4</span>
+</button>
+</div>
+</div>
+</main>
+<!-- ================= BOTTOM ACTION BAR (Tactile Footer) ================= -->
+<footer class="w-full bg-surface-container-lowest border-t-2 border-surface-container-high px-4 lg:px-8 py-3 flex-none shadow-md z-30">
+<div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+<!-- Audio Cue & Hint Left Controls -->
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 bg-surface-container px-4 py-2.5 rounded-full border-2 border-surface-container-highest hover:bg-surface-dim active:translate-y-1 transition-all text-on-surface font-label-md text-label-md toybox-shadow-neutral">
+<span class="material-symbols-outlined text-xl text-primary" data-icon="volume_up">volume_up</span>
+<span class="font-headline-sm text-headline-sm">ฟังเสียงโจทย์</span>
+</button>
+<button class="flex items-center gap-2 bg-surface-container px-4 py-2.5 rounded-full border-2 border-surface-container-highest hover:bg-surface-dim active:translate-y-1 transition-all text-on-surface font-label-md text-label-md toybox-shadow-neutral">
+<span class="material-symbols-outlined text-xl text-amber-500" data-icon="lightbulb" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+<span class="font-headline-sm text-headline-sm">ขอคำใบ้</span>
+</button>
+</div>
+<!-- Right Action Button: Submit Answer -->
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-3 bg-secondary text-on-secondary px-8 py-3.5 rounded-full border-4 border-secondary-fixed text-headline-sm font-headline-sm toybox-shadow-green hover:scale-105 active:translate-y-1 active:shadow-none transition-all duration-150 cursor-pointer">
+<span class="material-symbols-outlined text-2xl" data-icon="rocket_launch">rocket_launch</span>
+<span class="font-headline-sm text-headline-sm">ตรวจคำตอบ (+25 XP)</span>
+</button>
+</div>
+</div>
+</footer>
+</body></html>

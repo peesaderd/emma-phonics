@@ -1,0 +1,1083 @@
+<!DOCTYPE html><html class="min-h-screen overflow-x-hidden overflow-y-auto" lang="en"><head>
+
+<meta charset="utf-8">
+
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<title>Kidobits - TCG Battle Arena</title>
+
+<!-- ===== PWA ===== -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#FB8C2C">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Kidobits">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<!-- ===== /PWA ===== -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+<style>
+
+    @layer base {
+
+      html, body { margin:0; padding:0; height:auto; min-height:100%; overflow-x:hidden; overflow-y:auto; }
+
+      body { overscroll-behavior-y:auto; overscroll-behavior-x:none; }
+
+    }
+
+    ::-webkit-scrollbar { display:none; }
+
+
+
+    /* Tactical Card 3D Bevels & Foil Gleams */
+
+    .holo-sheen {
+
+      background: linear-gradient(135deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.05) 40%, rgba(255,215,0,0.25) 60%, rgba(255,255,255,0.3) 100%);
+
+    }
+
+    .card-bezel-green {
+
+      box-shadow: 0 0 0 4px #86efac, 0 0 0 7px #16a34a, 0 12px 0 0 #15803d, 0 20px 35px rgba(22,163,74,0.35);
+
+    }
+
+    .card-bezel-red {
+
+      box-shadow: 0 0 0 4px #fca5a5, 0 0 0 7px #dc2626, 0 12px 0 0 #991b1b, 0 20px 35px rgba(220,38,38,0.35);
+
+    }
+
+    .card-bezel-blue {
+
+      box-shadow: 0 0 0 4px #93c5fd, 0 0 0 7px #2563eb, 0 12px 0 0 #1e40af, 0 20px 35px rgba(37,99,235,0.35);
+
+    }
+
+
+
+    /* Arena Summon Floor Pattern */
+
+    .arena-grid {
+
+      background-image: 
+
+        radial-gradient(circle at 50% 50%, rgba(255, 209, 46, 0.12) 0%, rgba(255, 209, 46, 0.02) 45%, transparent 70%),
+
+        linear-gradient(to right, rgba(147, 197, 253, 0.08) 1px, transparent 1px),
+
+        linear-gradient(to bottom, rgba(147, 197, 253, 0.08) 1px, transparent 1px);
+
+      background-size: 100% 100%, 48px 48px, 48px 48px;
+
+    }
+
+
+
+    @keyframes floatStar {
+
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+
+      50% { transform: translateY(-8px) rotate(6deg); }
+
+    }
+
+    .animate-float {
+
+      animation: floatStar 3.8s ease-in-out infinite;
+
+    }
+
+    .animate-float-delayed {
+
+      animation: floatStar 4.2s ease-in-out 1.5s infinite;
+
+    }
+
+  </style>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<script id="tailwind-config">
+
+    tailwind.config = {
+
+      darkMode: "class",
+
+      theme: {
+
+        extend: {
+
+          colors: {
+
+            "on-background": "#121b32",
+
+            "on-error-container": "#93000a",
+
+            "secondary-fixed-dim": "#4edea3",
+
+            "surface-tint": "#735c00",
+
+            "primary-fixed-dim": "#eec21a",
+
+            "on-primary-container": "#715a00",
+
+            "inverse-primary": "#eec21a",
+
+            "on-surface-variant": "#4d4633",
+
+            "on-primary-fixed-variant": "#574500",
+
+            "background": "#faf8ff",
+
+            "outline": "#7f7660",
+
+            "surface-bright": "#faf8ff",
+
+            "inverse-surface": "#283048",
+
+            "on-primary-fixed": "#231b00",
+
+            "surface-variant": "#dbe1ff",
+
+            "surface-dim": "#d1d9f9",
+
+            "primary-container": "#ffd12e",
+
+            "secondary": "#006c49",
+
+            "on-secondary-container": "#00714d",
+
+            "on-primary": "#ffffff",
+
+            "outline-variant": "#d1c6ac",
+
+            "surface-container-low": "#f2f3ff",
+
+            "on-error": "#ffffff",
+
+            "inverse-on-surface": "#eef0ff",
+
+            "surface-container-lowest": "#ffffff",
+
+            "primary": "#735c00",
+
+            "surface-container": "#eaedff",
+
+            "secondary-fixed": "#6ffbbe",
+
+            "on-secondary-fixed": "#002113",
+
+            "tertiary": "#b52234",
+
+            "tertiary-container": "#ffc9c8",
+
+            "surface": "#faf8ff",
+
+            "tertiary-fixed": "#ffdad9",
+
+            "surface-container-highest": "#dbe1ff",
+
+            "secondary-container": "#6cf8bb",
+
+            "error": "#ba1a1a",
+
+            "on-secondary-fixed-variant": "#005236",
+
+            "on-tertiary-container": "#b31f33",
+
+            "on-secondary": "#ffffff",
+
+            "tertiary-fixed-dim": "#ffb3b3",
+
+            "on-surface": "#121b32",
+
+            "error-container": "#ffdad6",
+
+            "on-tertiary-fixed": "#410009",
+
+            "surface-container-high": "#e3e7ff",
+
+            "primary-fixed": "#ffe086",
+
+            "on-tertiary": "#ffffff",
+
+            "on-tertiary-fixed-variant": "#920020"
+
+          },
+
+          borderRadius: {
+
+            DEFAULT: "1rem",
+
+            lg: "2rem",
+
+            xl: "3rem",
+
+            full: "9999px"
+
+          },
+
+          fontFamily: {
+
+            "body-lg": ["Plus Jakarta Sans"],
+
+            "label-lg": ["Plus Jakarta Sans"],
+
+            "body-sm": ["Plus Jakarta Sans"],
+
+            display: ["Plus Jakarta Sans"],
+
+            "headline-sm": ["Plus Jakarta Sans"],
+
+            "headline-md": ["Plus Jakarta Sans"],
+
+            "headline-lg": ["Plus Jakarta Sans"],
+
+            "label-md": ["Plus Jakarta Sans"],
+
+            "body-md": ["Plus Jakarta Sans"],
+
+            "label-sm": ["Plus Jakarta Sans"]
+
+          }
+
+        }
+
+      }
+
+    };
+
+  </script>
+
+<style id="kbScrollFix">
+
+  html,body{height:auto!important;max-height:none!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior-y:auto!important;overscroll-behavior-x:none!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important}
+
+  body{min-height:100vh!important}
+
+  ::-webkit-scrollbar{display:initial!important}
+
+</style>
+
+</head>
+
+<body class="min-h-screen overflow-x-hidden overflow-y-auto flex flex-col bg-surface font-body-md text-on-surface antialiased select-none" style="height:auto">
+
+<!-- ========================================================
+
+       TOP COMPACT HUD BAR (Fit across top: w-full px-8 py-3.5)
+
+       ======================================================== -->
+
+<header class="w-full px-8 py-3.5 flex items-center justify-between z-30 bg-surface/90 backdrop-blur-md border-b-2 border-surface-container shrink-0">
+
+<!-- LEFT: Kidobits TCG Logo Badge + Battle Arena Pill -->
+
+<div class="flex items-center gap-3">
+
+<div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-300 via-primary-container to-amber-500 flex items-center justify-center shadow-[0_4px_0_0_#ca8a04] border-2 border-yellow-200">
+
+<span class="material-symbols-outlined text-amber-950 text-[26px]">smart_toy</span>
+
+</div>
+
+<div class="flex items-center gap-2">
+
+<span class="font-black text-2xl tracking-tight text-on-surface leading-none">Kidobits</span>
+
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-amber-400 to-yellow-300 text-amber-950 font-black text-[11px] uppercase tracking-wider shadow-[0_2px_0_0_#ca8a04] border border-yellow-200">
+
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+
+          TCG Battle Arena
+
+        </span>
+
+</div>
+
+</div>
+
+<!-- CENTER: Gamified Player Stats HUD -->
+
+<div class="flex items-center gap-3">
+
+<!-- Streak -->
+
+<div class="flex items-center gap-1.5 bg-gradient-to-r from-rose-500 to-amber-500 text-white px-3.5 py-1.5 rounded-full shadow-[0_3px_0_0_#9f1239] border border-rose-300 font-black text-xs">
+
+<span class="material-symbols-outlined text-[18px]">local_fire_department</span>
+
+<span class="">7d Streak</span>
+
+</div>
+
+<!-- Coins -->
+
+<div class="flex items-center gap-1.5 bg-gradient-to-r from-amber-300 to-yellow-400 text-amber-950 px-3.5 py-1.5 rounded-full shadow-[0_3px_0_0_#ca8a04] border border-yellow-200 font-black text-xs">
+
+<span class="w-4 h-4 rounded-full bg-amber-500 text-white flex items-center justify-center text-[10px] shadow-sm font-black">🪙</span>
+
+<span class="">420 Coins</span>
+
+</div>
+
+<!-- Energy -->
+
+<div class="flex items-center gap-1.5 bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-3.5 py-1.5 rounded-full shadow-[0_3px_0_0_#1e40af] border border-cyan-200 font-black text-xs">
+
+<span class="material-symbols-outlined text-[17px] text-yellow-300">bolt</span>
+
+<span class="">Energy: 3/3</span>
+
+</div>
+
+<!-- League -->
+
+<div class="flex items-center gap-1.5 bg-gradient-to-r from-emerald-400 to-teal-500 text-white px-3.5 py-1.5 rounded-full shadow-[0_3px_0_0_#0f766e] border border-emerald-200 font-black text-xs">
+
+<span class="material-symbols-outlined text-[17px]">diamond</span>
+
+<span class="">Diamond League</span>
+
+</div>
+
+</div>
+
+<!-- RIGHT: Daily Booster, Parent Zone, Player Avatar -->
+
+<div class="flex items-center gap-3">
+
+<!-- Glowing Daily Booster Button -->
+
+<button onclick="location.href='/chinese.html'" class="w-full py-2.5 px-3 rounded-2xl bg-gradient-to-r from-rose-500 to-red-600 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-[0_5px_0_0_#991b1b] hover:brightness-110 active:translate-y-1 active:shadow-[0_0px_0_0_#991b1b] transition-all cursor-pointer border border-rose-300 mt-1">
+
+<span class="material-symbols-outlined text-[18px] text-yellow-300">card_giftcard</span>
+
+<span class="uppercase">Daily Booster!</span>
+
+<span class="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-yellow-400"></span>
+
+</span>
+
+</button>
+
+<!-- Parent Zone -->
+
+<a class="flex items-center gap-1.5 bg-surface-container-high px-3.5 py-1.5 rounded-full text-on-surface font-bold text-xs hover:bg-surface-variant shadow-[0_2px_0_0_#cbd5e1] border border-surface-container" href="#">
+
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">shield_person</span>
+
+<span class="">Parent Zone</span>
+
+</a>
+
+<!-- Leo Avatar -->
+
+<div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white font-black text-base shadow-[0_2px_0_0_#b45309] border-2 border-yellow-200">
+
+        🦁
+
+      </div>
+
+</div>
+
+</header>
+
+<!-- ========================================================
+
+       ARENA STADIUM MAT & HERO CARD ARENA (Strictly 100vh Fill)
+
+       ======================================================== -->
+
+<main class="relative flex-1 flex flex-col items-center justify-between p-4 arena-grid overflow-hidden">
+
+<!-- Ambient Neon Arena Lighting Elements -->
+
+<!-- Kingdom Twilight Sky Atmosphere & Aurora Streaks -->
+
+<div class="absolute inset-0 pointer-events-none overflow-hidden">
+
+  <!-- Sunset Sun Glow -->
+
+  <div class="absolute -top-28 left-1/2 -translate-x-1/2 w-[680px] h-72 bg-gradient-to-b from-amber-300/40 via-pink-400/25 to-transparent rounded-full blur-3xl"></div>
+
+  <!-- Royal Violet Kingdom Aurora Streaks -->
+
+  <div class="absolute top-10 -left-20 w-[450px] h-52 bg-gradient-to-r from-purple-500/20 to-indigo-500/10 rounded-full blur-2xl transform -rotate-12"></div>
+
+  <div class="absolute top-10 -right-20 w-[450px] h-52 bg-gradient-to-l from-sky-400/25 to-indigo-500/10 rounded-full blur-2xl transform rotate-12"></div>
+
+  
+
+  <!-- Whimsical Kingdom Floating Card Castle Spire (Left) -->
+
+  <div class="absolute bottom-8 left-4 md:left-10 opacity-75 pointer-events-none flex flex-col items-center animate-float">
+
+    <div class="w-12 h-14 bg-gradient-to-b from-purple-500 to-indigo-700 rounded-t-full shadow-lg border-2 border-amber-300/70 relative flex items-center justify-center">
+
+      <span class="text-amber-200 text-xs font-black">👑</span>
+
+      <div class="absolute -top-3 w-1.5 h-4 bg-amber-400 rounded-full"></div>
+
+    </div>
+
+    <div class="w-16 h-20 bg-gradient-to-b from-indigo-600 to-purple-800 rounded-md border border-purple-300/40 shadow-md flex flex-col items-center justify-around py-1">
+
+      <div class="w-3 h-5 bg-amber-300 rounded-t-full shadow-[0_0_8px_#fde047]"></div>
+
+      <span class="text-[10px] text-amber-200">♦</span>
+
+    </div>
+
+    <div class="w-24 h-5 bg-emerald-500/80 rounded-full blur-[1px] mt-1 shadow"></div>
+
+  </div>
+
+
+
+  <!-- Whimsical Kingdom Crystal Spire & Turret (Right) -->
+
+  <div class="absolute bottom-8 right-4 md:right-10 opacity-75 pointer-events-none flex flex-col items-center animate-float-delayed">
+
+    <div class="w-12 h-14 bg-gradient-to-b from-cyan-400 to-blue-600 rounded-t-full shadow-lg border-2 border-amber-300/70 relative flex items-center justify-center">
+
+      <span class="text-amber-200 text-xs font-black">⭐</span>
+
+      <div class="absolute -top-3 w-1.5 h-4 bg-amber-400 rounded-full"></div>
+
+    </div>
+
+    <div class="w-16 h-20 bg-gradient-to-b from-blue-600 to-indigo-800 rounded-md border border-cyan-300/40 shadow-md flex flex-col items-center justify-around py-1">
+
+      <div class="w-3 h-5 bg-amber-300 rounded-t-full shadow-[0_0_8px_#fde047]"></div>
+
+      <span class="text-[10px] text-amber-200">♠</span>
+
+    </div>
+
+    <div class="w-24 h-5 bg-emerald-500/80 rounded-full blur-[1px] mt-1 shadow"></div>
+
+  </div>
+
+
+
+  <!-- Floating Card Game Suit Gems & Kingdom Crest Emblems -->
+
+  <div class="absolute top-20 left-28 text-2xl select-none animate-float drop-shadow-[0_4px_8px_rgba(245,158,11,0.5)]">✨</div>
+
+  <div class="absolute top-28 right-32 text-2xl select-none animate-float-delayed drop-shadow-[0_4px_8px_rgba(59,130,246,0.5)]">💎</div>
+
+  <div class="absolute bottom-24 left-1/4 text-xl select-none animate-float drop-shadow-[0_2px_6px_rgba(236,72,153,0.5)]">💖</div>
+
+  <div class="absolute bottom-24 right-1/4 text-xl select-none animate-float-delayed drop-shadow-[0_2px_6px_rgba(234,179,8,0.5)]">⭐</div>
+
+
+
+  <!-- Glowing Grand Arena Kingdom Summon Mandala / Runes Behind Cards -->
+
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[760px] h-[520px] rounded-[100px] border-4 border-amber-300/30 bg-gradient-to-b from-amber-200/10 via-purple-300/10 to-cyan-300/15 pointer-events-none shadow-[0_0_60px_rgba(251,191,36,0.15)]"></div>
+
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[620px] h-[440px] rounded-full border-2 border-dashed border-cyan-400/40 pointer-events-none animate-spin" style="animation-duration: 120s;"></div>
+
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[460px] h-[460px] rounded-full border border-purple-400/30 pointer-events-none"></div>
+
+</div>
+
+
+
+
+
+
+
+<!-- Floating Sparkles & Star Particles -->
+
+<div class="absolute top-12 left-16 text-3xl select-none animate-float pointer-events-none">✨</div>
+
+<div class="absolute bottom-14 right-20 text-3xl select-none animate-float-delayed pointer-events-none">⚡</div>
+
+<div class="absolute top-1/3 right-12 text-2xl select-none animate-float pointer-events-none">🌟</div>
+
+<div class="absolute bottom-1/3 left-14 text-2xl select-none animate-float-delayed pointer-events-none">⭐</div>
+
+<!-- ARENA COMPACT STADIUM HEADER -->
+
+<div class="relative z-10 flex flex-col items-center gap-1.5 shrink-0 pt-1"><div class="flex items-center gap-2">
+
+  <span class="inline-flex items-center gap-1 px-3 py-0.5 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white border border-purple-300 font-black text-[11px] uppercase tracking-wider shadow-sm">
+
+    👑 Kingdom Arena • Season 1
+
+  </span>
+
+  <span class="inline-flex items-center gap-1 px-3 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-400 text-amber-950 font-black text-[11px] uppercase tracking-wider shadow-[0_2px_0_0_#ca8a04]">
+
+    <span class="material-symbols-outlined text-[14px]">military_tech</span>
+
+    Deck Master Leo • Level 6
+
+  </span>
+
+</div>
+
+<h1 class="font-black text-2xl md:text-3xl tracking-tight text-on-surface drop-shadow-sm flex items-center gap-2">
+
+  <span class="">⚔️ CHOOSE YOUR HERO &amp; ENTER THE ARENA</span>
+
+</h1>
+
+<p class="text-xs font-bold text-indigo-950/80 uppercase tracking-wider flex items-center gap-2">
+
+  <span class="">🏰 Pick your champion tutor to duel phonics, tones, and Singapore Math! 🪄</span>
+
+</p></div>
+
+<!-- ======================================================
+
+         THE 3 LARGE INTERACTIVE HERO CARDS (CENTERED ROW)
+
+         ====================================================== -->
+
+<div class="relative z-10 flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-7 px-4 pb-6 flex-1 max-w-7xl mx-auto w-full my-auto overflow-y-auto">
+
+<!-- ====================================================
+
+           CARD 1: OLIVER THE FOX (English Phonics)
+
+           ==================================================== -->
+
+<div class="group relative flex flex-col justify-between w-full max-w-[340px] min-w-[300px] shrink-0 h-[550px] max-h-full rounded-3xl bg-white border-4 border-emerald-400 card-bezel-green overflow-hidden transition-all duration-300 hover:-translate-y-2.5 hover:scale-[1.02] cursor-pointer">
+
+<!-- Holographic Sheen & Glass Reflection Stripe -->
+
+<div class="absolute inset-0 pointer-events-none holo-sheen opacity-30 group-hover:opacity-60 transition-opacity z-20"></div>
+
+<div class="absolute -top-12 -bottom-12 -left-20 w-16 bg-white/40 transform -skew-x-12 opacity-30 blur-[2px] group-hover:translate-x-96 transition-transform duration-700 pointer-events-none z-20"></div>
+
+<!-- TOP FOIL HEADER -->
+
+<div class="relative z-10 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 px-3.5 py-2 text-white flex items-center justify-between border-b-2 border-emerald-300">
+
+<span class="bg-emerald-950/70 text-yellow-300 font-black text-[10px] px-2.5 py-0.5 rounded-full border border-yellow-300/40 tracking-wider">
+
+            MYTHIC ★★★★★
+
+          </span>
+
+<div class="flex items-center gap-1.5 font-black text-xs text-emerald-100 uppercase">
+
+<span class="">🍃 WIND / SOUND</span>
+
+<span class="w-5 h-5 rounded-full bg-emerald-400 text-emerald-950 flex items-center justify-center text-[10px] font-black">4</span>
+
+</div>
+
+</div>
+
+<!-- CARD ARTWORK / FOIL FRAME -->
+
+<div class="px-3 pt-2.5 bg-gradient-to-b from-emerald-100 to-emerald-50">
+
+<div class="relative h-44 rounded-2xl overflow-hidden border-4 border-amber-300 shadow-inner group-hover:scale-[1.02] transition-transform">
+
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAnNGVA6VVIAuePmuKkmusMLNJDOp2RW6kUN880eRuOfhR4Oy4gIJVEU80vIaJXT_kF-2Ow6h2XLcsmKAe1pAExj0Pc0X4XdPw0_m5qRMJUtiCuMMDxHZsB-aRtRvg5jLSV__pgWlo7vu6-NpS7frBQchVHBz_aTsXlbmcKdZSqkTkONMvxAH5tDXqu6sW4URFdSNQ5e4IPakzjXGffL_M3-_pHz_D4UOfPm0BzLfyVDQXJmUebS7Kh')"></div>
+
+<div class="absolute inset-0 bg-gradient-to-t from-emerald-950/75 via-transparent to-transparent"></div>
+
+<!-- Character Plaque -->
+
+<div class="absolute bottom-1.5 left-2.5 right-2.5 flex items-center justify-between z-10">
+
+<span class="text-white font-black text-base drop-shadow-md">Oliver Fox</span>
+
+<span class="bg-amber-400 text-amber-950 font-black text-[11px] px-2 py-0.5 rounded-full shadow">HP 420</span>
+
+</div>
+
+<!-- Sonic Sound Badge -->
+
+<div class="absolute top-2 left-2 bg-black/40 backdrop-blur-md px-2 py-0.5 rounded-full text-white text-[10px] font-black flex items-center gap-1 border border-white/30">
+
+<span class="">🦊 Phonics Lv 4</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STATS & ABILITIES BODY -->
+
+<div class="px-3.5 py-2.5 flex flex-col justify-between flex-1 gap-2 bg-white relative z-10">
+
+<div>
+
+<div class="flex items-center justify-between">
+
+<h3 class="font-black text-base text-emerald-950 leading-tight">Verbal Mystic Fox</h3>
+
+<span class="text-xs">✨</span>
+
+</div>
+
+<p class="text-[11px] font-bold text-emerald-700 uppercase tracking-wide">Magic Sound Island</p>
+
+</div>
+
+<!-- ATK / DEF -->
+
+<div class="grid grid-cols-2 gap-1.5 bg-emerald-50 p-2 rounded-xl border border-emerald-200">
+
+<div class="flex items-center gap-1.5">
+
+<span class="w-5 h-5 rounded-md bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center">⚔️</span>
+
+<span class="text-[11px] font-black text-emerald-950">ATK: 95 Sound</span>
+
+</div>
+
+<div class="flex items-center gap-1.5">
+
+<span class="w-5 h-5 rounded-md bg-teal-500 text-white font-black text-[10px] flex items-center justify-center">🛡️</span>
+
+<span class="text-[11px] font-black text-emerald-950">DEF: 88 Vowel</span>
+
+</div>
+
+<div class="col-span-2 flex items-center justify-between pt-1 border-t border-emerald-200/80 text-[10px] font-bold text-emerald-800">
+
+<span class="">Spell: Short Vowels &amp; Digraphs</span>
+
+<span class="bg-emerald-200 text-emerald-900 px-1.5 rounded font-black">12 Gems</span>
+
+</div>
+
+</div>
+
+<!-- Waypoints -->
+
+<div>
+
+<div class="flex items-center justify-between text-[10px] font-black text-on-surface-variant mb-1">
+
+<div class="flex text-amber-400">
+
+<span class="">★</span><span class="">★</span><span class="">★</span><span class="text-slate-300">★</span><span class="text-slate-300">★</span>
+
+</div>
+
+<span class="text-emerald-700 font-bold">3/5 Waypoints</span>
+
+</div>
+
+<div class="flex items-center justify-between bg-slate-100 p-1 rounded-full">
+
+<span class="w-4 h-4 rounded-full bg-emerald-500 text-white text-[9px] font-black flex items-center justify-center">✓</span>
+
+<span class="w-4 h-4 rounded-full bg-emerald-500 text-white text-[9px] font-black flex items-center justify-center">✓</span>
+
+<span class="w-4 h-4 rounded-full bg-emerald-500 text-white text-[9px] font-black flex items-center justify-center">✓</span>
+
+<span class="w-4 h-4 rounded-full bg-amber-400 text-amber-950 text-[9px] font-black flex items-center justify-center animate-pulse">4</span>
+
+<span class="w-4 h-4 rounded-full bg-slate-300 text-slate-600 text-[9px] font-black flex items-center justify-center">5</span>
+
+</div>
+
+</div>
+
+<!-- BIG CHUNKY TACTILE 3D PLAY BUTTON -->
+
+<button onclick="location.href='https://kidobits.m2igen.com/mockup_oliver_hub.html'" class="w-full py-2.5 px-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-[0_5px_0_0_#065f46] hover:brightness-110 active:translate-y-1 active:shadow-[0_0px_0_0_#065f46] transition-all cursor-pointer border border-emerald-300 mt-1">
+
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+
+<span class="">PLAY WITH OLIVER 🦊</span>
+
+</button>
+
+<a href="https://kidobits.m2igen.com/level3_digraph_hub.html" class="w-full py-2 px-3 mt-1.5 rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-black text-[11px] uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-[0_4px_0_0_#3730a3] hover:brightness-110 active:translate-y-1 active:shadow-none transition-all cursor-pointer border border-sky-300">
+
+<span class="material-symbols-outlined text-[14px]">graphic_eq</span>
+
+Level 3 · Digraph &amp; Blend Arena ›
+
+</a>
+
+</div>
+
+</div>
+
+<!-- ====================================================
+
+           CARD 2: BAO BAO THE PANDA (Chinese Pinyin)
+
+           ==================================================== -->
+
+<div class="group relative flex flex-col justify-between w-full max-w-[340px] min-w-[300px] shrink-0 h-[550px] max-h-full rounded-3xl bg-white border-4 border-rose-400 card-bezel-red overflow-hidden transition-all duration-300 hover:-translate-y-2.5 hover:scale-[1.02] cursor-pointer" onclick="location.href='https://kidobits.m2igen.com/chinese.html'">
+
+<!-- Holographic Sheen & Glass Reflection Stripe -->
+
+<div class="absolute inset-0 pointer-events-none holo-sheen opacity-30 group-hover:opacity-60 transition-opacity z-20"></div>
+
+<div class="absolute -top-12 -bottom-12 -left-20 w-16 bg-white/40 transform -skew-x-12 opacity-30 blur-[2px] group-hover:translate-x-96 transition-transform duration-700 pointer-events-none z-20"></div>
+
+<!-- TOP FOIL HEADER -->
+
+<div class="relative z-10 bg-gradient-to-r from-rose-600 via-red-600 to-rose-700 px-3.5 py-2 text-white flex items-center justify-between border-b-2 border-rose-300">
+
+<span class="bg-rose-950/70 text-yellow-300 font-black text-[10px] px-2.5 py-0.5 rounded-full border border-yellow-300/40 tracking-wider">
+
+            RARE SCHOLAR ★★★★
+
+          </span>
+
+<div class="flex items-center gap-1.5 font-black text-xs text-rose-100 uppercase">
+
+<span class="">🏮 FIRE / PINYIN</span>
+
+<span class="w-5 h-5 rounded-full bg-rose-400 text-rose-950 flex items-center justify-center text-[10px] font-black">2</span>
+
+</div>
+
+</div>
+
+<!-- CARD ARTWORK / FOIL FRAME -->
+
+<div class="px-3 pt-2.5 bg-gradient-to-b from-rose-100 to-rose-50">
+
+<div class="relative h-44 rounded-2xl overflow-hidden border-4 border-amber-300 shadow-inner group-hover:scale-[1.02] transition-transform">
+
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA6NDLOWnQkT643ROWPwuqgsvRSH5OXCcoLNxDDOQcJAjzAyCCeMJ-m8dTuQSP1lNm4bbGDjUKVjWZSNC--xiCSNXczRBFxrQIqoN1nckHkMSGkEGS-CFYVLgO5pt-JraOz3DWUkTYSVeWOa8y-nXgOg0vKPxj2zYuI-4hjC-sO9CnaznSPAFPwh-ISo-bdTzquZigTcaFRz2VNW9kpW-PEosJ9jkV-Fjy1h_soqr1AbKO_KyutFbS4')"></div>
+
+<div class="absolute inset-0 bg-gradient-to-t from-rose-950/75 via-transparent to-transparent"></div>
+
+<!-- Character Plaque -->
+
+<div class="absolute bottom-1.5 left-2.5 right-2.5 flex items-center justify-between z-10">
+
+<span class="text-white font-black text-base drop-shadow-md">Bao Bao Panda</span>
+
+<span class="bg-amber-400 text-amber-950 font-black text-[11px] px-2 py-0.5 rounded-full shadow">HP 380</span>
+
+</div>
+
+<!-- Chinese Badge -->
+
+<div class="absolute top-2 left-2 bg-black/40 backdrop-blur-md px-2 py-0.5 rounded-full text-white text-[10px] font-black flex items-center gap-1 border border-white/30">
+
+<span class="">🐼 Chinese Lv 2</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STATS & ABILITIES BODY -->
+
+<div class="px-3.5 py-2.5 flex flex-col justify-between flex-1 gap-2 bg-white relative z-10">
+
+<div>
+
+<div class="flex items-center justify-between">
+
+<h3 class="font-black text-base text-rose-950 leading-tight">Bamboo Dragon Sensei</h3>
+
+<span class="text-xs">🏮</span>
+
+</div>
+
+<p class="text-[11px] font-bold text-rose-700 uppercase tracking-wide">Dragon Peak Sanctuary</p>
+
+</div>
+
+<!-- ATK / DEF -->
+
+<div class="grid grid-cols-2 gap-1.5 bg-rose-50 p-2 rounded-xl border border-rose-200">
+
+<div class="flex items-center gap-1.5">
+
+<span class="w-5 h-5 rounded-md bg-rose-500 text-white font-black text-[10px] flex items-center justify-center">⚔️</span>
+
+<span class="text-[11px] font-black text-rose-950">ATK: 85 Pinyin</span>
+
+</div>
+
+<div class="flex items-center gap-1.5">
+
+<span class="w-5 h-5 rounded-md bg-red-600 text-white font-black text-[10px] flex items-center justify-center">🛡️</span>
+
+<span class="text-[11px] font-black text-rose-950">DEF: 92 Tone</span>
+
+</div>
+
+<div class="col-span-2 flex items-center justify-between pt-1 border-t border-rose-200/80 text-[10px] font-bold text-rose-800">
+
+<span class="">Spell: Initials b, p, m, f &amp; Tones</span>
+
+<span class="bg-rose-200 text-rose-900 px-1.5 rounded font-black">AI Audio</span>
+
+</div>
+
+</div>
+
+<!-- Waypoints -->
+
+<div>
+
+<div class="flex items-center justify-between text-[10px] font-black text-on-surface-variant mb-1">
+
+<div class="flex text-amber-400">
+
+<span class="">★</span><span class="">★</span><span class="text-slate-300">★</span><span class="text-slate-300">★</span><span class="text-slate-300">★</span>
+
+</div>
+
+<span class="text-rose-700 font-bold">2/5 Waypoints</span>
+
+</div>
+
+<div class="flex items-center justify-between bg-slate-100 p-1 rounded-full">
+
+<span class="w-4 h-4 rounded-full bg-rose-500 text-white text-[9px] font-black flex items-center justify-center">✓</span>
+
+<span class="w-4 h-4 rounded-full bg-amber-400 text-amber-950 text-[9px] font-black flex items-center justify-center animate-pulse">2</span>
+
+<span class="w-4 h-4 rounded-full bg-slate-300 text-slate-600 text-[9px] font-black flex items-center justify-center">3</span>
+
+<span class="w-4 h-4 rounded-full bg-slate-300 text-slate-600 text-[9px] font-black flex items-center justify-center">4</span>
+
+<span class="w-4 h-4 rounded-full bg-slate-300 text-slate-600 text-[9px] font-black flex items-center justify-center">5</span>
+
+</div>
+
+</div>
+
+<!-- BIG CHUNKY TACTILE 3D PLAY BUTTON -->
+
+<button onclick="location.href='/math.html'" class="w-full py-2.5 px-3 rounded-2xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-[0_5px_0_0_#1e40af] hover:brightness-110 active:translate-y-1 active:shadow-[0_0px_0_0_#1e40af] transition-all cursor-pointer border border-blue-300 mt-1">
+
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+
+<span class="">LEARN WITH BAO BAO 🐼</span>
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ====================================================
+
+           CARD 3: BYTE THE ROBOT (Singapore Math)
+
+           ==================================================== -->
+
+<div class="group relative flex flex-col justify-between w-full max-w-[340px] min-w-[300px] shrink-0 h-[550px] max-h-full rounded-3xl bg-white border-4 border-blue-400 card-bezel-blue overflow-hidden transition-all duration-300 hover:-translate-y-2.5 hover:scale-[1.02] cursor-pointer" onclick="location.href='https://kidobits.m2igen.com/math.html'">
+
+<!-- Holographic Sheen & Glass Reflection Stripe -->
+
+<div class="absolute inset-0 pointer-events-none holo-sheen opacity-30 group-hover:opacity-60 transition-opacity z-20"></div>
+
+<div class="absolute -top-12 -bottom-12 -left-20 w-16 bg-white/40 transform -skew-x-12 opacity-30 blur-[2px] group-hover:translate-x-96 transition-transform duration-700 pointer-events-none z-20"></div>
+
+<!-- TOP FOIL HEADER -->
+
+<div class="relative z-10 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 px-3.5 py-2 text-white flex items-center justify-between border-b-2 border-blue-300">
+
+<span class="bg-blue-950/70 text-yellow-300 font-black text-[10px] px-2 py-0.5 rounded-full border border-yellow-300/40 tracking-wider">
+
+            LEGENDARY MATHBOT ★★★★★
+
+          </span>
+
+<div class="flex items-center gap-1 font-black text-[11px] text-blue-100 uppercase">
+
+<span class="">⚡ MATRIX • Lv.5</span>
+
+<span class="bg-amber-300 text-amber-950 px-1 rounded text-[9px] font-black">2x XP</span>
+
+</div>
+
+</div>
+
+<!-- CARD ARTWORK / FOIL FRAME -->
+
+<div class="px-3 pt-2.5 bg-gradient-to-b from-blue-100 to-blue-50">
+
+<div class="relative h-44 rounded-2xl overflow-hidden border-4 border-amber-300 shadow-inner group-hover:scale-[1.02] transition-transform">
+
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBHksqVZBP33AdB7SBePohnI436a833Alt5m24EaqSXHo_51QD_COD17yzWyvS-OjfGNwwj2L11V06c5XaVlzbe0f4-PU5dxhQtDuDEaIYIaMNgJtC6u8bv8z8Sg9noHlJxif87TwPTpLh3SOea5aIhlnFjoKHc0-i6qNrDOJo5IZSXfA-fPR3lgdSiVx9V8M4GD9CrhnwEmrsHb2sHuBXD6NzvCidjCzbNxsH2DvaastbYZ4KwuCuk')"></div>
+
+<div class="absolute inset-0 bg-gradient-to-t from-blue-950/75 via-transparent to-transparent"></div>
+
+<!-- Character Plaque -->
+
+<div class="absolute bottom-1.5 left-2.5 right-2.5 flex items-center justify-between z-10">
+
+<span class="text-white font-black text-base drop-shadow-md">Byte Golem</span>
+
+<span class="bg-amber-400 text-amber-950 font-black text-[11px] px-2 py-0.5 rounded-full shadow">HP 500</span>
+
+</div>
+
+<!-- Math Badge -->
+
+<div class="absolute top-2 left-2 bg-black/40 backdrop-blur-md px-2 py-0.5 rounded-full text-white text-[10px] font-black flex items-center gap-1 border border-white/30">
+
+<span class="">🤖 Math Lv 5</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STATS & ABILITIES BODY -->
+
+<div class="px-3.5 py-2.5 flex flex-col justify-between flex-1 gap-2 bg-white relative z-10">
+
+<div>
+
+<div class="flex items-center justify-between">
+
+<h3 class="font-black text-base text-blue-950 leading-tight">Quantum Matrix Golem</h3>
+
+<span class="text-xs">⚡</span>
+
+</div>
+
+<p class="text-[11px] font-bold text-blue-700 uppercase tracking-wide">Number Matrix Arena</p>
+
+</div>
+
+<!-- ATK / DEF -->
+
+<div class="grid grid-cols-2 gap-1.5 bg-blue-50 p-2 rounded-xl border border-blue-200">
+
+<div class="flex items-center gap-1.5">
+
+<span class="w-5 h-5 rounded-md bg-blue-500 text-white font-black text-[10px] flex items-center justify-center">⚔️</span>
+
+<span class="text-[11px] font-black text-blue-950">ATK: 99 Fast Math</span>
+
+</div>
+
+<div class="flex items-center gap-1.5">
+
+<span class="w-5 h-5 rounded-md bg-amber-500 text-white font-black text-[10px] flex items-center justify-center">🛡️</span>
+
+<span class="text-[11px] font-black text-blue-950">DEF: 95 Logic</span>
+
+</div>
+
+<div class="col-span-2 flex items-center justify-between pt-1 border-t border-blue-200/80 text-[10px] font-bold text-blue-800">
+
+<span class="">Spell: Bar Modeling &amp; 10-Frame Addition</span>
+
+<span class="bg-amber-300 text-amber-950 px-1.5 rounded font-black animate-pulse">2x XP</span>
+
+</div>
+
+</div>
+
+<!-- Waypoints -->
+
+<div>
+
+<div class="flex items-center justify-between text-[10px] font-black text-on-surface-variant mb-1">
+
+<div class="flex text-amber-400">
+
+<span class="">★</span><span class="">★</span><span class="">★</span><span class="">★</span><span class="text-slate-300">★</span>
+
+</div>
+
+<span class="text-blue-700 font-bold">4/5 Waypoints</span>
+
+</div>
+
+<div class="flex items-center justify-between bg-slate-100 p-1 rounded-full">
+
+<span class="w-4 h-4 rounded-full bg-blue-500 text-white text-[9px] font-black flex items-center justify-center">✓</span>
+
+<span class="w-4 h-4 rounded-full bg-blue-500 text-white text-[9px] font-black flex items-center justify-center">✓</span>
+
+<span class="w-4 h-4 rounded-full bg-blue-500 text-white text-[9px] font-black flex items-center justify-center">✓</span>
+
+<span class="w-4 h-4 rounded-full bg-blue-500 text-white text-[9px] font-black flex items-center justify-center">✓</span>
+
+<span class="w-4 h-4 rounded-full bg-amber-400 text-amber-950 text-[9px] font-black flex items-center justify-center animate-bounce">👑</span>
+
+</div>
+
+</div>
+
+<!-- BIG CHUNKY TACTILE 3D PLAY BUTTON -->
+
+<button class="w-full py-2.5 px-3 rounded-2xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-[0_5px_0_0_#1e40af] hover:brightness-110 active:translate-y-1 active:shadow-[0_0px_0_0_#1e40af] transition-all cursor-pointer border border-blue-300 mt-1">
+
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+
+<span class="">SOLVE WITH BYTE 🤖</span>
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ARENA FOOTER: Compact Status Tag -->
+
+<div class="relative z-10 flex items-center justify-center gap-3 shrink-0 pb-1">
+
+<span class="inline-flex items-center gap-1 text-[11px] font-black text-secondary uppercase tracking-wider bg-white/80 px-3 py-1 rounded-full border border-secondary/20 shadow-sm">
+
+<span class="material-symbols-outlined text-[15px] text-secondary">verified</span>
+
+        Cambridge &amp; MOE Curriculum Aligned • 1-on-1 AI Tutors
+
+      </span>
+
+<span class="text-xs text-on-surface-variant font-bold">• 15-Minute Daily Habit Loop</span>
+
+</div>
+
+</main>
+
+
+
+
+
+<script>
+/* PWA: ลงทะเบียน service worker — ถ้าล้มเหลวต้องไม่กระทบหน้าเดิม */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js', { scope: '/' }).then(function (reg) {
+      reg.addEventListener('updatefound', function () {
+        var w = reg.installing;
+        if (!w) return;
+        w.addEventListener('statechange', function () {
+          if (w.state === 'installed' && navigator.serviceWorker.controller) {
+            window.dispatchEvent(new CustomEvent('pwa-update-ready', { detail: { reg: reg } }));
+          }
+        });
+      });
+    }).catch(function (e) {
+      console.warn('[PWA] service worker ลงทะเบียนไม่สำเร็จ:', e && e.message);
+    });
+  });
+}
+</script>
+</body></html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mic Test - Emma Speech Diagnostic</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background:#0f172a; color:#e2e8f0; padding:14px; }
+  h1 { font-size:16px; margin:0 0 4px; color:#fff; }
+  .sub { font-size:11px; color:#94a3b8; margin-bottom:14px; }
+  .card { background:#1e293b; border:1px solid rgba(148,163,184,.25); border-radius:14px; padding:12px; margin-bottom:12px; }
+  .label { font-size:9.5px; text-transform:uppercase; letter-spacing:.8px; color:#94a3b8; margin-bottom:5px; }
+  button { padding:12px 16px; border-radius:12px; border:none; font-weight:800; font-size:13px; cursor:pointer; width:100%; margin-bottom:8px; }
+  #startBtn { background:linear-gradient(90deg,#22c55e,#16a34a); color:#fff; }
+  #stopBtn { background:#334155; color:#cbd5e1; }
+  #meter { height:26px; background:rgba(2,6,23,.6); border-radius:8px; overflow:hidden; border:1px solid rgba(148,163,184,.2); }
+  #meterFill { height:100%; width:0%; background:linear-gradient(90deg,#22c55e,#eab308,#ef4444); transition:width .05s linear; }
+  .heard { font-size:22px; font-weight:800; color:#bbf7d0; min-height:32px; word-break:break-word; padding:8px 10px; background:rgba(74,222,128,.1); border:1px solid rgba(74,222,128,.35); border-radius:10px; }
+  .row { display:grid; grid-template-columns:auto 1fr; gap:4px 10px; font-size:11.5px; }
+  .row span:nth-child(odd) { color:#94a3b8; }
+  #log { max-height:300px; overflow-y:auto; background:rgba(2,6,23,.55); border-radius:10px; padding:8px 10px; border:1px solid rgba(148,163,184,.18); font-size:10.5px; line-height:1.5; }
+  .ok { color:#4ade80; } .bad { color:#f87171; } .warn { color:#fb923c; } .info { color:#93c5fd; }
+  .verdict { padding:10px; border-radius:10px; font-weight:800; font-size:12.5px; text-align:center; margin-bottom:12px; }
+  .v-ok { background:rgba(74,222,128,.15); border:1px solid #4ade80; color:#bbf7d0; }
+  .v-bad { background:rgba(248,113,113,.15); border:1px solid #f87171; color:#fecaca; }
+  .v-warn { background:rgba(251,146,60,.15); border:1px solid #fb923c; color:#fed7aa; }
+</style>
+</head>
+<body>
+<h1>🎤 Mic Test — Emma Speech Diagnostic</h1>
+<div class="sub">ตรวจว่าไมค์เข้าไหม + SpeechRecognition ทำงานไหม</div>
+
+<div id="verdict" class="verdict v-warn">⏸️ ยังไม่เริ่ม — กดปุ่มด้านล่าง</div>
+
+<div class="card">
+  <button id="startBtn">▶️ เริ่มทดสอบไมค์</button>
+  <button id="stopBtn">⏹️ หยุด</button>
+  <div class="label">ระดับเสียงที่เข้าไมค์ (realtime)</div>
+  <div id="meter"><div id="meterFill"></div></div>
+</div>
+
+<div class="card">
+  <div class="label">คำที่ระบบได้ยิน</div>
+  <div id="heard" class="heard">— ยังไม่ได้ยินเสียง —</div>
+</div>
+
+<div class="card">
+  <div class="label">สถานะระบบ</div>
+  <div class="row">
+    <span>เบราว์เซอร์</span><span id="sBrowser">—</span>
+    <span>SpeechRecognition</span><span id="sSR">—</span>
+    <span>getUserMedia</span><span id="sGUM">—</span>
+    <span>Permission</span><span id="sPerm">—</span>
+    <span>onstart</span><span id="sStart">—</span>
+    <span>onsoundstart</span><span id="sSound">—</span>
+    <span>onspeechstart</span><span id="sSpeech">—</span>
+    <span>onresult</span><span id="sResult">—</span>
+    <span>onerror</span><span id="sError">—</span>
+    <span>onend</span><span id="sEnd">—</span>
+    <span>continuous</span><span id="sCont">—</span>
+    <span>ระดับเสียงสูงสุด</span><span id="sPeak">—</span>
+  </div>
+</div>
+
+<div class="card">
+  <div class="label">บันทึกเหตุการณ์</div>
+  <div id="log"></div>
+</div>
+
+<script>
+var L = function(kind, text) {
+  var log = document.getElementById('log');
+  var colors = {ok:'#4ade80', bad:'#f87171', warn:'#fb923c', info:'#93c5fd'};
+  var icons  = {ok:'✅', bad:'❌', warn:'⚠️', info:'ℹ️'};
+  var t = new Date().toLocaleTimeString('th-TH',{hour12:false});
+  var d = document.createElement('div');
+  d.style.color = colors[kind]||'#cbd5e1';
+  d.textContent = t+'  '+(icons[kind]||'•')+'  '+text;
+  log.appendChild(d); log.scrollTop = log.scrollHeight;
+};
+var set = function(id, v, cls) {
+  var el = document.getElementById(id);
+  el.textContent = v;
+  el.className = cls || '';
+};
+var verdict = function(kind, text) {
+  var v = document.getElementById('verdict');
+  v.className = 'verdict ' + kind;
+  v.textContent = text;
+};
+
+// ---- environment ----
+var ua = navigator.userAgent;
+document.getElementById('sBrowser').textContent = ua.length > 60 ? ua.slice(0,60)+'...' : ua;
+L('info', 'UA: ' + ua);
+var inApp = /Line|FBAN|FBAV|Instagram|Messenger/i.test(ua);
+if (inApp) { L('bad','ตรวจพบ in-app browser! SpeechRecognition อาจไม่มี'); set('sBrowser', 'in-app browser ❌', 'bad'); }
+else if (/Chrome/.test(ua) && !/Edg/.test(ua)) { L('ok','Chrome — เหมาะสมที่สุด'); set('sBrowser','Chrome ✅','ok'); }
+else { L('warn','เบราว์เซอร์อื่น — Chrome แนะนำสุด'); set('sBrowser','อื่น ๆ ⚠️','warn'); }
+
+var SR = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+set('sSR', SR ? 'มี ✅' : 'ไม่มี ❌', SR ? 'ok':'bad');
+L(SR?'ok':'bad', 'SpeechRecognition: ' + (SR ? 'มี' : 'ไม่มี! (จะใช้ไม่ได้)'));
+set('sGUM', navigator.mediaDevices && navigator.mediaDevices.getUserMedia ? 'มี ✅':'ไม่มี ❌',
+        (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) ? 'ok':'bad');
+
+var recognition=null, audioCtx=null, analyser=null, stream=null, peak=0, rafId=null, started=false;
+
+function stopAll(){
+  started = false;
+  if (rafId) cancelAnimationFrame(rafId);
+  if (recognition) { try { recognition.onend=null; recognition.abort(); } catch(e){} recordStop('recognition.abort'); }
+  if (stream) { stream.getTracks().forEach(function(t){t.stop();}); recordStop('stream stopped'); }
+  if (audioCtx) { try { audioCtx.close(); } catch(e){} }
+  document.getElementById('meterFill').style.width='0%';
+}
+function recordStop(w){ L('info', w); }
+
+document.getElementById('startBtn').addEventListener('click', function(){
+  started = true; peak = 0;
+  L('info','===== เริ่มทดสอบ =====');
+  verdict('v-warn','⏳ กำลังเริ่ม… พูดใส่ไมค์เลย');
+
+  // 1) getUserMedia -> check real mic signal
+  navigator.mediaDevices.getUserMedia({ audio: true }).then(function(s){
+    stream = s;
+    set('sGUM','ได้ไมค์ ✅','ok');
+    L('ok','getUserMedia สำเร็จ — ไมค์เข้า!');
+    set('sPerm','อนุญาต ✅','ok');
+
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    var src = audioCtx.createMediaStreamSource(s);
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 512;
+    src.connect(analyser);
+    var data = new Uint8Array(analyser.frequencyBinCount);
+
+    function draw(){
+      if (!started) return;
+      analyser.getByteFrequencyData(data);
+      var sum = 0;
+      for (var i=0;i<data.length;i++) sum += data[i];
+      var avg = sum / data.length;
+      var pct = Math.min(100, avg * 2.2);
+      document.getElementById('meterFill').style.width = pct + '%';
+      if (avg > peak) { peak = avg; set('sPeak', peak.toFixed(1), peak>5?'ok':'bad'); }
+      if (avg > 6) {
+        if (!document.getElementById('sSound').dataset.hit) {
+          document.getElementById('sSound').dataset.hit = '1';
+          set('sSound','มีเสียงเข้า ✅','ok');
+          L('ok','ตรวจพบเสียงเข้าไมค์ (ระดับ ' + avg.toFixed(1) + ')');
+        }
+      }
+      rafId = requestAnimationFrame(draw);
+    }
+    draw();
+
+  }).catch(function(err){
+    set('sGUM','ไม่ผ่าน ❌','bad');
+    set('sPerm','BLOCKED ❌','bad');
+    L('bad','getUserMedia ล้มเหลว: ' + (err && err.name) + ' - ' + (err && err.message));
+    verdict('v-bad','❌ ไมค์ไม่ผ่าน! (' + (err && err.name) + ') — เช็คสิทธิ์ OS/Browser');
+  });
+
+  // 2) SpeechRecognition
+  if (!SR) { set('sSR','ไม่มี ❌','bad'); verdict('v-bad','❌ เบราว์เซอร์นี้ไม่รองรับ SpeechRecognition'); return; }
+  try {
+    if (recognition) { recognition.onend=null; try{recognition.abort();}catch(e){} }
+    recognition = new SR();
+    recognition.lang = 'en-US';
+    recognition.continuous = false;      // <<< ทดสอบค่า false
+    recognition.interimResults = true;
+    set('sCont', 'false (ทดสอบ)', 'warn');
+    L('info','สร้าง recognition: lang=en-US, continuous=false, interimResults=true');
+
+    recognition.onstart = function(){ set('sStart','ทำงาน ✅','ok'); L('ok','onstart — เริ่มฟัง'); };
+    recognition.onaudiostart = function(){ L('ok','onaudiostart — เริ่มรับเสียง'); };
+    recognition.onsoundstart = function(){ set('sSound','มีเสียง ✅','ok'); L('ok','onsoundstart — ตรวจพบเสียง'); };
+    recognition.onspeechstart = function(){ set('sSpeech','เริ่มพูด ✅','ok'); L('ok','onspeechstart — ตรวจพบคำพูด'); };
+    recognition.onspeechend = function(){ L('info','onspeechend — หยุดพูด'); };
+    recognition.onsoundend = function(){ L('info','onsoundend'); };
+    recognition.onaudioend = function(){ L('info','onaudioend'); };
+    recognition.onresult = function(ev){
+      document.getElementById('sResult').dataset.hit='1';
+      for (var i=ev.resultIndex;i<ev.results.length;i++){
+        var txt = ev.results[i][0].transcript;
+        var fin = ev.results[i].isFinal;
+        document.getElementById('heard').textContent = txt;
+        set('sResult',(fin?'final ✅':'interim …'), fin?'ok':'warn');
+        L(fin?'ok':'info', (fin?'FINAL: ':'interim: ')+'“'+txt+'”');
+      }
+    };
+    recognition.onerror = function(err){
+      var c = (err && (err.error||err.type))||'unknown';
+      set('sError', c, 'bad');
+      L('bad','onerror: ' + c);
+      if (c==='not-allowed'||c==='service-not-allowed') verdict('v-bad','❌ Chrome ปฏิเสธสิทธิ์ ('+c+')');
+      if (c==='audio-capture') verdict('v-bad','❌ จับเสียงไม่ได้ — ไมค์ถูกใช้ / ปิดอยู่ (audio-capture)');
+      if (c==='network') verdict('v-warn','⚠️ network error — SpeechRecognition ต้องต่อเน็ต');
+    };
+    recognition.onend = function(){
+      set('sEnd','จบรอบ','info'); L('info','onend');
+      if (started) { setTimeout(function(){ if(started){ try{ recognition.start(); L('info','restart (continuous=false)'); }catch(e){ L('warn','restart fail: '+e.message); } } }, 250); }
+    };
+    recognition.start();
+    setTimeout(function(){
+      if (document.getElementById('sResult').dataset.hit) {
+        verdict('v-ok','✅ ทุกอย่างทำงาน! SpeechRecognition จับคำได้ — ปัญหาอยู่ที่ english.html');
+      } else if (document.getElementById('sSound').dataset.hit) {
+        verdict('v-warn','⚠️ เสียงเข้าไมค์ (แท่งขยับ) แต่ SR จับคำไม่ได้ — ปัญหา engine/network');
+      } else {
+        verdict('v-bad','❌ ไม่มีเสียงเข้าไมค์เลย — เช็คสิทธิ์ OS → แอป Chrome → ไมโครโฟน');
+      }
+    }, 15000);
+
+  } catch(e) { L('bad','สร้าง recognition ล้มเหลว: '+e.message); verdict('v-bad','❌ '+e.message); }
+});
+
+document.getElementById('stopBtn').addEventListener('click', function(){
+  L('info','===== หยุดทดสอบ ====='); verdict('v-warn','⏹️ หยุดแล้ว'); stopAll();
+});
+</script>
+</body>
+</html>

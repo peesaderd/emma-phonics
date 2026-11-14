@@ -1,0 +1,246 @@
+<!DOCTYPE html><html lang="th"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>จับคู่รูปกับคำ</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0b0d12;color:#e8ecf3;font-family:-apple-system,system-ui,sans-serif;padding:16px}
+h1{font-size:17px;margin:0 0 4px}p{color:#7d8798;font-size:13px;margin:0 0 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+figure{margin:0;background:#161a23;border:1px solid #232936;border-radius:12px;padding:9px;text-align:center}
+.box{background:#fff;border-radius:8px;height:130px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.box img{max-width:100%;max-height:100%;object-fit:contain}
+figcaption{margin:6px 0;font-size:12px;color:#8fa3bf}figcaption b{color:#6ee7a8;font-size:14px}
+input.ans{width:100%;padding:7px;border-radius:7px;border:1px solid #2d3648;background:#0e1219;color:#e8ecf3;font-size:13px;text-align:center}
+input.ans.ok{border-color:#2f7d55;background:#10241a}
+#bar{position:fixed;bottom:0;left:0;right:0;background:#131822;border-top:1px solid #232936;padding:10px;display:flex;gap:10px;align-items:center}
+button{flex:1;padding:11px;border-radius:9px;border:0;background:#6ee7a8;color:#08211a;font-weight:700;font-size:14px}
+#out{color:#8fa3bf;font-size:12px;flex:2}
+</style></head><body>
+<h1>จับคู่รูปกับคำ — ทั้งหมด 106 รูป</h1>
+<p>ดูรูป แล้วพิมพ์คำที่ถูกต้องลงช่องใต้รูป (ถ้าคำที่กำกับถูกอยู่แล้ว ไม่ต้องพิมพ์) แล้วกดส่ง</p>
+<div class="grid"><figure data-i="0"><div class="box"><img src="img/L1_apple_9cccaf10.png" alt="L1_apple_9cccaf10.png" loading="lazy"></div>
+<figcaption>L1 · <b>apple</b></figcaption>
+<input class="ans" data-i="0" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="1"><div class="box"><img src="img/L1_ball_8de6cc13.png" alt="L1_ball_8de6cc13.png" loading="lazy"></div>
+<figcaption>L1 · <b>ball</b></figcaption>
+<input class="ans" data-i="1" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="2"><div class="box"><img src="img/L1_cat_51490a94.png" alt="L1_cat_51490a94.png" loading="lazy"></div>
+<figcaption>L1 · <b>cat</b></figcaption>
+<input class="ans" data-i="2" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="3"><div class="box"><img src="img/L1_dog_e228c94e.png" alt="L1_dog_e228c94e.png" loading="lazy"></div>
+<figcaption>L1 · <b>dog</b></figcaption>
+<input class="ans" data-i="3" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="4"><div class="box"><img src="img/L1_egg_bdb16ad7.png" alt="L1_egg_bdb16ad7.png" loading="lazy"></div>
+<figcaption>L1 · <b>egg</b></figcaption>
+<input class="ans" data-i="4" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="5"><div class="box"><img src="img/L1_fish_c5920858.png" alt="L1_fish_c5920858.png" loading="lazy"></div>
+<figcaption>L1 · <b>fish</b></figcaption>
+<input class="ans" data-i="5" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="6"><div class="box"><img src="img/L1_goat_e8733912.png" alt="L1_goat_e8733912.png" loading="lazy"></div>
+<figcaption>L1 · <b>goat</b></figcaption>
+<input class="ans" data-i="6" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="7"><div class="box"><img src="img/L1_hat_c226bd98.png" alt="L1_hat_c226bd98.png" loading="lazy"></div>
+<figcaption>L1 · <b>hat</b></figcaption>
+<input class="ans" data-i="7" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="8"><div class="box"><img src="img/L1_insect_d0c984c7.png" alt="L1_insect_d0c984c7.png" loading="lazy"></div>
+<figcaption>L1 · <b>insect</b></figcaption>
+<input class="ans" data-i="8" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="9"><div class="box"><img src="img/L1_jam_b86767c2.png" alt="L1_jam_b86767c2.png" loading="lazy"></div>
+<figcaption>L1 · <b>jam</b></figcaption>
+<input class="ans" data-i="9" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="10"><div class="box"><img src="img/L1_kite_0cbce372.png" alt="L1_kite_0cbce372.png" loading="lazy"></div>
+<figcaption>L1 · <b>kite</b></figcaption>
+<input class="ans" data-i="10" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="11"><div class="box"><img src="img/L1_log_b612b1f1.png" alt="L1_log_b612b1f1.png" loading="lazy"></div>
+<figcaption>L1 · <b>log</b></figcaption>
+<input class="ans" data-i="11" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="12"><div class="box"><img src="img/L1_moon_4be5ad11.png" alt="L1_moon_4be5ad11.png" loading="lazy"></div>
+<figcaption>L1 · <b>moon</b></figcaption>
+<input class="ans" data-i="12" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="13"><div class="box"><img src="img/L1_net_de03f2b1.png" alt="L1_net_de03f2b1.png" loading="lazy"></div>
+<figcaption>L1 · <b>net</b></figcaption>
+<input class="ans" data-i="13" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="14"><div class="box"><img src="img/L1_octopus_89428ef4.png" alt="L1_octopus_89428ef4.png" loading="lazy"></div>
+<figcaption>L1 · <b>octopus</b></figcaption>
+<input class="ans" data-i="14" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="15"><div class="box"><img src="img/L1_pig_85c48c81.png" alt="L1_pig_85c48c81.png" loading="lazy"></div>
+<figcaption>L1 · <b>pig</b></figcaption>
+<input class="ans" data-i="15" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="16"><div class="box"><img src="img/L1_queen_40808315.png" alt="L1_queen_40808315.png" loading="lazy"></div>
+<figcaption>L1 · <b>queen</b></figcaption>
+<input class="ans" data-i="16" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="17"><div class="box"><img src="img/L1_robot_8f38ebc7.png" alt="L1_robot_8f38ebc7.png" loading="lazy"></div>
+<figcaption>L1 · <b>robot</b></figcaption>
+<input class="ans" data-i="17" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="18"><div class="box"><img src="img/L1_sun_2c466525.png" alt="L1_sun_2c466525.png" loading="lazy"></div>
+<figcaption>L1 · <b>sun</b></figcaption>
+<input class="ans" data-i="18" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="19"><div class="box"><img src="img/L1_tin_82cb5545.png" alt="L1_tin_82cb5545.png" loading="lazy"></div>
+<figcaption>L1 · <b>tin</b></figcaption>
+<input class="ans" data-i="19" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="20"><div class="box"><img src="img/L1_umbrella_703ad96f.png" alt="L1_umbrella_703ad96f.png" loading="lazy"></div>
+<figcaption>L1 · <b>umbrella</b></figcaption>
+<input class="ans" data-i="20" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="21"><div class="box"><img src="img/L1_van_5e0ed40c.png" alt="L1_van_5e0ed40c.png" loading="lazy"></div>
+<figcaption>L1 · <b>van</b></figcaption>
+<input class="ans" data-i="21" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="22"><div class="box"><img src="img/L1_web_695cb746.png" alt="L1_web_695cb746.png" loading="lazy"></div>
+<figcaption>L1 · <b>web</b></figcaption>
+<input class="ans" data-i="22" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="23"><div class="box"><img src="img/L1_fox_194d8006.png" alt="L1_fox_194d8006.png" loading="lazy"></div>
+<figcaption>L1 · <b>fox</b></figcaption>
+<input class="ans" data-i="23" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="24"><div class="box"><img src="img/L1_zebra_1647b133.png" alt="L1_zebra_1647b133.png" loading="lazy"></div>
+<figcaption>L1 · <b>zebra</b></figcaption>
+<input class="ans" data-i="24" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="25"><div class="box"><img src="img/L1_ant_334c4ef3.png" alt="L1_ant_334c4ef3.png" loading="lazy"></div>
+<figcaption>L1 · <b>ant</b></figcaption>
+<input class="ans" data-i="25" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="26"><div class="box"><img src="img/L1_ax_fe41080a.png" alt="L1_ax_fe41080a.png" loading="lazy"></div>
+<figcaption>L1 · <b>ax</b></figcaption>
+<input class="ans" data-i="26" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="27"><div class="box"><img src="img/L1_sock_7d0f5f48.png" alt="L1_sock_7d0f5f48.png" loading="lazy"></div>
+<figcaption>L1 · <b>sock</b></figcaption>
+<input class="ans" data-i="27" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="28"><div class="box"><img src="img/L1_top_ef1cfdfb.png" alt="L1_top_ef1cfdfb.png" loading="lazy"></div>
+<figcaption>L1 · <b>top</b></figcaption>
+<input class="ans" data-i="28" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="29"><div class="box"><img src="img/L1_pen_78a867c9.png" alt="L1_pen_78a867c9.png" loading="lazy"></div>
+<figcaption>L1 · <b>pen</b></figcaption>
+<input class="ans" data-i="29" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="30"><div class="box"><img src="img/L1_nap_e5389a13.png" alt="L1_nap_e5389a13.png" loading="lazy"></div>
+<figcaption>L1 · <b>nap</b></figcaption>
+<input class="ans" data-i="30" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="31"><div class="box"><img src="img/L1_map_852c21e4.png" alt="L1_map_852c21e4.png" loading="lazy"></div>
+<figcaption>L1 · <b>map</b></figcaption>
+<input class="ans" data-i="31" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="32"><div class="box"><img src="img/L1_dig_9b7e5e14.png" alt="L1_dig_9b7e5e14.png" loading="lazy"></div>
+<figcaption>L1 · <b>dig</b></figcaption>
+<input class="ans" data-i="32" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="33"><div class="box"><img src="img/L1_gum_939dc772.png" alt="L1_gum_939dc772.png" loading="lazy"></div>
+<figcaption>L1 · <b>gum</b></figcaption>
+<input class="ans" data-i="33" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="34"><div class="box"><img src="img/L1_cup_692d5ad9.png" alt="L1_cup_692d5ad9.png" loading="lazy"></div>
+<figcaption>L1 · <b>cup</b></figcaption>
+<input class="ans" data-i="34" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="35"><div class="box"><img src="img/L1_cap_24ecd8d0.png" alt="L1_cap_24ecd8d0.png" loading="lazy"></div>
+<figcaption>L1 · <b>cap</b></figcaption>
+<input class="ans" data-i="35" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="36"><div class="box"><img src="img/L1_kit_ab063531.png" alt="L1_kit_ab063531.png" loading="lazy"></div>
+<figcaption>L1 · <b>kit</b></figcaption>
+<input class="ans" data-i="36" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="37"><div class="box"><img src="img/L1_kid_c2332bde.png" alt="L1_kid_c2332bde.png" loading="lazy"></div>
+<figcaption>L1 · <b>kid</b></figcaption>
+<input class="ans" data-i="37" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="38"><div class="box"><img src="img/L1_elf_223fb8c8.png" alt="L1_elf_223fb8c8.png" loading="lazy"></div>
+<figcaption>L1 · <b>elf</b></figcaption>
+<input class="ans" data-i="38" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="39"><div class="box"><img src="img/L1_fan_220e9c19.png" alt="L1_fan_220e9c19.png" loading="lazy"></div>
+<figcaption>L1 · <b>fan</b></figcaption>
+<input class="ans" data-i="39" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="40"><div class="box"><img src="img/L1_fin_b178336b.png" alt="L1_fin_b178336b.png" loading="lazy"></div>
+<figcaption>L1 · <b>fin</b></figcaption>
+<input class="ans" data-i="40" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="41"><div class="box"><img src="img/L1_hen_529e6586.png" alt="L1_hen_529e6586.png" loading="lazy"></div>
+<figcaption>L1 · <b>hen</b></figcaption>
+<input class="ans" data-i="41" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="42"><div class="box"><img src="img/L1_bat_da325ab7.png" alt="L1_bat_da325ab7.png" loading="lazy"></div>
+<figcaption>L1 · <b>bat</b></figcaption>
+<input class="ans" data-i="42" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="43"><div class="box"><img src="img/L1_bed_191cb256.png" alt="L1_bed_191cb256.png" loading="lazy"></div>
+<figcaption>L1 · <b>bed</b></figcaption>
+<input class="ans" data-i="43" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="44"><div class="box"><img src="img/L1_red_a4e01ee5.png" alt="L1_red_a4e01ee5.png" loading="lazy"></div>
+<figcaption>L1 · <b>red</b></figcaption>
+<input class="ans" data-i="44" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="45"><div class="box"><img src="img/L1_run_69f352ee.png" alt="L1_run_69f352ee.png" loading="lazy"></div>
+<figcaption>L1 · <b>run</b></figcaption>
+<input class="ans" data-i="45" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="46"><div class="box"><img src="img/L1_vet_ed0ee2a0.png" alt="L1_vet_ed0ee2a0.png" loading="lazy"></div>
+<figcaption>L1 · <b>vet</b></figcaption>
+<input class="ans" data-i="46" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="47"><div class="box"><img src="img/L1_vest_fab7c1eb.png" alt="L1_vest_fab7c1eb.png" loading="lazy"></div>
+<figcaption>L1 · <b>vest</b></figcaption>
+<input class="ans" data-i="47" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="48"><div class="box"><img src="img/L1_sat_19ea83e6.png" alt="L1_sat_19ea83e6.png" loading="lazy"></div>
+<figcaption>L1 · <b>sat</b></figcaption>
+<input class="ans" data-i="48" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="49"><div class="box"><img src="img/L1_mat_0be071c1.png" alt="L1_mat_0be071c1.png" loading="lazy"></div>
+<figcaption>L1 · <b>mat</b></figcaption>
+<input class="ans" data-i="49" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="50"><div class="box"><img src="img/L1_pat_413f4d27.png" alt="L1_pat_413f4d27.png" loading="lazy"></div>
+<figcaption>L1 · <b>pat</b></figcaption>
+<input class="ans" data-i="50" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="51"><div class="box"><img src="img/L1_tap_eec2ac18.png" alt="L1_tap_eec2ac18.png" loading="lazy"></div>
+<figcaption>L1 · <b>tap</b></figcaption>
+<input class="ans" data-i="51" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="52"><div class="box"><img src="img/L1_at_595c22f6.png" alt="L1_at_595c22f6.png" loading="lazy"></div>
+<figcaption>L1 · <b>at</b></figcaption>
+<input class="ans" data-i="52" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="53"><div class="box"><img src="img/L1_it_e80bc054.png" alt="L1_it_e80bc054.png" loading="lazy"></div>
+<figcaption>L1 · <b>it</b></figcaption>
+<input class="ans" data-i="53" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="54"><div class="box"><img src="img/L1_up_8779ac59.png" alt="L1_up_8779ac59.png" loading="lazy"></div>
+<figcaption>L1 · <b>up</b></figcaption>
+<input class="ans" data-i="54" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="55"><div class="box"><img src="img/L1_ink_bf345c7d.png" alt="L1_ink_bf345c7d.png" loading="lazy"></div>
+<figcaption>L1 · <b>ink</b></figcaption>
+<input class="ans" data-i="55" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="56"><div class="box"><img src="img/L1_gap_ed4ddccd.png" alt="L1_gap_ed4ddccd.png" loading="lazy"></div>
+<figcaption>L1 · <b>gap</b></figcaption>
+<input class="ans" data-i="56" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="57"><div class="box"><img src="img/L1_end_71103fa8.png" alt="L1_end_71103fa8.png" loading="lazy"></div>
+<figcaption>L1 · <b>end</b></figcaption>
+<input class="ans" data-i="57" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="58"><div class="box"><img src="img/L1_under_8c9e690d.png" alt="L1_under_8c9e690d.png" loading="lazy"></div>
+<figcaption>L1 · <b>under</b></figcaption>
+<input class="ans" data-i="58" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="59"><div class="box"><img src="img/L1_go_5d130b26.png" alt="L1_go_5d130b26.png" loading="lazy"></div>
+<figcaption>L1 · <b>go</b></figcaption>
+<input class="ans" data-i="59" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="60"><div class="box"><img src="img/L1_quick_8e4440d9.png" alt="L1_quick_8e4440d9.png" loading="lazy"></div>
+<figcaption>L1 · <b>quick</b></figcaption>
+<input class="ans" data-i="60" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="61"><div class="box"><img src="img/L1_pin_5fb14547.png" alt="L1_pin_5fb14547.png" loading="lazy"></div>
+<figcaption>L1 · <b>pin</b></figcaption>
+<input class="ans" data-i="61" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="62"><div class="box"><img src="img/L1_sit_5888199c.png" alt="L1_sit_5888199c.png" loading="lazy"></div>
+<figcaption>L1 · <b>sit</b></figcaption>
+<input class="ans" data-i="62" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="63"><div class="box"><img src="img/L1_tip_23a5be04.png" alt="L1_tip_23a5be04.png" loading="lazy"></div>
+<figcaption>L1 · <b>tip</b></figcaption>
+<input class="ans" data-i="63" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="64"><div class="box"><img src="img/L1_wet_49009b21.png" alt="L1_wet_49009b21.png" loading="lazy"></div>
+<figcaption>L1 · <b>wet</b></figcaption>
+<input class="ans" data-i="64" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="65"><div class="box"><img src="img/G41_ant_dc90f62f.png" alt="G41_ant_dc90f62f.png" loading="lazy"></div>
+<figcaption>G41 · <b>ant</b></figcaption>
+<input class="ans" data-i="65" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="66"><div class="box"><img src="img/G41_ax_73fbd96c.png" alt="G41_ax_73fbd96c.png" loading="lazy"></div>
+<figcaption>G41 · <b>ax</b></figcaption>
+<input class="ans" data-i="66" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="67"><div class="box"><img src="img/G41_sock_96b5ed9d.png" alt="G41_sock_96b5ed9d.png" loading="lazy"></div>
+<figcaption>G41 · <b>sock</b></figcaption>
+<input class="ans" data-i="67" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="68"><div class="box"><img src="img/G41_top_6c1b0f10.png" alt="G41_top_6c1b0f10.png" loading="lazy"></div>
+<figcaption>G41 · <b>top</b></figcaption>
+<input class="ans" data-i="68" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="69"><div class="box"><img src="img/G41_pen_fea7e7b1.png" alt="G41_pen_fea7e7b1.png" loading="lazy"></div>
+<figcaption>G41 · <b>pen</b></figcaption>
+<input class="ans" data-i="69" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="70"><div class="box"><img src="img/G41_nap_866a3bab.png" alt="G41_nap_866a3bab.png" loading="lazy"></div>
+<figcaption>G41 · <b>nap</b></figcaption>
+<input class="ans" data-i="70" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="71"><div class="box"><img src="img/G41_map_64e3a755.png" alt="G41_map_64e3a755.png" loading="lazy"></div>
+<figcaption>G41 · <b>map</b></figcaption>
+<input class="ans" data-i="71" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="72"><div class="box"><img src="img/G41_dig_73ea072d.png" alt="G41_dig_73ea072d.png" loading="lazy"></div>
+<figcaption>G41 · <b>dig</b></figcaption>
+<input class="ans" data-i="72" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="73"><div class="box"><img src="img/G41_gum_4d4603d7.png" alt="G41_gum_4d4603d7.png" loading="lazy"></div>
+<figcaption>G41 · <b>gum</b></figcaption>
+<input class="ans" data-i="73" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="74"><div class="box"><img src="img/G41_cup_0b0768e9.png" alt="G41_cup_0b0768e9.png" loading="lazy"></div>
+<figcaption>G41 · <b>cup</b></figcaption>
+<input class="ans" data-i="74" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="75"><div class="box"><img src="img/G41_cap_76f7a4ae.png" alt="G41_cap_76f7a4ae.png" loading="lazy"></div>
+<figcaption>G41 · <b>cap</b></figcaption>
+<input class="ans" data-i="75" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="76"><div class="box"><img src="img/G41_kit_778e01bd.png" alt="G41_kit_778e01bd.png" loading="lazy"></div>
+<figcaption>G41 · <b>kit</b></figcaption>
+<input class="ans" data-i="76" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="77"><div class="box"><img src="img/G41_kid_41ddca01.png" alt="G41_kid_41ddca01.png" loading="lazy"></div>
+<figcaption>G41 · <b>kid</b></figcaption>
+<input class="ans" data-i="77" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="78"><div class="box"><img src="img/G41_elf_26cbbb89.png" alt="G41_elf_26cbbb89.png" loading="lazy"></div>
+<figcaption>G41 · <b>elf</b></figcaption>
+<input class="ans" data-i="78" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="79"><div class="box"><img src="img/G41_fan_4c59a580.png" alt="G41_fan_4c59a580.png" loading="lazy"></div>
+<figcaption>G41 · <b>fan</b></figcaption>
+<input class="ans" data-i="79" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="80"><div class="box"><img src="img/G41_fin_870be858.png" alt="G41_fin_870be858.png" loading="lazy"></div>
+<figcaption>G41 · <b>fin</b></figcaption>
+<input class="ans" data-i="80" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="81"><div class="box"><img src="img/G41_hen_578c46d9.png" alt="G41_hen_578c46d9.png" loading="lazy"></div>
+<figcaption>G41 · <b>hen</b></figcaption>
+<input class="ans" data-i="81" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="82"><div class="box"><img src="img/G41_bat_3ec0cf0f.png" alt="G41_bat_3ec0cf0f.png" loading="lazy"></div>
+<figcaption>G41 · <b>bat</b></figcaption>
+<input class="ans" data-i="82" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="83"><div class="box"><img src="img/G41_bed_24ba7717.png" alt="G41_bed_24ba7717.png" loading="lazy"></div>
+<figcaption>G41 · <b>bed</b></figcaption>
+<input class="ans" data-i="83" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="84"><div class="box"><img src="img/G41_red_3d0dc162.png" alt="G41_red_3d0dc162.png" loading="lazy"></div>
+<figcaption>G41 · <b>red</b></figcaption>
+<input class="ans" data-i="84" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="85"><div class="box"><img src="img/G41_run_170c1376.png" alt="G41_run_170c1376.png" loading="lazy"></div>
+<figcaption>G41 · <b>run</b></figcaption>
+<input class="ans" data-i="85" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="86"><div class="box"><img src="img/G41_vet_2e95d060.png" alt="G41_vet_2e95d060.png" loading="lazy"></div>
+<figcaption>G41 · <b>vet</b></figcaption>
+<input class="ans" data-i="86" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="87"><div class="box"><img src="img/G41_vest_42be2386.png" alt="G41_vest_42be2386.png" loading="lazy"></div>
+<figcaption>G41 · <b>vest</b></figcaption>
+<input class="ans" data-i="87" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="88"><div class="box"><img src="img/G41_sat_09b649a1.png" alt="G41_sat_09b649a1.png" loading="lazy"></div>
+<figcaption>G41 · <b>sat</b></figcaption>
+<input class="ans" data-i="88" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="89"><div class="box"><img src="img/G41_mat_a5da5400.png" alt="G41_mat_a5da5400.png" loading="lazy"></div>
+<figcaption>G41 · <b>mat</b></figcaption>
+<input class="ans" data-i="89" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="90"><div class="box"><img src="img/G41_pat_ff70d37a.png" alt="G41_pat_ff70d37a.png" loading="lazy"></div>
+<figcaption>G41 · <b>pat</b></figcaption>
+<input class="ans" data-i="90" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="91"><div class="box"><img src="img/G41_tap_75505f3c.png" alt="G41_tap_75505f3c.png" loading="lazy"></div>
+<figcaption>G41 · <b>tap</b></figcaption>
+<input class="ans" data-i="91" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="92"><div class="box"><img src="img/G41_at_42f36ecc.png" alt="G41_at_42f36ecc.png" loading="lazy"></div>
+<figcaption>G41 · <b>at</b></figcaption>
+<input class="ans" data-i="92" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="93"><div class="box"><img src="img/G41_it_76401f07.png" alt="G41_it_76401f07.png" loading="lazy"></div>
+<figcaption>G41 · <b>it</b></figcaption>
+<input class="ans" data-i="93" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="94"><div class="box"><img src="img/G41_on_20916743.png" alt="G41_on_20916743.png" loading="lazy"></div>
+<figcaption>G41 · <b>on</b></figcaption>
+<input class="ans" data-i="94" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="95"><div class="box"><img src="img/G41_up_a5c2cb96.png" alt="G41_up_a5c2cb96.png" loading="lazy"></div>
+<figcaption>G41 · <b>up</b></figcaption>
+<input class="ans" data-i="95" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="96"><div class="box"><img src="img/G41_ink_5e8524de.png" alt="G41_ink_5e8524de.png" loading="lazy"></div>
+<figcaption>G41 · <b>ink</b></figcaption>
+<input class="ans" data-i="96" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="97"><div class="box"><img src="img/G41_gap_986f4055.png" alt="G41_gap_986f4055.png" loading="lazy"></div>
+<figcaption>G41 · <b>gap</b></figcaption>
+<input class="ans" data-i="97" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="98"><div class="box"><img src="img/G41_end_b118645b.png" alt="G41_end_b118645b.png" loading="lazy"></div>
+<figcaption>G41 · <b>end</b></figcaption>
+<input class="ans" data-i="98" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="99"><div class="box"><img src="img/G41_under_047847b8.png" alt="G41_under_047847b8.png" loading="lazy"></div>
+<figcaption>G41 · <b>under</b></figcaption>
+<input class="ans" data-i="99" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="100"><div class="box"><img src="img/G41_go_d64f8591.png" alt="G41_go_d64f8591.png" loading="lazy"></div>
+<figcaption>G41 · <b>go</b></figcaption>
+<input class="ans" data-i="100" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="101"><div class="box"><img src="img/G41_quick_2dd879d2.png" alt="G41_quick_2dd879d2.png" loading="lazy"></div>
+<figcaption>G41 · <b>quick</b></figcaption>
+<input class="ans" data-i="101" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="102"><div class="box"><img src="img/G41_pin_56096feb.png" alt="G41_pin_56096feb.png" loading="lazy"></div>
+<figcaption>G41 · <b>pin</b></figcaption>
+<input class="ans" data-i="102" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="103"><div class="box"><img src="img/G41_sit_59a67fc7.png" alt="G41_sit_59a67fc7.png" loading="lazy"></div>
+<figcaption>G41 · <b>sit</b></figcaption>
+<input class="ans" data-i="103" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="104"><div class="box"><img src="img/G41_tip_626688e3.png" alt="G41_tip_626688e3.png" loading="lazy"></div>
+<figcaption>G41 · <b>tip</b></figcaption>
+<input class="ans" data-i="104" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure><figure data-i="105"><div class="box"><img src="img/G41_wet_937b55c9.png" alt="G41_wet_937b55c9.png" loading="lazy"></div>
+<figcaption>G41 · <b>wet</b></figcaption>
+<input class="ans" data-i="105" placeholder="คำที่ถูกต้อง" autocomplete="off"></figure></div>
+<div id="bar"><div id="out">พิมพ์เฉพาะรูปที่คำผิด</div><button onclick="submitAll()">ส่งให้แก้</button></div>
+<script>
+const N=106;
+function submitAll(){
+  const out=[];
+  document.querySelectorAll('input.ans').forEach(inp=>{
+    const v=inp.value.trim().toLowerCase();
+    if(v){ out.push({i:+inp.dataset.i,correct:v}); inp.classList.add('ok'); }
+  });
+  const txt=JSON.stringify(out);
+  document.getElementById('out').textContent='คัดลอกข้อความนี้ส่งให้ผู้ช่วย → '+txt;
+  navigator.clipboard&&navigator.clipboard.writeText(txt).catch(()=>{});
+  console.log('PAIRING',txt);
+}
+</script></body></html>

@@ -1,0 +1,514 @@
+KIDOBITS LEVEL 5 — IMAGE PROMPTS (85 words)
+========================================================================
+
+HOW TO USE
+1. Copy ONE prompt block at a time into Meta AI (or paste a whole
+   lesson section if Meta accepts it).
+2. Name each saved file exactly with the word plus .png  (e.g. car.png).
+3. When done, zip them all and send the Drive link.
+
+NAME THE FILES EXACTLY AS SHOWN. 26 of these words are only
+2-6 letters and several repeat across lessons — the file name is
+the only thing that keeps them straight.
+
+STYLE (already inside every prompt - do not change)
+Flat vector children-book illustration, thick clean outlines, bold
+saturated colors, simple cheerful shapes, plain white background,
+centered single object, no text, no letters, no words, square 1:1.
+
+WATCH OUT: these words are abstract. Meta will try to render the
+WORD as text. Pin the concrete object in the Thai description.
+  said, one, two, have, all, know, wrong, out, now, air, hear,
+  care, fair, enjoy, wanted, unhappy, redo, replay, short, little
+
+========================================================================
+
+------------------------------------------------------------------------
+### L5.01 — ar
+------------------------------------------------------------------------
+
+[01] FILE NAME: car.png
+     WORD: car
+     ภาพที่ต้องการ (ไทย): รถยนต์สีแดง
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: รถยนต์สีแดง.
+
+[02] FILE NAME: star.png
+     WORD: star
+     ภาพที่ต้องการ (ไทย): ดาวห้าแฉกสีเหลือง
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ดาวห้าแฉกสีเหลือง.
+
+[03] FILE NAME: farm.png
+     WORD: farm
+     ภาพที่ต้องการ (ไทย): ฟาร์มมีโรงนาและรั้ว
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ฟาร์มมีโรงนาและรั้ว.
+
+[04] FILE NAME: park.png
+     WORD: park
+     ภาพที่ต้องการ (ไทย): สวนสาธารณะมีต้นไม้และม้านั่ง
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: สวนสาธารณะมีต้นไม้และม้านั่ง.
+
+------------------------------------------------------------------------
+### L5.02 — or
+------------------------------------------------------------------------
+
+[05] FILE NAME: fork.png
+     WORD: fork
+     ภาพที่ต้องการ (ไทย): ส้อมเงิน
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ส้อมเงิน.
+
+[06] FILE NAME: corn.png
+     WORD: corn
+     ภาพที่ต้องการ (ไทย): ฝักข้าวโพด
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ฝักข้าวโพด.
+
+[07] FILE NAME: storm.png
+     WORD: storm
+     ภาพที่ต้องการ (ไทย): พายุฝนฟ้าคะนองมีเมฆดำ
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: พายุฝนฟ้าคะนองมีเมฆดำ.
+
+[08] FILE NAME: short.png
+     WORD: short
+     ภาพที่ต้องการ (ไทย): ดินสอสั้นๆ
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ดินสอสั้นๆ.
+
+------------------------------------------------------------------------
+### L5.03 — er ir ur
+------------------------------------------------------------------------
+
+[09] FILE NAME: her.png
+     WORD: her
+     ภาพที่ต้องการ (ไทย): เด็กผู้หญิงชี้มือที่ตัวเอง
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เด็กผู้หญิงชี้มือที่ตัวเอง.
+
+[10] FILE NAME: fern.png
+     WORD: fern
+     ภาพที่ต้องการ (ไทย): ต้นเฟิร์นใบเขียว
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ต้นเฟิร์นใบเขียว.
+
+[11] FILE NAME: bird.png
+     WORD: bird
+     ภาพที่ต้องการ (ไทย): นกสีฟ้าเกาะกิ่งไม้
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: นกสีฟ้าเกาะกิ่งไม้.
+
+[12] FILE NAME: girl.png
+     WORD: girl
+     ภาพที่ต้องการ (ไทย): เด็กผู้หญิงผมเปีย
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เด็กผู้หญิงผมเปีย.
+
+[13] FILE NAME: turn.png
+     WORD: turn
+     ภาพที่ต้องการ (ไทย): ลูกศรโค้งหมุน
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ลูกศรโค้งหมุน.
+
+[14] FILE NAME: burn.png
+     WORD: burn
+     ภาพที่ต้องการ (ไทย): กองไฟลุกมีเปลว
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: กองไฟลุกมีเปลว.
+
+------------------------------------------------------------------------
+### L5.04 — air and are
+------------------------------------------------------------------------
+
+[15] FILE NAME: air.png
+     WORD: air
+     ภาพที่ต้องการ (ไทย): ก้อนเมฆมีเส้นลม
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ก้อนเมฆมีเส้นลม.
+
+[16] FILE NAME: chair.png
+     WORD: chair
+     ภาพที่ต้องการ (ไทย): เก้าอี้ไม้
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เก้าอี้ไม้.
+
+[17] FILE NAME: fair.png
+     WORD: fair
+     ภาพที่ต้องการ (ไทย): ชิงช้าสวรรค์ในงานวัด
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ชิงช้าสวรรค์ในงานวัด.
+
+[18] FILE NAME: care.png
+     WORD: care
+     ภาพที่ต้องการ (ไทย): มือสองข้างประคองต้นไม้เล็ก
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: มือสองข้างประคองต้นไม้เล็ก.
+
+[19] FILE NAME: share.png
+     WORD: share
+     ภาพที่ต้องการ (ไทย): เด็กสองคนแบ่งขนม
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เด็กสองคนแบ่งขนม.
+
+[20] FILE NAME: square.png
+     WORD: square
+     ภาพที่ต้องการ (ไทย): สี่เหลี่ยมจัตุรัสสีน้ำเงิน
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: สี่เหลี่ยมจัตุรัสสีน้ำเงิน.
+
+------------------------------------------------------------------------
+### L5.05 — ear patterns
+------------------------------------------------------------------------
+
+[21] FILE NAME: hear.png
+     WORD: hear
+     ภาพที่ต้องการ (ไทย): หูมีคลื่นเสียง
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: หูมีคลื่นเสียง.
+
+[22] FILE NAME: near.png
+     WORD: near
+     ภาพที่ต้องการ (ไทย): เด็กยืนใกล้ต้นไม้
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เด็กยืนใกล้ต้นไม้.
+
+[23] FILE NAME: dear.png
+     WORD: dear
+     ภาพที่ต้องการ (ไทย): มือถือจดหมายหัวใจ
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: มือถือจดหมายหัวใจ.
+
+[24] FILE NAME: bear.png
+     WORD: bear
+     ภาพที่ต้องการ (ไทย): หมีสีน้ำตาล
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: หมีสีน้ำตาล.
+
+[25] FILE NAME: pear.png
+     WORD: pear
+     ภาพที่ต้องการ (ไทย): ลูกแพร์สีเขียว
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ลูกแพร์สีเขียว.
+
+[26] FILE NAME: wear.png
+     WORD: wear
+     ภาพที่ต้องการ (ไทย): เด็กสวมเสื้อโค้ท
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เด็กสวมเสื้อโค้ท.
+
+------------------------------------------------------------------------
+### L5.06 — oi and oy
+------------------------------------------------------------------------
+
+[27] FILE NAME: coin.png
+     WORD: coin
+     ภาพที่ต้องการ (ไทย): เหรียญทอง
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เหรียญทอง.
+
+[28] FILE NAME: boil.png
+     WORD: boil
+     ภาพที่ต้องการ (ไทย): หม้อน้ำเดือดมีฟอง
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: หม้อน้ำเดือดมีฟอง.
+
+[29] FILE NAME: soil.png
+     WORD: soil
+     ภาพที่ต้องการ (ไทย): กองดินสีน้ำตาล
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: กองดินสีน้ำตาล.
+
+[30] FILE NAME: boy.png
+     WORD: boy
+     ภาพที่ต้องการ (ไทย): เด็กผู้ชาย
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เด็กผู้ชาย.
+
+[31] FILE NAME: toy.png
+     WORD: toy
+     ภาพที่ต้องการ (ไทย): รถของเล่น
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: รถของเล่น.
+
+[32] FILE NAME: enjoy.png
+     WORD: enjoy
+     ภาพที่ต้องการ (ไทย): เด็กยิ้มมีความสุข
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เด็กยิ้มมีความสุข.
+
+------------------------------------------------------------------------
+### L5.07 — ou and ow
+------------------------------------------------------------------------
+
+[33] FILE NAME: out.png
+     WORD: out
+     ภาพที่ต้องการ (ไทย): ลูกศรชี้ประตูออก
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ลูกศรชี้ประตูออก.
+
+[34] FILE NAME: cloud.png
+     WORD: cloud
+     ภาพที่ต้องการ (ไทย): ก้อนเมฆขาว
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ก้อนเมฆขาว.
+
+[35] FILE NAME: shout.png
+     WORD: shout
+     ภาพที่ต้องการ (ไทย): เด็กอ้าปากตะโกน
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เด็กอ้าปากตะโกน.
+
+[36] FILE NAME: cow.png
+     WORD: cow
+     ภาพที่ต้องการ (ไทย): วัวลายจุด
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: วัวลายจุด.
+
+[37] FILE NAME: now.png
+     WORD: now
+     ภาพที่ต้องการ (ไทย): นาฬิกาแสดงเวลาปัจจุบัน
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: นาฬิกาแสดงเวลาปัจจุบัน.
+
+[38] FILE NAME: brown.png
+     WORD: brown
+     ภาพที่ต้องการ (ไทย): ก้อนสีน้ำตาล
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ก้อนสีน้ำตาล.
+
+------------------------------------------------------------------------
+### L5.08 — au and aw
+------------------------------------------------------------------------
+
+[39] FILE NAME: haul.png
+     WORD: haul
+     ภาพที่ต้องการ (ไทย): รถเข็นบรรทุกของหนัก
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: รถเข็นบรรทุกของหนัก.
+
+[40] FILE NAME: sauce.png
+     WORD: sauce
+     ภาพที่ต้องการ (ไทย): ขวดซอส
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ขวดซอส.
+
+[41] FILE NAME: august.png
+     WORD: august
+     ภาพที่ต้องการ (ไทย): ปฏิทินแสดงเดือนสิงหาคม
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ปฏิทินแสดงเดือนสิงหาคม.
+
+[42] FILE NAME: saw.png
+     WORD: saw
+     ภาพที่ต้องการ (ไทย): เลื่อยมือ
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เลื่อยมือ.
+
+[43] FILE NAME: paw.png
+     WORD: paw
+     ภาพที่ต้องการ (ไทย): อุ้งเท้าแมว
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: อุ้งเท้าแมว.
+
+[44] FILE NAME: draw.png
+     WORD: draw
+     ภาพที่ต้องการ (ไทย): มือถือดินสอวาดรูป
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: มือถือดินสอวาดรูป.
+
+------------------------------------------------------------------------
+### L5.09 — Soft c and g
+------------------------------------------------------------------------
+
+[45] FILE NAME: city.png
+     WORD: city
+     ภาพที่ต้องการ (ไทย): ตึกสูงหลายหลัง
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ตึกสูงหลายหลัง.
+
+[46] FILE NAME: cent.png
+     WORD: cent
+     ภาพที่ต้องการ (ไทย): เหรียญหนึ่งเซนต์
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เหรียญหนึ่งเซนต์.
+
+[47] FILE NAME: face.png
+     WORD: face
+     ภาพที่ต้องการ (ไทย): ใบหน้ายิ้ม
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ใบหน้ายิ้ม.
+
+[48] FILE NAME: giant.png
+     WORD: giant
+     ภาพที่ต้องการ (ไทย): ยักษ์ตัวใหญ่
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ยักษ์ตัวใหญ่.
+
+[49] FILE NAME: gem.png
+     WORD: gem
+     ภาพที่ต้องการ (ไทย): อัญมณีเจียระไน
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: อัญมณีเจียระไน.
+
+[50] FILE NAME: cage.png
+     WORD: cage
+     ภาพที่ต้องการ (ไทย): กรงนก
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: กรงนก.
+
+------------------------------------------------------------------------
+### L5.10 — ph and silent consonants
+------------------------------------------------------------------------
+
+[51] FILE NAME: phone.png
+     WORD: phone
+     ภาพที่ต้องการ (ไทย): โทรศัพท์มือถือ
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: โทรศัพท์มือถือ.
+
+[52] FILE NAME: graph.png
+     WORD: graph
+     ภาพที่ต้องการ (ไทย): กราฟแท่ง
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: กราฟแท่ง.
+
+[53] FILE NAME: knee.png
+     WORD: knee
+     ภาพที่ต้องการ (ไทย): เข่า
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เข่า.
+
+[54] FILE NAME: know.png
+     WORD: know
+     ภาพที่ต้องการ (ไทย): หลอดไฟเหนือหัว
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: หลอดไฟเหนือหัว.
+
+[55] FILE NAME: write.png
+     WORD: write
+     ภาพที่ต้องการ (ไทย): มือถือปากกาเขียนกระดาษ
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: มือถือปากกาเขียนกระดาษ.
+
+[56] FILE NAME: wrong.png
+     WORD: wrong
+     ภาพที่ต้องการ (ไทย): เครื่องหมายกากบาท
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เครื่องหมายกากบาท.
+
+[57] FILE NAME: lamb.png
+     WORD: lamb
+     ภาพที่ต้องการ (ไทย): ลูกแกะขนฟู
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ลูกแกะขนฟู.
+
+------------------------------------------------------------------------
+### L5.11 — Final -le, y and ey
+------------------------------------------------------------------------
+
+[58] FILE NAME: little.png
+     WORD: little
+     ภาพที่ต้องการ (ไทย): ลูกเจี๊ยบตัวเล็ก
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ลูกเจี๊ยบตัวเล็ก.
+
+[59] FILE NAME: candle.png
+     WORD: candle
+     ภาพที่ต้องการ (ไทย): เทียนไขจุดไฟ
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เทียนไขจุดไฟ.
+
+[60] FILE NAME: happy.png
+     WORD: happy
+     ภาพที่ต้องการ (ไทย): หน้ายิ้ม
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: หน้ายิ้ม.
+
+[61] FILE NAME: funny.png
+     WORD: funny
+     ภาพที่ต้องการ (ไทย): หน้ายิ้มหัวเราะ
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: หน้ายิ้มหัวเราะ.
+
+[62] FILE NAME: key.png
+     WORD: key
+     ภาพที่ต้องการ (ไทย): ลูกกุญแจ
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ลูกกุญแจ.
+
+[63] FILE NAME: monkey.png
+     WORD: monkey
+     ภาพที่ต้องการ (ไทย): ลิงห้อยกิ่งไม้
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ลิงห้อยกิ่งไม้.
+
+[64] FILE NAME: valley.png
+     WORD: valley
+     ภาพที่ต้องการ (ไทย): หุบเขาระหว่างภูเขา
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: หุบเขาระหว่างภูเขา.
+
+------------------------------------------------------------------------
+### L5.12 — Syllable division
+------------------------------------------------------------------------
+
+[65] FILE NAME: rabbit.png
+     WORD: rabbit
+     ภาพที่ต้องการ (ไทย): (ไม่มีคำอธิบาย)
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: rabbit.
+
+[66] FILE NAME: sunset.png
+     WORD: sunset
+     ภาพที่ต้องการ (ไทย): ดวงอาทิตย์ตกดิน
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ดวงอาทิตย์ตกดิน.
+
+[67] FILE NAME: picnic.png
+     WORD: picnic
+     ภาพที่ต้องการ (ไทย): ผ้าปูหญ้ามีตะกร้า
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ผ้าปูหญ้ามีตะกร้า.
+
+------------------------------------------------------------------------
+### L5.13 — Prefixes un- re-
+------------------------------------------------------------------------
+
+[68] FILE NAME: unhappy.png
+     WORD: unhappy
+     ภาพที่ต้องการ (ไทย): หน้ายิ้มคว่ำ
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: หน้ายิ้มคว่ำ.
+
+[69] FILE NAME: unlock.png
+     WORD: unlock
+     ภาพที่ต้องการ (ไทย): กุญแจไขแม่กุญแจ
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: กุญแจไขแม่กุญแจ.
+
+[70] FILE NAME: redo.png
+     WORD: redo
+     ภาพที่ต้องการ (ไทย): ลูกศรวนซ้ำ
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ลูกศรวนซ้ำ.
+
+[71] FILE NAME: replay.png
+     WORD: replay
+     ภาพที่ต้องการ (ไทย): ปุ่มเล่นซ้ำ
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ปุ่มเล่นซ้ำ.
+
+------------------------------------------------------------------------
+### L5.14 — Suffixes -ing and -ed
+------------------------------------------------------------------------
+
+[72] FILE NAME: jumping.png
+     WORD: jumping
+     ภาพที่ต้องการ (ไทย): เด็กกระโดด
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เด็กกระโดด.
+
+[73] FILE NAME: playing.png
+     WORD: playing
+     ภาพที่ต้องการ (ไทย): เด็กเล่นลูกบอล
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เด็กเล่นลูกบอล.
+
+[74] FILE NAME: jumped.png
+     WORD: jumped
+     ภาพที่ต้องการ (ไทย): รอยเท้ากระโดด
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: รอยเท้ากระโดด.
+
+[75] FILE NAME: played.png
+     WORD: played
+     ภาพที่ต้องการ (ไทย): เด็กตีกลอง
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เด็กตีกลอง.
+
+[76] FILE NAME: wanted.png
+     WORD: wanted
+     ภาพที่ต้องการ (ไทย): เด็กอ้าแขนอยากได้ของ
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: เด็กอ้าแขนอยากได้ของ.
+
+------------------------------------------------------------------------
+### L5.15 — Exception words and alternative vowel spellings
+------------------------------------------------------------------------
+
+[77] FILE NAME: said.png
+     WORD: said
+     ภาพที่ต้องการ (ไทย): กรอบคำพูด
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: กรอบคำพูด.
+
+[78] FILE NAME: one.png
+     WORD: one
+     ภาพที่ต้องการ (ไทย): นิ้วชี้หนึ่งนิ้ว
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: นิ้วชี้หนึ่งนิ้ว.
+
+[79] FILE NAME: two.png
+     WORD: two
+     ภาพที่ต้องการ (ไทย): มือชูสองนิ้ว
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: มือชูสองนิ้ว.
+
+[80] FILE NAME: have.png
+     WORD: have
+     ภาพที่ต้องการ (ไทย): มือสองข้างถือของ
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: มือสองข้างถือของ.
+
+[81] FILE NAME: all.png
+     WORD: all
+     ภาพที่ต้องการ (ไทย): วงกลมล้อมรอบของทั้งหมด
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: วงกลมล้อมรอบของทั้งหมด.
+
+[82] FILE NAME: small.png
+     WORD: small
+     ภาพที่ต้องการ (ไทย): มดตัวเล็กข้างช้าง
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: มดตัวเล็กข้างช้าง.
+
+[83] FILE NAME: water.png
+     WORD: water
+     ภาพที่ต้องการ (ไทย): แก้วน้ำ
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: แก้วน้ำ.
+
+[84] FILE NAME: school.png
+     WORD: school
+     ภาพที่ต้องการ (ไทย): อาคารโรงเรียน
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: อาคารโรงเรียน.
+
+[85] FILE NAME: grew.png
+     WORD: grew
+     ภาพที่ต้องการ (ไทย): ต้นไม้เติบโต
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ต้นไม้เติบโต.
+
+[86] FILE NAME: blew.png
+     WORD: blew
+     ภาพที่ต้องการ (ไทย): ลมพัดใบไม้
+     PROMPT: Flat vector children-book illustration, thick clean outlines, bold saturated colors, simple cheerful shapes, plain white background, centered single object, no text, no letters, square 1:1. Subject: ลมพัดใบไม้.

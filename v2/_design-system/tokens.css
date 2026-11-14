@@ -1,0 +1,78 @@
+/* =========================================================
+   Kidobits Design System — tokens.css
+   Phase 2: extracted from the owner's NEW template
+   (React artifact: kidobits_lesson_chapters_warmup (2).html)
+   NOT from the old index.html. Values are verbatim.
+   ========================================================= */
+:root{
+  /* ---------- brand palette (verbatim from template) ---------- */
+  --tw-bg:#0D0619;        /* outer page, near-black purple */
+  --tw-surface:#FFFBF5;   /* app shell cream */
+  --tw-ink:#1A0B2E;       /* deep purple: text, bars, dark chips */
+  --tw-cyan:#00E5FF;
+  --tw-cyan-d:#00B8D4;
+  --tw-yellow:#FFC900;
+  --tw-green:#00E676;
+  --tw-pink:#FF2D95;
+  --tw-purple-l:#9C6DFF;
+  --tw-violet:#B388FF;
+  --tw-orange:#FF6F00;
+  --tw-orange-d:#FF8F00;
+  --tw-orange-dd:#E65100;
+  --tw-magenta:#C2185B;
+  --tw-blue-50:#E3F2FD;
+  --tw-blue-100:#E1F5FE;
+  --tw-violet-d:#7C4DFF;
+  --tw-violet-dd:#6C3BFF;
+
+  /* ---------- neutrals ---------- */
+  --ds-white:#FFFFFF;
+  --ds-black:#000000;
+  --tw-grey-100:#E0E0E0;
+  --tw-grey-200:#E8E8E8;
+  --tw-grey-300:#e5e7eb;
+  --tw-grey-500:#9ca3af;
+
+  /* ---------- hard-shadow ladder (no blur, ever) ---------- */
+  --tw-hs-1:1px 1px 0 #000;
+  --tw-hs-1-5:1.5px 1.5px 0 #000;
+  --tw-hs-2:2px 2px 0 #000;
+  --tw-hs-3:3px 3px 0 #000;
+  --tw-hs-4:4px 4px 0 #000;
+  --tw-hs-5:5px 5px 0 #000;
+  --tw-hs-6:6px 6px 0 #000;
+  --tw-hs-hero:0 0 0 6px #1A0B2E,10px 10px 0 #000;
+  --tw-hs-ring-green:0 0 0 3px #00E67655;
+
+  /* ---------- border widths (template uses 3 steps only) ---------- */
+  --tw-bw-1:1px;
+  --tw-bw-1-5:1.5px;
+  --tw-bw-2:2px;
+  --tw-bw-2-5:2.5px;
+  --tw-bw-3:3px;
+  --tw-bw-4:4px;
+
+  /* ---------- radius ---------- */
+  --tw-r-6:6px;
+  --tw-r-7:7px;
+  --tw-r-8:8px;
+  --tw-r-12:12px;
+  --tw-r-14:14px;
+  --tw-r-16:16px;
+  --tw-r-18:18px;
+  --tw-r-20:20px;
+  --tw-r-28:28px;
+  --tw-r-32:32px;
+  --tw-r-full:9999px;
+
+  /* ---------- type ---------- */
+  --tw-font-ui:"Fredoka","Kanit",system-ui,sans-serif;
+  --tw-font-th:"Kanit","Fredoka",sans-serif;
+  --tw-fs-8:8px;  --tw-fs-9:9px;   --tw-fs-10:10px; --tw-fs-11:11px;
+  --tw-fs-12:12px; --tw-fs-13:13px; --tw-fs-14:14px; --tw-fs-16:16px;
+  --tw-fs-17:17px; --tw-fs-20:20px; --tw-fs-26:26px;
+
+  /* ---------- layout ---------- */
+  --tw-shell:366px;       /* app column (390 - 2*12 gutters) */
+  --tw-shell-max:calc(100vw - 24px);
+}

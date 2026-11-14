@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Golden · Full Lobby Layout</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+</head>
+<body>
+
+<!-- ไฟล์นี้คือโครง HTML ของ index.html แบบเป๊ะ ๆ
+     ต่างกันแค่ 2 อย่าง:
+       1. CSS โหลดจาก tokens.css + components.css (ไม่ inline)
+       2. ไม่มี <script> ของแอป — การ์ดใส่ค่าตายตัวไว้ให้เห็นหน้าตา
+     ถ้า Agent ต้องทำหน้า lobby ใหม่ → ลอกโครงนี้ ห้ามคิดใหม่ -->
+
+<div class="hero">
+  <div class="wrap">
+    <div class="logo" id="logo">🦉</div>
+    <h1>Kidobits Phonics</h1>
+    <p>อ่านออกเสียงได้จริง เริ่มจากเสียงแรก</p>
+    <div class="pills">
+      <span class="pill">🔤 6 บทหลัก</span>
+      <span class="pill">📚 92 บทเรียน</span>
+    </div>
+  </div>
+  <div class="buddy" id="buddy"></div>
+</div>
+
+<div class="wrap">
+
+  <div class="warm" id="warmup" role="button" tabindex="0">
+    <div class="wic">🔤</div>
+    <div>
+      <div class="wt">A–Z Warmup · เริ่มที่นี่</div>
+      <div class="ws">ฟังเสียงตัวอักษรทั้ง 26 ตัว ก่อนเข้า Chapter 1</div>
+    </div>
+  </div>
+
+  <div class="lvgrid" id="lvgrid">
+
+    <div class="lvcard" style="background:linear-gradient(135deg,#6C5CE7,#9B8BFF)" role="button" tabindex="0">
+      <div class="anim">🔤</div>
+      <div class="lvmeta">
+        <h2>Letter Sounds &amp; Early Blending</h2>
+        <div class="sub">พยัญชนะและสระพื้นฐาน • 12 บท</div>
+        <span class="prog">เริ่มเลย</span>
+      </div>
+      <div class="chev">›</div>
+    </div>
+
+    <div class="lvcard" style="background:linear-gradient(135deg,#2ECC71,#7BE3A8)" role="button" tabindex="0">
+      <div class="anim">🐱</div>
+      <div class="lvmeta">
+        <h2>Blending &amp; CVC</h2>
+        <div class="sub">ผสมเสียง • 16 บท</div>
+        <span class="prog">4/16 บท</span>
+      </div>
+      <div class="chev">›</div>
+    </div>
+
+    <div class="lvcard" style="background:linear-gradient(135deg,#FFB84D,#FFD98A)" role="button" tabindex="0">
+      <div class="anim">🔗</div>
+      <div class="lvmeta">
+        <h2>Digraphs &amp; Consonant Blends</h2>
+        <div class="sub">เสียงควบกล้ำ • 16 บท</div>
+        <span class="prog done">จบแล้ว ✓</span>
+      </div>
+      <div class="chev">›</div>
+    </div>
+
+    <div class="lvcard" style="background:linear-gradient(135deg,#FF7B9C,#FFA8C0)" role="button" tabindex="0">
+      <div class="anim">🌈</div>
+      <div class="lvmeta">
+        <h2>Vowel Patterns</h2>
+        <div class="sub">สระเสียงยาว • 16 บท</div>
+        <span class="prog">ยังไม่เริ่ม</span>
+      </div>
+      <div class="chev">›</div>
+    </div>
+
+    <div class="lvcard" style="background:linear-gradient(135deg,#4DB8FF,#8FD4FF)" role="button" tabindex="0">
+      <div class="anim">⭐</div>
+      <div class="lvmeta">
+        <h2>Advanced Phonics &amp; Word Structure</h2>
+        <div class="sub">เสียงขั้นสูง • 16 บท</div>
+        <span class="prog">ยังไม่เริ่ม</span>
+      </div>
+      <div class="chev">›</div>
+    </div>
+
+    <div class="lvcard" style="background:linear-gradient(135deg,#B57BFF,#D4B0FF)" role="button" tabindex="0">
+      <div class="anim">📖</div>
+      <div class="lvmeta">
+        <h2>Fluency &amp; Comprehension</h2>
+        <div class="sub">อ่านคล่อง • 16 บท</div>
+        <span class="prog">ยังไม่เริ่ม</span>
+      </div>
+      <div class="chev">›</div>
+    </div>
+
+  </div>
+
+  <footer>Kidobits Phonics · Golden example<br>
+  ใช้ตรวจ design system ไม่ใช่หน้าใช้งานจริง</footer>
+</div>
+
+<div class="modal" id="modal"><div class="sheet" id="sheet"></div></div>
+
+</body>
+</html>
