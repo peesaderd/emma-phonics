@@ -73,6 +73,47 @@ body {
   animation: micGlow 1.5s infinite ease-in-out;
 }
 </style>
+  <style id="hideOldChineseLobbyStyle">
+    /* Direct lesson mode inside Chinese 4-Skills Arena */
+    html.direct-lesson-mode body {
+      background-color: #F8F9FD !important;
+      overflow: hidden !important;
+    }
+    html.direct-lesson-mode header,
+    html.direct-lesson-mode main,
+    html.direct-lesson-mode footer {
+      display: none !important;
+    }
+    html.direct-lesson-mode #playerModal {
+      display: flex !important;
+      background-color: #F8F9FD !important;
+      backdrop-filter: none !important;
+      padding: 0 !important;
+      position: fixed !important;
+      inset: 0 !important;
+      z-index: 9999 !important;
+    }
+    html.direct-lesson-mode #playerModal > div {
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      max-height: 100vh !important;
+      height: 100% !important;
+      max-width: 430px !important;
+      width: 100% !important;
+      padding-top: env(safe-area-inset-top, 0px) !important;
+      padding-bottom: env(safe-area-inset-bottom, 16px) !important;
+      background: #FFFFFF !important;
+    }
+  </style>
+  <script>
+    (function() {
+      const q = window.location.search;
+      if (q.includes('lesson=') || q.includes('id=') || q.includes('les=')) {
+        document.documentElement.classList.add('direct-lesson-mode');
+      }
+    })();
+  </script>
 </head>
 <body class="min-h-screen text-slate-800 flex flex-col justify-between selection:bg-orange-200">
 
@@ -996,6 +1037,16 @@ body {
     }
 
     // ================= PLAYER MODAL CONTROLLER =================
+    
+    // URL search param launcher
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const lId = params.get('lesson') || params.get('id') || params.get('les');
+      if (lId) {
+        setTimeout(() => openLesson(lId), 200);
+      }
+    });
+
     function openLesson(lessonId) {
       let found = null;
       for (const k in CHINESE_DATA) {
@@ -1020,6 +1071,15 @@ body {
 
     function closeLesson() {
       if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      if (window.location.search.includes('lesson=') || window.location.search.includes('id=') || window.location.search.includes('les=')) {
+        if (history.length > 1) {
+          history.back();
+          return;
+        } else {
+          location.href = 'theme_chinese_lobby.html';
+          return;
+        }
+      }
       document.getElementById('playerModal').classList.add('hidden');
       document.body.style.overflow = '';
       CURRENT_LESSON = null;

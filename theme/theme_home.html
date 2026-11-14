@@ -2619,6 +2619,14 @@ document.addEventListener('click', function(e) {
     return;
   }
 
+  // 3.2 Chinese (Bottom Nav, Grid Button, or Banner)
+  if (txt === 'Chinese' || (txt.includes('Chinese') && btn.closest('nav')) || txt.includes('Chinese ภาษาจีน') || (txt.includes('Chinese') && txt.includes('ภาษาจีน'))) {
+    e.preventDefault();
+    e.stopPropagation();
+    window.location.href = 'theme_chinese_lobby.html';
+    return;
+  }
+
   // 4. Lessons category button
   if (txt.includes('Lessons') && txt.includes('บทเรียน')) {
     e.preventDefault();

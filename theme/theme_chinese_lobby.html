@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Kidobits · Chinese Lobby (4 ทักษะ อ.1 - ป.6)</title>
+  
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#E53935">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Mali:wght@400;600;700;800&family=Nunito:wght@400;600;700;800;900&family=Noto+Serif+SC:wght@600;900&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Nunito', 'Mali', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .font-chinese { font-family: 'Noto Serif SC', 'Mali', sans-serif; }
+    .font-fredoka { font-family: 'Fredoka', 'Nunito', sans-serif; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+    }
+    .floating { animation: floatSlow 3s ease-in-out infinite; }
+    .btn-press:active { transform: scale(0.97); }
+  </style>
+</head>
+<body class="bg-[#FDF9F8] text-[#2C2623] min-h-screen flex justify-center pb-24">
+
+  <!-- Mobile Frame 430px -->
+  <div class="w-full max-w-[430px] min-h-screen flex flex-col relative px-4 pt-4">
+
+    <!-- Top Bar: Back & Stats Chips -->
+    <header class="flex items-center justify-between gap-2 py-2 mb-2">
+      <button onclick="if (history.length > 1) { history.back(); } else { location.href='theme_home.html'; }" class="btn-press flex items-center gap-1 px-3 py-1.5 rounded-full bg-white shadow-sm border border-slate-100 text-xs font-bold text-slate-700 hover:bg-slate-50 transition" title="ย้อนกลับ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5"></path>
+          <path d="M12 19l-7-7 7-7"></path>
+        </svg>
+        <span>กลับ</span>
+      </button>
+
+      <div class="flex items-center gap-1.5">
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-50 border border-red-100 text-[11px] font-black text-red-600 shadow-2xs">
+          <span>🔥</span>
+          <span id="streakChip">7</span>
+        </div>
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-100 text-[11px] font-black text-amber-600 shadow-2xs">
+          <span>⭐</span>
+          <span id="starsChip">28</span>
+        </div>
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-[11px] font-black text-emerald-600 shadow-2xs">
+          <span>🪙</span>
+          <span>240</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Card: Chinese 4-Skills Hub -->
+    <section class="w-full rounded-[28px] p-4 mb-4 text-white relative overflow-hidden shadow-lg shadow-red-500/15" style="background: linear-gradient(135deg, #FF4B4B 0%, #E53935 50%, #C62828 100%);">
+      <div class="relative z-10 flex items-start gap-3.5">
+        <div class="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-3xl shadow-inner shrink-0 floating">
+          🐼
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-1.5 mb-0.5">
+            <span class="px-2 py-0.5 rounded-full bg-white/25 text-[10px] font-black uppercase tracking-wider backdrop-blur-xs">YCT & HSK · อ.1 - ป.6</span>
+          </div>
+          <h1 class="font-chinese text-xl font-bold tracking-tight text-white leading-tight">ภาษาจีน 4 ทักษะ</h1>
+          <p class="text-xs text-red-100/95 font-medium mt-1 leading-snug">ครูแพนด้าเป่าเปา · ฟัง พูด อ่าน เขียนอักษรจีน</p>
+        </div>
+      </div>
+
+      <!-- Quick 4-Skills Tag Row -->
+      <div class="relative z-10 flex items-center justify-between gap-1 mt-3 pt-3 border-t border-white/20 text-[11px] font-bold">
+        <span class="flex items-center gap-0.5">🎧 ฟังเสียงแท้</span>
+        <span class="text-red-200">•</span>
+        <span class="flex items-center gap-0.5">🗣️ ไมค์วัดเสียง</span>
+        <span class="text-red-200">•</span>
+        <span class="flex items-center gap-0.5">📖 เปิดพินอิน</span>
+        <span class="text-red-200">•</span>
+        <span class="flex items-center gap-0.5">✍️ ลากเส้นขีด</span>
+      </div>
+
+      <!-- Decorative ambient glow -->
+      <div class="absolute -right-8 -bottom-8 w-36 h-36 rounded-full bg-white/10 blur-xl pointer-events-none"></div>
+    </section>
+
+    <!-- Category / Tier Filter Tabs -->
+    <div class="flex items-center gap-1.5 p-1 bg-white rounded-2xl border border-slate-100 shadow-xs mb-3 text-xs font-bold">
+      <button onclick="filterChinese('all')" id="tabAll" class="filter-tab flex-1 py-1.5 rounded-xl bg-red-500 text-white font-black text-center shadow-xs transition">ทั้งหมด</button>
+      <button onclick="filterChinese('early')" id="tabEarly" class="filter-tab flex-1 py-1.5 rounded-xl text-slate-500 hover:bg-slate-50 text-center transition">ปฐมวัย (อ.1-3)</button>
+      <button onclick="filterChinese('lower')" id="tabPLow" class="filter-tab flex-1 py-1.5 rounded-xl text-slate-500 hover:bg-slate-50 text-center transition">ประถมต้น (ป.1-3)</button>
+      <button onclick="filterChinese('upper')" id="tabPUpp" class="filter-tab flex-1 py-1.5 rounded-xl text-slate-500 hover:bg-slate-50 text-center transition">ประถมปลาย (ป.4-6)</button>
+    </div>
+
+    <!-- LESSONS LIST -->
+    <main class="flex-1 flex flex-col gap-2.5" id="chineseLessonsList">
+      <!-- Injected by JavaScript -->
+    </main>
+
+  </div>
+
+  <!-- Bottom Navigation (Shared Kidobits Theme Navigation with Chinese Active: Red) -->
+  <nav class="fixed bottom-3 left-3 right-3 max-w-[430px] mx-auto bg-white shadow-[0_10px_30px_rgba(60,30,90,.18)] rounded-full px-2 py-2 flex justify-between border border-[#F3EDF8] z-50" aria-label="Main navigation">
+    <!-- 1. Home -->
+    <button onclick="window.location.href='theme_home.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Home">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+          <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Home</span>
+    </button>
+
+    <!-- 2. Phonics -->
+    <button onclick="window.location.href='theme_phonics_map.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Phonics">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 7v14"></path>
+          <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Phonics</span>
+    </button>
+
+    <!-- 3. Math -->
+    <button onclick="window.location.href='theme_math_lobby.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Math">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+          <line x1="8" x2="16" y1="6" y2="6"></line>
+          <line x1="16" x2="16" y1="14" y2="18"></line>
+          <path d="M16 10h.01"></path>
+          <path d="M12 10h.01"></path>
+          <path d="M8 10h.01"></path>
+          <path d="M12 14h.01"></path>
+          <path d="M8 14h.01"></path>
+          <path d="M12 18h.01"></path>
+          <path d="M8 18h.01"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Math</span>
+    </button>
+
+    <!-- 4. Chinese (Active: Red) -->
+    <button onclick="window.location.href='theme_chinese_lobby.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Chinese">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition bg-[#E53935] text-white shadow-md shadow-red-500/25">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+          <path d="M2 12h20"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-black text-[#E53935]">Chinese</span>
+    </button>
+
+    <!-- 5. Games -->
+    <button onclick="window.location.href='theme_games.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Games">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="6" x2="10" y1="11" y2="11"></line>
+          <line x1="8" x2="8" y1="9" y2="13"></line>
+          <line x1="15" x2="15.01" y1="12" y2="12"></line>
+          <line x1="18" x2="18.01" y1="10" y2="10"></line>
+          <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Games</span>
+    </button>
+
+    <!-- 6. Profile -->
+    <button onclick="window.location.href='theme_home.html#profile'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Profile">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Profile</span>
+    </button>
+  </nav>
+
+  <script>
+const CHINESE_DATA = {
+      early: [
+        {
+          id: 'K1.01',
+          level: 'K1 (อ.1)',
+          title: '你好与家人 (สวัสดีและครอบครัว)',
+          goal_th: 'ฝึกทักทายและเรียกคนในครอบครัว',
+          yct: 'Pre-YCT',
+          icon: '👨‍👩‍👧',
+          // 4-Skills content
+          listen: {
+            prompt: 'ฟังเสียงครูแล้วเลือกว่าครูพูดถึงใคร',
+            target: '妈妈',
+            pinyin: 'māma',
+            audioWord: '妈妈',
+            options: [
+              { word: '妈妈', pinyin: 'māma', th: 'คุณแม่', icon: '👩' },
+              { word: '爸爸', pinyin: 'bàba', th: 'คุณพ่อ', icon: '👨' },
+              { word: '姐姐', pinyin: 'jiějie', th: 'พี่สาว', icon: '👧' }
+            ],
+            answer: '妈妈'
+          },
+          speak: {
+            prompt: 'แตะไมค์แล้วอ่านออกเสียงทักทายตามครู',
+            target: '你好',
+            pinyin: 'Nǐ hǎo',
+            th: 'สวัสดี',
+            hint: 'หนูพูดคำว่า "หนีห่าว" นะคะ'
+          },
+          read: {
+            prompt: 'แตะที่ละคำเพื่อฟังเสียง แล้วจับคู่ความหมาย',
+            sentence: '爸爸 和 妈妈',
+            pinyin: 'Bàba hé māma',
+            th: 'คุณพ่อและคุณแม่',
+            words: [
+              { zh: '爸爸', py: 'bàba', th: 'คุณพ่อ' },
+              { zh: '和', py: 'hé', th: 'และ' },
+              { zh: '妈妈', py: 'māma', th: 'คุณแม่' }
+            ],
+            question: 'คำว่า "妈妈" แปลว่าอะไรคะ?',
+            options: ['คุณพ่อ', 'คุณแม่', 'คุณครู'],
+            answer: 'คุณแม่'
+          },
+          write: {
+            type: 'stroke',
+            char: '一',
+            pinyin: 'yī',
+            th: 'หนึ่ง (เส้นขวาง 横 Héng)',
+            prompt: 'ใช้นิ้วลากเส้นขวาง "横 (Héng)" จากซ้ายไปขวาในตารางสี่เหลี่ยม'
+          }
+        },
+        {
+          id: 'K2.01',
+          level: 'K2 (อ.2)',
+          title: '身体与颜色 (ร่างกายและสีสัน)',
+          goal_th: 'บอกอวัยวะและสีสันรอบตัว',
+          yct: 'Pre-YCT',
+          icon: '🎨',
+          listen: {
+            prompt: 'ฟังเสียงครูแล้วเลือกว่าคือสีอะไร',
+            target: '红色',
+            pinyin: 'hóngsè',
+            audioWord: '红色',
+            options: [
+              { word: '红色', pinyin: 'hóngsè', th: 'สีแดง', icon: '🔴' },
+              { word: '黄色', pinyin: 'huángsè', th: 'สีเหลือง', icon: '🟡' },
+              { word: '蓝色', pinyin: 'lánsè', th: 'สีน้ำเงิน', icon: '🔵' }
+            ],
+            answer: '红色'
+          },
+          speak: {
+            prompt: 'แตะไมค์แล้วพูดบอกความต้องการตามครู',
+            target: '我要红色',
+            pinyin: 'Wǒ yào hóngsè',
+            th: 'หนูเอาสีแดง',
+            hint: 'พูดว่า "หว่อ เย่า หง เซ่อ"'
+          },
+          read: {
+            prompt: 'อักษรภาพโบราณ: สังเกตและแตะฟังเสียง',
+            sentence: '大 眼睛 和 小 嘴巴',
+            pinyin: 'Dà yǎnjing hé xiǎo zuǐba',
+            th: 'ตาโตและปากเล็ก',
+            words: [
+              { zh: '大', py: 'dà', th: 'ใหญ่' },
+              { zh: '眼睛', py: 'yǎnjing', th: 'ดวงตา' },
+              { zh: '和', py: 'hé', th: 'และ' },
+              { zh: '小', py: 'xiǎo', th: 'เล็ก' },
+              { zh: '嘴巴', py: 'zuǐba', th: 'ปาก' }
+            ],
+            question: 'คำว่า "大" ตรงข้ามกับคำว่าอะไร?',
+            options: ['小 (เล็ก)', '红 (แดง)', '手 (มือ)'],
+            answer: '小 (เล็ก)'
+          },
+          write: {
+            type: 'stroke',
+            char: '十',
+            pinyin: 'shí',
+            th: 'สิบ (ขวางก่อน ตั้งตาม: 横แล้ว竖)',
+            prompt: 'ลากเส้นขวาง 横 ก่อน แล้วลากเส้นตั้ง 竖 ตัดลงมา'
+          }
+        },
+        {
+          id: 'K3.01',
+          level: 'K3 (อ.3)',
+          title: '水果与自我介绍 (ผลไม้และแนะนำตัว)',
+          goal_th: 'บอกผลไม้ที่ชอบและแนะนำอายุตนเอง',
+          yct: 'Pre-YCT / YCT 1 Prep',
+          icon: '🍎',
+          listen: {
+            prompt: 'ฟังเสียงผลไม้แล้วแตะการ์ดให้ถูกต้อง',
+            target: '苹果',
+            pinyin: 'píngguǒ',
+            audioWord: '苹果',
+            options: [
+              { word: '苹果', pinyin: 'píngguǒ', th: 'แอปเปิ้ล', icon: '🍎' },
+              { word: '香蕉', pinyin: 'xiāngjiāo', th: 'กล้วย', icon: '🍌' },
+              { word: '西瓜', pinyin: 'xīguā', th: 'แตงโม', icon: '🍉' }
+            ],
+            answer: '苹果'
+          },
+          speak: {
+            prompt: 'แตะไมค์แล้วแนะนำชื่อและอายุตามครู',
+            target: '我叫小明我五岁',
+            pinyin: 'Wǒ jiào Xiǎomíng, wǒ wǔ suì',
+            th: 'ฉันชื่อเสี่ยวหมิง ฉันอายุ 5 ขวบ',
+            hint: 'พูดแนะนำตัวเองตามครูนะคะ'
+          },
+          read: {
+            prompt: 'อ่านประโยคบอกความชอบ (กดเปิด/ปิดพินอินได้)',
+            sentence: '我 喜欢 吃 苹果',
+            pinyin: 'Wǒ xǐhuan chī píngguǒ',
+            th: 'ฉันชอบกินแอปเปิ้ล',
+            words: [
+              { zh: '我', py: 'wǒ', th: 'ฉัน' },
+              { zh: '喜欢', py: 'xǐhuan', th: 'ชอบ' },
+              { zh: '吃', py: 'chī', th: 'กิน' },
+              { zh: '苹果', py: 'píngguǒ', th: 'แอปเปิ้ล' }
+            ],
+            question: 'ประโยคนี้แปลว่าอะไรคะ?',
+            options: ['ฉันชอบกินแอปเปิ้ล', 'ฉันไม่ชอบกินแอปเปิ้ล', 'แอปเปิ้ลอร่อยมาก'],
+            answer: 'ฉันชอบกินแอปเปิ้ล'
+          },
+          write: {
+            type: 'stroke',
+            char: '人',
+            pinyin: 'rén',
+            th: 'คน (撇 ปัดซ้ายก่อน 捺 ปัดขวา)',
+            prompt: 'ลากเส้นปัดซ้าย 撇 แล้วต่อด้วยเส้นปัดขวา 捺'
+          }
+        }
+      ],
+      lower: [
+        {
+          id: 'P1.01',
+          level: 'P1 (ประถม 1)',
+          title: '拼音声母与数字 (พยัญชนะพินอินและตัวเลข)',
+          goal_th: 'แม่นยำพยัญชนะ b, p, m, f และ 4 วรรณยุกต์',
+          yct: 'YCT Level 1',
+          icon: '🔢',
+          listen: {
+            prompt: 'ฟังเสียงวรรณยุกต์แล้วทายว่าคือเสียงวรรณยุกต์ใด',
+            target: 'bá',
+            pinyin: 'bá',
+            audioWord: 'bá',
+            options: [
+              { word: 'bā', pinyin: 'เสียงที่ 1 (สามัญ)', th: 'เสียงเรียบสูง', icon: '1️⃣' },
+              { word: 'bá', pinyin: 'เสียงที่ 2 (จัตวา)', th: 'เสียงขึ้นสูง', icon: '2️⃣' },
+              { word: 'bà', pinyin: 'เสียงที่ 4 (โท)', th: 'เสียงตกกระแทก', icon: '4️⃣' }
+            ],
+            answer: 'bá'
+          },
+          speak: {
+            prompt: 'แตะไมค์แล้วออกเสียงวรรณยุกต์ตามครู',
+            target: 'mā má mǎ mà',
+            pinyin: 'mā má mǎ mà',
+            th: 'มา ม๋า หม่า ม่า (ผัน 4 เสียง)',
+            hint: 'ออกเสียง 4 ระดับเสียงตามครู'
+          },
+          read: {
+            prompt: 'อ่านตัวเลขจีนแล้วจับคู่',
+            sentence: '我有 三个 苹果',
+            pinyin: 'Wǒ yǒu sān gè píngguǒ',
+            th: 'ฉันมีแอปเปิ้ล 3 ผล',
+            words: [
+              { zh: '我', py: 'wǒ', th: 'ฉัน' },
+              { zh: '有', py: 'yǒu', th: 'มี' },
+              { zh: '三个', py: 'sān gè', th: 'สามผล' },
+              { zh: '苹果', py: 'píngguǒ', th: 'แอปเปิ้ล' }
+            ],
+            question: 'ในประโยคมีแอปเปิ้ลกี่ผลคะ?',
+            options: ['3 ผล', '5 ผล', '8 ผล'],
+            answer: '3 ผล'
+          },
+          write: {
+            type: 'stroke',
+            char: '八',
+            pinyin: 'bā',
+            th: 'แปด (ซ้ายสั้น ขวายาว)',
+            prompt: 'คัดคำว่า 八 (bā) ในช่องตาราง 田字格'
+          }
+        },
+        {
+          id: 'P2.01',
+          level: 'P2 (ประถม 2)',
+          title: '爱好与位置 (สิ่งที่ชอบและตำแหน่ง)',
+          goal_th: 'สนทนาบอกตำแหน่งสิ่งของและสัตว์เลี้ยง',
+          yct: 'YCT Level 1+',
+          icon: '🐱',
+          listen: {
+            prompt: 'ฟังเสียงประโยคบอกตำแหน่งแล้วเลือกภาพ',
+            target: '小猫在桌子上',
+            pinyin: 'Xiǎomāo zài zhuōzi shàng',
+            audioWord: '小猫在桌子上',
+            options: [
+              { word: '小猫在桌子上', pinyin: 'บนโต๊ะ', th: 'แมวอยู่บนโต๊ะ', icon: '🐱🔝' },
+              { word: '小猫在桌子下', pinyin: 'ใต้โต๊ะ', th: 'แมวอยู่ใต้โต๊ะ', icon: '🐱🔻' },
+              { word: '小猫在盒子里', pinyin: 'ในกล่อง', th: 'แมวอยู่ในกล่อง', icon: '🐱📦' }
+            ],
+            answer: '小猫在桌子上'
+          },
+          speak: {
+            prompt: 'แตะไมค์แล้วพูดบอกสิ่งของบนโต๊ะตามครู',
+            target: '书在桌子上',
+            pinyin: 'Shū zài zhuōzi shàng',
+            th: 'หนังสืออยู่บนโต๊ะ',
+            hint: 'พูดว่า "ซู จ้าย จัว จึ ซ่าง"'
+          },
+          read: {
+            prompt: 'สังเกตหมวดนำอักษรจีน (部首)',
+            sentence: '他 是 我的 好 朋友',
+            pinyin: 'Tā shì wǒ de hǎo péngyou',
+            th: 'เขาเป็นเพื่อนที่ดีของฉัน',
+            words: [
+              { zh: '他', py: 'tā', th: 'เขา (หมวด 亻 คน)' },
+              { zh: '是', py: 'shì', th: 'เป็น/คือ' },
+              { zh: '我的', py: 'wǒ de', th: 'ของฉัน' },
+              { zh: '好', py: 'hǎo', th: 'ดี' },
+              { zh: '朋友', py: 'péngyou', th: 'เพื่อน' }
+            ],
+            question: 'คำว่า "他" มีหมวดนำอักษรจีน (部首) ใด?',
+            options: ['亻(หมวดคน)', '氵(หมวดน้ำ)', '口 (หมวดปาก)'],
+            answer: '亻(หมวดคน)'
+          },
+          write: {
+            type: 'stroke',
+            char: '口',
+            pinyin: 'kǒu',
+            th: 'ปาก (ตั้ง ปิดมุม แล้วปิดฐาน)',
+            prompt: 'ลากเส้นตั้ง ซ้าย -> หักมุมบนขวา -> ขีดปิดล่าง'
+          }
+        },
+        {
+          id: 'P3.01',
+          level: 'P3 (ประถม 3)',
+          title: '时间与日常 (เวลาและกิจวัตร)',
+          goal_th: 'บอกเวลา วันในสัปดาห์ และกิจวัตรประจำวัน',
+          yct: 'YCT Level 2',
+          icon: '⏰',
+          listen: {
+            prompt: 'ฟังเวลาแล้วเลือกว่าคือเวลากี่โมง',
+            target: '现在八点半',
+            pinyin: 'Xiànzài bā diǎn bàn',
+            audioWord: '现在八点半',
+            options: [
+              { word: '八点半', pinyin: '8:30', th: 'แปดโมงครึ่ง (8:30)', icon: '🕗' },
+              { word: '七点', pinyin: '7:00', th: 'เจ็ดโมงตรง (7:00)', icon: '🕖' },
+              { word: '九点半', pinyin: '9:30', th: 'เก้าโมงครึ่ง (9:30)', icon: '🕤' }
+            ],
+            answer: '现在八点半'
+          },
+          speak: {
+            prompt: 'แตะไมค์แล้วบอกวันในสัปดาห์ตามครู',
+            target: '今天星期三',
+            pinyin: 'Jīntiān xīngqīsān',
+            th: 'วันนี้วันพุธ',
+            hint: 'พูดว่า "จินเทียน ซิงชีซาน"'
+          },
+          read: {
+            prompt: 'อ่านตารางกิจวัตร (ลองปิดพินอินเพื่อท้าทาย)',
+            sentence: '我 早上 七点 起床',
+            pinyin: 'Wǒ zǎoshang qī diǎn qǐchuáng',
+            th: 'ฉันตื่นนอนตอนเช้า 7 โมง',
+            words: [
+              { zh: '我', py: 'wǒ', th: 'ฉัน' },
+              { zh: '早上', py: 'zǎoshang', th: 'ตอนเช้า' },
+              { zh: '七点', py: 'qī diǎn', th: '7 นาฬิกา' },
+              { zh: '起床', py: 'qǐchuáng', th: 'ตื่นนอน' }
+            ],
+            question: 'คำว่า "起床 (qǐchuáng)" หมายถึงกิจกรรมใด?',
+            options: ['ตื่นนอน', 'กินข้าว', 'ไปโรงเรียน'],
+            answer: 'ตื่นนอน'
+          },
+          write: {
+            type: 'sentence',
+            targetArr: ['今天', '是', '星期三'],
+            prompt: 'แตะเรียงชิปคำศัพท์ให้เป็นประโยคที่ถูกต้อง: "วันนี้คือวันพุธ"'
+          }
+        }
+      ],
+      upper: [
+        {
+          id: 'P4.01',
+          level: 'P4 (ประถม 4)',
+          title: '天气与方向 (สภาพอากาศและทิศทาง)',
+          goal_th: 'บอกทิศทางและสภาพอากาศด้วยคำคุณศัพท์',
+          yct: 'YCT Level 3 Prep',
+          icon: '🧭',
+          listen: {
+            prompt: 'ฟังคำแนะนำเส้นทางแล้วเลือกว่าต้องเดินอย่างไร',
+            target: '往前走向左拐',
+            pinyin: 'Wǎng qián zǒu, xiàng zuǒ guǎi',
+            audioWord: '往前走，向左拐',
+            options: [
+              { word: '往前走向左拐', pinyin: 'ตรงไปเลี้ยวซ้าย', th: 'ตรงไป เลี้ยวซ้าย', icon: '⬆️⬅️' },
+              { word: '往前走向右拐', pinyin: 'ตรงไปเลี้ยวขวา', th: 'ตรงไป เลี้ยวขวา', icon: '⬆️➡️' },
+              { word: '往后走', pinyin: 'เดินย้อนกลับ', th: 'เดินถอยหลัง', icon: '⬇️' }
+            ],
+            answer: '往前走向左拐'
+          },
+          speak: {
+            prompt: 'แตะไมค์แล้วบรรยายสภาพอากาศตามครู',
+            target: '今天天气非常热',
+            pinyin: 'Jīntiān tiānqì fēicháng rè',
+            th: 'วันนี้สภาพอากาศร้อนเป็นอย่างยิ่ง',
+            hint: 'พูดว่า "จินเทียน เทียนชี่ เฟยฉาง เย่อ"'
+          },
+          read: {
+            prompt: 'อ่านจับใจความและตอบคำถาม (อักษรจีนล้วน)',
+            sentence: '从 我家 到 学校 不太远',
+            pinyin: 'Cóng wǒ jiā dào xuéxiào bù tài yuǎn',
+            th: 'จากบ้านฉันถึงโรงเรียนไม่ไกลมาก',
+            words: [
+              { zh: '从', py: 'cóng', th: 'จาก' },
+              { zh: '我家', py: 'wǒ jiā', th: 'บ้านฉัน' },
+              { zh: '到', py: 'dào', th: 'ถึง' },
+              { zh: '学校', py: 'xuéxiào', th: 'โรงเรียน' },
+              { zh: '不太远', py: 'bù tài yuǎn', th: 'ไม่ค่อยไกล' }
+            ],
+            question: 'ระยะทางจากบ้านไปโรงเรียนเป็นอย่างไร?',
+            options: ['ไม่ไกลมาก', 'ไกลมาก', 'ต้องนั่งเครื่องบิน'],
+            answer: 'ไม่ไกลมาก'
+          },
+          write: {
+            type: 'sentence',
+            targetArr: ['今天', '天气', '非常', '热'],
+            prompt: 'เรียงชิปประโยค: "วันนี้สภาพอากาศร้อนมาก"'
+          }
+        },
+        {
+          id: 'P5.01',
+          level: 'P5 (ประถม 5)',
+          title: '因果与节日 (ประโยคความรวมและเทศกาล)',
+          goal_th: 'ใช้คำเชื่อม เพราะว่า...ดังนั้น... (因为...所以...)',
+          yct: 'YCT Level 3',
+          icon: '🏮',
+          listen: {
+            prompt: 'ฟังประโยคเหตุผลแล้วเลือกใจความสำคัญ',
+            target: '因为下雨所以没去',
+            pinyin: 'Yīnwèi xiàyǔ, suǒyǐ méi qù',
+            audioWord: '因为下雨，所以我们没去公园。',
+            options: [
+              { word: 'ฝนตกเลยไม่ได้ไป', pinyin: 'ฝนตก', th: 'เพราะฝนตก จึงไม่ได้ไปสวนสาธารณะ', icon: '🌧️' },
+              { word: 'แดดออกเลยไปสวน', pinyin: 'แดดออก', th: 'แดดออก จึงไปสวนสาธารณะ', icon: '☀️' },
+              { word: 'ไปซื้อร่ม', pinyin: 'ซื้อร่ม', th: 'ไปซื้อร่มที่ร้านค้า', icon: '🌂' }
+            ],
+            answer: 'ฝนตกเลยไม่ได้ไป'
+          },
+          speak: {
+            prompt: 'แตะไมค์แล้วพูดประโยคเปรียบเทียบตามครู',
+            target: '哥哥比我大两岁',
+            pinyin: 'Gēge bǐ wǒ dà liǎng suì',
+            th: 'พี่ชายโตกว่าฉันสองปี',
+            hint: 'พูดว่า "เกอเกอะ ปี่ หว่อ ต้า เหลี่ยง ซุ่ย"'
+          },
+          read: {
+            prompt: 'อ่านเรื่องเทศกาลตรุษจีน (วันขึ้นปีใหม่จีน)',
+            sentence: '春节 的 时候 我们 吃 饺子',
+            pinyin: 'Chūnjié de shíhou wǒmen chī jiǎozi',
+            th: 'ช่วงเทศกาลตรุษจีนพวกเรากินเกี๊ยว',
+            words: [
+              { zh: '春节', py: 'chūnjié', th: 'เทศกาลตรุษจีน' },
+              { zh: '的时候', py: 'de shíhou', th: 'ตอน/ช่วงเวลา' },
+              { zh: '我们', py: 'wǒmen', th: 'พวกเรา' },
+              { zh: '吃', py: 'chī', th: 'กิน' },
+              { zh: '饺子', py: 'jiǎozi', th: 'เกี๊ยวต้ม' }
+            ],
+            question: 'ช่วงตรุษจีนตามประเพณีจีนนิยมกินอาหารใด?',
+            options: ['饺子 (เกี๊ยวต้ม)', '西瓜 (แตงโม)', '面包 (ขนมปัง)'],
+            answer: '饺子 (เกี๊ยวต้ม)'
+          },
+          write: {
+            type: 'sentence',
+            targetArr: ['因为', '下雨', '所以', '没去'],
+            prompt: 'เรียงประโยคความรวม: "เพราะว่าฝนตก ดังนั้นจึงไม่ได้ไป"'
+          }
+        },
+        {
+          id: 'P6.01',
+          level: 'P6 (ประถม 6)',
+          title: '把字句挑战 (ประโยคโครงสร้าง 把 - YCT 4)',
+          goal_th: 'ใช้ประโยคจัดการ 把 เพื่อสั่งการและสื่อสารขั้นสูง',
+          yct: 'YCT Level 4 / HSK 2-3',
+          icon: '🎓',
+          listen: {
+            prompt: 'ฟังประโยคโครงสร้าง 把 แล้วเลือกว่าให้ทำสิ่งใด',
+            target: '请把门关上',
+            pinyin: 'Qǐng bǎ mén guān shàng',
+            audioWord: '请把门关上。',
+            options: [
+              { word: 'ปิดประตู', pinyin: 'ปิดประตู', th: 'กรุณาปิดประตู', icon: '🚪' },
+              { word: 'เปิดหน้าต่าง', pinyin: 'เปิดหน้าต่าง', th: 'กรุณาเปิดหน้าต่าง', icon: '🪟' },
+              { word: 'ส่งการบ้าน', pinyin: 'ส่งการบ้าน', th: 'กรุณาส่งการบ้าน', icon: '📚' }
+            ],
+            answer: 'ปิดประตู'
+          },
+          speak: {
+            prompt: 'แตะไมค์แล้วพูดประโยคโครงสร้าง 把 ตามครู',
+            target: '请把作业交给我',
+            pinyin: 'Qǐng bǎ zuòyè jiāo gěi wǒ',
+            th: 'กรุณาส่งการบ้านมาให้ครู',
+            hint: 'พูดว่า "ฉิ่ง ป่า จั้วเย่ เจียว เก่ย หว่อ"'
+          },
+          read: {
+            prompt: 'อ่านบทความเพื่อเตรียมสอบวัดระดับ (อักษรจีนล้วน)',
+            sentence: '学习 汉语 虽然 难 但是 很有趣',
+            pinyin: 'Xuéxí hànyǔ suīrán nán dànshì hěn yǒuqù',
+            th: 'การเรียนภาษาจีนแม้จะยากแต่ก็น่าสนใจมาก',
+            words: [
+              { zh: '学习', py: 'xuéxí', th: 'การเรียน' },
+              { zh: '汉语', py: 'hànyǔ', th: 'ภาษาจีน' },
+              { zh: '虽然', py: 'suīrán', th: 'แม้ว่า' },
+              { zh: '难', py: 'nán', th: 'ยาก' },
+              { zh: '但是', py: 'dànshì', th: 'แต่ว่า' },
+              { zh: '很有趣', py: 'hěn yǒuqù', th: 'น่าสนใจมาก' }
+            ],
+            question: 'ผู้เขียนมีความคิดเห็นอย่างไรต่อการเรียนภาษาจีน?',
+            options: ['แม้จะยากแต่ก็น่าสนุก', 'ง่ายเกินไป', 'ไม่ชอบภาษาจีน'],
+            answer: 'แม้จะยากแต่ก็น่าสนุก'
+          },
+          write: {
+            type: 'sentence',
+            targetArr: ['请', '把', '门', '关上'],
+            prompt: 'เรียงประโยคโครงสร้าง 把: "กรุณาจัดการปิดประตู"'
+          }
+        }
+      ]
+    };
+
+    // ================= APPLICATION STATE =================
+    let CURRENT_STAGE = 'early';
+    
+
+    let currentFilter = 'all';
+
+    function renderLessons() {
+      const container = document.getElementById('chineseLessonsList');
+      container.innerHTML = '';
+
+      let totalStars = 0;
+
+      const tiers = [
+        { key: 'early', label: 'ปฐมวัย (อ.1 - อ.3)', tag: 'Pre-YCT' },
+        { key: 'lower', label: 'ประถมต้น (ป.1 - ป.3)', tag: 'YCT 1-2' },
+        { key: 'upper', label: 'ประถมปลาย (ป.4 - ป.6)', tag: 'YCT 3-4 / HSK' }
+      ];
+
+      tiers.forEach(tier => {
+        if (currentFilter !== 'all' && currentFilter !== tier.key) return;
+
+        const items = CHINESE_DATA[tier.key] || [];
+        if (items.length === 0) return;
+
+        // Section header
+        const secHeader = document.createElement('div');
+        secHeader.className = 'flex items-center justify-between pt-2 pb-1 text-xs font-bold text-slate-700';
+        secHeader.innerHTML = `
+          <span class="font-bold flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-red-500"></span>
+            <span>${tier.label}</span>
+          </span>
+          <span class="px-2 py-0.5 rounded-full bg-red-50 text-[10px] font-black text-red-600 border border-red-100">${tier.tag}</span>
+        `;
+        container.appendChild(secHeader);
+
+        items.forEach(les => {
+          const starsKey = 'kidobits_cn_stars_' + les.id;
+          const savedStars = parseInt(localStorage.getItem(starsKey) || '0', 10);
+          totalStars += savedStars;
+
+          let starsHtml = '';
+          for (let i = 1; i <= 3; i++) {
+            if (i <= savedStars) {
+              starsHtml += '<span class="text-amber-400 text-xs">⭐</span>';
+            } else {
+              starsHtml += '<span class="text-slate-200 text-xs">★</span>';
+            }
+          }
+
+          const card = document.createElement('div');
+          card.className = 'btn-press w-full bg-white rounded-2xl p-3.5 border border-slate-100 shadow-sm hover:shadow-md hover:border-red-200 transition-all flex flex-col gap-2 cursor-pointer';
+          card.onclick = () => {
+            window.location.href = `/chinese.html?id=${les.id}`;
+          };
+
+          card.innerHTML = `
+            <div class="flex items-start gap-3 w-full">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-red-400 to-orange-500 flex items-center justify-center text-2xl shadow-sm text-white shrink-0">
+                ${les.icon || '🐼'}
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between gap-1 mb-0.5">
+                  <div class="flex items-center gap-1.5">
+                    <span class="px-2 py-0.5 rounded-md bg-red-50 text-[10px] font-black text-red-600 border border-red-100">${les.id}</span>
+                    <span class="text-[10px] font-bold text-slate-400">${les.level}</span>
+                  </div>
+                  <div class="flex items-center gap-0.5">${starsHtml}</div>
+                </div>
+                <h3 class="font-chinese text-sm font-bold text-slate-800 truncate">${les.title}</h3>
+                <p class="text-[11px] text-slate-400 truncate">${les.goal_th || ''}</p>
+              </div>
+            </div>
+            <!-- 4 Skills Indicators -->
+            <div class="flex items-center gap-1.5 flex-wrap pt-2 border-t border-slate-50 text-[10px] font-semibold text-slate-600">
+              <span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-lg bg-red-50 text-red-700">🎧 ฟัง</span>
+              <span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-lg bg-orange-50 text-orange-700">🗣️ พูด</span>
+              <span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-lg bg-amber-50 text-amber-700">📖 อ่าน</span>
+              <span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-lg bg-emerald-50 text-emerald-700">✍️ เขียน</span>
+            </div>
+          `;
+
+          container.appendChild(card);
+        });
+      });
+
+      const starsChip = document.getElementById('starsChip');
+      if (starsChip && totalStars > 0) {
+        starsChip.textContent = totalStars;
+      }
+    }
+
+    function filterChinese(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-tab').forEach(b => {
+        b.className = 'filter-tab flex-1 py-1.5 rounded-xl text-slate-500 hover:bg-slate-50 text-center transition';
+      });
+
+      const activeBtn = filter === 'all' ? document.getElementById('tabAll')
+        : filter === 'early' ? document.getElementById('tabEarly')
+        : filter === 'lower' ? document.getElementById('tabPLow')
+        : document.getElementById('tabPUpp');
+
+      if (activeBtn) {
+        activeBtn.className = 'filter-tab flex-1 py-1.5 rounded-xl bg-red-500 text-white font-black text-center shadow-xs transition';
+      }
+
+      renderLessons();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderLessons();
+    });
+  </script>
+</body>
+</html>
