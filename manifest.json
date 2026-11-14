@@ -1,18 +1,25 @@
 {
   "name": "Kidobits",
   "short_name": "Kidobits",
-  "description": "Kidobits - บทเรียน Phonics · Chinese · Math สำหรับเด็ก",
-  "id": "/",
-  "start_url": "/?source=pwa",
+  "description": "Kidobits - บทเรียน Phonics, Math, Chinese สำหรับเด็ก",
+  "id": "/theme/theme_home.html",
+  "start_url": "/theme/theme_home.html?source=pwa",
   "scope": "/",
   "display": "standalone",
-  "display_override": ["standalone", "minimal-ui", "browser"],
+  "display_override": [
+    "standalone",
+    "minimal-ui",
+    "browser"
+  ],
   "orientation": "any",
-  "background_color": "#FB8C2C",
-  "theme_color": "#FB8C2C",
+  "background_color": "#FDF0F5",
+  "theme_color": "#8B7CFF",
   "lang": "th",
   "dir": "ltr",
-  "categories": ["education", "kids"],
+  "categories": [
+    "education",
+    "kids"
+  ],
   "icons": [
     {
       "src": "/icons/icon-192.png",
@@ -35,28 +42,59 @@
   ],
   "shortcuts": [
     {
-      "name": "Chinese",
-      "short_name": "Chinese",
-      "url": "/chinese.html",
-      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+      "name": "หน้าแรก (Home)",
+      "short_name": "Home",
+      "url": "/theme/theme_home.html",
+      "icons": [
+        {
+          "src": "/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
-      "name": "Math",
+      "name": "โฟนิกส์ (Phonics)",
+      "short_name": "Phonics",
+      "url": "/theme/theme_phonicsHome.html",
+      "icons": [
+        {
+          "src": "/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "A-Z โฟนิกส์ (Warm-up)",
+      "short_name": "A-Z",
+      "url": "/theme/theme_abc.html",
+      "icons": [
+        {
+          "src": "/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "คณิตศาสตร์ (Math)",
       "short_name": "Math",
-      "url": "/math.html",
-      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+      "url": "/theme/theme_mathHome.html",
+      "icons": [
+        {
+          "src": "/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
-      "name": "Phonics L2",
-      "short_name": "L2 CVC",
-      "url": "/level2_cvc_hub.html",
-      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
-    },
-    {
-      "name": "Phonics L3",
-      "short_name": "L3 Digraph",
-      "url": "/level3_digraph_hub.html",
-      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+      "name": "ภาษาจีน (Chinese)",
+      "short_name": "Chinese",
+      "url": "/theme/theme_chineseHome.html",
+      "icons": [
+        {
+          "src": "/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }

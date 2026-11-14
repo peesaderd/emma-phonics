@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
+
+<!-- Kidobits PWA Setup -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#8B7CFF">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Kidobits">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+
   <script src="/kidobits/js/kb-az-engine.js?v=20261111_master1"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -2563,6 +2574,17 @@ Error generating stack: `+u.message+`
   }, true);
 })();
 </script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js', { scope: '/' })
+      .then(function(reg) { console.log('[Kidobits PWA] SW registered:', reg.scope); })
+      .catch(function(err) { console.warn('[Kidobits PWA] SW failed:', err); });
+  });
+}
+</script>
 </body>
+
 
 </html>

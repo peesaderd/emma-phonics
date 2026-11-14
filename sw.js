@@ -1,30 +1,17 @@
-/* Kidobits Service Worker
-   กลยุทธ์หลัก: หน้า HTML = network-first (ได้ของใหม่เสมอเมื่อออนไลน์)
-                   รูป/เสียง/ไอคอน = cache-first (ของหนัก ไม่เปลี่ยนบ่อย)
-   ห้ามแคช: PDF (ใหญ่), request ที่ไม่ใช่ GET, โดเมนอื่น
-*/
-const VERSION = 'kidobits-v1';
+/* Kidobits PWA Service Worker (v2) */
+const VERSION = 'kidobits-pwa-v2';
 const STATIC_CACHE = VERSION + '-static';
-const PAGE_CACHE   = VERSION + '-pages';
+const PAGE_CACHE = VERSION + '-pages';
 
-/* ไฟล์ที่ต้องมีติดเครื่องไว้ตั้งแต่ติดตั้ง (เปิดแอปได้แม้เน็ตหลุดครั้งแรก) */
 const PRECACHE = [
-  '/',
-  '/index.html',
+  '/theme/theme_home.html',
+  '/theme/theme_phonicsHome.html',
+  '/theme/theme_abc.html',
   '/manifest.json',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
   '/icons/apple-touch-icon.png',
   '/icons/favicon-32.png'
-];
-
-/* หน้าเรียน — แคชเมื่อเคยเปิด (ไม่ precache เพราะไฟล์ใหญ่) */
-const LESSON_PAGES = [
-  '/chinese.html',
-  '/math.html',
-  '/level2_cvc_hub.html',
-  '/level3_digraph_hub.html',
-  '/english.html'
 ];
 
 self.addEventListener('install', (event) => {
@@ -55,18 +42,20 @@ function isStaticAsset(url) {
 
 self.addEventListener('fetch', (event) => {
   const req = event.request;
-
   if (req.method !== 'GET') return;
 
   const url = new URL(req.url);
 
-  /* ข้ามโดเมนอื่น (CDN tailwind, fonts, confetti) — ปล่อยให้เบราว์เซอร์จัดการ */
+  // Skip cross-origin requests
   if (url.origin !== self.location.origin) return;
 
-  /* ข้าม PDF — ใหญ่และไม่ต้องออฟไลน์ */
+  // Skip STT and API calls
+  if (url.pathname.includes('/stt') || url.pathname.includes('/api/')) return;
+
+  // Skip PDF files
   if (/\.pdf$/i.test(url.pathname)) return;
 
-  /* เสียงและรูป: cache-first */
+  // Static media assets: Cache-first
   if (isStaticAsset(url)) {
     event.respondWith(
       caches.match(req).then((hit) => {
@@ -83,7 +72,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  /* หน้า HTML: network-first, ตกไปแคชเมื่อออฟไลน์ */
+  // HTML pages: Network-first, fallback to cache
   event.respondWith(
     fetch(req)
       .then((res) => {
@@ -95,8 +84,7 @@ self.addEventListener('fetch', (event) => {
       })
       .catch(() => caches.match(req).then((hit) => {
         if (hit) return hit;
-        /* fallback หน้าหลัก ถ้าไม่เคยเปิดหน้านั้นมาก่อน */
-        return caches.match('/index.html');
+        return caches.match('/theme/theme_home.html');
       }))
   );
 });
