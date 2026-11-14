@@ -123,6 +123,7 @@
     }
   </style>
 <script src="/js/kidobits_wallet.js"></script>
+  <script src="/theme/js/kidobits-resume.js"></script>
 </head>
 <body class="bg-gradient-to-br from-[#F5E6FF] via-[#EDE9FE] to-[#FCE7F3] min-h-screen flex items-center justify-center p-0 sm:p-4 text-[#2E2A3B]">
 
@@ -139,8 +140,14 @@
         <p id="cover-title" class="text-xs font-bold text-[#7A7691] mt-1">L1.01 • Listening for first sounds</p>
         <p id="cover-th" class="text-[11px] font-semibold text-[#9A93B3] mt-0.5">ฟังและระบุเสียงต้นคำ</p>
         
-        <button id="btn-start-lesson" onclick="startLessonWithAudio()" class="w-full mt-5 bg-gradient-to-r from-[#8B7CFF] to-[#6C5CE7] hover:from-[#7C6CE7] hover:to-[#5B4BD8] text-white py-3.5 rounded-2xl font-extrabold text-base shadow-lg shadow-[#8B7CFF]/30 active:scale-95 transition">
+        <!-- Container for Module Resume Banner -->
+        <div id="lessonResumeBannerContainer" class="w-full mt-4 text-left"></div>
+
+        <button id="btn-start-lesson" onclick="startLessonWithAudio()" class="w-full mt-2 bg-gradient-to-r from-[#8B7CFF] to-[#6C5CE7] hover:from-[#7C6CE7] hover:to-[#5B4BD8] text-white py-3.5 rounded-2xl font-extrabold text-base shadow-lg shadow-[#8B7CFF]/30 active:scale-95 transition">
           ▶️ เริ่มเรียน (เปิดเสียง 🔊)
+        </button>
+        <button id="btn-restart-lesson" onclick="restartLessonFromBeginning()" class="w-full mt-2 py-2 text-xs font-bold text-[#8B7CFF] hover:text-[#6C5CE7] transition hidden">
+          ↺ เริ่มต้นใหม่ตั้งแต่ต้น
         </button>
         <p class="text-[11px] font-bold text-[#A09BB5] mt-2.5">
           เปิดลำโพงเพื่อฟังครูเอ็มม่าสอนนะ 🔊
@@ -1357,6 +1364,26 @@
         all.__last = LID;
         localStorage.setItem(PKEY, JSON.stringify(all));
       } catch(e) {}
+
+      // Module KidobitsResume sync
+      try {
+        if (window.KidobitsResume) {
+          if (isDone) {
+            KidobitsResume.markDone(PKEY, LID);
+          } else {
+            const STEP_NAMES = ['ฟังเสียง', 'จับคู่', 'สะกดคำ', 'อ่านออกเสียง', 'อ่านประโยค'];
+            const stepName = STEP_NAMES[stepNo - 1] || ('ขั้นที่ ' + stepNo);
+            const wordName = currentItem ? (currentItem.word || currentItem.text || '') : '';
+            KidobitsResume.save(PKEY, LID, {
+              title: (typeof LESSON_TITLE !== 'undefined' && LESSON_TITLE) ? LESSON_TITLE : ('บทเรียน ' + LID),
+              subtitle: 'ขั้นที่ ' + stepNo + ' (' + stepName + ')' + (wordName ? ' · ' + wordName : ''),
+              step: stepNo,
+              index: idx,
+              done: false
+            });
+          }
+        }
+      } catch(e) {}
     }
     function progClear() {
       try {
@@ -1421,6 +1448,45 @@
     }
 
     // Start Lesson With Audio Unlock & Auto-Resume
+    
+    function restartLessonFromBeginning() {
+      try {
+        if (window.KidobitsResume) KidobitsResume.clear(PKEY, LID);
+        progClear();
+      } catch(e) {}
+      startLessonWithAudio(1);
+    }
+
+    function checkCoverResume() {
+      if (!window.KidobitsResume) return;
+      const active = KidobitsResume.getLastActive(PKEY);
+      const isCurrentActive = active && active.lessonId === LID && active.step > 1;
+
+      const btnStart = document.getElementById('btn-start-lesson');
+      const btnRestart = document.getElementById('btn-restart-lesson');
+
+      if (isCurrentActive) {
+        KidobitsResume.renderBanner({
+          storageKey: PKEY,
+          containerId: 'lessonResumeBannerContainer',
+          theme: 'purple',
+          onResume: function(act) {
+            startLessonWithAudio(act.step);
+          }
+        });
+        if (btnStart) {
+          btnStart.innerHTML = `▶️ เล่นต่อจากขั้นที่ ${active.step} (เปิดเสียง 🔊)`;
+        }
+        if (btnRestart) {
+          btnRestart.classList.remove('hidden');
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(checkCoverResume, 300);
+    });
+
     async function startLessonWithAudio(forcedStep = null) {
       unlockAudio();
       const cover = document.getElementById('start-cover');
