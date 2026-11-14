@@ -130,40 +130,22 @@
   <!-- Mobile Screen Container (430px) -->
   <div class="w-full max-w-[430px] h-[100dvh] sm:h-[890px] bg-white sm:rounded-[36px] shadow-2xl flex flex-col overflow-hidden relative border border-[#EDE8F5]">
 
-    <!-- START COVER OVERLAY (User Gesture for Audio Unlock) -->
-    <div id="start-cover" class="tutorcover">
-      <div class="tcinner border-2 border-[#E4DDF6]">
-        <div id="cover-avatar" class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-[#FFE9A8] to-[#FFD9E8] flex items-center justify-center text-4xl shadow-md mb-3 animate-float">
-          🐱
-        </div>
-        <h3 class="text-xl font-extrabold text-[#2D2A4A] tracking-tight">พร้อมเรียนหรือยัง!</h3>
-        <p id="cover-title" class="text-xs font-bold text-[#7A7691] mt-1">L1.01 • Listening for first sounds</p>
-        <p id="cover-th" class="text-[11px] font-semibold text-[#9A93B3] mt-0.5">ฟังและระบุเสียงต้นคำ</p>
-        
-        <!-- Container for Module Resume Banner -->
-        <div id="lessonResumeBannerContainer" class="w-full mt-4 text-left"></div>
 
-        <button id="btn-start-lesson" onclick="startLessonWithAudio()" class="w-full mt-2 bg-gradient-to-r from-[#8B7CFF] to-[#6C5CE7] hover:from-[#7C6CE7] hover:to-[#5B4BD8] text-white py-3.5 rounded-2xl font-extrabold text-base shadow-lg shadow-[#8B7CFF]/30 active:scale-95 transition">
-          ▶️ เริ่มเรียน (เปิดเสียง 🔊)
-        </button>
-        <button id="btn-restart-lesson" onclick="restartLessonFromBeginning()" class="w-full mt-2 py-2 text-xs font-bold text-[#8B7CFF] hover:text-[#6C5CE7] transition hidden">
-          ↺ เริ่มต้นใหม่ตั้งแต่ต้น
-        </button>
-        <p class="text-[11px] font-bold text-[#A09BB5] mt-2.5">
-          เปิดลำโพงเพื่อฟังครูเอ็มม่าสอนนะ 🔊
-        </p>
-      </div>
-    </div>
 
     <!-- Top Status Bar & Navigation -->
     <header class="pt-3 px-4 pb-2 bg-white/95 backdrop-blur-sm z-20 shrink-0 border-b border-[#F4EFFF]">
       <div class="flex items-center justify-between">
-        <a href="javascript:void(0)" onclick="goBackToLevel()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F5F0FF] text-[#6C5CE7] font-extrabold text-xs hover:bg-[#EBE2FF] active:scale-95 transition">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
-          </svg>
-          บทเรียน
-        </a>
+        <div class="flex items-center gap-1.5">
+          <a href="javascript:void(0)" onclick="goBackToLevel()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F5F0FF] text-[#6C5CE7] font-extrabold text-xs hover:bg-[#EBE2FF] active:scale-95 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+            </svg>
+            บทเรียน
+          </a>
+          <button onclick="restartLessonFromBeginning()" class="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-bold text-slate-500 active:scale-95 transition" title="เริ่มต้นใหม่ตั้งแต่ต้น">
+            ↺ เริ่มใหม่
+          </button>
+        </div>
         <div class="flex items-center gap-2 text-xs font-extrabold">
           <span class="flex items-center gap-1 bg-[#FFF5EA] text-[#E67E22] px-2.5 py-1 rounded-full border border-[#FFE3C2]">
             🔥 <span id="stat-streak">7</span>
@@ -259,16 +241,7 @@
 
     </main>
 
-    <!-- Floating Resume Bar (Matches Screenshot 2) -->
-    <div id="resume-bar" class="fixed bottom-[76px] left-4 right-4 bg-[#1B9A62] text-white px-4 py-2.5 rounded-full shadow-lg flex items-center justify-between z-50 transition-all duration-500 opacity-0 pointer-events-none" style="max-width:420px;margin:0 auto;">
-      <div class="flex items-center gap-2 text-xs font-extrabold truncate">
-        <span>▶️</span>
-        <span id="resume-text">เล่นต่อ: ขั้นที่ 1 • ข้อ 1/5</span>
-      </div>
-      <button onclick="restartSession()" class="bg-white text-[#1B9A62] text-xs font-black px-3 py-1 rounded-full shadow hover:bg-gray-100 active:scale-95 transition">
-        เริ่มใหม่
-      </button>
-    </div>
+
 
     <!-- Bottom Navigation Bar (Matches Screenshot 1 & 2) -->
       <!-- Floating Bottom Navigation (Kidobits Theme Standard - 6 Tabs with Phonics Active) -->
@@ -452,7 +425,7 @@
     else if (lvNum === 6) heroEmoji = "🦄";
 
     document.getElementById('hero-icon').textContent = heroEmoji;
-    document.getElementById('cover-avatar').textContent = heroEmoji;
+    const _ca = document.getElementById('cover-avatar'); if (_ca) _ca.textContent = heroEmoji;
     document.getElementById('badge-code').textContent = LID;
 
     const LESSON_META = {
@@ -559,8 +532,8 @@
     const curMeta = LESSON_META[LID] || { n: parseInt(LID.split('.')[1] || '1', 10), title: LID, th: "บทเรียน Phonics" };
     document.getElementById('hero-title').textContent = `ระดับ ${lvNum} • บทที่ ${curMeta.n} - ${curMeta.title}`;
     document.getElementById('hero-th').textContent = curMeta.th;
-    document.getElementById('cover-title').textContent = `${LID} • ${curMeta.title}`;
-    document.getElementById('cover-th').textContent = curMeta.th;
+    const _ct = document.getElementById('cover-title'); if (_ct) _ct.textContent = `${LID} • ${curMeta.title}`;
+    const _cth = document.getElementById('cover-th'); if (_cth) _cth.textContent = curMeta.th;
 
     if (isLv2) {
       document.getElementById('lesson-hero').className = "bg-gradient-to-br from-[#7ED9A8] to-[#4EB87E] rounded-[24px] p-4 text-white shadow-md relative overflow-hidden";
@@ -1109,7 +1082,8 @@
       }
 
       if (currentItem && !isLessonDone) {
-        document.getElementById('resume-text').textContent = `เล่นต่อ: ขั้นที่ ${currentItem.step} • ข้อ ${(currentItem.index || 0) + 1}/${currentItem.total || 5}`;
+        const _rt = document.getElementById('resume-text');
+        if (_rt) _rt.textContent = `เล่นต่อ: ขั้นที่ ${currentItem.step} • ข้อ ${(currentItem.index || 0) + 1}/${currentItem.total || 5}`;
       }
     }
 
@@ -1496,51 +1470,17 @@
       }
     }
 
-    // Start Lesson With Audio Unlock & Auto-Resume
-    
+    // Direct Lesson Start & Clean Resume (NO Popups / NO Cover Overlay)
     function restartLessonFromBeginning() {
       try {
         if (window.KidobitsResume) KidobitsResume.clear(PKEY, LID);
         progClear();
       } catch(e) {}
-      startLessonWithAudio(1);
+      jumpToStep(1);
     }
-
-    function checkCoverResume() {
-      if (!window.KidobitsResume) return;
-      const active = KidobitsResume.load(PKEY, LID) || KidobitsResume.getLastActive(PKEY);
-      const isCurrentActive = active && (active.lessonId === LID || !active.lessonId) && active.step > 1 && !active.done;
-
-      const btnStart = document.getElementById('btn-start-lesson');
-      const btnRestart = document.getElementById('btn-restart-lesson');
-
-      if (isCurrentActive) {
-        KidobitsResume.renderBanner({
-          storageKey: PKEY,
-          containerId: 'lessonResumeBannerContainer',
-          theme: 'purple',
-          onResume: function(act) {
-            startLessonWithAudio(act.step);
-          }
-        });
-        if (btnStart) {
-          btnStart.innerHTML = `▶️ เล่นต่อจากขั้นที่ ${active.step} (เปิดเสียง 🔊)`;
-          btnStart.onclick = () => startLessonWithAudio(active.step);
-        }
-        if (btnRestart) {
-          btnRestart.classList.remove('hidden');
-        }
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      setTimeout(checkCoverResume, 300);
-    });
 
     async function startLessonWithAudio(forcedStep = null) {
       unlockAudio();
-      const cover = document.getElementById('start-cover');
-      if (cover) cover.classList.add('gone');
 
       const queryStep = parseInt(q.get('step') || '0', 10);
       const saved = (window.KidobitsResume ? KidobitsResume.load(PKEY, LID) : null) || progLoad();
@@ -1557,96 +1497,9 @@
       }
     }
 
-    const sc = document.getElementById('start-cover');
-    if (sc) {
-      sc.addEventListener('click', (e) => {
-        if (e.target.closest('#resumetoast') || e.target.closest('#resume-bar')) return;
-        if (e.target === sc || e.target.closest('.tcinner')) {
-          const rb = document.getElementById('resume-bar');
-          if (rb) rb.classList.add('opacity-0', 'pointer-events-none');
-          startLessonWithAudio();
-        }
-      });
-    }
-
-    // Initial check: Show Floating Continue Toast if saved progress exists (disappears in 6s if not pressed)
-    async function checkAndShowResumeToast() {
-      let saved = progLoad();
-      if (!saved || saved.step <= 1) {
-        try {
-          const res = await fetch(`${API_BASE}/progress/get?user_id=guest&lesson_id=${LID}`);
-          const d = await res.json();
-          if (d && d.ok && d.found && d.progress && !d.progress.done && d.progress.step > 1) {
-            saved = { step: d.progress.step, itemIndex: d.progress.item_index || 0 };
-          }
-        } catch(e) {}
-      }
-
-      if (saved && saved.step > 1) {
-        resumeToast(saved.step, (action) => {
-          if (action === 'continue') {
-            startLessonWithAudio(saved.step);
-          } else if (action === 'reset') {
-            progClear();
-            startLessonWithAudio(1);
-          }
-        });
-      }
-    }
-
-    // Show/hide the floating #resume-bar based on saved progress
-    function showResumeBar() {
-      const bar = document.getElementById('resume-bar');
-      if (!bar) return;
-      
-      let saved = progLoad();
-      
-      // Also check API if no local progress
-      if (!saved || saved.step <= 1) {
-        fetch(`${API_BASE}/progress/get?user_id=guest&lesson_id=${LID}`)
-          .then(r => r.json())
-          .then(d => {
-            if (d && d.ok && d.found && d.progress && !d.progress.done && d.progress.step > 1) {
-              saved = { step: d.progress.step, itemIndex: d.progress.item_index || 0 };
-              activateResumeBar(bar, saved);
-            }
-          }).catch(() => {});
-      }
-      
-      if (saved && saved.step > 1) {
-        activateResumeBar(bar, saved);
-      }
-    }
-    
-    function activateResumeBar(bar, saved) {
-      const STEP_NAMES = ['ฟังเสียง', 'จับคู่', 'สะกดคำ', 'อ่านออกเสียง', 'อ่านประโยค'];
-      const stepName = STEP_NAMES[saved.step - 1] || '';
-      const txt = bar.querySelector('#resume-text');
-      if (txt) txt.textContent = `เล่นต่อ: ขั้นที่ ${saved.step} (${stepName})`;
-      
-      // Make visible
-      bar.classList.remove('opacity-0', 'pointer-events-none');
-      bar.classList.add('opacity-100');
-      
-      // Click the bar text area to continue
-      bar.querySelector('.flex.items-center')?.addEventListener('click', () => {
-        bar.classList.add('opacity-0', 'pointer-events-none');
-        startLessonWithAudio(saved.step);
-      });
-      
-      // Auto-fade after 8 seconds
-      setTimeout(() => {
-        if (bar && !bar.classList.contains('pointer-events-none')) {
-          bar.classList.add('opacity-0', 'pointer-events-none');
-        }
-      }, 8000);
-    }
-
-    if (document.readyState === 'loading') {
-      window.addEventListener('DOMContentLoaded', () => setTimeout(showResumeBar, 500));
-    } else {
-      setTimeout(showResumeBar, 500);
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+      startLessonWithAudio();
+    });
   
     /* -------------------------------------------------------------
        SPEECH RECOGNITION (MIC + STT)
