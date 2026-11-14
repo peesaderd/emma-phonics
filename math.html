@@ -241,6 +241,47 @@ body {
   animation: waterRippleExpand 1.2s ease-out infinite;
 }
 </style>
+  <style id="hideOldLobbyStyle">
+    /* When entering directly into a lesson, cleanly hide the underlying old lobby and make the arena full screen */
+    html.direct-lesson-mode body {
+      background-color: #F8F9FD !important;
+      overflow: hidden !important;
+    }
+    html.direct-lesson-mode header,
+    html.direct-lesson-mode main,
+    html.direct-lesson-mode footer {
+      display: none !important;
+    }
+    html.direct-lesson-mode #lessonModal {
+      display: flex !important;
+      background-color: #F8F9FD !important;
+      backdrop-filter: none !important;
+      padding: 0 !important;
+      position: fixed !important;
+      inset: 0 !important;
+      z-index: 9999 !important;
+    }
+    html.direct-lesson-mode #lessonModal > div {
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      max-height: 100vh !important;
+      height: 100% !important;
+      max-width: 430px !important;
+      width: 100% !important;
+      padding-top: env(safe-area-inset-top, 16px) !important;
+      padding-bottom: env(safe-area-inset-bottom, 24px) !important;
+      background: #FFFFFF !important;
+    }
+  </style>
+  <script>
+    (function() {
+      const q = window.location.search;
+      if (q.includes('lesson=') || q.includes('les=') || q.includes('pizza=')) {
+        document.documentElement.classList.add('direct-lesson-mode');
+      }
+    })();
+  </script>
 </head>
 <body id="worldBody" class="bg-[#F0F5FD] flex flex-col justify-between selection:bg-amber-400 min-h-screen text-slate-800">
 
@@ -1011,6 +1052,15 @@ body {
     }
 
     function closeLessonModal() {
+      if (window.location.search.includes('lesson=') || window.location.search.includes('les=')) {
+        if (history.length > 1) {
+          history.back();
+          return;
+        } else {
+          location.href = 'theme_math_lobby.html';
+          return;
+        }
+      }
       document.getElementById('lessonModal').classList.add('hidden');
       document.getElementById('lessonModal').classList.remove('flex');
       renderLessonsList();
@@ -4682,6 +4732,18 @@ function renderBubbleStage(arena, stage) {
       renderLessonsList();
 
       const params = new URLSearchParams(window.location.search);
+      const lessonParam = params.get('lesson') || params.get('les') || params.get('l');
+      const stageParam = params.get('stage') || params.get('stg') || params.get('s') || 0;
+      if (lessonParam !== null) {
+        let lIdx = parseInt(lessonParam, 10);
+        if (!isNaN(lIdx)) {
+          if (lIdx >= 1 && lIdx <= 12) lIdx = lIdx - 1; // 1-based converted to 0-based
+          lIdx = Math.max(0, Math.min(11, lIdx));
+          let sIdx = parseInt(stageParam, 10) || 0;
+          setTimeout(() => startContinuousLesson(lIdx, sIdx), 250);
+        }
+      }
+
       const pizzaParam = params.get('pizza');
       if (pizzaParam !== null) {
         let lessonIdx = 0;

@@ -2611,6 +2611,14 @@ document.addEventListener('click', function(e) {
     return;
   }
 
+  // 3.1 Math (Bottom Nav, Grid Button, or Banner)
+  if (txt === 'Math' || (txt.includes('Math') && btn.closest('nav')) || txt.includes('Math คณิตศาสตร์') || (txt.includes('Math') && txt.includes('คณิตศาสตร์'))) {
+    e.preventDefault();
+    e.stopPropagation();
+    window.location.href = 'theme_math_lobby.html';
+    return;
+  }
+
   // 4. Lessons category button
   if (txt.includes('Lessons') && txt.includes('บทเรียน')) {
     e.preventDefault();

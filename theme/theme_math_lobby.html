@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Kidobits · Singapore Math Lobby (12 Lessons)</title>
+  
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#FF7A00">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Mali:wght@400;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Nunito', 'Mali', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .font-fredoka { font-family: 'Fredoka', 'Nunito', sans-serif; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+    }
+    .floating { animation: floatSlow 3s ease-in-out infinite; }
+    .btn-press:active { transform: scale(0.97); }
+  </style>
+</head>
+<body class="bg-[#F8F9FD] text-[#2C2623] min-h-screen flex justify-center pb-24">
+
+  <!-- Mobile Frame 430px -->
+  <div class="w-full max-w-[430px] min-h-screen flex flex-col relative px-4 pt-4">
+
+    <!-- Top Bar: Back & Stats Chips -->
+    <header class="flex items-center justify-between gap-2 py-2 mb-2">
+      <button onclick="if (history.length > 1) { history.back(); } else { location.href='theme_home.html'; }" class="btn-press flex items-center gap-1 px-3 py-1.5 rounded-full bg-white shadow-sm border border-slate-100 text-xs font-bold text-slate-700 hover:bg-slate-50 transition" title="ย้อนกลับ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5"></path>
+          <path d="M12 19l-7-7 7-7"></path>
+        </svg>
+        <span>กลับ</span>
+      </button>
+
+      <div class="flex items-center gap-1.5">
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-100 text-[11px] font-black text-amber-600 shadow-2xs">
+          <span>🔥</span>
+          <span id="streakChip">7</span>
+        </div>
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-[11px] font-black text-emerald-600 shadow-2xs">
+          <span>⭐</span>
+          <span id="starsChip">24</span>
+        </div>
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-cyan-50 border border-cyan-100 text-[11px] font-black text-cyan-600 shadow-2xs">
+          <span>💎</span>
+          <span>180</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Card: Singapore Math Hub -->
+    <section class="w-full rounded-[28px] p-4 mb-4 text-white relative overflow-hidden shadow-lg shadow-orange-500/15" style="background: linear-gradient(135deg, #FF8A00 0%, #FF5A00 100%);">
+      <div class="relative z-10 flex items-start gap-3.5">
+        <div class="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-3xl shadow-inner shrink-0 floating">
+          🦁
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-1.5 mb-0.5">
+            <span class="px-2 py-0.5 rounded-full bg-white/25 text-[10px] font-black uppercase tracking-wider backdrop-blur-xs">K TO P6 · CPA METHOD</span>
+          </div>
+          <h1 class="font-fredoka text-xl font-bold tracking-tight text-white leading-tight">Safari Math Adventure</h1>
+          <p class="text-xs text-orange-100/95 font-medium mt-1 leading-snug">คณิตศาสตร์สิงคโปร์ 12 บทเรียน (4 เกมต่อเนื่องในทุกบท)</p>
+        </div>
+      </div>
+
+      <!-- Quick Feature Tag Row -->
+      <div class="relative z-10 flex items-center gap-2 mt-3 pt-3 border-t border-white/20 text-[11px] font-bold">
+        <span class="flex items-center gap-1">🍕 หั่นพิซซ่า</span>
+        <span class="text-orange-200">•</span>
+        <span class="flex items-center gap-1">🌳 บ้านแยกเลข</span>
+        <span class="text-orange-200">•</span>
+        <span class="flex items-center gap-1">⚖️ ตราชั่ง</span>
+        <span class="text-orange-200">•</span>
+        <span class="flex items-center gap-1">🔟 กรอบสิบ</span>
+      </div>
+
+      <!-- Decorative ambient glow -->
+      <div class="absolute -right-8 -bottom-8 w-36 h-36 rounded-full bg-white/10 blur-xl pointer-events-none"></div>
+    </section>
+
+    <!-- Stage / Difficulty Selector Filter Tabs -->
+    <div class="flex items-center gap-1.5 p-1 bg-white rounded-2xl border border-slate-100 shadow-xs mb-3 text-xs font-bold">
+      <button onclick="filterLessons('all')" id="tabAll" class="filter-tab flex-1 py-1.5 rounded-xl bg-orange-500 text-white font-black text-center shadow-xs transition">ทั้งหมด (12)</button>
+      <button onclick="filterLessons('lv1')" id="tabLv1" class="filter-tab flex-1 py-1.5 rounded-xl text-slate-500 hover:bg-slate-50 text-center transition">ระดับ 1-4</button>
+      <button onclick="filterLessons('lv2')" id="tabLv2" class="filter-tab flex-1 py-1.5 rounded-xl text-slate-500 hover:bg-slate-50 text-center transition">ระดับ 5-8</button>
+      <button onclick="filterLessons('lv3')" id="tabLv3" class="filter-tab flex-1 py-1.5 rounded-xl text-slate-500 hover:bg-slate-50 text-center transition">ระดับ 9-12</button>
+    </div>
+
+    <!-- 12 LESSONS LIST -->
+    <main class="flex-1 flex flex-col gap-2.5" id="lessonsList">
+      <!-- Injected by JavaScript -->
+    </main>
+
+  </div>
+
+  <!-- Bottom Navigation (Shared Kidobits Theme Navigation with Math Active) -->
+  <nav class="fixed bottom-3 left-3 right-3 max-w-[430px] mx-auto bg-white shadow-[0_10px_30px_rgba(60,30,90,.18)] rounded-full px-2 py-2 flex justify-between border border-[#F3EDF8] z-50" aria-label="Main navigation">
+    <!-- 1. Home -->
+    <button onclick="window.location.href='theme_home.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Home">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+          <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Home</span>
+    </button>
+
+    <!-- 2. Phonics -->
+    <button onclick="window.location.href='theme_phonics_map.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Phonics">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 7v14"></path>
+          <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Phonics</span>
+    </button>
+
+    <!-- 3. Math (Active: Orange) -->
+    <button onclick="window.location.href='theme_math_lobby.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Math">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition bg-[#FF7A00] text-white shadow-md shadow-orange-500/25">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+          <line x1="8" x2="16" y1="6" y2="6"></line>
+          <line x1="16" x2="16" y1="14" y2="18"></line>
+          <path d="M16 10h.01"></path>
+          <path d="M12 10h.01"></path>
+          <path d="M8 10h.01"></path>
+          <path d="M12 14h.01"></path>
+          <path d="M8 14h.01"></path>
+          <path d="M12 18h.01"></path>
+          <path d="M8 18h.01"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-black text-[#FF7A00]">Math</span>
+    </button>
+
+    <!-- 4. Chinese -->
+    <button onclick="window.location.href='theme_chineseHome.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Chinese">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+          <path d="M2 12h20"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Chinese</span>
+    </button>
+
+    <!-- 5. Games -->
+    <button onclick="window.location.href='theme_games.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Games">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="6" x2="10" y1="11" y2="11"></line>
+          <line x1="8" x2="8" y1="9" y2="13"></line>
+          <line x1="15" x2="15.01" y1="12" y2="12"></line>
+          <line x1="18" x2="18.01" y1="10" y2="10"></line>
+          <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Games</span>
+    </button>
+
+    <!-- 6. Profile -->
+    <button onclick="window.location.href='theme_home.html#profile'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Profile">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Profile</span>
+    </button>
+  </nav>
+
+  <script>
+const LESSONS = [{"id": "L01", "num": 1, "title": "Lesson 1: Forest Welcome (การเริ่มต้นในป่า)", "theme": "Level 1: Beginner", "icon": "🐣", "difficulty": 1, "desc": "รับแอปเปิ้ล 2 ผล · ปั๊มลูกโป่ง 3 ครั้ง · หยอดบล็อก 2 ชิ้น · ลากนิ้วตัดพิซซ่าแบ่งเป็น 2 ชิ้น!", "stages": [{"type": "catcher", "target": 2, "item": "🍎", "basket": "🧺", "name": "apples", "title": "Game 1: รับแอปเปิ้ล 2 ผล", "prompt": "Catch 2 red apples in the basket!"}, {"type": "pump", "targetPumps": 3, "color": "from-pink-500 to-rose-500", "title": "Game 2: ปั๊มลูกโป่ง 3 ครั้ง", "prompt": "Press the pump 3 times to blow up the pink balloon!"}, {"type": "sorter", "shapes": ["circle", "square"], "title": "Game 3: หยอดบล็อก 2 ชิ้น", "prompt": "Slot the circle and square into the wooden board!"}, {"type": "pizza", "targetPieces": 2, "cutsNeeded": 1, "hasGuideline": true, "guidelineType": "full", "equation": "2", "title": "Game 4: Pizza Slicer (2)", "prompt": "Cut the pizza into 2 pieces!"}]}, {"id": "L02", "num": 2, "title": "Lesson 2: Puppy Treat Park (สวนสนุกเจ้าตูบ)", "theme": "Level 2: Step Up", "icon": "🐶", "difficulty": 2, "desc": "รับกระดูก 3 ชิ้น · ลากเส้นจับคู่จำนวน 1-4 · หยอดบล็อก 3 ชิ้น · ลากนิ้วตัดพิซซ่าแบ่งเป็น 4 ชิ้น!", "stages": [{"type": "catcher", "target": 3, "item": "🦴", "basket": "🥣", "name": "bones", "title": "Game 1: รับกระดูก 3 ชิ้น", "prompt": "Catch 3 bones in the puppy bowl!"}, {"type": "matching", "matchMode": "quantity", "title": "Game 2: ลากเส้นจับคู่จำนวน (1 - 4)", "prompt": "Connect each number to its matching puppy treats!", "pairs": [{"id": "p1", "left": "1", "leftLabel": "1", "right": "🦴", "spoken": "One bone!"}, {"id": "p2", "left": "2", "leftLabel": "2", "right": "🦴🦴", "spoken": "Two bones!"}, {"id": "p3", "left": "3", "leftLabel": "3", "right": "🦴🦴🦴", "spoken": "Three bones!"}, {"id": "p4", "left": "4", "leftLabel": "4", "right": "🦴🦴🦴🦴", "spoken": "Four bones!"}]}, {"type": "sorter", "shapes": ["circle", "square", "triangle"], "title": "Game 3: หยอดบล็อก 3 รูปทรง", "prompt": "Slot the circle, square and triangle!"}, {"type": "pizza", "targetPieces": 4, "cutsNeeded": 2, "hasGuideline": true, "guidelineType": "full", "equation": "4", "title": "Game 4: Pizza Slicer (4)", "prompt": "Cut the pizza into 4 pieces!"}]}, {"id": "L03", "num": 3, "title": "Lesson 3: Kitten Lake Quest (ภารกิจทะเลสาบลูกแมว)", "theme": "Level 3: Explorer", "icon": "🐱", "difficulty": 3, "desc": "รับปลา 3 ตัว · บ้านส่วนย่อย-ส่วนรวม (Number Bonds) · ช่วยแมวข้ามหิน 3 ก้อน · ลากนิ้วตัดพิซซ่าแบ่งเป็น 6 ชิ้น!", "stages": [{"type": "catcher", "target": 3, "item": "🐟", "basket": "🪣", "name": "fish", "title": "Game 1: รับปลา 3 ตัว", "prompt": "Catch 3 fast fish in the bucket!"}, {"type": "bonds", "rounds": [{"whole": 4, "partA": 1, "answer": 3, "choices": [1, 2, 3, 4], "item": "🐟"}, {"whole": 5, "partA": 2, "answer": 3, "choices": [1, 2, 3, 4], "item": "🐟"}], "title": "Game 2: บ้านส่วนย่อย-ส่วนรวม (Number Bonds)", "prompt": "Find the missing part to complete the number bond!"}, {"type": "kitten", "targetSteps": 3, "title": "Game 3: ช่วยแมวกระโดด 3 ก้าว", "prompt": "Tap stones 1, 2, 3 to guide kitten safely home!"}, {"type": "pizza", "targetPieces": 6, "cutsNeeded": 3, "hasGuideline": true, "guidelineType": "full", "equation": "6", "title": "Game 4: Pizza Slicer (6)", "prompt": "Cut the pizza into 6 pieces!"}]}, {"id": "L04", "num": 4, "title": "Lesson 4: Bunny Carrot Field (ทุ่งแครอทกระต่ายน้อย)", "theme": "Level 4: Agile", "icon": "🐰", "difficulty": 4, "desc": "รับแครอท 4 หัว · หยอดบล็อกรูปดาว · ช่วยแมวกระโดด 4 ก้อนหิน · ลากนิ้วตัดพิซซ่า 4 ครั้ง ได้ 8 ชิ้นเต็มถาด!", "stages": [{"type": "catcher", "target": 4, "item": "🥕", "basket": "🧺", "name": "carrots", "title": "Game 1: รับแครอท 4 หัว", "prompt": "Catch 4 crunchy carrots for bunny!"}, {"type": "sorter", "shapes": ["square", "triangle", "star"], "title": "Game 2: หยอดบล็อกรูปดาว", "prompt": "Slot square, triangle and golden star!"}, {"type": "kitten", "targetSteps": 4, "title": "Game 3: ช่วยแมวกระโดด 4 ก้าว", "prompt": "Tap 4 stepping stones across the river!"}, {"type": "pizza", "targetPieces": 8, "cutsNeeded": 4, "hasGuideline": true, "guidelineType": "full", "equation": "8", "title": "Game 4: Pizza Slicer (8)", "prompt": "Cut the pizza into 8 pieces!"}]}, {"id": "L05", "num": 5, "title": "Lesson 5: Monkey Banana Canopy (ยอดไม้เจ้าจ๋อจอมซน)", "theme": "Level 5: Balance Intro", "icon": "🐵", "difficulty": 5, "desc": "รับกล้วย 4 ลูก · เปรียบเทียบมากกว่า-น้อยกว่า · ตราชั่งสมดุล 4 = 2 + 2 · บวกเลขตัดพิซซ่า 1 + 1 = ?", "stages": [{"type": "catcher", "target": 4, "item": "🍌", "basket": "🧺", "name": "bananas", "title": "Game 1: รับกล้วย 4 ลูก", "prompt": "Catch 4 yellow bananas!"}, {"type": "compare", "leftCount": 5, "rightCount": 3, "diff": 2, "leftItem": "🍌", "leftName": "ลิง (Monkey)", "rightItem": "🍌", "rightName": "หมี (Bear)", "choices": [1, 2, 3, 4], "title": "Game 2: เปรียบเทียบมากกว่า-น้อยกว่า", "prompt": "How many MORE bananas does Monkey have?"}, {"type": "seesaw", "left": 4, "baseRight": 2, "answer": 2, "choices": [1, 2, 3, 4], "title": "Game 3: ตราชั่งสมดุล (4 = 2 + ?)", "prompt": "Balance the seesaw so both sides are equal!"}, {"type": "pizza", "targetPieces": 2, "cutsNeeded": 1, "hasGuideline": true, "guidelineType": "subtle", "equation": "1 + 1 = ?", "title": "Game 4: Pizza Slicer (1 + 1 = ?)", "prompt": "1 plus 1 equals what? Cut the pizza to match the answer!"}]}, {"id": "L06", "num": 6, "title": "Lesson 6: Elephant River Crossing (สายน้ำพี่ช้างใจดี)", "theme": "Level 6: Pattern & Logic", "icon": "🐘", "difficulty": 6, "desc": "รับแตงโม 5 ลูก · รถไฟอนุกรมนับเพิ่มทีละ 2 · ตราชั่งสมดุล 5 = 3 + 2 · บวกเลขตัดพิซซ่า 2 + 2 = ?", "stages": [{"type": "catcher", "target": 5, "item": "🍉", "basket": "🐘", "name": "watermelons", "title": "Game 1: รับแตงโม 5 ลูก", "prompt": "Catch 5 sweet watermelons for elephant!"}, {"type": "pattern", "sequence": [2, 4, 6], "missing": 8, "step": 2, "choices": [7, 8, 9, 10], "title": "Game 2: ขบวนรถไฟอนุกรม (Pattern Train)", "prompt": "Count by 2s: 2, 4, 6... what comes next on the train?"}, {"type": "seesaw", "left": 5, "baseRight": 3, "answer": 2, "choices": [1, 2, 3, 4], "title": "Game 3: ตราชั่งสมดุล (5 = 3 + ?)", "prompt": "5 equals 3 plus what? Find the missing balance!"}, {"type": "pizza", "targetPieces": 4, "cutsNeeded": 2, "hasGuideline": true, "guidelineType": "subtle", "equation": "2 + 2 = ?", "title": "Game 4: Pizza Slicer (2 + 2 = ?)", "prompt": "2 plus 2 equals what? Cut the pizza to match the answer!"}]}, {"id": "L07", "num": 7, "title": "Lesson 7: Red Fox Berry Hunt (หมาจิ้งจอกเก็บผลไม้)", "theme": "Level 7: Precision", "icon": "🦊", "difficulty": 7, "desc": "รับเบอร์รี่ 5 พวง · หยอดอัญมณี 4 รูปทรง · ตราชั่งบวกเลขฝั่งขวา 6 = 2 + 2 + ? · บวกเลขตัดพิซซ่า 3 + 3 = ?", "stages": [{"type": "catcher", "target": 5, "item": "🫐", "basket": "🦊", "name": "berries", "title": "Game 1: รับเบอร์รี่ 5 พวง", "prompt": "Catch 5 wild berries for little fox!"}, {"type": "sorter", "shapes": ["circle", "square", "triangle", "star"], "title": "Game 2: หยอดอัญมณี 4 รูปทรง", "prompt": "Slot circle, square, triangle and star!"}, {"type": "seesaw", "left": 6, "baseRight1": 2, "baseRight2": 2, "answer": 2, "choices": [1, 2, 3, 4], "title": "Game 3: ตราชั่งบวกเลขฝั่งขวา (6 = 2 + 2 + ?)", "prompt": "6 equals 2 plus 2 plus what? Level the scale!"}, {"type": "pizza", "targetPieces": 6, "cutsNeeded": 3, "hasGuideline": true, "guidelineType": "subtle", "equation": "3 + 3 = ?", "title": "Game 4: Pizza Slicer (3 + 3 = ?)", "prompt": "3 plus 3 equals what? Cut the pizza to match the answer!"}]}, {"id": "L08", "num": 8, "title": "Lesson 8: Bear Honey Ten-Frame (ถ้ำน้ำผึ้งพี่หมี)", "theme": "Level 8: Make 10", "icon": "🐻", "difficulty": 8, "desc": "รับโถน้ำผึ้ง 5 โถ · ลากเส้นจับคู่เพื่อนสิบ (Make 10) · ตราชั่งบวกเลขฝั่งขวา 7 = 3 + 2 + ? · บวกเลขตัดพิซซ่า 4 + 4 = ?", "stages": [{"type": "catcher", "target": 5, "item": "🍯", "basket": "🐻", "name": "honey jars", "title": "Game 1: รับโถน้ำผึ้ง 5 โถ", "prompt": "Catch 5 sweet honey jars for bear!"}, {"type": "matching", "matchMode": "make10", "title": "Game 2: ลากเส้นจับคู่เพื่อนสิบ (Make 10)", "prompt": "Connect number pairs that add up to 10!", "pairs": [{"id": "m1", "left": "7", "leftLabel": "🍯 7", "right": "3 🍯", "spoken": "Seven and three make ten!"}, {"id": "m2", "left": "8", "leftLabel": "🍯 8", "right": "2 🍯", "spoken": "Eight and two make ten!"}, {"id": "m3", "left": "6", "leftLabel": "🍯 6", "right": "4 🍯", "spoken": "Six and four make ten!"}, {"id": "m4", "left": "9", "leftLabel": "🍯 9", "right": "1 🍯", "spoken": "Nine and one make ten!"}]}, {"type": "seesaw", "left": 7, "baseRight1": 3, "baseRight2": 2, "answer": 2, "choices": [1, 2, 3, 4], "title": "Game 3: ตราชั่งบวกเลขฝั่งขวา (7 = 3 + 2 + ?)", "prompt": "7 equals 3 plus 2 plus what? Level the scale!"}, {"type": "pizza", "targetPieces": 8, "cutsNeeded": 4, "hasGuideline": true, "guidelineType": "subtle", "equation": "4 + 4 = ?", "title": "Game 4: Pizza Slicer (4 + 4 = ?)", "prompt": "4 plus 4 equals what? Cut the pizza to match the answer!"}]}, {"id": "L09", "num": 9, "title": "Lesson 9: Tall Giraffe Cloud Peak (ยอดเมฆยีราฟคอยาว)", "theme": "Level 9: Sky High", "icon": "🦒", "difficulty": 9, "desc": "รับกิ่งไม้ 6 กิ่ง · กรอบสิบหรรษา (Ten-Frame) · ล่าฟองสบู่คู่สิบ (8+2) · ตัดพิซซ่าไร้เส้นนำทาง 1 + 3 = ?", "stages": [{"type": "catcher", "target": 6, "item": "🌿", "basket": "🦒", "name": "branches", "title": "Game 1: รับกิ่งไม้ 6 กิ่ง", "prompt": "Catch 6 acacia branches for giraffe!"}, {"type": "tenframe", "filled": 7, "missing": 3, "choices": [2, 3, 4, 5], "title": "Game 2: กรอบสิบหรรษา (Ten-Frame Visualizer)", "prompt": "How many more gems do we need to fill the ten-frame?"}, {"type": "bubble", "targetSum": 10, "pair": [8, 2], "title": "Game 3: ฟองสบู่นักล่าสิบ (8 + 2)", "prompt": "Find 8 and 2 to make 10!"}, {"type": "pizza", "targetPieces": 4, "cutsNeeded": 2, "hasGuideline": false, "guidelineType": "none", "equation": "1 + 3 = ?", "title": "Game 4: Pizza Slicer (1 + 3 = ?)", "prompt": "1 plus 3 equals what? Freehand cut the pizza without guidelines!"}]}, {"id": "L10", "num": 10, "title": "Lesson 10: Space Rocket Launch (ฐานปล่อยจรวดอวกาศ)", "theme": "Level 10: Advanced", "icon": "🚀", "difficulty": 10, "desc": "รับพลังงาน 6 ก้อน · ประกอบจรวดอวกาศ 6 ท่อน · ตราชั่งบวกเลขฝั่งขวา 8 = 3 + 3 + ? · ตัดพิซซ่าไร้เส้นนำทาง 4 + 2 = ?", "stages": [{"type": "catcher", "target": 6, "item": "⚡", "basket": "🚀", "name": "energy cells", "title": "Game 1: รับพลังงาน 6 ก้อน", "prompt": "Catch 6 energy cells to charge the rocket!"}, {"type": "assembly", "assemblyType": "rocket", "targetParts": 6, "title": "Game 2: ประกอบจรวดอวกาศ 6 ท่อน", "prompt": "Assemble all 6 rocket parts and blast off to space!"}, {"type": "seesaw", "left": 8, "baseRight1": 3, "baseRight2": 3, "answer": 2, "choices": [1, 2, 3, 4], "title": "Game 3: ตราชั่งบวกเลขฝั่งขวา (8 = 3 + 3 + ?)", "prompt": "8 equals 3 plus 3 plus what? Place the block!"}, {"type": "pizza", "targetPieces": 6, "cutsNeeded": 3, "hasGuideline": false, "guidelineType": "none", "equation": "4 + 2 = ?", "title": "Game 4: Pizza Slicer (4 + 2 = ?)", "prompt": "4 plus 2 equals what? Freehand cut the pizza into matching pieces!"}]}, {"id": "L11", "num": 11, "title": "Lesson 11: Lion King's Challenge (ปราสาทสิงโตเจ้าป่า)", "theme": "Level 11: Master", "icon": "🦁", "difficulty": 11, "desc": "รับมงกุฎทอง 6 อัน · หยอดอัญมณี 4 รูปทรง · ตราชั่งบวกเลขฝั่งขวา 9 = 4 + 3 + ? · ตัดพิซซ่าไร้เส้นนำทาง 5 + 3 = ?", "stages": [{"type": "catcher", "target": 6, "item": "👑", "basket": "🦁", "name": "crowns", "title": "Game 1: รับมงกุฎทอง 6 อัน", "prompt": "Catch 6 golden crowns for King Lion!"}, {"type": "sorter", "shapes": ["circle", "triangle", "square", "star"], "title": "Game 2: หยอดอัญมณี 4 รูปทรง", "prompt": "Slot the royal geometric gems!"}, {"type": "seesaw", "left": 9, "baseRight1": 4, "baseRight2": 3, "answer": 2, "choices": [1, 2, 3, 4], "title": "Game 3: ตราชั่งบวกเลขฝั่งขวา (9 = 4 + 3 + ?)", "prompt": "9 equals 4 plus 3 plus what? Level the scale!"}, {"type": "pizza", "targetPieces": 8, "cutsNeeded": 4, "hasGuideline": false, "guidelineType": "none", "equation": "5 + 3 = ?", "title": "Game 4: Pizza Slicer (5 + 3 = ?)", "prompt": "5 plus 3 equals what? Freehand cut the pizza 4 times to make the pieces!"}]}, {"id": "L12", "num": 12, "title": "Lesson 12: Grand Safari Carnival (เทศกาลจบการศึกษา 🏆)", "theme": "Level 12: Grand Climax", "icon": "🏆", "difficulty": 12, "desc": "รับเค้กฉลอง 7 ชิ้น · บททดสอบคู่สิบรอบชิงชนะเลิศ · ตราชั่งสมดุลมหาชิงดำ 10 = 4 + 4 + ? · มหาชาเลนจ์ตัดพิซซ่า 2 + 2 + 4 = ?", "stages": [{"type": "catcher", "target": 7, "item": "🍰", "basket": "👑", "name": "cakes", "title": "Game 1: รับเค้กฉลอง 7 ชิ้น", "prompt": "Catch 7 celebration cakes for the Grand Climax!"}, {"type": "bonds", "isGrandFinale": true, "rounds": [{"whole": 10, "partA": 6, "answer": 4, "choices": [2, 3, 4, 5], "item": "⭐"}, {"whole": 10, "partA": 7, "answer": 3, "choices": [2, 3, 4, 5], "item": "⭐"}], "title": "Game 2: บททดสอบคู่สิบรอบชิงชนะเลิศ (Grand Make 10)", "prompt": "Complete the grand number bonds to 10 to claim the trophy!"}, {"type": "seesaw", "left": 10, "baseRight1": 4, "baseRight2": 4, "answer": 2, "choices": [1, 2, 3, 4], "title": "Game 3: ตราชั่งสมดุลมหาชิงดำ (10 = 4 + 4 + ?)", "prompt": "10 equals 4 plus 4 plus what? Final Grand Balance!"}, {"type": "pizza", "targetPieces": 8, "cutsNeeded": 4, "hasGuideline": false, "guidelineType": "none", "equation": "2 + 2 + 4 = ?", "title": "Game 4: Pizza Slicer (2 + 2 + 4 = ?)", "prompt": "Grand Finale! 2 plus 2 plus 4 equals what? Slice the celebration pizza!"}]}];
+    
+
+    let currentFilter = 'all';
+
+    const stageNames = {
+      catcher: 'ตะกร้ารับของ',
+      pump: 'ปั๊มลูกโป่ง',
+      assembly: 'ต่อจรวด',
+      matching: 'จับคู่',
+      bonds: 'บ้านแยกเลข',
+      compare: 'เปรียบเทียบ',
+      pattern: 'แบบรูปอนุกรม',
+      tenframe: 'กรอบสิบ',
+      sorter: 'หยอดบล็อก',
+      kitten: 'ช่วยแมว',
+      pizza: 'ตัดพิซซ่า',
+      seesaw: 'ตราชั่ง',
+      bubble: 'คู่สิบ',
+      slicer: 'ลากนิ้วตัด'
+    };
+
+    const stageIcons = {
+      catcher: '🧺',
+      pump: '🎈',
+      assembly: '🚀',
+      matching: '🔗',
+      bonds: '🌳',
+      compare: '⚖️',
+      pattern: '🚂',
+      tenframe: '🔟',
+      sorter: '🧩',
+      kitten: '🐱',
+      pizza: '🍕',
+      seesaw: '⚖️',
+      bubble: '🫧',
+      slicer: '🔪'
+    };
+
+    function renderLessons() {
+      const container = document.getElementById('lessonsList');
+      container.innerHTML = '';
+
+      let totalStars = 0;
+
+      LESSONS.forEach((les, idx) => {
+        const num = les.num;
+        if (currentFilter === 'lv1' && (num < 1 || num > 4)) return;
+        if (currentFilter === 'lv2' && (num < 5 || num > 8)) return;
+        if (currentFilter === 'lv3' && (num < 9 || num > 12)) return;
+
+        const starsKey = 'kidobits_lesson_stars_' + les.id;
+        const savedStars = parseInt(localStorage.getItem(starsKey) || '0', 10);
+        totalStars += savedStars;
+
+        let starsHtml = '';
+        for (let i = 1; i <= 3; i++) {
+          if (i <= savedStars) {
+            starsHtml += '<span class="text-amber-400 text-xs">⭐</span>';
+          } else {
+            starsHtml += '<span class="text-slate-200 text-xs">★</span>';
+          }
+        }
+
+        // Generate 4 mini-game pills
+        const stagesHtml = les.stages.map(stg => {
+          const icon = stageIcons[stg.type] || '🎮';
+          const name = stageNames[stg.type] || stg.type;
+          return `<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-lg bg-slate-50 text-[10px] font-semibold text-slate-600 border border-slate-100/80">${icon} ${name}</span>`;
+        }).join('');
+
+        const card = document.createElement('div');
+        card.className = 'btn-press w-full bg-white rounded-2xl p-3.5 border border-slate-100 shadow-sm hover:shadow-md hover:border-orange-200 transition-all flex flex-col gap-2 cursor-pointer';
+        card.onclick = () => {
+          // Navigate to math.html with direct lesson start
+          window.location.href = `/math.html?lesson=${num}`;
+        };
+
+        card.innerHTML = `
+          <div class="flex items-start gap-3 w-full">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-2xl shadow-sm text-white shrink-0">
+              ${les.icon || '🦁'}
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-1 mb-0.5">
+                <div class="flex items-center gap-1.5">
+                  <span class="px-2 py-0.5 rounded-md bg-orange-50 text-[10px] font-black text-orange-600 border border-orange-100">${les.id}</span>
+                  <span class="text-[10px] font-bold text-slate-400">ระดับ ${les.difficulty || 1}</span>
+                </div>
+                <div class="flex items-center gap-0.5">${starsHtml}</div>
+              </div>
+              <h3 class="font-fredoka text-sm font-bold text-slate-800 truncate">${les.title}</h3>
+              <p class="text-[11px] text-slate-400 truncate">${les.theme || ''}</p>
+            </div>
+          </div>
+          <!-- 4 Mini-games tags in lesson -->
+          <div class="flex items-center gap-1 flex-wrap pt-2 border-t border-slate-50">
+            ${stagesHtml}
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      const starsChip = document.getElementById('starsChip');
+      if (starsChip && totalStars > 0) {
+        starsChip.textContent = totalStars;
+      }
+    }
+
+    function filterLessons(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-tab').forEach(b => {
+        b.className = 'filter-tab flex-1 py-1.5 rounded-xl text-slate-500 hover:bg-slate-50 text-center transition';
+      });
+
+      const activeBtn = filter === 'all' ? document.getElementById('tabAll')
+        : filter === 'lv1' ? document.getElementById('tabLv1')
+        : filter === 'lv2' ? document.getElementById('tabLv2')
+        : document.getElementById('tabLv3');
+
+      if (activeBtn) {
+        activeBtn.className = 'filter-tab flex-1 py-1.5 rounded-xl bg-orange-500 text-white font-black text-center shadow-xs transition';
+      }
+
+      renderLessons();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderLessons();
+    });
+  </script>
+</body>
+</html>
