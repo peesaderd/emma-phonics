@@ -2600,37 +2600,65 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 <script>
-// Intercept Phonics Level Clicks to route to dedicated Theme Level Hubs
+// Intercept Phonics Level Clicks & Back Button
 document.addEventListener('click', function(e) {
   const btn = e.target.closest('button, a');
   if (!btn) return;
   const txt = (btn.innerText || btn.textContent || '').trim();
 
-  // 1. Level 1
+  // 1. Back button: '← บทเรียน' -> go back to theme_phonics_map.html
+  if (txt.includes('← บทเรียน') || (txt.includes('บทเรียน') && btn.textContent.includes('←'))) {
+    e.preventDefault();
+    e.stopPropagation();
+    window.location.href = 'theme_phonics_map.html';
+    return;
+  }
+
+  // 2. LEVEL 1 -> theme_phonicsLevel.html?lv=1
   if (txt.includes('LEVEL 1') || txt.includes('Letter Sounds & Early Blending')) {
     e.preventDefault();
     e.stopPropagation();
-    window.location.href = 'theme_phonicsLevel.html';
+    window.location.href = 'theme_phonicsLevel.html?lv=1';
     return;
   }
 
-  // 2. Level 2
+  // 3. LEVEL 2 -> MUST LINK TO theme_phonicsLevel.html?lv=2
   if (txt.includes('LEVEL 2') || txt.includes('Blending & CVC')) {
     e.preventDefault();
     e.stopPropagation();
-    window.location.href = 'theme_level2.html';
+    window.location.href = 'theme_phonicsLevel.html?lv=2';
     return;
   }
 
-  // 3. Level 3
+  // 4. LEVEL 3 -> MUST LINK TO theme_phonicsLevel.html?lv=3
   if (txt.includes('LEVEL 3') || txt.includes('Digraphs & Consonant Blends')) {
     e.preventDefault();
     e.stopPropagation();
-    window.location.href = 'theme_level3.html';
+    window.location.href = 'theme_phonicsLevel.html?lv=3';
     return;
   }
 
-  // 4. Warm-up A-Z
+  // 5. LEVEL 4, 5, 6
+  if (txt.includes('LEVEL 4')) {
+    e.preventDefault();
+    e.stopPropagation();
+    window.location.href = 'theme_phonicsLevel.html?lv=4';
+    return;
+  }
+  if (txt.includes('LEVEL 5')) {
+    e.preventDefault();
+    e.stopPropagation();
+    window.location.href = 'theme_phonicsLevel.html?lv=5';
+    return;
+  }
+  if (txt.includes('LEVEL 6')) {
+    e.preventDefault();
+    e.stopPropagation();
+    window.location.href = 'theme_phonicsLevel.html?lv=6';
+    return;
+  }
+
+  // 6. Warm-up A-Z
   if (txt.includes('Warm-up') || txt.includes('A-Z Letter Sounds')) {
     e.preventDefault();
     e.stopPropagation();
@@ -2638,8 +2666,6 @@ document.addEventListener('click', function(e) {
     return;
   }
 }, true);
-
-
 </script>
 </body>
 
