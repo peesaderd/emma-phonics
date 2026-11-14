@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kidobits Resume Module Test</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 p-6 flex flex-col items-center">
+  <div class="max-w-[430px] w-full bg-white rounded-3xl p-5 shadow-md">
+    <h1 class="text-base font-black text-slate-800 mb-3">ทดสอบ Kidobits Resume Module</h1>
+    
+    <!-- Target Container for Resume Banner -->
+    <div id="resumeBannerArea"></div>
+
+    <div class="space-y-2 mt-4 text-xs font-bold">
+      <button onclick="testSavePhonics()" class="w-full py-2 bg-purple-500 text-white rounded-xl">1. จำลองเรียนค้าง Phonics L2.01 (ขั้นที่ 3)</button>
+      <button onclick="testSaveMath()" class="w-full py-2 bg-orange-500 text-white rounded-xl">2. จำลองเรียนค้าง Math L02 (เกมที่ 2)</button>
+      <button onclick="testMarkDone()" class="w-full py-2 bg-emerald-500 text-white rounded-xl">3. จำลองเรียนจบ (Done)</button>
+    </div>
+    <div id="logText" class="mt-4 p-3 bg-slate-50 rounded-xl text-[11px] text-slate-600 font-mono"></div>
+  </div>
+
+  <script src="/theme/js/kidobits-resume.js"></script>
+  <script>
+    function render() {
+      KidobitsResume.renderBanner({
+        storageKey: 'kb_demo_prog',
+        containerId: 'resumeBannerArea',
+        theme: 'purple',
+        onResume: function(data) {
+          document.getElementById('logText').textContent = 'กดเล่นต่อ: ' + JSON.stringify(data);
+        }
+      });
+    }
+
+    function testSavePhonics() {
+      KidobitsResume.save('kb_demo_prog', 'L2.01', {
+        title: 'CVC -at Family',
+        subtitle: 'ขั้นที่ 3 · ฟังเลือกคำ · ข้อ 2/3',
+        step: 2,
+        index: 1,
+        done: false
+      });
+      document.getElementById('logText').textContent = 'บันทึกความก้าวหน้า L2.01 เรียบร้อย';
+      render();
+    }
+
+    function testSaveMath() {
+      KidobitsResume.save('kb_demo_prog', 'L02', {
+        title: 'Puppy Treat Park',
+        subtitle: 'เกมที่ 2 · 🔗 จับคู่กระดูก',
+        step: 1,
+        index: 0,
+        done: false
+      });
+      document.getElementById('logText').textContent = 'บันทึกความก้าวหน้า Math L02 เรียบร้อย';
+      KidobitsResume.renderBanner({
+        storageKey: 'kb_demo_prog',
+        containerId: 'resumeBannerArea',
+        theme: 'orange',
+        onResume: function(data) {
+          document.getElementById('logText').textContent = 'กดเล่นต่อ Math: ' + JSON.stringify(data);
+        }
+      });
+    }
+
+    function testMarkDone() {
+      var active = KidobitsResume.getLastActive('kb_demo_prog');
+      if (active) {
+        KidobitsResume.markDone('kb_demo_prog', active.lessonId);
+        document.getElementById('logText').textContent = 'ทำเครื่องหมาย Done เรียบร้อย (แบนเนอร์จะหายไป)';
+      } else {
+        document.getElementById('logText').textContent = 'ไม่มีบทที่ค้างอยู่';
+      }
+      render();
+    }
+
+    document.addEventListener('DOMContentLoaded', render);
+  </script>
+</body>
+</html>
