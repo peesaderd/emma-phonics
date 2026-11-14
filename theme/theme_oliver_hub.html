@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Kidobits · Oliver's English Kingdom</title>
+  
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#8B7CFF">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Nunito', 'Mali', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .glow-orange { box-shadow: 0 10px 30px -5px rgba(249, 115, 22, 0.35); }
+    .glow-green { box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.35); }
+    .glow-blue { box-shadow: 0 10px 30px -5px rgba(59, 130, 246, 0.35); }
+    .glow-purple { box-shadow: 0 10px 30px -5px rgba(168, 85, 247, 0.35); }
+  </style>
+</head>
+<body class="bg-[#FFFBF5] text-slate-800 antialiased min-h-screen pb-24 selection:bg-orange-500 selection:text-white">
+
+  <!-- ================= TOP APP BAR ================= -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#F1EAF7] px-4 py-3 shadow-sm">
+    <div class="max-w-4xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <a href="theme_phonicsHome.html" class="px-3.5 py-1.5 rounded-full bg-[#FFF0F5] hover:bg-[#FFE3EE] text-[#E85A8A] transition-colors flex items-center gap-1.5 text-xs font-black border border-[#FFD6E8]">
+          <span class="text-sm">←</span> <span>หน้า Phonics</span>
+        </a>
+        <div class="h-4 w-px bg-[#E5DEF0] mx-1"></div>
+        <div class="flex items-center gap-1.5">
+          <span class="text-xl">🦊</span>
+          <span class="text-xs font-black text-[#1A1A1A]">Oliver's English Kingdom</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <a href="theme_phonics_map.html" class="px-3 py-1 rounded-full bg-purple-50 hover:bg-purple-100 text-[#8B7CFF] border border-purple-200 text-xs font-black flex items-center gap-1">
+          <span>🗺️ Phonics Map</span>
+        </a>
+        <span class="bg-white border border-[#EBE3F5] rounded-full px-2.5 py-1 text-xs font-extrabold flex items-center gap-1 shadow-sm">
+          🔥 <span id="stat-streak">7</span>
+        </span>
+        <span class="bg-white border border-[#EBE3F5] rounded-full px-2.5 py-1 text-xs font-extrabold flex items-center gap-1 shadow-sm">
+          🪙 <span id="stat-coins">240</span>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 py-6">
+
+    <!-- Hero / Oliver Greeting Banner -->
+    <section class="relative bg-gradient-to-br from-orange-400 via-amber-400 to-orange-500 rounded-3xl p-6 sm:p-8 text-white shadow-xl overflow-hidden mb-8">
+      <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div class="max-w-xl text-center sm:text-left">
+          <div class="inline-block bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider mb-3">
+            Welcome to English with Oliver 🦊
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-black leading-tight mb-2">
+            พร้อมสนุกกับภาษาอังกฤษหรือยังครับ!
+          </h1>
+          <p class="text-orange-50 text-xs sm:text-sm leading-relaxed mb-4">
+            เริ่มต้นตั้งแต่การออกเสียงโฟนิกส์ ฝึกพูดคุยกับ Oliver และอ่านนิทานแสนสนุก เรียนวันละ 15 นาที เด็กพูดคล่อง มั่นใจในสำเนียง
+          </p>
+          <div class="flex flex-wrap gap-2 justify-center sm:justify-start">
+            <a href="theme_phonics_map.html" class="bg-white text-orange-600 hover:bg-orange-50 px-4 py-2 rounded-xl text-xs font-black shadow transition flex items-center gap-1.5">
+              <span>🗺️ ดูแผนที่ Phonics (3 Levels)</span> <span>➔</span>
+            </a>
+            <span class="bg-black/20 text-xs px-3 py-1.5 rounded-xl flex items-center gap-1">
+              ✨ ภารกิจวันนี้: สะสมดาวครบ 50 ดวง
+            </span>
+          </div>
+        </div>
+
+        <!-- Fox Mascot Graphic Badge -->
+        <div class="flex-shrink-0 bg-white/15 backdrop-blur-md p-4 rounded-3xl border border-white/20 text-center flex flex-col items-center">
+          <div class="text-5xl sm:text-6xl mb-1.5 animate-bounce">🦊</div>
+          <div class="font-black text-sm text-white">Oliver the Fox</div>
+          <div class="text-[11px] text-orange-100">AI Phonics & Speaking Mentor</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 Main Pillars Section -->
+    <section class="mb-10">
+      <div class="flex items-center justify-between mb-5">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-black text-slate-900">4 เสาหลักภาษาอังกฤษ (English Pillars)</h2>
+          <p class="text-xs sm:text-sm text-slate-500">เลือกหมวดหมู่ที่ต้องการฝึกฝนตามระดับความก้าวหน้า</p>
+        </div>
+        <span class="text-xs font-black text-orange-600 bg-orange-50 px-3 py-1 rounded-full border border-orange-200">
+          Core Curriculum
+        </span>
+      </div>
+
+      <!-- Grid of 4 Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+
+        <!-- ================= CARD 1: PHONICS ADVENTURE (CORE HERO) ================= -->
+        <div class="bg-white rounded-3xl p-6 border-2 border-orange-500 glow-orange relative overflow-hidden transition-all hover:-translate-y-1">
+          <div class="absolute top-0 right-0 bg-orange-500 text-white text-[10px] font-extrabold uppercase px-4 py-1 rounded-bl-xl tracking-wider">
+            ⭐ เสาหลักที่ 1 (แนะนำ)
+          </div>
+
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center text-3xl shrink-0">
+              🔤
+            </div>
+            <div>
+              <div class="text-xs font-extrabold text-orange-600 uppercase tracking-wide">Foundation First</div>
+              <h3 class="text-xl font-black text-slate-900">Phonics Adventure</h3>
+              <p class="text-xs text-slate-500">การออกเสียงและการรูดผสมคำสะกดคำ (3 ระดับ)</p>
+            </div>
+          </div>
+
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+            ปูพื้นฐานการอ่านภาษาอังกฤษจากศูนย์! เรียนเสียงตัวอักษรเดี่ยว (A-Z) ➔ รูดผสมสระสั้น 3 ตัว (CVC) ➔ พยัญชนะคู่และอักษรควบกล้ำ (Digraphs & Blends)
+          </p>
+
+          <!-- Progression Chips (3 Levels) -->
+          <div class="grid grid-cols-3 gap-2 mb-4 text-center">
+            <a href="theme_phonicsLevel.html" class="bg-emerald-100 hover:bg-emerald-200 border-2 border-emerald-400 rounded-xl p-2 transition block group">
+              <span class="block text-[10px] font-extrabold text-emerald-700 uppercase">Level 1</span>
+              <span class="font-black text-xs text-emerald-950">A - Z Sounds</span>
+              <span class="block text-[10px] text-emerald-700 font-bold group-hover:underline">▶ เล่นด่านนี้</span>
+            </a>
+            <a href="theme_level2.html" class="bg-amber-100 hover:bg-amber-200 border-2 border-amber-400 rounded-xl p-2 transition block group">
+              <span class="block text-[10px] font-extrabold text-amber-800 uppercase">Level 2</span>
+              <span class="font-black text-xs text-amber-950">Fluent Reader</span>
+              <span class="block text-[10px] text-amber-700 font-bold group-hover:underline">▶ เริ่มเล่น (16 บท)</span>
+            </a>
+            <a href="theme_level3.html" class="bg-purple-100 hover:bg-purple-200 border-2 border-purple-400 rounded-xl p-2 transition block group">
+              <span class="block text-[10px] font-extrabold text-purple-700 uppercase">Level 3</span>
+              <span class="font-black text-xs text-purple-950">Digraphs</span>
+              <span class="block text-[10px] text-purple-700 font-bold group-hover:underline">▶ เริ่มเล่น (18 บท)</span>
+            </a>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="space-y-2">
+            <a href="theme_phonicsLevel.html" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs py-2.5 px-4 rounded-2xl flex items-center justify-center gap-2 shadow-sm transition">
+              <span>🟢 เล่น Level 1 (A–Z Phonics Arena)</span> <span>➔</span>
+            </a>
+            <a href="theme_level2.html" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 font-black text-xs py-2.5 px-4 rounded-2xl flex items-center justify-center gap-2 shadow-sm transition">
+              <span>🦊 เล่น Level 2 (Fluent Reader Arena 16 บท)</span> <span>➔</span>
+            </a>
+            <a href="theme_level3.html" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-black text-xs py-2.5 px-4 rounded-2xl flex items-center justify-center gap-2 shadow-sm transition">
+              <span>👑 เล่น Level 3 (Digraphs & Blends 18 บท)</span> <span>➔</span>
+            </a>
+            <a href="theme_phonics_map.html" class="w-full bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200 font-black text-xs py-2 px-3 rounded-xl flex items-center justify-center gap-1.5 transition">
+              <span>🗺️ ดูแผนที่เกาะ Phonics ทั้ง 3 ระดับ</span> <span>➔</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- ================= CARD 2: DAILY CONVERSATION ================= -->
+        <div class="bg-white rounded-3xl p-6 border border-emerald-200 glow-green relative overflow-hidden transition-all hover:-translate-y-1">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl shrink-0">
+              🗣️
+            </div>
+            <div>
+              <div class="text-xs font-extrabold text-emerald-600 uppercase tracking-wide">Speaking & Oracy</div>
+              <h3 class="text-xl font-black text-slate-900">Daily Conversation</h3>
+              <p class="text-xs text-slate-500">บทสนทนาโต้ตอบกับ Oliver ด้วย AI เสียงจริง</p>
+            </div>
+          </div>
+
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+            ฝึกความมั่นใจในการพูดโต้ตอบเป็นธรรมชาติ คุยกับ Oliver สดๆ เหมือนมีครูฝรั่งส่วนตัว ทักทาย, ถามชื่อ, บอกอารมณ์, สีที่ชอบ, สัตว์เลี้ยง และครอบครัว
+          </p>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 mb-5 space-y-1.5 text-xs">
+            <div class="flex items-center text-slate-700">
+              <span class="text-emerald-500 mr-2 font-bold">✔</span>
+              <span><strong>Unit 1:</strong> Hello & Goodbye ทักทายและบอกลา</span>
+            </div>
+            <div class="flex items-center text-slate-700">
+              <span class="text-emerald-500 mr-2 font-bold">✔</span>
+              <span><strong>Unit 2:</strong> My Name is... แนะนำตัวและเพื่อน</span>
+            </div>
+            <div class="flex items-center text-slate-700">
+              <span class="text-emerald-500 mr-2 font-bold">✔</span>
+              <span><strong>Unit 3:</strong> How Are You? บอกอารมณ์ความรู้สึก</span>
+            </div>
+          </div>
+
+          <button onclick="alert('🎙️ สนทนากับ Oliver AI กำลังเชื่อมต่อเข้ากับ Theme ใหม่ครับ!')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black text-sm py-3 px-4 rounded-2xl flex items-center justify-center gap-2 shadow-md transition">
+            <span>เริ่มคุยกับ Oliver 🎙️</span>
+          </button>
+        </div>
+
+        <!-- ================= CARD 3: SIGHT WORDS & STORYBOOK ================= -->
+        <div class="bg-white rounded-3xl p-6 border border-blue-200 glow-blue relative overflow-hidden transition-all hover:-translate-y-1">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center text-3xl shrink-0">
+              📖
+            </div>
+            <div>
+              <div class="text-xs font-extrabold text-blue-600 uppercase tracking-wide">Reading Comprehension</div>
+              <h3 class="text-xl font-black text-slate-900">Sight Words & Storybook</h3>
+              <p class="text-xs text-slate-500">คลังคำศัพท์ที่พบบ่อยและนิทานภาพฝึกอ่าน</p>
+            </div>
+          </div>
+
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+            เรียนรู้คำศัพท์ความถี่สูง (Dolch & Fry Sight Words) ที่ไม่สามารถสะกดตรงตัวได้ พร้อมนิทานสั้นประกอบภาพสีสันสดใส ไต่ระดับความยาวตามขั้นบันได
+          </p>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 mb-5 space-y-1.5 text-xs">
+            <div class="flex items-center text-slate-700">
+              <span class="text-blue-500 mr-2 font-bold">📚</span>
+              <span><strong>Level 1 Reader:</strong> The Cat on the Mat (30 คำ)</span>
+            </div>
+            <div class="flex items-center text-slate-700">
+              <span class="text-blue-500 mr-2 font-bold">📚</span>
+              <span><strong>Level 2 Reader:</strong> Sam and the Jam (60 คำ)</span>
+            </div>
+            <div class="flex items-center text-slate-700">
+              <span class="text-blue-500 mr-2 font-bold">📚</span>
+              <span><strong>Level 3 Reader:</strong> Oliver's Big Treehouse (120 คำ)</span>
+            </div>
+          </div>
+
+          <a href="theme_stories.html" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black text-sm py-3 px-4 rounded-2xl flex items-center justify-center gap-2 shadow-md transition block text-center">
+            <span>เปิดห้องนิทาน 📚</span>
+          </a>
+        </div>
+
+        <!-- ================= CARD 4: WORD BUILDER ARENA ================= -->
+        <div class="bg-white rounded-3xl p-6 border border-purple-200 glow-purple relative overflow-hidden transition-all hover:-translate-y-1">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-3xl shrink-0">
+              🧩
+            </div>
+            <div>
+              <div class="text-xs font-extrabold text-purple-600 uppercase tracking-wide">Interactive Games</div>
+              <h3 class="text-xl font-black text-slate-900">Word Builder Arena</h3>
+              <p class="text-xs text-slate-500">เกมลากอักษรผสมคำและหีบสมบัติโฟนิกส์</p>
+            </div>
+          </div>
+
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+            ฝึกสะกดคำผ่านเกมสนุกๆ เช่น กล่องสมบัติปริศนา ลากบล็อกคำศัพท์ให้ตรงกับรูปภาพ และเกมจิ๊กซอว์สะกดคำเพื่อความเข้าใจที่แม่นยำ
+          </p>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 mb-5 space-y-1.5 text-xs">
+            <div class="flex items-center text-slate-700">
+              <span class="text-purple-500 mr-2 font-bold">🎮</span>
+              <span><strong>CVC Slider:</strong> รูดเสียงผสมคำแบบ Interactive</span>
+            </div>
+            <div class="flex items-center text-slate-700">
+              <span class="text-purple-500 mr-2 font-bold">🎮</span>
+              <span><strong>Listen & Choose:</strong> ฟังเสียงแล้วแตะภาพให้ถูกต้อง</span>
+            </div>
+            <div class="flex items-center text-slate-700">
+              <span class="text-purple-500 mr-2 font-bold">🎮</span>
+              <span><strong>Spelling Chest:</strong> หีบสมบัติสะกดคำลุ้นรับดาว</span>
+            </div>
+          </div>
+
+          <a href="theme_games.html" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-black text-sm py-3 px-4 rounded-2xl flex items-center justify-center gap-2 shadow-md transition block text-center">
+            <span>เข้าสู่เกมผสมคำ 🎮</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Trophy Room / Sticker Album Preview -->
+    <section class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm mb-6">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h3 class="font-black text-base text-slate-900">🏆 Oliver's Treehouse Trophy Room (สมุดสะสมสติกเกอร์)</h3>
+          <p class="text-xs text-slate-500">สติกเกอร์และเหรียญตราที่เด็กๆ จะได้รับเมื่อพิชิตแต่ละด่าน</p>
+        </div>
+        <span class="text-xs font-black text-amber-600 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
+          สะสมแล้ว 6 / 24 ชิ้น
+        </span>
+      </div>
+
+      <div class="grid grid-cols-4 sm:grid-cols-8 gap-3 text-center">
+        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-3">
+          <div class="text-3xl mb-1">🦊</div>
+          <div class="text-[10px] font-bold text-slate-700">Oliver Friend</div>
+        </div>
+        <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-3">
+          <div class="text-3xl mb-1">🍎</div>
+          <div class="text-[10px] font-bold text-slate-700">A-Apple</div>
+        </div>
+        <div class="bg-blue-50 border border-blue-200 rounded-2xl p-3">
+          <div class="text-3xl mb-1">🐱</div>
+          <div class="text-[10px] font-bold text-slate-700">C-Cat</div>
+        </div>
+        <div class="bg-orange-50 border border-orange-200 rounded-2xl p-3">
+          <div class="text-3xl mb-1">🐶</div>
+          <div class="text-[10px] font-bold text-slate-700">D-Dog</div>
+        </div>
+        <div class="bg-purple-50 border border-purple-200 rounded-2xl p-3">
+          <div class="text-3xl mb-1">☀️</div>
+          <div class="text-[10px] font-bold text-slate-700">S-Sun</div>
+        </div>
+        <div class="bg-pink-50 border border-pink-200 rounded-2xl p-3">
+          <div class="text-3xl mb-1">🦁</div>
+          <div class="text-[10px] font-bold text-slate-700">A-Z Master</div>
+        </div>
+        <div class="bg-slate-100 border border-dashed border-slate-300 rounded-2xl p-3 opacity-60">
+          <div class="text-3xl mb-1">🔒</div>
+          <div class="text-[10px] font-bold text-slate-400">CVC Hero</div>
+        </div>
+        <div class="bg-slate-100 border border-dashed border-slate-300 rounded-2xl p-3 opacity-60">
+          <div class="text-3xl mb-1">🔒</div>
+          <div class="text-[10px] font-bold text-slate-400">Digraph Pro</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Kidobits Exact Theme Floating Bottom Navigation -->
+  <div class="h-24"></div>
+  <nav class="fixed bottom-3 left-3 right-3 max-w-[430px] mx-auto bg-white shadow-[0_10px_30px_rgba(60,30,90,.18)] rounded-full px-2 py-2 flex justify-between border border-[#F3EDF8] z-50" aria-label="Main navigation">
+    <!-- 1. Home -->
+    <button onclick="window.location.href='theme_home.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Home">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+          <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Home</span>
+    </button>
+
+    <!-- 2. Phonics (Active) -->
+    <button onclick="window.location.href='theme_phonicsHome.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Phonics">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition bg-[#1A1A1A] text-white shadow">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 7v14"></path>
+          <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-black">Phonics</span>
+    </button>
+
+    <!-- 3. Math -->
+    <button onclick="window.location.href='theme_mathHome.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Math">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+          <line x1="8" x2="16" y1="6" y2="6"></line>
+          <line x1="16" x2="16" y1="14" y2="18"></line>
+          <path d="M16 10h.01"></path>
+          <path d="M12 10h.01"></path>
+          <path d="M8 10h.01"></path>
+          <path d="M12 14h.01"></path>
+          <path d="M8 14h.01"></path>
+          <path d="M12 18h.01"></path>
+          <path d="M8 18h.01"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Math</span>
+    </button>
+
+    <!-- 4. Chinese -->
+    <button onclick="window.location.href='theme_chineseHome.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Chinese">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+          <path d="M2 12h20"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Chinese</span>
+    </button>
+
+    <!-- 5. Games -->
+    <button onclick="window.location.href='theme_games.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Games">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="6" x2="10" y1="11" y2="11"></line>
+          <line x1="8" x2="8" y1="9" y2="13"></line>
+          <line x1="15" x2="15.01" y1="12" y2="12"></line>
+          <line x1="18" x2="18.01" y1="10" y2="10"></line>
+          <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Games</span>
+    </button>
+
+    <!-- 6. Profile -->
+    <button onclick="window.location.href='theme_home.html#profile'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Profile">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Profile</span>
+    </button>
+  </nav>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
