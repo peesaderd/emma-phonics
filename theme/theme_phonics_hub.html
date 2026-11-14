@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Kidobits · Phonics 3 Levels</title>
+  
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#8B7CFF">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Nunito', 'Mali', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      margin: 0;
+      padding: 0;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-[#FFFBF5] text-[#1A1A1A] antialiased">
+
+  <!-- ================= OUTER SHELL (Responsive Desktop / Mobile Centering) ================= -->
+  <div class="min-h-[100dvh] w-full flex justify-center items-start sm:items-center px-0 sm:px-4 py-0 sm:py-5" style="background: linear-gradient(180deg,#FDF0F5 0%,#EDE7FF 52%,#DFF5FF 100%);">
+    
+    <!-- ================= MOBILE APP FRAME (430px) ================= -->
+    <div class="w-full max-w-[430px] sm:rounded-[36px] rounded-none overflow-hidden shadow-[0_24px_70px_rgba(90,60,140,.28)] flex flex-col h-[100dvh] sm:h-[860px] sm:max-h-[92vh] relative bg-white text-[#1A1A1A]">
+      
+      <!-- Top App Bar -->
+      <div class="px-5 pt-4 pb-2 flex items-center justify-between gap-1.5 shrink-0 bg-white/95 backdrop-blur z-20">
+        <a href="theme_home.html" class="bg-white border border-[#EBE3F5] px-3.5 py-1.5 rounded-full text-xs font-extrabold text-[#5B4B8A] shadow-sm hover:bg-[#F9F5FF] active:scale-95 transition">
+          ← หน้าแรก
+        </a>
+        <div class="flex items-center gap-1.5">
+          <span class="bg-white border border-[#EBE3F5] rounded-full px-2.5 py-1 text-xs font-extrabold flex items-center gap-1 shadow-sm">
+            🔥 <span id="stat-streak">7</span>
+          </span>
+          <span class="bg-white border border-[#EBE3F5] rounded-full px-2.5 py-1 text-xs font-extrabold flex items-center gap-1 shadow-sm">
+            💎 <span id="stat-gems">1/26</span>
+          </span>
+          <span class="bg-white border border-[#EBE3F5] rounded-full px-2.5 py-1 text-xs font-extrabold flex items-center gap-1 shadow-sm">
+            🪙 <span id="stat-coins">240</span>
+          </span>
+          <span class="bg-[#E8FFF0] border border-[#BDE8CC] text-[#1B9A62] rounded-full px-2.5 py-1 text-[11px] font-extrabold flex items-center gap-1.5 shadow-sm">
+            <span class="w-2 h-2 bg-[#1B9A62] rounded-full animate-pulse"></span>ครูเอ็มม่าสด
+          </span>
+        </div>
+      </div>
+
+      <!-- Main Scrollable Content Area -->
+      <div class="flex-1 overflow-y-auto no-scrollbar px-5 pt-3 pb-24 space-y-3">
+
+        <!-- Hero Banner (Kidobits Phonics 3 Levels) -->
+        <div class="bg-gradient-to-br from-[#8B7CFF] to-[#B69CFF] rounded-[24px] p-4 text-white flex gap-3 shadow-sm">
+          <span class="w-[58px] h-[58px] rounded-[18px] bg-white grid place-items-center text-3xl shrink-0 shadow-sm">
+            🔤
+          </span>
+          <div class="flex-1 min-w-0">
+            <h2 class="text-[22px] font-extrabold leading-tight">Kidobits Phonics</h2>
+            <p class="text-xs text-white/90 font-bold mt-0.5">3 ระดับ • 46 บทเรียนหลัก • ภาษาอังกฤษสำหรับเด็ก</p>
+            <div class="flex gap-1.5 mt-2 flex-wrap">
+              <span class="bg-white/25 px-2 py-0.5 rounded-full text-[11px] font-extrabold">🎯 46 บท</span>
+              <span class="bg-white/25 px-2 py-0.5 rounded-full text-[11px] font-extrabold">🎧 มีเสียง</span>
+              <span class="bg-white/25 px-2 py-0.5 rounded-full text-[11px] font-extrabold">⭐ ฟรี</span>
+            </div>
+          </div>
+          <span class="w-12 h-12 rounded-full bg-white grid place-items-center text-3xl shrink-0 shadow-sm">
+            🐼
+          </span>
+        </div>
+
+        <!-- Section Title -->
+        <div class="flex items-center justify-between pt-2">
+          <h3 class="font-extrabold text-lg text-[#1A1A1A]">เลือกระดับ • เล่นตามลำดับ</h3>
+          <span class="text-xs font-bold text-[#8B7CFF]">3 Levels</span>
+        </div>
+
+        <!-- 3 Levels Cards Container -->
+        <div class="space-y-3">
+
+          <!-- ================= LEVEL 1 ================= -->
+          <button onclick="location.href='theme_phonicsLevel.html'" class="w-full text-left rounded-[24px] p-4 text-white flex gap-3 items-center shadow-sm hover:opacity-95 active:scale-[0.98] transition cursor-pointer" style="background: #8B7CFF;">
+            <span class="w-14 h-14 rounded-full bg-white grid place-items-center text-3xl shrink-0 shadow-sm">
+              🐱
+            </span>
+            <span class="flex-1 min-w-0">
+              <span class="text-[11px] font-extrabold opacity-90 uppercase tracking-wide">LEVEL 1</span>
+              <b class="block leading-tight text-base font-extrabold">Letter Sounds & Early Blending</b>
+              <span class="block text-xs opacity-90 font-medium">เสียงตัวอักษร & ผสมเสียงเบื้องต้น</span>
+              <span class="block text-xs font-bold mt-1">12 บทเรียน • 12/12 พร้อม • ✅ ผ่าน 6/12</span>
+              <span class="block h-2.5 bg-white/30 rounded-full mt-2 overflow-hidden">
+                <span class="block h-full bg-white rounded-full" style="width: 50%;"></span>
+              </span>
+            </span>
+            <span class="text-xl font-extrabold">→</span>
+          </button>
+
+          <!-- ================= LEVEL 2 ================= -->
+          <button onclick="location.href='theme_level2.html'" class="w-full text-left rounded-[24px] p-4 text-white flex gap-3 items-center shadow-sm hover:opacity-95 active:scale-[0.98] transition cursor-pointer" style="background: #7ED9A8;">
+            <span class="w-14 h-14 rounded-full bg-white grid place-items-center text-3xl shrink-0 shadow-sm">
+              🐸
+            </span>
+            <span class="flex-1 min-w-0">
+              <span class="text-[11px] font-extrabold opacity-90 uppercase tracking-wide">LEVEL 2</span>
+              <b class="block leading-tight text-base font-extrabold">Blending & CVC Fluent Reader</b>
+              <span class="block text-xs opacity-90 font-medium">ผสมเสียง & คำ CVC (บันได 4 ขั้น)</span>
+              <span class="block text-xs font-bold mt-1">16 บทเรียน • 16/16 พร้อม • ✅ ผ่าน 3/16</span>
+              <span class="block h-2.5 bg-white/30 rounded-full mt-2 overflow-hidden">
+                <span class="block h-full bg-white rounded-full" style="width: 19%;"></span>
+              </span>
+            </span>
+            <span class="text-xl font-extrabold">→</span>
+          </button>
+
+          <!-- ================= LEVEL 3 ================= -->
+          <button onclick="location.href='theme_level3.html'" class="w-full text-left rounded-[24px] p-4 text-white flex gap-3 items-center shadow-sm hover:opacity-95 active:scale-[0.98] transition cursor-pointer" style="background: #FF9A4D;">
+            <span class="w-14 h-14 rounded-full bg-white grid place-items-center text-3xl shrink-0 shadow-sm">
+              🦊
+            </span>
+            <span class="flex-1 min-w-0">
+              <span class="text-[11px] font-extrabold opacity-90 uppercase tracking-wide">LEVEL 3</span>
+              <b class="block leading-tight text-base font-extrabold">Digraphs & Consonant Blends</b>
+              <span class="block text-xs opacity-90 font-medium">เสียงควบ & ตัวสะกดคู่ (18 บท)</span>
+              <span class="block text-xs font-bold mt-1">18 บทเรียน • 18/18 พร้อม • 👑 ด่านใหม่</span>
+              <span class="block h-2.5 bg-white/30 rounded-full mt-2 overflow-hidden">
+                <span class="block h-full bg-white rounded-full" style="width: 15%;"></span>
+              </span>
+            </span>
+            <span class="text-xl font-extrabold">→</span>
+          </button>
+
+        </div>
+
+        <!-- Optional Oliver Hub Link Card -->
+        <div class="pt-2">
+          <button onclick="location.href='theme_oliver_hub.html'" class="w-full bg-[#FFF0F5] hover:bg-[#FFE3EE] text-[#E85A8A] border border-[#FFD6E8] py-3 rounded-full font-extrabold text-xs transition flex items-center justify-center gap-1.5 shadow-sm">
+            <span>🦊 ดู 4 เสาหลักภาษาอังกฤษ (Oliver's English Kingdom)</span>
+            <span>→</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ================= EXACT BOTTOM NAVIGATION BAR ================= -->
+      <nav class="absolute bottom-3 left-3 right-3 bg-white shadow-[0_10px_30px_rgba(60,30,90,.18)] rounded-full px-2 py-2 flex justify-between border border-[#F3EDF8] z-30" aria-label="Main navigation">
+        <!-- 1. Home -->
+        <button onclick="window.location.href='theme_home.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Home">
+          <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+              <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            </svg>
+          </span>
+          <span class="text-[10px] font-extrabold text-[#9A8FA8]">Home</span>
+        </button>
+
+        <!-- 2. Phonics (Active) -->
+        <button onclick="window.location.href='theme_phonics_hub.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Phonics">
+          <span class="w-10 h-10 grid place-items-center rounded-full transition bg-[#1A1A1A] text-white shadow">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 7v14"></path>
+              <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>
+            </svg>
+          </span>
+          <span class="text-[10px] font-extrabold text-black">Phonics</span>
+        </button>
+
+        <!-- 3. Math -->
+        <button onclick="window.location.href='theme_mathHome.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Math">
+          <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+              <line x1="8" x2="16" y1="6" y2="6"></line>
+              <line x1="16" x2="16" y1="14" y2="18"></line>
+              <path d="M16 10h.01"></path>
+              <path d="M12 10h.01"></path>
+              <path d="M8 10h.01"></path>
+              <path d="M12 14h.01"></path>
+              <path d="M8 14h.01"></path>
+              <path d="M12 18h.01"></path>
+              <path d="M8 18h.01"></path>
+            </svg>
+          </span>
+          <span class="text-[10px] font-extrabold text-[#9A8FA8]">Math</span>
+        </button>
+
+        <!-- 4. Chinese -->
+        <button onclick="window.location.href='theme_chineseHome.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Chinese">
+          <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+              <path d="M2 12h20"></path>
+            </svg>
+          </span>
+          <span class="text-[10px] font-extrabold text-[#9A8FA8]">Chinese</span>
+        </button>
+
+        <!-- 5. Games -->
+        <button onclick="window.location.href='theme_games.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Games">
+          <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="6" x2="10" y1="11" y2="11"></line>
+              <line x1="8" x2="8" y1="9" y2="13"></line>
+              <line x1="15" x2="15.01" y1="12" y2="12"></line>
+              <line x1="18" x2="18.01" y1="10" y2="10"></line>
+              <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"></path>
+            </svg>
+          </span>
+          <span class="text-[10px] font-extrabold text-[#9A8FA8]">Games</span>
+        </button>
+
+        <!-- 6. Profile -->
+        <button onclick="window.location.href='theme_home.html#profile'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Profile">
+          <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </span>
+          <span class="text-[10px] font-extrabold text-[#9A8FA8]">Profile</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
