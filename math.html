@@ -1109,9 +1109,19 @@ body {
       stageScores: [0, 0, 0, 0]
     };
 
-    function startContinuousLesson(idx, startStage = 0) {
+    function startContinuousLesson(idx, startStage = null) {
       CURRENT_LESSON_IDX = idx;
       const les = LESSONS[idx];
+
+      if (startStage === null || typeof startStage === 'undefined') {
+        if (window.KidobitsResume && les) {
+          const res = KidobitsResume.load('kidobits_math_progress', les.id);
+          if (res && typeof res.step === 'number' && res.step > 0 && res.step < 4) {
+            startStage = res.step;
+          }
+        }
+      }
+      startStage = startStage || 0;
 
       SESSION.lessonIdx = idx;
       SESSION.stageIdx = startStage;
@@ -4768,6 +4778,9 @@ function renderBubbleStage(arena, stage) {
     // ========================================================
     function renderLessonVictorySummary() {
       const les = LESSONS[SESSION.lessonIdx];
+      if (window.KidobitsResume && les) {
+        KidobitsResume.markDone('kidobits_math_progress', les.id);
+      }
       const maxScore = 400;
       const totalScore = SESSION.score;
       const starsEarned = (totalScore >= 400) ? 3 : (totalScore >= 300) ? 2 : 1;
@@ -4845,7 +4858,7 @@ function renderBubbleStage(arena, stage) {
         if (!isNaN(lIdx)) {
           if (lIdx >= 1 && lIdx <= 12) lIdx = lIdx - 1; // 1-based converted to 0-based
           lIdx = Math.max(0, Math.min(11, lIdx));
-          let sIdx = parseInt(stageParam, 10) || 0;
+          let sIdx = stageParam !== null ? parseInt(stageParam, 10) : null;
           setTimeout(() => startContinuousLesson(lIdx, sIdx), 250);
         }
       }

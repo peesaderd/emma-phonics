@@ -111,10 +111,22 @@
       if (!storageKey) return null;
       var all = this.getAll(storageKey);
       var lastId = all.__last;
-      if (!lastId || !all[lastId] || all[lastId].done) return null;
-      var item = all[lastId];
-      if (item.step > 0 || item.index > 0) return item;
-      return null;
+      if (lastId && all[lastId] && !all[lastId].done) {
+        var item = all[lastId];
+        if (item.step > 0 || item.index > 0) return item;
+      }
+      // Smart Fallback: search for any unfinished lesson with highest updatedAt
+      var best = null;
+      for (var k in all) {
+        if (k === '__last') continue;
+        var it = all[k];
+        if (it && !it.done && (it.step > 0 || it.index > 0)) {
+          if (!best || (it.updatedAt || 0) > (best.updatedAt || 0)) {
+            best = it;
+          }
+        }
+      }
+      return best;
     },
 
     /**

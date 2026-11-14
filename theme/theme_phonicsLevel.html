@@ -20,6 +20,7 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
+  <script src="/theme/js/kidobits-resume.js"></script>
 </head>
 <body class="m-0 p-0 antialiased">
   <div class="min-h-[100dvh] w-full flex justify-center items-start sm:items-center px-0 sm:px-4 py-0 sm:py-5" style="background: linear-gradient(180deg,#FDF0F5 0%,#EDE7FF 52%,#DFF5FF 100%);">
@@ -49,6 +50,9 @@
       <!-- Scrollable Content -->
       <div class="flex-1 overflow-y-auto no-scrollbar px-5 pt-2 pb-24 space-y-3">
         
+        <!-- Resume Banner Container -->
+        <div id="phonicsResumeBannerContainer" class="w-full"></div>
+
         <!-- Hero Header Card -->
         <div id="hero-card" class="bg-gradient-to-br from-[#8B7CFF] to-[#A798FF] rounded-[24px] p-5 text-white shadow-lg relative overflow-hidden">
           <div class="flex items-center gap-3 relative z-10">
@@ -951,6 +955,32 @@
         </button>
       `;
     }).join('');
+    function checkPhonicsResume() {
+      if (!window.KidobitsResume) return;
+      const q = new URLSearchParams(window.location.search);
+      const lv = parseInt(q.get('lv') || '1', 10);
+      const storageKey = lv === 1 ? 'kb_prog_v1' : 'kb_l2_progress_v1';
+      KidobitsResume.renderBanner({
+        storageKey: storageKey,
+        containerId: 'phonicsResumeBannerContainer',
+        theme: 'purple',
+        onResume: function(act) {
+          if (lv === 1) {
+            window.location.href = `theme_phonicsLesson.html?lesson=${act.lessonId}`;
+          } else if (lv === 2) {
+            window.location.href = `theme_level2.html?lesson=${act.lessonId}`;
+          } else if (lv === 3) {
+            window.location.href = `theme_level3.html?lesson=${act.lessonId}`;
+          } else {
+            window.location.href = `theme_phonicsLesson.html?lesson=${act.lessonId}`;
+          }
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(checkPhonicsResume, 200);
+    });
   </script>
 </body>
 </html>

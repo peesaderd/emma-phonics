@@ -1140,12 +1140,14 @@ body {
     window.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
       const lId = params.get('lesson') || params.get('id') || params.get('les');
+      const stepParam = params.get('step');
+      const forcedStep = stepParam !== null ? parseInt(stepParam, 10) : null;
       if (lId) {
-        setTimeout(() => openLesson(lId), 200);
+        setTimeout(() => openLesson(lId, forcedStep), 200);
       }
     });
 
-    function openLesson(lessonId) {
+    function openLesson(lessonId, forcedStep = null) {
       let found = null;
       for (const k in CHINESE_DATA) {
         const item = CHINESE_DATA[k].find(x => x.id === lessonId);
@@ -1154,7 +1156,17 @@ body {
       if (!found) return;
 
       CURRENT_LESSON = found;
-      CURRENT_STEP = 0;
+
+      let stepToOpen = 0;
+      if (typeof forcedStep === 'number' && forcedStep >= 0 && forcedStep < 4) {
+        stepToOpen = forcedStep;
+      } else if (window.KidobitsResume) {
+        const res = KidobitsResume.load('kidobits_chinese_progress', found.id);
+        if (res && typeof res.step === 'number' && res.step > 0 && res.step < 4) {
+          stepToOpen = res.step;
+        }
+      }
+      CURRENT_STEP = stepToOpen;
       isPinyinVisible = true;
 
       document.getElementById('modalLessonId').textContent = found.id;
@@ -1782,6 +1794,9 @@ body {
 
     // ---------------- STEP 5: 🏆 สรุปผล (SUMMARY) ----------------
     function renderSummaryStep(stage) {
+      if (window.KidobitsResume && CURRENT_LESSON) {
+        KidobitsResume.markDone('kidobits_chinese_progress', CURRENT_LESSON.id);
+      }
       playTone('correct');
       try {
         confetti({ particleCount: 70, spread: 80, origin: { y: 0.6 } });

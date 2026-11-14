@@ -735,7 +735,7 @@
     /* -------------------------------------------------------------
        API CALLS (open, answer, advance)
        ------------------------------------------------------------- */
-    async function openSession(lid) {
+    async function openSession(lid, targetStep = null) {
       try {
         const res = await fetch(`${API_BASE}/session/open`, {
           method: 'POST',
@@ -746,6 +746,13 @@
         if (!data || !data.ok) throw new Error('Cannot open session');
 
         currentSessionId = data.session; window.currentSessionId = currentSessionId;
+
+        // If resuming to targetStep > 1, jump immediately without playing step 1!
+        if (targetStep && targetStep > 1 && targetStep <= 5) {
+          await jumpToStep(targetStep);
+          return;
+        }
+
         currentItem = data.item; window.currentItem = currentItem;
         currentExpect = data.expect;
         currentScript = data.script || [];
@@ -1501,8 +1508,8 @@
 
     function checkCoverResume() {
       if (!window.KidobitsResume) return;
-      const active = KidobitsResume.getLastActive(PKEY);
-      const isCurrentActive = active && active.lessonId === LID && active.step > 1;
+      const active = KidobitsResume.load(PKEY, LID) || KidobitsResume.getLastActive(PKEY);
+      const isCurrentActive = active && (active.lessonId === LID || !active.lessonId) && active.step > 1 && !active.done;
 
       const btnStart = document.getElementById('btn-start-lesson');
       const btnRestart = document.getElementById('btn-restart-lesson');
@@ -1518,6 +1525,7 @@
         });
         if (btnStart) {
           btnStart.innerHTML = `▶️ เล่นต่อจากขั้นที่ ${active.step} (เปิดเสียง 🔊)`;
+          btnStart.onclick = () => startLessonWithAudio(active.step);
         }
         if (btnRestart) {
           btnRestart.classList.remove('hidden');
@@ -1534,23 +1542,18 @@
       const cover = document.getElementById('start-cover');
       if (cover) cover.classList.add('gone');
 
-      await openSession(LID);
-
       const queryStep = parseInt(q.get('step') || '0', 10);
-      const saved = progLoad();
-      const targetStep = forcedStep || queryStep || (saved ? saved.step : null);
+      const saved = (window.KidobitsResume ? KidobitsResume.load(PKEY, LID) : null) || progLoad();
+      const targetStep = forcedStep || queryStep || (saved && !saved.done ? saved.step : null);
+
+      await openSession(LID, targetStep);
 
       if (targetStep && targetStep > 1 && targetStep <= 5) {
-        setTimeout(() => {
-          jumpToStep(targetStep);
-          // แสดงป้าย Floating toast แจ้งว่าเล่นต่อจากขั้นที่ X (หายเองใน 6 วินาที)
-          resumeToast(targetStep, (act) => {
-            if (act === 'reset') {
-              progClear();
-              jumpToStep(1);
-            }
-          });
-        }, 400);
+        resumeToast(targetStep, (act) => {
+          if (act === 'reset') {
+            restartLessonFromBeginning();
+          }
+        });
       }
     }
 
