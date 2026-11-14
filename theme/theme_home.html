@@ -2591,7 +2591,7 @@ document.addEventListener('click', function(e) {
   if (txt.includes('Kidobits Phonics') || txt.includes('เริ่มเรียนโฟนิกส์')) {
     e.preventDefault();
     e.stopPropagation();
-    window.location.href = 'theme_phonicsHome.html';
+    window.location.href = 'theme_phonics_map.html';
     return;
   }
 
@@ -2599,7 +2599,7 @@ document.addEventListener('click', function(e) {
   if (txt.includes('Phonics โฟนิกส์') || (txt.includes('Phonics') && txt.includes('โฟนิกส์'))) {
     e.preventDefault();
     e.stopPropagation();
-    window.location.href = 'theme_phonicsHome.html';
+    window.location.href = 'theme_phonics_map.html';
     return;
   }
 
@@ -2607,7 +2607,7 @@ document.addEventListener('click', function(e) {
   if (txt === 'Phonics' || (txt.includes('Phonics') && btn.closest('nav'))) {
     e.preventDefault();
     e.stopPropagation();
-    window.location.href = 'theme_phonicsHome.html';
+    window.location.href = 'theme_phonics_map.html';
     return;
   }
 
@@ -2615,7 +2615,7 @@ document.addEventListener('click', function(e) {
   if (txt.includes('Lessons') && txt.includes('บทเรียน')) {
     e.preventDefault();
     e.stopPropagation();
-    window.location.href = 'theme_phonicsHome.html';
+    window.location.href = 'theme_phonics_map.html';
     return;
   }
 }, true);
