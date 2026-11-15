@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+  <title>Kidobits · Home Hub (V2 Concept)</title>
+
+  <!-- PWA & Mobile Icons -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#8B7CFF">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Tailwind CSS & Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Prompt:wght@400;500;600;700;800;900&family=Noto+Sans+Thai:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    body {
+      font-family: 'Prompt', 'Noto Sans Thai', -apple-system, sans-serif;
+      background-color: #F8F9FD;
+      color: #2D2342;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .font-display {
+      font-family: 'Plus Jakarta Sans', 'Prompt', sans-serif;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .card-shadow {
+      box-shadow: 0 10px 30px rgba(60, 30, 90, 0.06);
+    }
+    .hero-glow {
+      box-shadow: 0 12px 36px rgba(139, 124, 255, 0.22);
+    }
+    .btn-press:active {
+      transform: scale(0.97);
+    }
+  </style>
+
+  <script src="/theme/js/kidobits-resume.js"></script>
+  <script src="/js/kidobits_wallet.js"></script>
+  <script src="/js/kidobits_auth.js"></script>
+</head>
+<body class="flex justify-center min-h-screen bg-slate-100">
+
+  <!-- Mobile Container (Max 430px) -->
+  <div class="w-full max-w-[430px] min-h-screen bg-white relative flex flex-col justify-between shadow-2xl pb-24">
+
+    <!-- Top Safe Area Spacing -->
+    <div class="px-5 pt-4">
+
+      <!-- ================= 1. HEADER ROW ================= -->
+      <header class="flex items-center justify-between gap-3 pt-2 pb-3">
+        <!-- Real Avatar Button -->
+        <button id="homeAvatarBtn" onclick="window.location.href='theme_profile.html'" class="w-13 h-13 rounded-full grid place-items-center relative shrink-0 transition-transform active:scale-95 cursor-pointer" aria-label="Profile Avatar" style="width: 50px; height: 50px;">
+          <div id="homeAvatarInner" class="w-full h-full rounded-full overflow-hidden border-2 border-[#FF7AB8] shadow-md grid place-items-center bg-[#FFF0F5]">
+            <span class="text-2xl">🦁</span>
+          </div>
+          <span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white"></span>
+        </button>
+
+        <!-- Greeting & Info -->
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-1.5">
+            <span class="text-[12px] font-bold text-[#9A8FA8]">🐼 Kidobits • My School</span>
+            <span class="text-[9px] font-black text-white px-2 py-0.5 rounded-full bg-[#8B7CFF]">VIP</span>
+          </div>
+          <h2 id="homeGreetingName" class="text-[19px] font-extrabold text-[#2D2342] leading-tight truncate">
+            Hello, Peesaderd 👋
+          </h2>
+          <p class="text-[11px] font-bold text-[#7B7488] flex items-center gap-1.5 mt-0.5">
+            <span>⭐ <b class="text-[#7C3AED]" id="homeStarsCounter">28</b> ดาว</span>
+            <span>•</span>
+            <span>🔥 <b class="text-[#EA580C]" id="homeStreakCounter">7</b> วันติด</span>
+            <span>•</span>
+            <span class="text-emerald-600 font-extrabold">ก้าวหน้า 90%</span>
+          </p>
+        </div>
+
+        <!-- Action Icons (Settings & Notifications) -->
+        <div class="flex items-center gap-2 shrink-0">
+          <button onclick="window.location.href='theme_settings.html'" class="w-10 h-10 rounded-full bg-[#F5F0FF] hover:bg-[#EDE5FA] grid place-items-center text-[#6C5CE7] transition active:scale-95 cursor-pointer shadow-sm" aria-label="Settings">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+          <button onclick="window.location.href='theme_notifications.html'" class="relative w-10 h-10 rounded-full bg-[#FFF0F5] hover:bg-[#FFE3EE] grid place-items-center text-[#FF5B8A] transition active:scale-95 cursor-pointer shadow-sm" aria-label="Notifications">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.268 21a2 2 0 0 0 3.464 0"></path>
+              <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"></path>
+            </svg>
+            <span class="absolute top-2 right-2 w-2 h-2 bg-[#FF5B8A] rounded-full border border-white"></span>
+          </button>
+        </div>
+      </header>
+
+      <!-- ================= 2. ZONE 1: 🎓 CORE SUBJECTS (3 เสาหลัก) ================= -->
+      <section class="mt-2 space-y-3">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xs font-black text-[#7B7488] uppercase tracking-wider flex items-center gap-1.5">
+            <span>🎓</span> วิชาเรียนหลัก · Core Curriculum
+          </h3>
+          <span class="text-[11px] font-extrabold text-[#8B7CFF]">3 วิชา</span>
+        </div>
+
+        <!-- 1. PHONICS HERO CARD -->
+        <div onclick="window.location.href='theme_phonicsLevel.html'" class="w-full text-left rounded-[24px] p-4 text-white hero-glow relative overflow-hidden transition active:scale-[0.98] cursor-pointer" style="background: linear-gradient(135deg, #FF7AB8 0%, #8B7CFF 100%);">
+          <div class="flex items-start justify-between relative z-10">
+            <div class="flex gap-3 items-center">
+              <span class="text-3xl bg-white/20 backdrop-blur-sm rounded-2xl w-14 h-14 grid place-items-center shrink-0 border border-white/30">
+                🔤
+              </span>
+              <div>
+                <span class="inline-block bg-white/25 text-white text-[10px] font-black px-2 py-0.5 rounded-full mb-1">
+                  ENGLISH · โฟนิกส์
+                </span>
+                <h4 class="text-lg font-display font-black leading-tight">Kidobits Phonics</h4>
+                <p class="text-[11px] text-white/90 font-medium">6 ระดับ • 92 บทเรียน • สำเนียงสากล</p>
+              </div>
+            </div>
+            <span class="text-3xl">🐼</span>
+          </div>
+
+          <!-- Progress Bar inside Card -->
+          <div class="mt-3 pt-2 border-t border-white/20 flex items-center justify-between">
+            <div class="flex-1 mr-3">
+              <div class="flex justify-between text-[10px] font-extrabold mb-1">
+                <span>ความคืบหน้า</span>
+                <span>90%</span>
+              </div>
+              <div class="h-2 bg-black/20 rounded-full overflow-hidden">
+                <div class="h-full bg-white rounded-full" style="width: 90%;"></div>
+              </div>
+            </div>
+            <span class="bg-white text-[#8B7CFF] text-[11px] font-black px-3 py-1.5 rounded-xl shadow-sm inline-flex items-center gap-1 shrink-0">
+              เรียนต่อ ›
+            </span>
+          </div>
+        </div>
+
+        <!-- 2. SINGAPORE MATH HERO CARD -->
+        <div onclick="window.location.href='theme_math_lobby.html'" class="w-full text-left rounded-[24px] p-4 text-white card-shadow relative overflow-hidden transition active:scale-[0.98] cursor-pointer" style="background: linear-gradient(135deg, #FF9944 0%, #FF6633 100%);">
+          <div class="flex items-start justify-between">
+            <div class="flex gap-3 items-center">
+              <span class="text-3xl bg-white/20 backdrop-blur-sm rounded-2xl w-14 h-14 grid place-items-center shrink-0 border border-white/30">
+                🧮
+              </span>
+              <div>
+                <span class="inline-block bg-white/25 text-white text-[10px] font-black px-2 py-0.5 rounded-full mb-1">
+                  MATH · สิงคโปร์แมท
+                </span>
+                <h4 class="text-lg font-display font-black leading-tight">Singapore Math</h4>
+                <p class="text-[11px] text-white/90 font-medium">12 ยูนิตผจญภัย • ปูพื้นฐานการคิดเลขไว</p>
+              </div>
+            </div>
+            <span class="text-3xl">🦊</span>
+          </div>
+
+          <div class="mt-3 pt-2 border-t border-white/20 flex items-center justify-between">
+            <span class="text-[11px] font-bold text-white/90">เกมฝึกทักษะคณิตศาสตร์ 4 in 1</span>
+            <span class="bg-white text-[#FF6633] text-[11px] font-black px-3 py-1.5 rounded-xl shadow-sm inline-flex items-center gap-1 shrink-0">
+              เข้าสู่ห้องเรียน ›
+            </span>
+          </div>
+        </div>
+
+        <!-- 3. CHINESE 4-SKILLS HERO CARD -->
+        <div onclick="window.location.href='theme_chinese_lobby.html'" class="w-full text-left rounded-[24px] p-4 text-white card-shadow relative overflow-hidden transition active:scale-[0.98] cursor-pointer" style="background: linear-gradient(135deg, #F05353 0%, #D32F2F 100%);">
+          <div class="flex items-start justify-between">
+            <div class="flex gap-3 items-center">
+              <span class="text-3xl bg-white/20 backdrop-blur-sm rounded-2xl w-14 h-14 grid place-items-center shrink-0 border border-white/30">
+                🇨🇳
+              </span>
+              <div>
+                <span class="inline-block bg-white/25 text-white text-[10px] font-black px-2 py-0.5 rounded-full mb-1">
+                  MANDARIN · ภาษาจีน 4 ทักษะ
+                </span>
+                <h4 class="text-lg font-display font-black leading-tight">Chinese Arena</h4>
+                <p class="text-[11px] text-white/90 font-medium">ฟัง · พูด · อ่าน · เขียน (อ.1 - ป.6) มาตรฐาน YCT</p>
+              </div>
+            </div>
+            <span class="text-3xl">🐲</span>
+          </div>
+
+          <div class="mt-3 pt-2 border-t border-white/20 flex items-center justify-between">
+            <span class="text-[11px] font-bold text-white/90">ฝึกออกเสียงกับเจ้าของภาษา</span>
+            <span class="bg-white text-[#D32F2F] text-[11px] font-black px-3 py-1.5 rounded-xl shadow-sm inline-flex items-center gap-1 shrink-0">
+              เริ่มฝึกภาษาจีน ›
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 3. ZONE 2: 🎮 CREATIVE & PLAY ZONE ================= -->
+      <section class="mt-6">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-xs font-black text-[#7B7488] uppercase tracking-wider flex items-center gap-1.5">
+            <span>🎮</span> โซนกิจกรรมเสริม · Play & Learn
+          </h3>
+          <span class="text-[11px] font-extrabold text-[#9A8FA8]">เลื่อนดูได้ ➔</span>
+        </div>
+
+        <!-- Horizontal Scrollable Cards -->
+        <div class="flex gap-3 overflow-x-auto no-scrollbar pb-1 -mx-5 px-5">
+          <!-- Coloring -->
+          <div onclick="window.location.href='theme_coloring.html'" class="w-[140px] shrink-0 bg-white border border-[#F1EAF7] rounded-2xl p-3.5 text-center card-shadow active:scale-95 transition cursor-pointer hover:border-pink-300">
+            <div class="w-12 h-12 mx-auto rounded-2xl bg-pink-50 text-pink-500 text-2xl grid place-items-center mb-2">
+              🎨
+            </div>
+            <b class="block text-xs font-black text-slate-800">ระบายสี</b>
+            <span class="text-[10px] font-medium text-slate-400">Coloring Fun</span>
+          </div>
+
+          <!-- Music -->
+          <div onclick="window.location.href='theme_music.html'" class="w-[140px] shrink-0 bg-white border border-[#F1EAF7] rounded-2xl p-3.5 text-center card-shadow active:scale-95 transition cursor-pointer hover:border-purple-300">
+            <div class="w-12 h-12 mx-auto rounded-2xl bg-purple-50 text-purple-600 text-2xl grid place-items-center mb-2">
+              🎵
+            </div>
+            <b class="block text-xs font-black text-slate-800">ดนตรี & เพลง</b>
+            <span class="text-[10px] font-medium text-slate-400">Kids Rhymes</span>
+          </div>
+
+          <!-- Stories -->
+          <div onclick="window.location.href='theme_stories.html'" class="w-[140px] shrink-0 bg-white border border-[#F1EAF7] rounded-2xl p-3.5 text-center card-shadow active:scale-95 transition cursor-pointer hover:border-blue-300">
+            <div class="w-12 h-12 mx-auto rounded-2xl bg-blue-50 text-blue-500 text-2xl grid place-items-center mb-2">
+              📚
+            </div>
+            <b class="block text-xs font-black text-slate-800">นิทานเสียง</b>
+            <span class="text-[10px] font-medium text-slate-400">Story Time</span>
+          </div>
+
+          <!-- Space Exploration -->
+          <div onclick="window.location.href='theme_space.html'" class="w-[140px] shrink-0 bg-white border border-[#F1EAF7] rounded-2xl p-3.5 text-center card-shadow active:scale-95 transition cursor-pointer hover:border-indigo-300">
+            <div class="w-12 h-12 mx-auto rounded-2xl bg-indigo-50 text-indigo-500 text-2xl grid place-items-center mb-2">
+              🚀
+            </div>
+            <b class="block text-xs font-black text-slate-800">ผจญภัยอวกาศ</b>
+            <span class="text-[10px] font-medium text-slate-400">Solar Space</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 4. ZONE 3: 🏆 REWARDS & ACHIEVEMENTS ================= -->
+      <section class="mt-6">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-xs font-black text-[#7B7488] uppercase tracking-wider flex items-center gap-1.5">
+            <span>🏆</span> รางวัลและความภูมิใจ · Rewards
+          </h3>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2.5">
+          <!-- Badges -->
+          <button onclick="window.location.href='theme_badges.html'" class="p-3 bg-white border border-[#F1EAF7] rounded-2xl text-center card-shadow active:scale-95 transition cursor-pointer flex flex-col items-center justify-center">
+            <span class="text-2xl mb-1">🏅</span>
+            <b class="text-xs font-black text-slate-800">เหรียญตรา</b>
+            <span class="text-[10px] text-amber-600 font-bold">12 เหรียญ</span>
+          </button>
+
+          <!-- Leaderboard -->
+          <button onclick="window.location.href='theme_leaderboard.html'" class="p-3 bg-white border border-[#F1EAF7] rounded-2xl text-center card-shadow active:scale-95 transition cursor-pointer flex flex-col items-center justify-center">
+            <span class="text-2xl mb-1">🏆</span>
+            <b class="text-xs font-black text-slate-800">ตารางผู้นำ</b>
+            <span class="text-[10px] text-purple-600 font-bold">อันดับ 3</span>
+          </button>
+
+          <!-- Rewards Shop -->
+          <button onclick="window.location.href='theme_shop.html'" class="p-3 bg-white border border-[#F1EAF7] rounded-2xl text-center card-shadow active:scale-95 transition cursor-pointer flex flex-col items-center justify-center">
+            <span class="text-2xl mb-1">🛍️</span>
+            <b class="text-xs font-black text-slate-800">ร้านรางวัล</b>
+            <span class="text-[10px] text-emerald-600 font-bold">แลกของ</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ================= 5. ZONE 4: 👨‍👩‍👧 PARENT ZONE BANNER ================= -->
+      <section class="mt-6 mb-4">
+        <div onclick="window.location.href='theme_parent.html'" class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white rounded-2xl p-4 flex items-center justify-between shadow-lg cursor-pointer active:scale-[0.98] transition">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl bg-white/10 w-11 h-11 rounded-xl grid place-items-center">👨‍👩‍👧</span>
+            <div>
+              <b class="block text-xs font-bold leading-tight">โซนสำหรับผู้ปกครอง (Parent Zone)</b>
+              <span class="text-[10px] text-slate-300">รายงานเวลาเรียน พัฒนาการ และการตั้งค่า PIN</span>
+            </div>
+          </div>
+          <span class="text-xs font-black bg-white/20 px-2.5 py-1 rounded-lg">เข้าดู ›</span>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ================= 6. FLOATING BOTTOM NAV (6 TABS) ================= -->
+    <nav class="fixed bottom-3 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] max-w-[406px] bg-white/95 backdrop-blur-md shadow-[0_10px_30px_rgba(60,30,90,.18)] rounded-full px-2 py-2 flex justify-between border border-[#F3EDF8] z-30" aria-label="Main navigation">
+      <!-- Home (Active) -->
+      <button onclick="window.location.href='theme_home_v2.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]">
+        <span class="w-10 h-10 grid place-items-center rounded-full bg-[#1A1A1A] text-white shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+        </span>
+        <span class="text-[10px] font-black text-black">Home</span>
+      </button>
+
+      <!-- Phonics -->
+      <button onclick="window.location.href='theme_phonicsLevel.html'" class="flex flex-col items-center gap-0.5 min-w-[52px] text-[#9A8FA8] hover:text-[#8B7CFF] transition">
+        <span class="w-10 h-10 grid place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+            <path d="M6 6h10"></path>
+            <path d="M6 10h10"></path>
+          </svg>
+        </span>
+        <span class="text-[10px] font-extrabold text-[#9A8FA8]">Phonics</span>
+      </button>
+
+      <!-- Math -->
+      <button onclick="window.location.href='theme_math_lobby.html'" class="flex flex-col items-center gap-0.5 min-w-[52px] text-[#9A8FA8] hover:text-[#FF7A00] transition">
+        <span class="w-10 h-10 grid place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+            <line x1="8" x2="16" y1="6" y2="6"></line>
+            <line x1="16" x2="16" y1="14" y2="18"></line>
+            <path d="M16 10h.01"></path>
+            <path d="M12 10h.01"></path>
+            <path d="M8 10h.01"></path>
+            <path d="M12 14h.01"></path>
+            <path d="M8 14h.01"></path>
+            <path d="M12 18h.01"></path>
+            <path d="M8 18h.01"></path>
+          </svg>
+        </span>
+        <span class="text-[10px] font-extrabold text-[#9A8FA8]">Math</span>
+      </button>
+
+      <!-- Chinese -->
+      <button onclick="window.location.href='theme_chinese_lobby.html'" class="flex flex-col items-center gap-0.5 min-w-[52px] text-[#9A8FA8] hover:text-[#E53935] transition">
+        <span class="w-10 h-10 grid place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+            <path d="M2 12h20"></path>
+          </svg>
+        </span>
+        <span class="text-[10px] font-extrabold text-[#9A8FA8]">Chinese</span>
+      </button>
+
+      <!-- Games -->
+      <button onclick="window.location.href='theme_games.html'" class="flex flex-col items-center gap-0.5 min-w-[52px] text-[#9A8FA8] hover:text-black transition">
+        <span class="w-10 h-10 grid place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="6" x2="10" y1="11" y2="11"></line>
+            <line x1="8" x2="8" y1="9" y2="13"></line>
+            <line x1="15" x2="15.01" y1="12" y2="12"></line>
+            <line x1="18" x2="18.01" y1="10" y2="10"></line>
+            <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"></path>
+          </svg>
+        </span>
+        <span class="text-[10px] font-extrabold text-[#9A8FA8]">Games</span>
+      </button>
+
+      <!-- Profile -->
+      <button onclick="window.location.href='theme_profile.html'" class="flex flex-col items-center gap-0.5 min-w-[52px] text-[#9A8FA8] hover:text-black transition">
+        <span class="w-10 h-10 grid place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </span>
+        <span class="text-[10px] font-extrabold text-[#9A8FA8]">Profile</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- Real Avatar Sync & User Greeting Script -->
+  <script>
+    (function() {
+      function syncHeader() {
+        const user = window.KidobitsAuth && KidobitsAuth.getUser ? KidobitsAuth.getUser() : null;
+        const nameEl = document.getElementById('homeGreetingName');
+        const avatarBox = document.getElementById('homeAvatarInner');
+
+        // 1. Sync User Name
+        if (user && user.name && nameEl) {
+          nameEl.textContent = `Hello, ${user.name} 👋`;
+        }
+
+        // 2. Sync Real LINE Avatar
+        let avatarUrl = "https://sprofile.line-scdn.net/0h-f75F-i3ckkaTGHqoZMMNmoccSM5PStbNn47fHhJeXAldD0XMnhqKS4YKy4uemYdZSM7KicfeHwWXwUvBBqOfR18L3gmdDIXPyI9qg";
+        
+        try {
+          const conf = JSON.parse(localStorage.getItem('kidobits_avatar_config') || '{}');
+          if (conf && conf.url && (conf.mode === 'social' || conf.mode === 'upload')) {
+            avatarUrl = conf.url;
+          } else if (conf && conf.emoji && conf.mode === 'cartoon') {
+            avatarUrl = null;
+            if (avatarBox) avatarBox.innerHTML = `<span class="text-2xl">${conf.emoji}</span>`;
+          }
+        } catch(e) {}
+
+        if (user) {
+          if (user.social_avatar_url) avatarUrl = user.social_avatar_url;
+          else if (user.student_avatar_url) avatarUrl = user.student_avatar_url;
+          else if (user.picture) avatarUrl = user.picture;
+        }
+
+        if (avatarUrl && avatarBox) {
+          avatarBox.innerHTML = `<img src="${avatarUrl}" alt="Avatar" class="w-full h-full object-cover">`;
+        }
+
+        // 3. Sync Wallet Stars if available
+        if (window.KidobitsWallet) {
+          const w = KidobitsWallet.getUser();
+          const starsEl = document.getElementById('homeStarsCounter');
+          const streakEl = document.getElementById('homeStreakCounter');
+          if (starsEl && w.stars) starsEl.textContent = w.stars;
+          if (streakEl && w.streak) streakEl.textContent = w.streak;
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        syncHeader();
+        setTimeout(syncHeader, 300);
+      });
+      window.addEventListener('kidobits_auth_changed', syncHeader);
+      window.addEventListener('kidobits_wallet_updated', syncHeader);
+    })();
+  </script>
+
+  <script src="/theme/js/kidobits_real_sync.js"></script>
+</body>
+</html>
