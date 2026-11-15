@@ -1,6 +1,6 @@
 /**
  * Kidobits Dynamic Island - 15-Minute Daily Learning Challenge
- * Micro-learning gamification for early childhood education
+ * Micro-learning gamification for early childhood education (Ultra-Compact Edition)
  */
 (function() {
   const TARGET_SECONDS = 15 * 60; // 900 seconds = 15 minutes
@@ -57,10 +57,10 @@
         osc.stop(now + 0.8);
       } else {
         osc.frequency.setValueAtTime(440, now);
-        gain.gain.setValueAtTime(0.1, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
         osc.start(now);
-        osc.stop(now + 0.2);
+        osc.stop(now + 0.18);
       }
     } catch(e) {}
   }
@@ -84,15 +84,15 @@
 
     const pieces = [];
     const colors = ['#FF7AB8', '#8B7CFF', '#FFD166', '#06D6A0', '#118AB2', '#FF6B6B'];
-    for (let i = 0; i < 70; i++) {
+    for (let i = 0; i < 60; i++) {
       pieces.push({
         x: canvas.width / 2,
-        y: 60,
-        r: Math.random() * 6 + 4,
-        dx: (Math.random() - 0.5) * 10,
-        dy: (Math.random() - 0.7) * 12,
+        y: 40,
+        r: Math.random() * 5 + 3,
+        dx: (Math.random() - 0.5) * 8,
+        dy: (Math.random() - 0.7) * 10,
         color: colors[Math.floor(Math.random() * colors.length)],
-        tilt: Math.random() * 10,
+        tilt: Math.random() * 8,
         tiltAngle: 0,
         tiltAngleInc: (Math.random() * 0.07) + 0.05
       });
@@ -100,7 +100,7 @@
 
     let frame = 0;
     function animate() {
-      if (frame > 90) {
+      if (frame > 80) {
         if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
         return;
       }
@@ -132,62 +132,64 @@
     style.textContent = `
       #kidobitsDynamicIsland {
         position: fixed;
-        top: 8px;
+        top: 6px;
         left: 50%;
         transform: translateX(-50%);
         z-index: 99999;
-        font-family: 'Plus Jakarta Sans', 'Prompt', sans-serif;
+        font-family: 'Plus Jakarta Sans', 'Prompt', -apple-system, sans-serif;
         box-sizing: border-box;
-        transition: all 0.38s cubic-bezier(0.34, 1.45, 0.64, 1);
+        transition: all 0.32s cubic-bezier(0.34, 1.45, 0.64, 1);
         user-select: none;
         -webkit-tap-highlight-color: transparent;
       }
+      /* Compact Mode: Reduced by 50% in bulk, sleek native pill */
       .island-compact {
-        width: 196px;
-        height: 38px;
-        background: #0E0D14;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0,0,0,0.8);
+        width: 112px;
+        height: 24px;
+        background: #0B0A10;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0,0,0,0.85);
         border-radius: 9999px;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 10px;
+        padding: 0 7px;
         overflow: hidden;
       }
       .island-compact:active {
-        transform: scale(0.97);
+        transform: scale(0.95);
       }
+      /* Expanded Mode: Sleek & Compact Card */
       .island-expanded {
-        width: 92vw;
-        max-width: 380px;
+        width: 88vw;
+        max-width: 310px;
         height: auto;
-        min-height: 175px;
-        background: #0E0D14;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(0,0,0,0.9);
-        border-radius: 28px;
-        padding: 16px;
+        min-height: 140px;
+        background: #0B0A10;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0,0,0,0.9);
+        border-radius: 22px;
+        padding: 12px 14px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         cursor: default;
       }
       .island-pulse-dot {
-        width: 8px;
-        height: 8px;
+        width: 5px;
+        height: 5px;
         background-color: #10B981;
         border-radius: 50%;
-        animation: islandPulse 1.8s infinite;
+        animation: islandPulseMini 1.8s infinite;
       }
-      @keyframes islandPulse {
+      @keyframes islandPulseMini {
         0%, 100% { opacity: 1; transform: scale(1); }
-        50% { opacity: 0.4; transform: scale(1.3); }
+        50% { opacity: 0.35; transform: scale(1.4); }
       }
       .island-completed-glow {
-        box-shadow: 0 0 25px rgba(255, 215, 0, 0.45), 0 8px 25px rgba(0,0,0,0.4) !important;
-        border: 1.5px solid #FFD700 !important;
+        box-shadow: 0 0 16px rgba(255, 215, 0, 0.45), 0 4px 12px rgba(0,0,0,0.4) !important;
+        border: 1px solid #FFD700 !important;
       }
     `;
     document.head.appendChild(style);
@@ -234,90 +236,90 @@
     const remainSec = Math.max(0, TARGET_SECONDS - state.seconds);
 
     if (!isExpanded) {
-      // ---------------- COMPACT CAPSULE ----------------
+      // ---------------- ULTRA-COMPACT PILL (Half-sized) ----------------
       island.onclick = expandIsland;
       island.innerHTML = `
         <div class="flex items-center gap-1.5 min-w-0">
-          <span class="${state.isCompleted ? 'text-amber-400' : 'island-pulse-dot'} shrink-0 text-xs">
+          <span class="${state.isCompleted ? 'text-amber-400' : 'island-pulse-dot'} shrink-0 text-[10px]">
             ${state.isCompleted ? '⭐' : ''}
           </span>
-          <span class="text-[11px] font-black tracking-wide text-white font-mono">
-            ${state.isCompleted ? '15 MIN COMPLETE' : formatTime(state.seconds)}
+          <span class="text-[9.5px] font-extrabold tracking-tight text-white font-mono leading-none">
+            ${state.isCompleted ? '15M' : formatTime(state.seconds)}
           </span>
         </div>
-        <div class="flex items-center gap-1.5 shrink-0 pl-1">
-          <span class="text-[10px] font-black px-1.5 py-0.5 rounded-full ${state.isCompleted ? 'bg-amber-400 text-black' : 'bg-white/15 text-white/90'}">
-            ${state.isCompleted ? '🏆 สำเร็จ!' : pct + '%'}
+        <div class="flex items-center gap-1 shrink-0">
+          <span class="text-[8.5px] font-black px-1 py-0.2 rounded-full ${state.isCompleted ? 'bg-amber-400 text-black' : 'bg-white/20 text-white/90'} leading-none">
+            ${state.isCompleted ? '✓' : pct + '%'}
           </span>
-          <span class="text-xs">🐼</span>
+          <span class="text-[10px] leading-none">🐼</span>
         </div>
       `;
     } else {
-      // ---------------- EXPANDED ISLAND ----------------
+      // ---------------- COMPACT EXPANDED ISLAND ----------------
       island.onclick = null; // Prevent re-trigger
       island.innerHTML = `
-        <!-- Top Bar inside Island -->
-        <div class="flex items-center justify-between pb-2 border-b border-white/10">
-          <div class="flex items-center gap-2">
-            <span class="w-7 h-7 rounded-full bg-white/10 grid place-items-center text-sm">
+        <!-- Top Bar -->
+        <div class="flex items-center justify-between pb-1.5 border-b border-white/10">
+          <div class="flex items-center gap-1.5">
+            <span class="w-5 h-5 rounded-full bg-white/10 grid place-items-center text-xs">
               ${state.isCompleted ? '🏆' : '🎯'}
             </span>
             <div>
-              <h4 class="text-xs font-black text-white leading-tight">Daily 15-Min Challenge</h4>
-              <p class="text-[9px] font-bold text-white/60">เป้าหมายเรียน 15 นาทีประจำวัน</p>
+              <h4 class="text-[11px] font-black text-white leading-tight">Daily 15-Min Challenge</h4>
+              <p class="text-[8.5px] font-bold text-white/60">เป้าหมายเรียน 15 นาที</p>
             </div>
           </div>
-          <button id="islandCollapseBtn" class="w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 grid place-items-center text-white/80 transition text-xs cursor-pointer">
+          <button id="islandCollapseBtn" class="w-5 h-5 rounded-full bg-white/10 hover:bg-white/20 grid place-items-center text-white/80 transition text-[10px] cursor-pointer">
             ✕
           </button>
         </div>
 
         <!-- Timer & Progress Bar -->
-        <div class="py-2.5">
-          <div class="flex items-baseline justify-between mb-1.5">
-            <span class="text-[11px] font-bold text-white/70">
-              ${state.isCompleted ? '🎉 บรรลุเป้าหมายครบ 15 นาทีแล้ว' : `เหลืออีก ${formatTime(remainSec)} นาที`}
+        <div class="py-2">
+          <div class="flex items-baseline justify-between mb-1">
+            <span class="text-[9.5px] font-bold text-white/70">
+              ${state.isCompleted ? '🎉 บรรลุเป้าหมายแล้ว' : `เหลืออีก ${formatTime(remainSec)} นาที`}
             </span>
-            <span class="text-sm font-black text-amber-400 font-mono">
-              ${formatTime(state.seconds)} <span class="text-[10px] text-white/50">/ 15:00</span>
+            <span class="text-xs font-black text-amber-400 font-mono">
+              ${formatTime(state.seconds)} <span class="text-[9px] text-white/50">/ 15:00</span>
             </span>
           </div>
 
           <!-- Progress Bar -->
-          <div class="w-full h-2.5 bg-white/10 rounded-full overflow-hidden p-0.5">
+          <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden p-0.5">
             <div class="h-full rounded-full transition-all duration-500 ${state.isCompleted ? 'bg-gradient-to-r from-amber-400 to-yellow-300' : 'bg-gradient-to-r from-pink-500 to-indigo-500'}" style="width: ${pct}%"></div>
           </div>
         </div>
 
-        <!-- Two-Tier Motivational Info Box -->
-        <div class="bg-white/5 border border-white/10 rounded-xl p-2.5 flex items-center justify-between text-[10px]">
-          <div class="flex items-center gap-2">
-            <span class="text-base">${state.isCompleted ? '🌟' : '🎁'}</span>
+        <!-- Rewards Info Box -->
+        <div class="bg-white/5 border border-white/10 rounded-xl p-2 flex items-center justify-between text-[9px]">
+          <div class="flex items-center gap-1.5">
+            <span class="text-sm">${state.isCompleted ? '🌟' : '🎁'}</span>
             <div>
               <p class="font-extrabold text-white/90">
                 ${state.isCompleted ? 'รับโบนัสสำเร็จประจำวันแล้ว!' : 'เรียนครบ 15 นาที รับ +50 ดาวพิเศษ'}
               </p>
-              <p class="text-white/60">
-                ${state.isCompleted ? 'เก่งมาก! ได้ทั้งความรู้และของรางวัล' : 'แม้ตอบถูกไม่หมด ก็ได้ดาวความพยายาม +15 ⭐'}
+              <p class="text-white/60 text-[8px]">
+                ${state.isCompleted ? 'ได้ทั้งความรู้และของรางวัล' : 'แม้ตอบถูกไม่หมด ก็ได้ดาวความพยายาม +15 ⭐'}
               </p>
             </div>
           </div>
           ${state.isCompleted && !state.rewardClaimed ? `
-            <button id="islandClaimRewardBtn" class="bg-gradient-to-r from-amber-400 to-yellow-400 text-black font-black px-2.5 py-1 rounded-lg shadow-sm text-[10px] shrink-0 active:scale-95 transition">
+            <button id="islandClaimRewardBtn" class="bg-gradient-to-r from-amber-400 to-yellow-400 text-black font-black px-2 py-0.5 rounded-md shadow-sm text-[9px] shrink-0 active:scale-95 transition">
               รับ 50 ⭐
             </button>
           ` : `
-            <span class="font-black text-amber-300 shrink-0">
+            <span class="font-black text-amber-300 shrink-0 text-[9px]">
               ${state.isCompleted ? '✅ รับแล้ว' : '+50 ⭐'}
             </span>
           `}
         </div>
 
-        <!-- Fast Test / Debug Control for demo testing -->
-        <div class="mt-2 pt-1 flex items-center justify-between text-[9px] text-white/40">
-          <span>📅 วันนี้: ${state.date}</span>
+        <!-- Debug / Fast Test Button -->
+        <div class="mt-1.5 pt-1 flex items-center justify-between text-[8px] text-white/40">
+          <span>📅 ${state.date}</span>
           <button id="islandSimulateFastBtn" class="text-white/50 hover:text-white underline cursor-pointer">
-            ${state.isCompleted ? '🔄 รีเซ็ตเวลาทดสอบ' : '⚡ เติมเวลาครบ 15 นาที (ทดสอบ)'}
+            ${state.isCompleted ? '🔄 รีเซ็ตเวลา' : '⚡ เติมครบ 15 นาที (ทดสอบ)'}
           </button>
         </div>
       `;
@@ -362,7 +364,6 @@
 
   // Timer Tick Function
   function tick() {
-    // Only tick if page is visible and active
     if (document.hidden) return;
     if (state.isCompleted) return;
 
@@ -374,9 +375,8 @@
       saveState();
       playChime(true);
       triggerConfetti();
-      expandIsland(); // Pop up to celebrate!
+      expandIsland();
     } else {
-      // Update UI every second if expanded, or every 5 seconds if compact
       if (isExpanded || state.seconds % 5 === 0) {
         renderIsland();
       }
@@ -389,7 +389,6 @@
     setInterval(tick, 1000);
   });
 
-  // Expose to window for external control
   window.KidobitsIsland = {
     getState: () => state,
     addSeconds: (sec) => {
