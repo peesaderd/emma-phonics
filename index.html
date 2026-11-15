@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Canvas Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
+    <!-- Kidobits Wallet & Central Auth (Google & LINE Login) -->
+    <script src="/js/kidobits_wallet.js"></script>
+    <script src="/js/kidobits_auth.js"></script>
 
     <script>
         tailwind.config = {
@@ -500,7 +503,13 @@ body {
                     <button onclick="toggleGlobalAudio()" id="btnGlobalSound" class="w-9 h-9 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center text-slate-700 text-xs hover:bg-slate-50 transition" title="เปิด/ปิดเสียง">
                         <i class="fa-solid fa-volume-high"></i>
                     </button>
-                    <div onclick="navTab('tab-rewards')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#EAF0F4] border-2 border-white shadow-sm flex items-center justify-center text-lg sm:text-xl cursor-pointer hover:scale-105 transition-transform" title="Explorer Profile">
+                    <!-- Auth Login Button (Hidden when logged in) -->
+                    <button data-kidobits-auth="login-btn" onclick="KidobitsAuth.showLoginModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-extrabold text-xs shadow-sm transition-all cursor-pointer active:scale-95">
+                        <i class="fa-solid fa-user"></i>
+                        <span>เข้าสู่ระบบ</span>
+                    </button>
+                    <!-- User Avatar Trigger (Click opens profile or login modal) -->
+                    <div data-kidobits-auth="avatar-trigger" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#EAF0F4] border-2 border-white shadow-sm flex items-center justify-center text-lg sm:text-xl cursor-pointer hover:scale-105 transition-transform overflow-hidden" title="Kidobits Member Profile">
                         👦🏻
                     </div>
                 </div>
@@ -971,6 +980,9 @@ body {
                     ⭐
                 </div>
             </div>
+
+            <!-- Member Login / Profile Section (Dynamically rendered by KidobitsAuth) -->
+            <div id="rewardsAuthCard" class="rounded-[26px] p-5 shadow-sm border border-slate-100 transition-all"></div>
 
             <!-- Badges Grid -->
             <div class="bg-white rounded-[26px] p-5 shadow-sm border border-slate-100 space-y-3">
