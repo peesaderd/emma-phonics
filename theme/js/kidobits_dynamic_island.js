@@ -1,12 +1,16 @@
 /**
- * Kidobits Dynamic Island & Large Learning Timer Modal
- * Includes Parent/Kids Settings, Giant Timer Display & Cross-Subject Injection
+ * Kidobits Dynamic Island & Learning Timer
+ * Features:
+ * - Only counts inside active exercise/lesson pages
+ * - Inactivity / Idle Auto-Pause (pauses when idle > 30s)
+ * - Large Modal Settings & Giant Display
  */
 (function() {
   const STORAGE_KEY = 'kidobits_daily_island';
   const SETTINGS_KEY = 'kidobits_timer_settings';
+  const IDLE_THRESHOLD_SECONDS = 30; // Auto-pause after 30 seconds of inactivity
 
-  // Load Timer Settings (Default 15 minutes)
+  // Settings
   let settings = {
     targetMinutes: 15,
     eyeBreakAlert: true
@@ -22,7 +26,7 @@
     } catch(e) {}
   }
 
-  // Load Daily State
+  // Daily State
   const todayStr = new Date().toISOString().slice(0, 10);
   let state = {
     date: todayStr,
@@ -54,7 +58,37 @@
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   }
 
-  // Web Audio chime
+  // 1. Check if current page is an ACTIVE EXERCISE page
+  function isExercisePage() {
+    const p = window.location.pathname.toLowerCase();
+    return p.includes('theme_phonicslesson.html') ||
+           p.includes('phonics.html') ||
+           p.includes('phonics_v2.html') ||
+           p.includes('math.html') ||
+           p.includes('chinese.html') ||
+           p.includes('theme_games.html') ||
+           p.includes('game.html');
+  }
+
+  // 2. Activity & Idle Detection
+  let lastActivityTimestamp = Date.now();
+  let isIdle = false;
+
+  function registerActivity() {
+    lastActivityTimestamp = Date.now();
+    if (isIdle) {
+      isIdle = false;
+      renderPill();
+      const modal = document.getElementById('kidobitsTimerModalBackdrop');
+      if (modal && modal.classList.contains('open')) renderModalContent();
+    }
+  }
+
+  ['touchstart', 'touchmove', 'mousedown', 'keydown', 'scroll', 'click'].forEach(evt => {
+    window.addEventListener(evt, registerActivity, { passive: true });
+  });
+
+  // Chime
   function playChime(success = false) {
     try {
       const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -146,14 +180,13 @@
     const style = document.createElement('style');
     style.id = 'kidobitsIslandStyles';
     style.textContent = `
-      /* Top Compact Dynamic Island Pill */
       #kidobitsDynamicPill {
         position: fixed;
         top: 6px;
         left: 50%;
         transform: translateX(-50%);
         z-index: 99990;
-        width: 120px;
+        width: 126px;
         height: 26px;
         background: #0E0D14;
         border: 1px solid rgba(255, 255, 255, 0.2);
@@ -166,7 +199,7 @@
         padding: 0 8px;
         user-select: none;
         -webkit-tap-highlight-color: transparent;
-        transition: transform 0.15s ease, box-shadow 0.2s ease;
+        transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         font-family: 'Prompt', 'Noto Sans Thai', sans-serif;
       }
       #kidobitsDynamicPill:active {
@@ -178,6 +211,18 @@
         background-color: #10B981;
         border-radius: 50%;
         animation: islandPulse 1.8s infinite;
+      }
+      .island-dot-paused {
+        width: 6px;
+        height: 6px;
+        background-color: #F59E0B;
+        border-radius: 50%;
+      }
+      .island-dot-idle {
+        width: 6px;
+        height: 6px;
+        background-color: #94A3B8;
+        border-radius: 50%;
       }
       @keyframes islandPulse {
         0%, 100% { opacity: 1; transform: scale(1); }
@@ -230,7 +275,7 @@
     document.head.appendChild(style);
   }
 
-  // Create or Update Pill
+  // Render Dynamic Island Pill
   function renderPill() {
     let pill = document.getElementById('kidobitsDynamicPill');
     if (!pill) {
@@ -242,6 +287,7 @@
 
     const targetSec = getTargetSeconds();
     const pct = Math.min(100, Math.round((state.seconds / targetSec) * 100));
+    const inExercise = isExercisePage();
 
     if (state.isCompleted) {
       pill.className = 'pill-gold';
@@ -252,17 +298,54 @@
         </div>
         <span class="text-xs">🐼</span>
       `;
-    } else {
+    } else if (!inExercise) {
+      // Outside Exercise Page (Home / Lobby / Profile) -> Standby
       pill.className = '';
       pill.innerHTML = `
         <div class="flex items-center gap-1.5">
-          <span class="island-dot"></span>
+          <span class="island-dot-idle" title="นอกห้องเรียน"></span>
+          <span class="text-[10.5px] font-bold text-slate-300 font-mono leading-none tracking-tight">
+            ${formatTime(state.seconds)}
+          </span>
+        </div>
+        <div class="flex items-center gap-1">
+          <span class="text-[8.5px] font-bold text-slate-400 bg-white/10 px-1 py-0.2 rounded-full font-mono">
+            พัก
+          </span>
+          <span class="text-[10px]">🏠</span>
+        </div>
+      `;
+    } else if (isIdle) {
+      // Inside Exercise Page, but Idle / Paused (>30s no touch)
+      pill.className = '';
+      pill.style.borderColor = 'rgba(245, 158, 11, 0.5)';
+      pill.innerHTML = `
+        <div class="flex items-center gap-1.5">
+          <span class="island-dot-paused" title="หยุดชั่วคราว (ไม่มีการสัมผัส)"></span>
+          <span class="text-[10.5px] font-black text-amber-300 font-mono leading-none tracking-tight">
+            ${formatTime(state.seconds)}
+          </span>
+        </div>
+        <div class="flex items-center gap-1">
+          <span class="text-[8.5px] font-black text-amber-400 bg-amber-500/20 px-1 py-0.2 rounded-full font-mono">
+            หยุด
+          </span>
+          <span class="text-[10px]">⏸️</span>
+        </div>
+      `;
+    } else {
+      // Inside Exercise Page & Actively Learning!
+      pill.className = '';
+      pill.style.borderColor = 'rgba(16, 185, 129, 0.6)';
+      pill.innerHTML = `
+        <div class="flex items-center gap-1.5">
+          <span class="island-dot" title="กำลังเรียน"></span>
           <span class="text-[10.5px] font-extrabold text-white font-mono leading-none tracking-tight">
             ${formatTime(state.seconds)}
           </span>
         </div>
         <div class="flex items-center gap-1">
-          <span class="text-[9px] font-black text-white/80 bg-white/15 px-1 py-0.2 rounded-full font-mono">
+          <span class="text-[9px] font-black text-emerald-300 bg-emerald-500/20 px-1 py-0.2 rounded-full font-mono">
             ${pct}%
           </span>
           <span class="text-[10.5px]">🐼</span>
@@ -294,7 +377,7 @@
     if (backdrop) backdrop.classList.remove('open');
   }
 
-  // Render Full Modal Content (Large Fonts & Settings)
+  // Render Modal Content
   function renderModalContent() {
     const box = document.getElementById('kidobitsTimerModalBox');
     if (!box) return;
@@ -302,7 +385,20 @@
     const targetSec = getTargetSeconds();
     const remainSec = Math.max(0, targetSec - state.seconds);
     const pct = Math.min(100, Math.round((state.seconds / targetSec) * 100));
+    const inExercise = isExercisePage();
     const isTeacherBypass = window.KidobitsLock ? KidobitsLock.isBypass() : false;
+
+    // Determine current live activity state
+    let statusBadgeHtml = '';
+    if (state.isCompleted) {
+      statusBadgeHtml = `<span class="bg-amber-400/20 text-amber-300 border border-amber-400/30 px-3 py-1 rounded-full text-xs font-black">🏆 บรรลุเป้าหมายประจำวัน</span>`;
+    } else if (!inExercise) {
+      statusBadgeHtml = `<span class="bg-slate-500/20 text-slate-300 border border-slate-500/30 px-3 py-1 rounded-full text-xs font-extrabold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-slate-400"></span>อยู่นอกห้องเรียน (จะเริ่มนับเมื่อเข้าสู่แบบฝึกหัด)</span>`;
+    } else if (isIdle) {
+      statusBadgeHtml = `<span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 px-3 py-1 rounded-full text-xs font-black flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>หยุดเวลาชั่วคราว (ไม่มีการสัมผัสหน้าจอเกิน 30 วิ)</span>`;
+    } else {
+      statusBadgeHtml = `<span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-3 py-1 rounded-full text-xs font-black flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>กำลังเรียน (นับเวลาต่อเนื่อง)</span>`;
+    }
 
     box.innerHTML = `
       <!-- Modal Header -->
@@ -325,13 +421,18 @@
         </button>
       </div>
 
-      <!-- Modal Body (Scrollable if needed) -->
-      <div class="p-6 space-y-5 max-h-[75vh] overflow-y-auto">
+      <!-- Modal Body -->
+      <div class="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
+
+        <!-- Live Activity Status Bar -->
+        <div class="flex justify-center">
+          ${statusBadgeHtml}
+        </div>
 
         <!-- Giant Timer Display -->
         <div class="bg-white/5 border border-white/10 rounded-3xl p-5 text-center relative overflow-hidden">
           <p class="text-xs font-black uppercase tracking-wider text-slate-400 mb-1">
-            ${state.isCompleted ? '🎉 เรียนครบเวลาแล้ว' : 'เวลาที่เรียนไปแล้ววันนี้'}
+            ${state.isCompleted ? '🎉 เรียนครบเวลาแล้ว' : 'เวลาเรียนสะสมวันนี้'}
           </p>
 
           <div class="text-5xl font-black font-mono tracking-tight my-2 ${state.isCompleted ? 'text-amber-300' : 'text-white'} drop-shadow-sm">
@@ -377,7 +478,7 @@
           `}
         </div>
 
-        <!-- Settings Section (ตั้งค่าระบบ) -->
+        <!-- Settings Section -->
         <div class="bg-white/5 border border-white/10 rounded-2xl p-4 space-y-4">
           <h4 class="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
             <span>⚙️</span> การตั้งค่าเวลา & สิทธิ์ผู้ปกครอง
@@ -412,7 +513,16 @@
             </button>
           </div>
 
-          <!-- 3. Fast Test / Reset -->
+          <!-- 3. Smart Pause Info -->
+          <div class="pt-3 border-t border-white/10 text-[11px] text-slate-400 space-y-1">
+            <p class="flex items-center gap-1 text-slate-300 font-bold">
+              <span>🛡️</span> ระบบตรวจจับการนิ่ง (Smart Idle Detection):
+            </p>
+            <p>• จับเวลาเฉพาะขณะอยู่ในหน้าแบบฝึกหัดจริงเท่านั้น</p>
+            <p>• หากวางเครื่องทิ้งไว้เกิน 30 วินาที ระบบจะหยุดเวลาให้อัตโนมัติ</p>
+          </div>
+
+          <!-- 4. Fast Test / Reset -->
           <div class="pt-3 border-t border-white/10 flex items-center justify-between">
             <span class="text-xs font-bold text-slate-400">การทดสอบระบบ:</span>
             <div class="flex gap-2">
@@ -489,11 +599,38 @@
     renderPill();
   };
 
-  // Timer Tick
+  // Timer Tick (Runs every second)
   function tick() {
     if (document.hidden) return;
     if (state.isCompleted) return;
 
+    // Check 1: Is this an active exercise page?
+    const inExercise = isExercisePage();
+    if (!inExercise) {
+      // Outside exercise: DO NOT INCREMENT TIME! Just update pill to standby
+      renderPill();
+      const backdrop = document.getElementById('kidobitsTimerModalBackdrop');
+      if (backdrop && backdrop.classList.contains('open')) {
+        renderModalContent();
+      }
+      return;
+    }
+
+    // Check 2: Check idle / inactivity duration
+    const idleSeconds = Math.floor((Date.now() - lastActivityTimestamp) / 1000);
+    if (idleSeconds >= IDLE_THRESHOLD_SECONDS) {
+      // Idle detected! Pause timer, do not increment!
+      isIdle = true;
+      renderPill();
+      const backdrop = document.getElementById('kidobitsTimerModalBackdrop');
+      if (backdrop && backdrop.classList.contains('open')) {
+        renderModalContent();
+      }
+      return;
+    }
+
+    // Actively learning in an exercise page!
+    isIdle = false;
     state.seconds++;
     saveState();
 
@@ -505,7 +642,6 @@
       openLargeModal();
     } else {
       renderPill();
-      // If modal is open, refresh display
       const backdrop = document.getElementById('kidobitsTimerModalBackdrop');
       if (backdrop && backdrop.classList.contains('open')) {
         renderModalContent();
@@ -523,6 +659,7 @@
   window.KidobitsTimerModal = {
     open: openLargeModal,
     close: closeLargeModal,
-    getState: () => state
+    getState: () => state,
+    registerActivity: registerActivity
   };
 })();
