@@ -97,8 +97,12 @@
           if (window.KidobitsWallet) {
             const wUser = window.KidobitsWallet.getUser();
             wUser.userId = userObj.id || wUser.userId;
-            wUser.name = userObj.name || wUser.name;
-            wUser.avatarUrl = userObj.avatar_url || '';
+            wUser.parentName = userObj.name || wUser.parentName || 'Parent';
+            wUser.name = userObj.student_name || wUser.studentName || wUser.name || userObj.name || 'น้องเอ็มม่า';
+            wUser.studentName = userObj.student_name || wUser.studentName || userObj.name || 'น้องเอ็มม่า';
+            wUser.studentAge = userObj.student_age || wUser.studentAge || '7';
+            wUser.avatarUrl = userObj.student_avatar_url || userObj.avatar_url || wUser.avatarUrl || '';
+            wUser.socialAvatarUrl = userObj.social_avatar_url || '';
             wUser.email = userObj.email || '';
             wUser.memberTier = userObj.member_tier || 'Explorer';
             wUser.isLoggedIn = true;
