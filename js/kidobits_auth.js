@@ -25,6 +25,7 @@
       return Boolean(this.getToken());
     },
 
+    getProfile() { return this.getUser(); },
     getUser() {
       if (this.user) return this.user;
       try {

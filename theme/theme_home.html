@@ -2553,6 +2553,7 @@ button{
 </style>
 </style>
 <script src="/js/kidobits_wallet.js"></script>
+<script src="/theme/js/kidobits_auth.js"></script>
 </head>
 <body>
 <div id="root"></div>
@@ -2682,6 +2683,173 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+
+<!-- Kidobits Theme Auth & Member Sync Engine -->
+<script>
+(function() {
+  function syncThemeAuth() {
+    if (!window.KidobitsAuth) return;
+    const profile = (KidobitsAuth.getUser ? KidobitsAuth.getUser() : (KidobitsAuth.getProfile ? KidobitsAuth.getProfile() : null));
+
+    // 1. Update Top Greeting & Avatar
+    const headings = document.querySelectorAll('h2');
+    headings.forEach(h => {
+      const text = h.innerText || h.textContent || '';
+      if (text.includes('Hello,') || text.includes('Marion')) {
+        if (profile && profile.name) {
+          h.textContent = `Hello, ${profile.name} 👋`;
+        } else {
+          h.textContent = 'Hello, Little Explorer 👋';
+        }
+      }
+    });
+
+    // 2. Update Top Bar Avatar Button
+    const avatarBtn = document.querySelector('button[aria-label="Edit avatar"]');
+    if (avatarBtn) {
+      if (profile && profile.picture) {
+        if (!avatarBtn.querySelector('img')) {
+          avatarBtn.innerHTML = `<img src="${profile.picture}" alt="Avatar" class="w-full h-full rounded-full object-cover">`;
+        }
+      }
+      // Click avatar opens Profile or Login
+      if (!avatarBtn.dataset.authAttached) {
+        avatarBtn.dataset.authAttached = '1';
+        avatarBtn.addEventListener('click', function(e) {
+          // If not logged in, navigate to login page
+          if (!(KidobitsAuth.getUser ? KidobitsAuth.getUser() : (KidobitsAuth.getProfile ? KidobitsAuth.getProfile() : null))) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.location.href = '/theme/theme_login.html';
+          }
+        }, true);
+      }
+    }
+
+    // 3. Inject Member Card into Profile View if open
+    const profileHeadings = document.querySelectorAll('h2, h3');
+    let profileContainer = null;
+    profileHeadings.forEach(h => {
+      const t = (h.innerText || h.textContent || '').trim();
+      if (t === 'My Profile') {
+        profileContainer = h.closest('div');
+      }
+    });
+
+    if (profileContainer) {
+      let authCard = document.getElementById('theme-member-auth-card');
+      if (!authCard) {
+        authCard = document.createElement('div');
+        authCard.id = 'theme-member-auth-card';
+        authCard.className = 'my-3';
+        
+        // Find best insertion point (right after user card or before Badges)
+        const userCard = profileContainer.querySelector('h3') ? profileContainer.querySelector('h3').closest('div') : null;
+        if (userCard && userCard.parentNode) {
+          userCard.parentNode.insertBefore(authCard, userCard.nextSibling);
+        } else {
+          profileContainer.appendChild(authCard);
+        }
+}
+
+      if (profile) {
+        authCard.innerHTML = `
+          <div style="background: linear-gradient(135deg, #F0FDF4 0%, #E8FFF0 100%); border: 2px solid #86EFAC; border-radius: 20px; padding: 14px; box-shadow: 0 4px 15px rgba(22,163,74,.08);">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="width: 44px; height: 44px; border-radius: 50%; overflow: hidden; border: 2px solid #22C55E; background: white; display: grid; place-items: center; font-size: 22px;">
+                  ${profile.picture ? `<img src="${profile.picture}" style="width: 100%; height: 100%; object-fit: cover;">` : '🦁'}
+                </div>
+                <div>
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <b style="font-size: 13px; color: #14532D;">${profile.name || profile.sub}</b>
+                    <span style="font-size: 9px; font-weight: 800; background: #16A34A; color: white; padding: 1px 6px; border-radius: 999px;">${(profile.provider || 'CENTRAL').toUpperCase()}</span>
+                  </div>
+                  <span style="font-size: 11px; color: #166534; display: block;">${profile.email || 'เชื่อมต่อ Central Auth สำเร็จ'}</span>
+                </div>
+              </div>
+              <button onclick="KidobitsAuth.logout()" style="padding: 6px 10px; border-radius: 10px; background: white; border: 1px solid #FCA5A5; color: #DC2626; font-size: 11px; font-weight: 800; cursor: pointer; white-space: nowrap;">
+                ออกจากระบบ
+              </button>
+            </div>
+          </div>
+        `;
+      } else {
+        authCard.innerHTML = `
+          <div style="background: linear-gradient(135deg, #FFF0F5 0%, #F5F0FF 100%); border: 2px solid #E9DCFA; border-radius: 20px; padding: 14px; text-align: center; box-shadow: 0 4px 15px rgba(139,124,255,.08);">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 4px;">
+              <span style="font-size: 20px;">🦁</span>
+              <b style="font-size: 14px; color: #2D2342;">เข้าสู่ระบบสมาชิก Kidobits</b>
+            </div>
+            <p style="font-size: 11px; color: #8A7D9D; margin-bottom: 12px; font-weight: 500;">
+              บันทึกดาว สะสมเหรียญรางวัล และซิงค์บทเรียนข้ามเครื่อง
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+              <button onclick="KidobitsAuth.loginWithLine('https://kidobits.m2igen.com/theme/theme_home.html')" style="padding: 10px 8px; border-radius: 14px; background: #06C755; color: white; font-weight: 800; font-size: 12px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 4px 10px rgba(6,199,85,.25);">
+                <span>🟢 LINE Login</span>
+              </button>
+              <button onclick="KidobitsAuth.loginWithGoogle('https://kidobits.m2igen.com/theme/theme_home.html')" style="padding: 10px 8px; border-radius: 14px; background: white; color: #2D2342; font-weight: 800; font-size: 12px; border: 1.5px solid #E5DEF0; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 2px 8px rgba(0,0,0,.04);">
+                <span>🔴 Google Login</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // 4. Update Top Bar Login Pill if not logged in
+    const settingsBtn = document.querySelector('button[aria-label="Template Settings"]');
+    if (settingsBtn && !document.getElementById('theme-top-login-pill')) {
+      const topPill = document.createElement('a');
+      topPill.id = 'theme-top-login-pill';
+      topPill.href = '/theme/theme_login.html';
+      topPill.style.cssText = 'padding: 5px 10px; border-radius: 999px; font-size: 11px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; text-decoration: none; margin-right: 6px; cursor: pointer; transition: all .2s;';
+      
+      if (profile) {
+        topPill.style.background = '#F0FDF4';
+        topPill.style.color = '#16A34A';
+        topPill.style.border = '1.5px solid #BBF7D0';
+        topPill.innerHTML = `<span>🟢</span><span>${profile.name || 'Member'}</span>`;
+      } else {
+        topPill.style.background = '#FFF0F5';
+        topPill.style.color = '#E85A8A';
+        topPill.style.border = '1.5px solid #FFD6E8';
+        topPill.innerHTML = `<span>🦁</span><span>เข้าสู่ระบบ</span>`;
+      }
+      settingsBtn.parentNode.insertBefore(topPill, settingsBtn);
+    } else if (document.getElementById('theme-top-login-pill')) {
+      const topPill = document.getElementById('theme-top-login-pill');
+      if (profile) {
+        topPill.style.background = '#F0FDF4';
+        topPill.style.color = '#16A34A';
+        topPill.style.border = '1.5px solid #BBF7D0';
+        topPill.innerHTML = `<span>🟢</span><span>${profile.name || 'Member'}</span>`;
+      } else {
+        topPill.style.background = '#FFF0F5';
+        topPill.style.color = '#E85A8A';
+        topPill.style.border = '1.5px solid #FFD6E8';
+        topPill.innerHTML = `<span>🦁</span><span>เข้าสู่ระบบ</span>`;
+      }
+    }
+  }
+
+  // Initial check on load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.KidobitsAuth) KidobitsAuth.checkUrlToken();
+      setTimeout(syncThemeAuth, 300);
+      setInterval(syncThemeAuth, 1200);
+    });
+  } else {
+    if (window.KidobitsAuth) KidobitsAuth.checkUrlToken();
+    setTimeout(syncThemeAuth, 300);
+    setInterval(syncThemeAuth, 1200);
+  }
+
+  window.addEventListener('kidobits_auth_changed', syncThemeAuth);
+})();
+</script>
+
 </body>
 
 

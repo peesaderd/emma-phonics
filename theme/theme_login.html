@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>เข้าสู่ระบบสมาชิก · Kidobits Academy</title>
+  
+  <!-- PWA Tags -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#8B7CFF">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Kidobits">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Prompt:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Prompt', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(180deg, #FDF0F5 0%, #EDE7FF 52%, #DFF5FF 100%);
+      min-height: 100dvh;
+      margin: 0;
+      color: #2D2342;
+    }
+    .font-baloo { font-family: 'Baloo 2', cursive, sans-serif; }
+    .font-prompt { font-family: 'Prompt', sans-serif; }
+    
+    .glow-bounce {
+      animation: float-bob 3s ease-in-out infinite;
+    }
+    @keyframes float-bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .btn-bounce:active {
+      transform: scale(0.97);
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center p-0 sm:p-4">
+
+  <!-- Mobile Frame Container (Same as Theme Home) -->
+  <div class="w-full max-w-[430px] min-h-[100dvh] sm:min-h-[820px] bg-white sm:rounded-[36px] shadow-[0_20px_50px_rgba(40,20,80,.12)] overflow-hidden flex flex-col relative border border-[#F1EAF7]/60">
+    
+    <!-- Top Bar -->
+    <header class="px-5 pt-4 pb-3 flex items-center justify-between border-b border-[#F5EEF8] bg-white/90 backdrop-blur sticky top-0 z-20">
+      <a href="/theme/theme_home.html" class="flex items-center gap-1.5 text-xs font-bold text-[#8B7CFF] bg-[#F4F1FF] hover:bg-[#ECE7FF] px-3 py-1.5 rounded-full transition btn-bounce">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        <span>กลับหน้าหลัก</span>
+      </a>
+      <div class="flex items-center gap-1 text-[11px] font-bold text-[#9A8FA8] bg-[#F7F4FA] px-2.5 py-1 rounded-full">
+        <span class="w-2 h-2 rounded-full bg-[#06C755]"></span>
+        <span>Central Auth ERP</span>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 px-6 py-6 flex flex-col justify-between overflow-y-auto">
+      
+      <!-- Mascot & Greeting Card -->
+      <div class="text-center mt-2">
+        <!-- Mascot Avatar -->
+        <div class="relative inline-block mb-3 glow-bounce">
+          <div class="w-24 h-24 rounded-3xl bg-gradient-to-tr from-[#FF7A00] to-[#FFA800] p-1 shadow-lg shadow-orange-500/25 grid place-items-center mx-auto text-5xl">
+            🦁
+          </div>
+          <span class="absolute -bottom-1 -right-1 bg-white text-base rounded-full p-1 shadow border border-orange-100">👑</span>
+        </div>
+
+        <div class="inline-flex items-center gap-1 bg-[#FFF0F5] text-[#FF5B99] text-[11px] font-extrabold px-3 py-0.5 rounded-full mb-1">
+          <span>🐼 KIDOBITS ACADEMY</span>
+        </div>
+        
+        <h1 class="text-2xl font-extrabold text-[#2D2342] font-prompt tracking-tight">เข้าสู่ระบบสมาชิก</h1>
+        <p class="text-xs text-[#8A7D9D] mt-1 font-medium leading-relaxed max-w-[280px] mx-auto">
+          เชื่อมต่อระบบเพื่อบันทึกดาว สะสมเหรียญรางวัล และเรียนต่อเนื่องได้จากทุกอุปกรณ์
+        </p>
+      </div>
+
+      <!-- Logged-in State Card (shown when user already logged in) -->
+      <div id="loggedInCard" class="hidden my-4 bg-gradient-to-br from-[#F5F2FF] to-[#FFF0F7] rounded-3xl p-5 border border-[#E9DCFA] text-center shadow-sm">
+        <div class="w-16 h-16 rounded-full mx-auto mb-2 overflow-hidden border-2 border-white shadow bg-white grid place-items-center text-3xl" id="userAvatarContainer">
+          👧
+        </div>
+        <div class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-extrabold text-white bg-[#8B7CFF] mb-1" id="userProviderBadge">
+          VERIFIED MEMBER
+        </div>
+        <h3 class="text-lg font-extrabold text-[#2D2342]" id="userNameDisplay">สวัสดี Little Explorer</h3>
+        <p class="text-xs text-[#8A7D9D] font-medium" id="userEmailDisplay"></p>
+
+        <div class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-[#E8DEF2]">
+          <a href="/theme/theme_home.html" class="w-full py-2.5 rounded-2xl bg-[#1A1A1A] text-white font-extrabold text-xs shadow-md btn-bounce flex items-center justify-center gap-1">
+            <span>เข้าสู่บทเรียน 🚀</span>
+          </a>
+          <button onclick="KidobitsAuth.logout()" class="w-full py-2.5 rounded-2xl bg-white border border-[#FFD6E8] text-[#E85A8A] font-extrabold text-xs shadow-sm hover:bg-pink-50 btn-bounce">
+            ออกจากระบบ
+          </button>
+        </div>
+      </div>
+
+      <!-- Login Actions (shown when guest / not logged in) -->
+      <div id="loginActions" class="space-y-3 my-4">
+        
+        <!-- LINE Login Button -->
+        <button onclick="loginWithLine()" class="w-full py-3.5 px-4 rounded-2xl bg-[#06C755] hover:bg-[#05b34c] text-white font-bold text-sm shadow-[0_6px_20px_rgba(6,199,85,.3)] flex items-center justify-center gap-3 transition btn-bounce">
+          <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+            <path d="M19.365 9.863c.349.001.62.279.62.625 0 3.864-3.791 7.008-8.455 7.008-.753 0-1.481-.082-2.17-.236l-3.327 1.838c-.37.204-.817-.11-.758-.528l.42-2.977C4.195 14.417 3.53 12.756 3.53 10.96c0-4.148 4.073-7.524 9.076-7.524 4.793 0 8.71 3.09 9.043 6.947l.006.07.011.006-.001.004zM8.32 8.761H7.135a.44.44 0 0 0-.441.442v4.354c0 .243.198.441.441.441h1.185a.44.44 0 0 0 .441-.441v-4.354a.44.44 0 0 0-.441-.442zm3.327 0h-1.185a.44.44 0 0 0-.441.442v4.354c0 .243.198.441.441.441h1.185a.44.44 0 0 0 .441-.441V9.203a.44.44 0 0 0-.441-.442zm4.12 3.125h-1.63V9.203a.44.44 0 0 0-.441-.442h-.744a.44.44 0 0 0-.441.442v4.354c0 .243.198.441.441.441h2.815a.44.44 0 0 0 .441-.441v-.735a.44.44 0 0 0-.441-.441v.004zm3.923-3.125h-2.815a.44.44 0 0 0-.441.442v4.354c0 .243.198.441.441.441h2.815a.44.44 0 0 0 .441-.441v-.735a.44.44 0 0 0-.441-.441h-1.63v-.681h1.63a.44.44 0 0 0 .441-.441v-.735a.44.44 0 0 0-.441-.441h-1.63v-.546h1.63a.44.44 0 0 0 .441-.441v-.735a.44.44 0 0 0-.441-.441z"/>
+          </svg>
+          <span class="tracking-wide">เข้าสู่ระบบด้วย LINE</span>
+        </button>
+
+        <!-- Google Login Button -->
+        <button onclick="loginWithGoogle()" class="w-full py-3.5 px-4 rounded-2xl bg-white hover:bg-[#F9F8FC] text-[#2D2342] border-2 border-[#E5DEF0] font-bold text-sm shadow-sm flex items-center justify-center gap-3 transition btn-bounce">
+          <svg class="w-5 h-5" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span class="tracking-wide">เข้าสู่ระบบด้วย Google</span>
+        </button>
+
+        <!-- Guest Mode Action -->
+        <div class="pt-2 text-center">
+          <a href="/theme/theme_home.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#8B7CFF] hover:text-[#7261ff] py-1 transition">
+            <span>🦁 เข้าเรียนแบบไม่เข้าสู่ระบบ (Guest Mode)</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Benefits / Feature Cards -->
+      <div class="mt-4 pt-4 border-t border-[#F5EEF8]">
+        <p class="text-[11px] font-extrabold text-[#9A8FA8] uppercase tracking-wider mb-2 text-center">ประโยชน์ของการเข้าสู่ระบบ</p>
+        <div class="grid grid-cols-3 gap-2 text-center">
+          <div class="bg-[#F8F5FC] rounded-2xl p-2.5 border border-[#EFE7F6]">
+            <div class="text-xl mb-0.5">⭐</div>
+            <div class="text-[10px] font-extrabold text-[#2D2342]">บันทึกดาว</div>
+            <div class="text-[9px] text-[#9A8FA8] font-medium">ไม่สูญหาย</div>
+          </div>
+          <div class="bg-[#F8F5FC] rounded-2xl p-2.5 border border-[#EFE7F6]">
+            <div class="text-xl mb-0.5">🔄</div>
+            <div class="text-[10px] font-extrabold text-[#2D2342]">ซิงค์ข้ามเครื่อง</div>
+            <div class="text-[9px] text-[#9A8FA8] font-medium">iPad & มือถือ</div>
+          </div>
+          <div class="bg-[#F8F5FC] rounded-2xl p-2.5 border border-[#EFE7F6]">
+            <div class="text-xl mb-0.5">🛡️</div>
+            <div class="text-[10px] font-extrabold text-[#2D2342]">Central ERP</div>
+            <div class="text-[9px] text-[#9A8FA8] font-medium">ปลอดภัยสูง</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Footer Note -->
+    <footer class="p-3 bg-[#FAF8FC] border-t border-[#F1EBF5] text-center text-[10px] text-[#A69BB5] font-medium">
+      Kidobits Academy • M2I Gen Central Auth
+    </footer>
+
+  </div>
+
+  <!-- Kidobits Core Auth & Wallet Scripts -->
+  <script src="/js/kidobits_wallet.js"></script>
+  <script src="/theme/js/kidobits_auth.js"></script>
+  <script>
+    function updateUI() {
+      const profile = KidobitsAuth.getProfile();
+      const loginActions = document.getElementById('loginActions');
+      const loggedInCard = document.getElementById('loggedInCard');
+
+      if (profile) {
+        if (loginActions) loginActions.classList.add('hidden');
+        if (loggedInCard) loggedInCard.classList.remove('hidden');
+
+        document.getElementById('userNameDisplay').textContent = profile.name || profile.sub || 'Kidobits Member';
+        document.getElementById('userEmailDisplay').textContent = profile.email || (profile.provider ? `เข้าสู่ระบบด้วย ${profile.provider}` : '');
+        document.getElementById('userProviderBadge').textContent = (profile.provider || 'CENTRAL AUTH').toUpperCase() + ' MEMBER';
+
+        if (profile.picture) {
+          document.getElementById('userAvatarContainer').innerHTML = `<img src="${profile.picture}" alt="Avatar" class="w-full h-full object-cover">`;
+        }
+      } else {
+        if (loginActions) loginActions.classList.remove('hidden');
+        if (loggedInCard) loggedInCard.classList.add('hidden');
+      }
+    }
+
+    function loginWithLine() {
+      KidobitsAuth.loginWithLine('https://kidobits.m2igen.com/theme/theme_home.html');
+    }
+
+    function loginWithGoogle() {
+      KidobitsAuth.loginWithGoogle('https://kidobits.m2igen.com/theme/theme_home.html');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Ingest token if redirected back with ?token=...
+      KidobitsAuth.checkUrlToken();
+      updateUI();
+    });
+    window.addEventListener('kidobits_auth_changed', updateUI);
+  </script>
+</body>
+</html>
