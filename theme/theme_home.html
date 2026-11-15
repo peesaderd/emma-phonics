@@ -2635,6 +2635,14 @@ document.addEventListener('click', function(e) {
     window.location.href = 'theme_phonics_map.html';
     return;
   }
+
+  // 5. Bottom nav Profile button
+  if (txt === 'Profile' || (txt.includes('Profile') && btn.closest('nav'))) {
+    e.preventDefault();
+    e.stopPropagation();
+    window.location.href = 'theme_profile.html';
+    return;
+  }
 }, true);
 </script>
 
