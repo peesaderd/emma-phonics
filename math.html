@@ -4796,10 +4796,6 @@ function renderBubbleStage(arena, stage) {
       if (window.KidobitsLock) {
         KidobitsLock.markCompleted('math', String(curNum), nextNum);
       }
-      const les = LESSONS[SESSION.lessonIdx];
-      if (window.KidobitsResume && les) {
-        KidobitsResume.markDone('kidobits_math_progress', les.id);
-      }
       const maxScore = 400;
       const totalScore = SESSION.score;
       const starsEarned = (totalScore >= 400) ? 3 : (totalScore >= 300) ? 2 : 1;
