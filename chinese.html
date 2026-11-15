@@ -1104,6 +1104,32 @@ body {
       let h = '';
 
       list.forEach((it, idx) => {
+        const lessonIdx = idx + 1;
+        const isUnlocked = window.KidobitsLock ? KidobitsLock.isUnlocked('chinese', lessonIdx) : (lessonIdx === 1);
+
+        if (!isUnlocked) {
+          h += `
+            <div onclick="if(window.KidobitsLock) KidobitsLock.shakeAndNotify(this, '${it.title}')" class="bg-slate-50/80 rounded-3xl p-5 border-2 border-dashed border-slate-200 shadow-xs opacity-60 flex flex-col justify-between cursor-pointer select-none transition">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-3xl text-slate-400">🔒</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-200 text-slate-500">ล็อคอยู่</span>
+                </div>
+                <div class="inline-block px-2 py-0.5 rounded-md bg-slate-100 text-slate-500 text-[10px] font-black mb-1.5">
+                  ${it.level} · ${it.id}
+                </div>
+                <h3 class="font-display font-bold text-slate-500 text-base mb-1">${it.title}</h3>
+                <p class="text-xs text-slate-400 font-medium leading-relaxed mb-4">ผ่านบทเรียนก่อนหน้าเพื่อปลดล็อค</p>
+              </div>
+
+              <div class="w-full py-3 rounded-2xl bg-slate-200 text-slate-400 font-display font-bold text-xs tracking-wide flex items-center justify-center gap-1.5">
+                <span>🔒 ยังไม่ปลดล็อค</span>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
         h += `
           <div class="bg-white rounded-3xl p-5 border-2 border-orange-100 hover:border-orange-300 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
             <div>
@@ -1152,11 +1178,18 @@ body {
 
     function openLesson(lessonId, forcedStep = null) {
       let found = null;
+      let fIdx = -1;
       for (const k in CHINESE_DATA) {
-        const item = CHINESE_DATA[k].find(x => x.id === lessonId);
-        if (item) { found = item; break; }
+        const idx = CHINESE_DATA[k].findIndex(x => x.id === lessonId);
+        if (idx >= 0) { found = CHINESE_DATA[k][idx]; fIdx = idx; break; }
       }
       if (!found) return;
+
+      const lessonNum = fIdx + 1;
+      if (lessonNum > 1 && window.KidobitsLock && !KidobitsLock.isUnlocked('chinese', lessonNum)) {
+        if (window.KidobitsLock) KidobitsLock.shakeAndNotify(null, found.title);
+        return;
+      }
 
       CURRENT_LESSON = found;
 

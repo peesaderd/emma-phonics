@@ -1043,13 +1043,43 @@ body {
       const stageLabels = { catcher: 'รับของ', pump: 'ปั๊มลูกโป่ง', assembly: 'ปล่อยจรวด', matching: 'ลากเส้นจับคู่', bonds: 'บ้านแยกเลข', compare: 'เปรียบเทียบ', pattern: 'แบบรูปอนุกรม', tenframe: 'กรอบสิบ', sorter: 'หยอดบล็อก', kitten: 'ช่วยแมว', pizza: 'ตัดพิซซ่า', seesaw: 'ตราชั่ง', bubble: 'คู่สิบ', slicer: 'ลากนิ้วตัด' };
 
       LESSONS.forEach((les, idx) => {
+        const num = les.num || (idx + 1);
+        const isUnlocked = window.KidobitsLock ? KidobitsLock.isUnlocked('math', num) : (num === 1);
         const card = document.createElement('div');
-        card.className = 'node-card w-full bg-white border-2 border-slate-100 hover:border-amber-400 rounded-[28px] p-3.5 sm:p-4 shadow-sm hover:shadow-md flex flex-col justify-between gap-2 transition cursor-pointer';
-        card.onclick = () => startContinuousLesson(idx, 0);
 
         const starsKey = 'kidobits_lesson_stars_' + les.id;
         const savedStars = parseInt(localStorage.getItem(starsKey) || '0', 10);
         const starDisplay = savedStars > 0 ? '⭐'.repeat(savedStars) : '☆☆☆';
+
+        if (!isUnlocked) {
+          card.className = 'w-full bg-slate-50/80 border-2 border-dashed border-slate-200 rounded-[28px] p-3.5 sm:p-4 shadow-xs opacity-60 flex flex-col justify-between gap-2 transition cursor-pointer select-none';
+          card.onclick = () => {
+            if (window.KidobitsLock) KidobitsLock.shakeAndNotify(card, les.title);
+          };
+          card.innerHTML = `
+            <div class="flex items-start gap-3 w-full">
+              <div class="w-12 h-12 rounded-2xl bg-slate-200 flex items-center justify-center text-2xl text-slate-400 shrink-0">
+                🔒
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between gap-2">
+                  <div class="flex items-center gap-2">
+                    <span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-slate-200 text-slate-500">${les.id}</span>
+                    <span class="text-[10px] font-bold text-slate-400">🔒 ล็อคอยู่</span>
+                  </div>
+                  <span class="text-xs text-slate-300 font-bold">☆☆☆</span>
+                </div>
+                <div class="text-sm sm:text-base font-bold text-slate-500 mt-1">${les.title}</div>
+                <div class="text-xs text-slate-400 mt-0.5 font-medium">ผ่านบทเรียนก่อนหน้าเพื่อปลดล็อค</div>
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+          return;
+        }
+
+        card.className = 'node-card w-full bg-white border-2 border-slate-100 hover:border-amber-400 rounded-[28px] p-3.5 sm:p-4 shadow-sm hover:shadow-md flex flex-col justify-between gap-2 transition cursor-pointer';
+        card.onclick = () => startContinuousLesson(idx, 0);
 
         card.innerHTML = `
           <div class="flex items-start gap-3 w-full">
@@ -1113,8 +1143,13 @@ body {
     };
 
     function startContinuousLesson(idx, startStage = null) {
-      CURRENT_LESSON_IDX = idx;
       const les = LESSONS[idx];
+      const num = (les && les.num) ? les.num : (idx + 1);
+      if (num > 1 && window.KidobitsLock && !KidobitsLock.isUnlocked('math', num)) {
+        if (window.KidobitsLock) KidobitsLock.shakeAndNotify(null, les ? les.title : 'บทเรียนนี้');
+        return;
+      }
+      CURRENT_LESSON_IDX = idx;
 
       if (startStage === null || typeof startStage === 'undefined') {
         if (window.KidobitsResume && les) {

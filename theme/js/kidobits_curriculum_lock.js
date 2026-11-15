@@ -161,6 +161,20 @@
     }, 2400);
   }
 
+  function reset(subject) {
+    if (subject && state[subject]) {
+      state[subject] = { unlockedMax: 1, completed: [] };
+    } else {
+      state = {
+        phonics: { unlockedMax: 1, completed: [] },
+        math: { unlockedMax: 1, completed: [] },
+        chinese: { unlockedMax: 1, completed: [] }
+      };
+    }
+    localStorage.removeItem(BYPASS_KEY);
+    saveState();
+  }
+
   // Global API
   window.KidobitsLock = {
     isUnlocked: isUnlocked,
@@ -169,6 +183,7 @@
     getUnlockedMax: (subject) => (state[subject] ? state[subject].unlockedMax : 1),
     isBypass: isBypass,
     setBypass: setBypass,
+    reset: reset,
     shakeAndNotify: shakeAndNotify
   };
 })();

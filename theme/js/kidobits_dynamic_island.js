@@ -525,12 +525,15 @@
           <!-- 4. Fast Test / Reset -->
           <div class="pt-3 border-t border-white/10 flex items-center justify-between">
             <span class="text-xs font-bold text-slate-400">การทดสอบระบบ:</span>
-            <div class="flex gap-2">
+            <div class="flex gap-2 flex-wrap">
               <button onclick="simulateCompleteTimer()" class="px-3 py-1.5 bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 border border-indigo-500/30 text-xs font-extrabold rounded-xl transition cursor-pointer">
                 ⚡ เติมครบเวลา
               </button>
               <button onclick="resetTimer()" class="px-3 py-1.5 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 text-xs font-extrabold rounded-xl transition cursor-pointer">
                 🔄 รีเซ็ตเวลา
+              </button>
+              <button onclick="resetLockProgression()" class="px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 text-xs font-extrabold rounded-xl transition cursor-pointer" title="ล็อคบทที่ 2-12 ใหม่ทั้งหมด">
+                🔒 รีเซ็ตล็อคบทเรียน
               </button>
             </div>
           </div>
@@ -578,6 +581,14 @@
     const current = KidobitsLock.isBypass();
     KidobitsLock.setBypass(!current);
     renderModalContent();
+    setTimeout(() => location.reload(), 300);
+  };
+
+  window.resetLockProgression = function() {
+    if (window.KidobitsLock && confirm('ต้องการรีเซ็ตสถานะบทเรียนกลับไปล็อคเหมือนเริ่มต้น (เปิดเฉพาะบทที่ 1) ใช่หรือไม่?')) {
+      KidobitsLock.reset();
+      location.reload();
+    }
   };
 
   window.simulateCompleteTimer = function() {
