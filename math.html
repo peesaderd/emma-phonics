@@ -286,6 +286,7 @@ body {
   <script src="/theme/js/kidobits-resume.js"></script>
   <script src="/js/kidobits_wallet.js"></script>
   <script src="/js/kidobits_auth.js"></script>
+  <script src="/theme/js/kidobits_curriculum_lock.js"></script>
 </head>
 <body id="worldBody" class="bg-[#F0F5FD] flex flex-col justify-between selection:bg-amber-400 min-h-screen text-slate-800">
 
@@ -4778,7 +4779,23 @@ function renderBubbleStage(arena, stage) {
     // ========================================================
     // 6. GRAND LESSON VICTORY SCREEN (Stars, Score & Next Lesson)
     // ========================================================
+    let mathAutoNextTimer = null;
+    function autoNextMathLesson(nextIdx) {
+      if (mathAutoNextTimer) clearInterval(mathAutoNextTimer);
+      startContinuousLesson(nextIdx);
+    }
+
     function renderLessonVictorySummary() {
+      const les = LESSONS[SESSION.lessonIdx];
+      if (window.KidobitsResume && les) {
+        KidobitsResume.markDone('kidobits_math_progress', les.id);
+      }
+      // Unlock next math lesson in KidobitsLock
+      const curNum = (les && les.num) ? les.num : (SESSION.lessonIdx + 1);
+      const nextNum = curNum + 1;
+      if (window.KidobitsLock) {
+        KidobitsLock.markCompleted('math', String(curNum), nextNum);
+      }
       const les = LESSONS[SESSION.lessonIdx];
       if (window.KidobitsResume && les) {
         KidobitsResume.markDone('kidobits_math_progress', les.id);
@@ -4798,6 +4815,7 @@ function renderBubbleStage(arena, stage) {
       Sound.playWin();
       speakEnglish('Congratulations! You completed all 4 games of ' + les.title + '! Score: ' + totalScore + ' points!');
 
+      function playAudioPromptAfterVictory() {};
       const arena = document.getElementById('lessonStageContainer');
       arena.innerHTML = `
         <div class="w-full flex flex-col items-center py-4">
@@ -4831,8 +4849,10 @@ function renderBubbleStage(arena, stage) {
               <span>🔁</span><span>Play Again</span>
             </button>
             ${(SESSION.lessonIdx < LESSONS.length - 1) ? `
-              <button onclick="startContinuousLesson(SESSION.lessonIdx + 1)" class="btn-3d flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 border-2 border-emerald-300 text-white font-black text-sm flex items-center justify-center gap-1.5">
+              <button onclick="if(mathAutoNextTimer) clearInterval(mathAutoNextTimer); startContinuousLesson(SESSION.lessonIdx + 1)" 
+                      class="btn-3d flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 border-2 border-emerald-300 text-white font-black text-sm flex items-center justify-center gap-1.5">
                 <span>Next Lesson ▶</span>
+                <span id="mathAutoCount" class="bg-black/30 text-white text-xs px-2 py-0.5 rounded-full font-mono">3s</span>
               </button>
             ` : `
               <button onclick="closeLessonModal()" class="btn-3d flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-600 border-2 border-amber-300 text-slate-950 font-black text-sm flex items-center justify-center gap-1.5">
@@ -4842,6 +4862,20 @@ function renderBubbleStage(arena, stage) {
           </div>
         </div>
       `;
+      playAudioPromptAfterVictory();
+      if (SESSION.lessonIdx < LESSONS.length - 1) {
+        let remain = 3;
+        const countEl = document.getElementById('mathAutoCount');
+        if (mathAutoNextTimer) clearInterval(mathAutoNextTimer);
+        mathAutoNextTimer = setInterval(() => {
+          remain--;
+          if (countEl) countEl.textContent = remain + 's';
+          if (remain <= 0) {
+            clearInterval(mathAutoNextTimer);
+            autoNextMathLesson(SESSION.lessonIdx + 1);
+          }
+        }, 1000);
+      }
     }
 
     // ------------------------------------------

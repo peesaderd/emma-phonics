@@ -118,6 +118,7 @@ body {
   <script src="/theme/js/kidobits-resume.js"></script>
   <script src="/js/kidobits_wallet.js"></script>
   <script src="/js/kidobits_auth.js"></script>
+  <script src="/theme/js/kidobits_curriculum_lock.js"></script>
 </head>
 <body class="min-h-screen text-slate-800 flex flex-col justify-between selection:bg-orange-200">
 
@@ -1794,11 +1795,31 @@ body {
       btns.forEach(b => b.classList.remove('opacity-30', 'pointer-events-none'));
     }
 
+    let cnAutoNextTimer = null;
+    function goToNextChineseLesson(nextId) {
+      if (cnAutoNextTimer) clearInterval(cnAutoNextTimer);
+      if (nextId) {
+        window.location.href = `/chinese.html?id=${nextId}`;
+      } else {
+        closeLesson();
+      }
+    }
+
     // ---------------- STEP 5: 🏆 สรุปผล (SUMMARY) ----------------
     function renderSummaryStep(stage) {
       if (window.KidobitsResume && CURRENT_LESSON) {
         KidobitsResume.markDone('kidobits_chinese_progress', CURRENT_LESSON.id);
       }
+
+      // Mark completed & unlock next lesson in KidobitsLock
+      const curIdx = LESSONS.findIndex(l => l.id === CURRENT_LESSON.id);
+      const nextLesson = (curIdx >= 0 && curIdx < LESSONS.length - 1) ? LESSONS[curIdx + 1] : null;
+      const nextIdx = (curIdx >= 0) ? (curIdx + 2) : 2;
+
+      if (window.KidobitsLock) {
+        KidobitsLock.markCompleted('chinese', CURRENT_LESSON.id, nextIdx);
+      }
+
       playTone('correct');
       try {
         confetti({ particleCount: 70, spread: 80, origin: { y: 0.6 } });
@@ -1837,8 +1858,19 @@ body {
             </div>
           </div>
 
-          <div class="pt-2">
-            <button onclick="closeLesson()" class="px-6 py-3 rounded-2xl bg-orange-600 hover:bg-orange-700 text-white font-display font-black text-sm shadow-lg shadow-orange-600/30 active:scale-95 transition cursor-pointer">
+          <!-- Auto Next & Return Buttons -->
+          <div class="pt-2 max-w-xs mx-auto space-y-2.5">
+            ${nextLesson ? `
+              <button onclick="goToNextChineseLesson('${nextLesson.id}')" 
+                      class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-display font-black text-sm shadow-lg shadow-emerald-500/25 active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer">
+                <span>บทเรียนต่อไป (${nextLesson.id})</span>
+                <span id="cnAutoCount" class="bg-black/30 text-white text-xs px-2 py-0.5 rounded-full font-mono">3s</span>
+                <span>▶</span>
+              </button>
+            ` : ''}
+
+            <button onclick="if(cnAutoNextTimer) clearInterval(cnAutoNextTimer); closeLesson()" 
+                    class="w-full px-6 py-2.5 rounded-2xl ${nextLesson ? 'bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs' : 'bg-orange-600 text-white text-sm shadow-lg'} font-display font-black active:scale-95 transition cursor-pointer">
               กลับสู่หน้ารวมบทเรียน 🐼
             </button>
           </div>
@@ -1846,6 +1878,20 @@ body {
       `;
 
       speakMandarin('恭喜你！完成全部课程！太棒了！', 0.9);
+
+      if (nextLesson) {
+        let remain = 3;
+        const countEl = document.getElementById('cnAutoCount');
+        if (cnAutoNextTimer) clearInterval(cnAutoNextTimer);
+        cnAutoNextTimer = setInterval(() => {
+          remain--;
+          if (countEl) countEl.textContent = remain + 's';
+          if (remain <= 0) {
+            clearInterval(cnAutoNextTimer);
+            goToNextChineseLesson(nextLesson.id);
+          }
+        }, 1000);
+      }
     }
 
     function handleManualPass() {

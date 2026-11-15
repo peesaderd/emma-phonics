@@ -126,6 +126,7 @@
   <script src="/theme/js/kidobits-resume.js"></script>
   <script src="/js/kidobits_wallet.js"></script>
   <script src="/js/kidobits_auth.js"></script>
+  <script src="/theme/js/kidobits_curriculum_lock.js"></script>
 </head>
 <body class="bg-gradient-to-br from-[#F5E6FF] via-[#EDE9FE] to-[#FCE7F3] min-h-screen flex items-center justify-center p-0 sm:p-4 text-[#2E2A3B]">
 
@@ -1276,33 +1277,83 @@
       }
     }
 
+    let autoNextTimer = null;
+    function goToNextLesson(nextLID) {
+      if (autoNextTimer) clearInterval(autoNextTimer);
+      if (nextLID) {
+        window.location.href = `theme_phonicsLesson.html?lesson=${nextLID}`;
+      } else {
+        goBackToLevel();
+      }
+    }
+
     function renderSummary() {
       isLessonDone = true;
       for (let i = 0; i < 5; i++) markStepCompleted(i);
       renderStepTabs();
+
+      // Sequential Lock & Unlock: Unlock next lesson
+      const curNum = (curMeta && curMeta.n) ? curMeta.n : parseInt((LID.split('.')[1] || '1'), 10);
+      const nextNum = curNum + 1;
+      const nextLID = `L${lvNum}.${nextNum < 10 ? '0' + nextNum : nextNum}`;
+      const hasNext = (nextNum <= 12); // standard 12 lessons per level
+
+      if (window.KidobitsLock) {
+        KidobitsLock.markCompleted('phonics', LID, nextNum);
+      }
+
       const box = document.getElementById('step-box');
       box.innerHTML = `
-        <div class="py-4">
-          <span class="text-5xl">🏆</span>
+        <div class="py-4 text-center">
+          <span class="text-5xl block animate-bounce">🏆</span>
           <h2 class="text-2xl font-extrabold mt-2 text-[#1A1A1A]">เก่งมาก! เรียนจบบทนี้แล้ว</h2>
           <p class="text-xs font-bold text-[#7B7488] mt-1">${LID} สำเร็จแล้ว</p>
-          <div class="flex justify-center gap-3 my-4">
-            <span class="bg-[#FFF8E0] border border-[#FFE8A3] px-3.5 py-1.5 rounded-full text-xs font-extrabold text-[#8C6D1F]">
+          <div class="flex justify-center gap-2 my-3 flex-wrap">
+            <span class="bg-[#FFF8E0] border border-[#FFE8A3] px-3 py-1 rounded-full text-xs font-extrabold text-[#8C6D1F]">
               🪙 +50 เหรียญ
             </span>
-            <span class="bg-[#E8FFF0] border border-[#BDE8CC] px-3.5 py-1.5 rounded-full text-xs font-extrabold text-[#1B9A62]">
+            <span class="bg-[#E8FFF0] border border-[#BDE8CC] px-3 py-1 rounded-full text-xs font-extrabold text-[#1B9A62]">
               💎 +1 เพชร
             </span>
-            <span class="bg-[#FFF0F5] border border-[#FDE3EC] px-3.5 py-1.5 rounded-full text-xs font-extrabold text-[#D81B60]">
+            <span class="bg-[#FFF0F5] border border-[#FDE3EC] px-3 py-1 rounded-full text-xs font-extrabold text-[#D81B60]">
               🔥 7 วันต่อเนื่อง
             </span>
           </div>
-          <button onclick="goBackToLevel()" class="w-full bg-black text-white py-3.5 rounded-full font-extrabold text-sm shadow hover:bg-[#333] active:scale-95 transition">
-            กลับหน้ารวมบทเรียน
-          </button>
+
+          <!-- Auto Next & Next Lesson Buttons -->
+          <div class="space-y-2 max-w-xs mx-auto mt-4">
+            ${hasNext ? `
+              <button id="btnAutoNext" onclick="goToNextLesson('${nextLID}')" 
+                      class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white py-3.5 px-4 rounded-full font-extrabold text-sm shadow-md active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer">
+                <span>แบบฝึกหัดต่อไป (${nextLID})</span>
+                <span id="autoNextCount" class="bg-black/30 text-white px-2 py-0.5 rounded-full text-xs font-mono">3s</span>
+                <span>▶</span>
+              </button>
+            ` : ''}
+
+            <button onclick="if(autoNextTimer) clearInterval(autoNextTimer); goBackToLevel()" 
+                    class="w-full ${hasNext ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 py-2.5 text-xs' : 'bg-black text-white py-3.5 text-sm'} rounded-full font-extrabold transition active:scale-95 cursor-pointer">
+              กลับหน้ารวมบทเรียน
+            </button>
+          </div>
         </div>
       `;
       playAudio('/kidobits/audio/l2/prompt_lesson_done.mp3');
+
+      // Auto-Next countdown (3 seconds)
+      if (hasNext) {
+        let remain = 3;
+        const countEl = document.getElementById('autoNextCount');
+        if (autoNextTimer) clearInterval(autoNextTimer);
+        autoNextTimer = setInterval(() => {
+          remain--;
+          if (countEl) countEl.textContent = remain + 's';
+          if (remain <= 0) {
+            clearInterval(autoNextTimer);
+            goToNextLesson(nextLID);
+          }
+        }, 1000);
+      }
     }
 
     // Step 1 Blending Handlers
