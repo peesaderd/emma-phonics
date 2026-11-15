@@ -1,588 +1,599 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🏆 ตารางคะแนนคนเก่ง — Kidobits Leaderboard</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Prompt & Itim -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Prompt:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        prompt: ['Prompt', 'sans-serif'],
-                        itim: ['Itim', 'cursive']
-                    },
-                    colors: {
-                        kidobits: {
-                            gold: '#F59E0B',
-                            silver: '#94A3B8',
-                            bronze: '#B45309',
-                            primary: '#6366F1',
-                            dark: '#0F172A',
-                            card: '#1E293B'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Prompt', sans-serif;
-            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #0F172A 100%);
-            min-height: 100vh;
-            color: #F8FAFC;
-        }
-        .text-fun {
-            font-family: 'Itim', cursive;
-        }
-        .gold-glow {
-            box-shadow: 0 0 25px rgba(245, 158, 11, 0.45);
-        }
-        .silver-glow {
-            box-shadow: 0 0 20px rgba(148, 163, 184, 0.35);
-        }
-        .bronze-glow {
-            box-shadow: 0 0 20px rgba(180, 83, 9, 0.35);
-        }
-        .podium-1 {
-            background: linear-gradient(180deg, rgba(245, 158, 11, 0.3) 0%, rgba(217, 119, 6, 0.6) 100%);
-            border: 2px solid #F59E0B;
-        }
-        .podium-2 {
-            background: linear-gradient(180deg, rgba(148, 163, 184, 0.25) 0%, rgba(100, 116, 139, 0.5) 100%);
-            border: 2px solid #94A3B8;
-        }
-        .podium-3 {
-            background: linear-gradient(180deg, rgba(180, 83, 9, 0.25) 0%, rgba(146, 64, 14, 0.5) 100%);
-            border: 2px solid #B45309;
-        }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0F172A;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 9999px;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+  <title>Kidobits · ตารางคะแนนคนเก่ง</title>
+
+  <!-- PWA & Mobile Settings -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#8B7CFF">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Tailwind CSS & Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Prompt:wght@400;500;600;700;800;900&family=Noto+Sans+Thai:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    body {
+      font-family: 'Prompt', 'Noto Sans Thai', -apple-system, sans-serif;
+      background-color: #F8F9FD;
+      color: #2D2342;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .font-display {
+      font-family: 'Plus Jakarta Sans', 'Prompt', sans-serif;
+    }
+    .card-shadow {
+      box-shadow: 0 10px 25px rgba(45, 35, 66, 0.06);
+    }
+    .gold-glow {
+      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.28);
+    }
+    .purple-glow {
+      box-shadow: 0 10px 28px rgba(139, 124, 255, 0.24);
+    }
+    .btn-press:active {
+      transform: scale(0.96);
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+
+  <script src="/theme/js/kidobits-resume.js"></script>
+  <script src="/js/kidobits_wallet.js"></script>
+  <script src="/js/kidobits_auth.js"></script>
 </head>
-<body class="pb-36 selection:bg-amber-500 selection:text-white">
+<body class="flex justify-center min-h-screen bg-slate-100">
 
-    <!-- Top Navigation Bar -->
-    <header class="sticky top-0 z-40 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 px-4 py-3">
-        <div class="max-w-2xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <a href="/theme/theme_home.html" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-slate-300 transition-colors shadow">
-                    <i class="fa-solid fa-arrow-left"></i>
-                </a>
-                <div>
-                    <h1 class="text-lg font-bold text-white flex items-center gap-2">
-                        <span>🏆 ตารางคะแนนคนเก่ง</span>
-                    </h1>
-                    <p class="text-xs text-amber-400 font-medium">Kidobits Leaderboard & Badges</p>
-                </div>
+  <!-- Mobile Container (Max 430px) -->
+  <div class="w-full max-w-[430px] min-h-screen bg-white relative flex flex-col justify-between shadow-2xl pb-28">
+
+    <div class="px-5 pt-7">
+
+      <!-- ================= 1. HEADER ROW ================= -->
+      <header class="flex items-center justify-between gap-3 pt-2 pb-3">
+        <div class="flex items-center gap-3">
+          <button onclick="window.location.href='theme_home.html'" class="w-10 h-10 rounded-full bg-[#F5F0FF] hover:bg-[#EDE5FA] grid place-items-center text-[#6C5CE7] transition active:scale-95 cursor-pointer shadow-sm" aria-label="Back to Home">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5"></path>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </button>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-[11px] font-bold text-[#9A8FA8]">🏆 KIDOBITS LEADERBOARD</span>
+              <span class="text-[9px] font-black text-white px-2 py-0.5 rounded-full bg-[#8B7CFF]">WEEKLY</span>
             </div>
-
-            <!-- Profile Summary Button -->
-            <div class="flex items-center gap-2 bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 px-3 py-1.5 rounded-full transition-all">
-                <img id="navUserAvatar" src="https://sprofile.line-scdn.net/0h-f75F-i3ckkaTGHqoZMMNmoccSM5PStbNn47fHhJeXAldD0XMnhqKS4YKy4uemYdZSM7KicfeHwWXwUvBBqOfR18L3gmdDIXPyI9qg" alt="Avatar" class="w-7 h-7 rounded-full object-cover border border-amber-400">
-                <div class="text-right">
-                    <span id="navUserName" class="text-xs font-semibold text-slate-200 block truncate max-w-[80px]">Peesaderd</span>
-                    <span class="text-[10px] text-amber-400 font-bold flex items-center gap-0.5 justify-end">
-                        <i class="fa-solid fa-star text-[9px]"></i> <span id="navUserStars">260</span>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Container -->
-    <main class="max-w-2xl mx-auto px-4 pt-4">
-
-        <!-- Timeframe Tabs (Weekly vs All-Time) -->
-        <div class="flex p-1 bg-slate-800/80 backdrop-blur rounded-2xl border border-slate-700 mb-4 shadow-lg">
-            <button id="tabWeekly" onclick="switchTimeframe('weekly')" class="flex-1 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-md">
-                <i class="fa-solid fa-bolt text-amber-200"></i>
-                <span>สัปดาห์นี้ (Weekly)</span>
-            </button>
-            <button id="tabAllTime" onclick="switchTimeframe('all_time')" class="flex-1 py-2.5 rounded-xl font-semibold text-sm text-slate-400 hover:text-white transition-all flex items-center justify-center gap-2">
-                <i class="fa-solid fa-crown text-slate-500"></i>
-                <span>ตลอดกาล (All-Time)</span>
-            </button>
+            <h1 class="text-xl font-extrabold text-[#2D2342] leading-tight">
+              ตารางคะแนนคนเก่ง 🌟
+            </h1>
+          </div>
         </div>
 
-        <!-- Subject Filter Pills (Horizontal Scroll) -->
-        <div class="flex items-center gap-2 overflow-x-auto pb-3 mb-4 scrollbar-none no-scrollbar">
-            <button onclick="switchSubject('all')" id="sub-all" class="sub-pill px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap bg-indigo-600 text-white shadow-md transition-all">
-                🌈 ทั้งหมด
-            </button>
-            <button onclick="switchSubject('phonics')" id="sub-phonics" class="sub-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition-all">
-                🔤 สะกดคำ Phonics
-            </button>
-            <button onclick="switchSubject('math')" id="sub-math" class="sub-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition-all">
-                🧮 คณิตศาสตร์ Math
-            </button>
-            <button onclick="switchSubject('chinese')" id="sub-chinese" class="sub-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition-all">
-                🐲 ภาษาจีน Chinese
-            </button>
+        <!-- Stars Counter Badge -->
+        <button onclick="window.location.href='theme_profile.html'" class="flex items-center gap-1.5 bg-[#FFF9E6] border border-[#FFE899] px-3 py-1.5 rounded-full shadow-sm transition active:scale-95">
+          <span class="text-base">⭐</span>
+          <span id="headerStars" class="text-xs font-black text-[#D97706]">260</span>
+        </button>
+      </header>
+
+      <!-- ================= 2. ACHIEVEMENTS & BADGES BANNER ================= -->
+      <div onclick="openBadgesModal()" class="mt-2 bg-gradient-to-r from-[#FFF5EB] to-[#FFF0F5] border border-[#FFE3D1] rounded-2xl p-3 flex items-center justify-between cursor-pointer hover:brightness-98 transition active:scale-[0.99] card-shadow">
+        <div class="flex items-center gap-2.5">
+          <span class="text-2xl">🎖️</span>
+          <div>
+            <p class="text-xs font-black text-[#84360B]">คลังเหรียญรางวัลคนเก่ง (Achievements)</p>
+            <p class="text-[10px] text-[#A35D33] font-medium">สะสมครบ 7 เหรียญเกียรติยศ • กดดูรางวัล</p>
+          </div>
+        </div>
+        <span class="text-[11px] font-black text-[#FF7AB8] bg-white px-2.5 py-1 rounded-xl shadow-xs shrink-0">
+          ดูเหรียญ 🎖️
+        </span>
+      </div>
+
+      <!-- ================= 3. TIMEFRAME TABS (Weekly vs All-Time) ================= -->
+      <div class="mt-3.5 flex p-1 bg-[#F5F0FF] rounded-2xl border border-[#E9E0FF]">
+        <button id="tabWeekly" onclick="switchTimeframe('weekly')" class="flex-1 py-2 rounded-xl text-xs font-black bg-white text-[#6C5CE7] shadow-sm transition">
+          ⚡ สัปดาห์นี้ (Weekly)
+        </button>
+        <button id="tabAllTime" onclick="switchTimeframe('all_time')" class="flex-1 py-2 rounded-xl text-xs font-extrabold text-[#9A8FA8] hover:text-[#6C5CE7] transition">
+          👑 ตลอดกาล (All-Time)
+        </button>
+      </div>
+
+      <!-- ================= 4. SUBJECT FILTER PILLS ================= -->
+      <div class="mt-2.5 flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+        <button onclick="switchSubject('all')" id="sub-all" class="sub-pill px-3 py-1.5 rounded-xl text-[11px] font-black bg-[#8B7CFF] text-white shadow-xs shrink-0 transition">
+          🌈 ทั้งหมด
+        </button>
+        <button onclick="switchSubject('phonics')" id="sub-phonics" class="sub-pill px-3 py-1.5 rounded-xl text-[11px] font-extrabold bg-white border border-[#E9E0FF] text-[#7B7488] shrink-0 transition">
+          🔤 สะกดคำ Phonics
+        </button>
+        <button onclick="switchSubject('math')" id="sub-math" class="sub-pill px-3 py-1.5 rounded-xl text-[11px] font-extrabold bg-white border border-[#E9E0FF] text-[#7B7488] shrink-0 transition">
+          🧮 ตัวเลข Math
+        </button>
+        <button onclick="switchSubject('chinese')" id="sub-chinese" class="sub-pill px-3 py-1.5 rounded-xl text-[11px] font-extrabold bg-white border border-[#E9E0FF] text-[#7B7488] shrink-0 transition">
+          🐲 ภาษาจีน Chinese
+        </button>
+      </div>
+
+      <!-- ================= 5. TOP 3 PODIUM SECTION ================= -->
+      <section class="mt-4 bg-[#F8F9FD] border border-[#EAE4F2] rounded-[24px] p-3 pt-5 card-shadow relative overflow-hidden">
+        <div class="flex items-end justify-center gap-2">
+
+          <!-- Rank 2 (Silver) -->
+          <div class="flex-1 flex flex-col items-center">
+            <div class="relative mb-1.5">
+              <div class="w-14 h-14 rounded-full border-2 border-[#CBD5E1] p-0.5 bg-white overflow-hidden shadow-sm">
+                <img id="rank2Avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=chloe" class="w-full h-full object-cover rounded-full">
+              </div>
+              <span class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#E2E8F0] text-[#475569] font-black text-[10px] grid place-items-center shadow-xs border border-white">
+                2
+              </span>
+            </div>
+            <span id="rank2Name" class="text-[11px] font-black text-[#2D2342] text-center truncate max-w-[75px] block mt-1">Chloe 🐰</span>
+            <span id="rank2Stars" class="text-[10px] font-black text-[#D97706] flex items-center gap-0.5 mt-0.5">
+              ⭐ 290
+            </span>
+            <div class="w-full h-20 rounded-t-2xl flex flex-col items-center justify-center mt-2 shadow-inner bg-gradient-to-t from-[#F1F5F9] to-[#E2E8F0] border-t-4 border-[#94A3B8]">
+              <span class="text-lg">🥈</span>
+              <span class="text-[9px] text-[#475569] font-extrabold mt-0.5">รองอันดับ 1</span>
+            </div>
+          </div>
+
+          <!-- Rank 1 (Gold Champion) -->
+          <div class="flex-1 flex flex-col items-center -mt-4">
+            <span class="text-xl animate-bounce mb-0.5">👑</span>
+            <div class="relative mb-1.5">
+              <div class="w-18 h-18 rounded-full border-4 border-[#FFD166] p-0.5 bg-white overflow-hidden gold-glow" style="width: 70px; height: 70px;">
+                <img id="rank1Avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=oliver" class="w-full h-full object-cover rounded-full">
+              </div>
+              <span class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-gradient-to-r from-[#F59E0B] to-[#FBBF24] text-white font-black text-xs grid place-items-center shadow-md border-2 border-white">
+                1
+              </span>
+            </div>
+            <span id="rank1Name" class="text-xs font-black text-[#84360B] text-center truncate max-w-[85px] block mt-1">Oliver 🦁</span>
+            <span id="rank1Stars" class="text-xs font-black text-[#D97706] flex items-center gap-0.5 mt-0.5">
+              ⭐ 310
+            </span>
+            <div class="w-full h-28 rounded-t-2xl flex flex-col items-center justify-center mt-2 shadow-md bg-gradient-to-t from-[#FEF3C7] to-[#FDE68A] border-t-4 border-[#F59E0B]">
+              <span class="text-2xl">🥇</span>
+              <span class="text-[10px] text-[#92400E] font-black mt-0.5">แชมเปี้ยน</span>
+            </div>
+          </div>
+
+          <!-- Rank 3 (Bronze) -->
+          <div class="flex-1 flex flex-col items-center">
+            <div class="relative mb-1.5">
+              <div class="w-14 h-14 rounded-full border-2 border-[#FED7AA] p-0.5 bg-white overflow-hidden shadow-sm">
+                <img id="rank3Avatar" src="https://sprofile.line-scdn.net/0h-f75F-i3ckkaTGHqoZMMNmoccSM5PStbNn47fHhJeXAldD0XMnhqKS4YKy4uemYdZSM7KicfeHwWXwUvBBqOfR18L3gmdDIXPyI9qg" class="w-full h-full object-cover rounded-full">
+              </div>
+              <span class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#FFEDD5] text-[#9A3412] font-black text-[10px] grid place-items-center shadow-xs border border-white">
+                3
+              </span>
+            </div>
+            <span id="rank3Name" class="text-[11px] font-black text-[#2D2342] text-center truncate max-w-[75px] block mt-1">Peesaderd 🐼</span>
+            <span id="rank3Stars" class="text-[10px] font-black text-[#D97706] flex items-center gap-0.5 mt-0.5">
+              ⭐ 260
+            </span>
+            <div class="w-full h-16 rounded-t-2xl flex flex-col items-center justify-center mt-2 shadow-inner bg-gradient-to-t from-[#FFEDD5] to-[#FED7AA] border-t-4 border-[#F97316]">
+              <span class="text-lg">🥉</span>
+              <span class="text-[9px] text-[#9A3412] font-extrabold mt-0.5">รองอันดับ 2</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= 6. RANKINGS LIST (Rank 4 to 8) ================= -->
+      <section class="mt-4">
+        <div class="flex items-center justify-between mb-2 px-1">
+          <h2 class="text-xs font-black text-[#7B7488] uppercase tracking-wider flex items-center gap-1.5">
+            <span>🎖️</span> อันดับยอดเยี่ยมคนเก่ง · Top Learners
+          </h2>
+          <span id="rankingCount" class="text-[11px] font-extrabold text-[#8B7CFF]">ทั้งหมด 8 คน</span>
         </div>
 
-        <!-- Badges & Achievements Banner Button -->
-        <div class="mb-6">
-            <button onclick="openBadgesModal()" class="w-full bg-gradient-to-r from-purple-900/60 via-indigo-900/50 to-slate-900/60 hover:from-purple-900/80 hover:to-slate-800/80 border border-purple-500/30 rounded-2xl p-3 flex items-center justify-between shadow-lg transition-all group">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
-                        🎖️
-                    </div>
-                    <div class="text-left">
-                        <div class="text-sm font-bold text-white flex items-center gap-1.5">
-                            คลังเหรียญรางวัลคนเก่ง (Achievements)
-                            <span class="text-[10px] bg-purple-500/30 text-purple-200 px-2 py-0.5 rounded-full font-medium">7 เหรียญ</span>
-                        </div>
-                        <p class="text-xs text-purple-300">สะสมเหรียญตราจากการเรียนครบทุกวิชา</p>
-                    </div>
-                </div>
-                <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-300 group-hover:translate-x-1 transition-transform">
-                    <i class="fa-solid fa-chevron-right text-xs"></i>
-                </div>
-            </button>
+        <div id="rankingListContainer" class="space-y-2">
+          <!-- Dynamically populated from API -->
+          <div class="text-center py-6 text-xs text-[#9A8FA8] font-bold">
+            กำลังโหลดตารางคะแนน...
+          </div>
         </div>
+      </section>
 
-        <!-- Top 3 Podium Section -->
-        <div id="podiumSection" class="relative pt-6 pb-2 mb-6">
-            <div class="flex items-end justify-center gap-2 sm:gap-4 max-w-md mx-auto">
-                
-                <!-- Rank 2 (Silver) -->
-                <div id="podiumRank2" class="flex-1 flex flex-col items-center">
-                    <div class="relative mb-2">
-                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-slate-400 p-0.5 silver-glow bg-slate-800 overflow-hidden">
-                            <img id="rank2Avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=chloe" class="w-full h-full object-cover rounded-full">
-                        </div>
-                        <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-slate-300 text-slate-900 font-extrabold text-xs flex items-center justify-center shadow">
-                            2
-                        </span>
-                    </div>
-                    <span id="rank2Name" class="text-xs sm:text-sm font-bold text-slate-200 text-center truncate max-w-[90px] block mt-1">Chloe 🐰</span>
-                    <span id="rank2Stars" class="text-xs font-bold text-amber-400 flex items-center gap-1 mt-0.5">
-                        <i class="fa-solid fa-star text-[10px]"></i> 290
-                    </span>
-                    <div class="podium-2 w-full h-24 rounded-t-2xl flex flex-col items-center justify-center mt-2 shadow-inner">
-                        <span class="text-xl">🥈</span>
-                        <span class="text-[10px] text-slate-300 font-medium mt-0.5">รองอันดับ 1</span>
-                    </div>
-                </div>
-
-                <!-- Rank 1 (Gold) -->
-                <div id="podiumRank1" class="flex-1 flex flex-col items-center -mt-6">
-                    <div class="text-2xl animate-bounce mb-1">👑</div>
-                    <div class="relative mb-2">
-                        <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-amber-400 p-0.5 gold-glow bg-slate-800 overflow-hidden animate-pulse">
-                            <img id="rank1Avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=oliver" class="w-full h-full object-cover rounded-full">
-                        </div>
-                        <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-7 h-7 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black text-sm flex items-center justify-center shadow-lg border border-amber-200">
-                            1
-                        </span>
-                    </div>
-                    <span id="rank1Name" class="text-sm sm:text-base font-extrabold text-amber-300 text-center truncate max-w-[100px] block mt-1">Oliver 🦁</span>
-                    <span id="rank1Stars" class="text-sm font-black text-amber-400 flex items-center gap-1 mt-0.5">
-                        <i class="fa-solid fa-star text-xs"></i> 310
-                    </span>
-                    <div class="podium-1 w-full h-32 rounded-t-2xl flex flex-col items-center justify-center mt-2 shadow-lg">
-                        <span class="text-3xl">🥇</span>
-                        <span class="text-xs text-amber-200 font-bold mt-1">แชมเปี้ยน</span>
-                    </div>
-                </div>
-
-                <!-- Rank 3 (Bronze) -->
-                <div id="podiumRank3" class="flex-1 flex flex-col items-center">
-                    <div class="relative mb-2">
-                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-amber-700 p-0.5 bronze-glow bg-slate-800 overflow-hidden">
-                            <img id="rank3Avatar" src="https://sprofile.line-scdn.net/0h-f75F-i3ckkaTGHqoZMMNmoccSM5PStbNn47fHhJeXAldD0XMnhqKS4YKy4uemYdZSM7KicfeHwWXwUvBBqOfR18L3gmdDIXPyI9qg" class="w-full h-full object-cover rounded-full">
-                        </div>
-                        <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-amber-700 text-amber-100 font-extrabold text-xs flex items-center justify-center shadow">
-                            3
-                        </span>
-                    </div>
-                    <span id="rank3Name" class="text-xs sm:text-sm font-bold text-slate-200 text-center truncate max-w-[90px] block mt-1">Peesaderd 🐼</span>
-                    <span id="rank3Stars" class="text-xs font-bold text-amber-400 flex items-center gap-1 mt-0.5">
-                        <i class="fa-solid fa-star text-[10px]"></i> 260
-                    </span>
-                    <div class="podium-3 w-full h-20 rounded-t-2xl flex flex-col items-center justify-center mt-2 shadow-inner">
-                        <span class="text-xl">🥉</span>
-                        <span class="text-[10px] text-amber-200 font-medium mt-0.5">รองอันดับ 2</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Leaderboard List (Rank 4 to End) -->
-        <div class="bg-slate-900/60 rounded-3xl border border-slate-800 p-3 sm:p-4 shadow-xl">
-            <div class="flex items-center justify-between mb-3 px-2">
-                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">อันดับยอดเยี่ยมคนเก่ง</span>
-                <span id="rankingCount" class="text-xs text-slate-500 font-medium">ทั้งหมด 8 คน</span>
-            </div>
-
-            <div id="rankingListContainer" class="space-y-2">
-                <!-- Dynamic ranking items rendered here -->
-                <div class="text-center py-8 text-slate-500">
-                    <i class="fa-solid fa-circle-notch fa-spin text-2xl mb-2"></i>
-                    <p class="text-xs">กำลังโหลดตารางคะแนน...</p>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- Sticky Bottom User Rank Status Bar -->
-    <div class="fixed bottom-20 left-0 right-0 z-30 px-4 pointer-events-none">
-        <div class="max-w-2xl mx-auto pointer-events-auto bg-slate-900/95 backdrop-blur-lg border-2 border-amber-400/80 rounded-2xl p-3 shadow-2xl flex items-center justify-between text-fun">
-            <div class="flex items-center gap-3">
-                <div class="relative">
-                    <img id="myBarAvatar" src="https://sprofile.line-scdn.net/0h-f75F-i3ckkaTGHqoZMMNmoccSM5PStbNn47fHhJeXAldD0XMnhqKS4YKy4uemYdZSM7KicfeHwWXwUvBBqOfR18L3gmdDIXPyI9qg" class="w-10 h-10 rounded-full border-2 border-amber-400 object-cover">
-                    <span id="myBarRankBadge" class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-amber-500 text-slate-950 font-extrabold text-[10px] flex items-center justify-center shadow">
-                        #3
-                    </span>
-                </div>
-                <div>
-                    <div class="flex items-center gap-2">
-                        <span id="myBarName" class="text-sm font-bold text-white">Peesaderd 🐼</span>
-                        <span class="text-[10px] bg-amber-400/20 text-amber-300 font-semibold px-2 py-0.5 rounded-full">อันดับของคุณ</span>
-                    </div>
-                    <p id="myBarMotivation" class="text-xs text-amber-300 font-medium font-prompt truncate max-w-[200px] sm:max-w-xs">
-                        อีกเพียง 30 ดาวจะแซงอันดับ 2! สู้ๆ นะคนเก่ง!
-                    </p>
-                </div>
-            </div>
-
-            <div class="text-right pl-2">
-                <div class="text-base font-extrabold text-amber-400 flex items-center gap-1 justify-end">
-                    <i class="fa-solid fa-star text-sm"></i>
-                    <span id="myBarStars">260</span>
-                </div>
-                <span class="text-[10px] text-slate-400 font-prompt">คะแนนสะสม</span>
-            </div>
-        </div>
     </div>
 
-    <!-- Badges Modal Popup -->
-    <div id="badgesModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
-            <!-- Modal Header -->
-            <div class="px-5 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-800/50">
-                <div class="flex items-center gap-2.5">
-                    <span class="text-2xl">🎖️</span>
-                    <div>
-                        <h3 class="font-bold text-white text-base">คลังเหรียญรางวัลคนเก่ง</h3>
-                        <p class="text-xs text-purple-300">สะสมความสำเร็จและรับดาวพิเศษ</p>
-                    </div>
-                </div>
-                <button onclick="closeBadgesModal()" class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+    <!-- ================= 7. FLOATING STICKY MY RANK BAR ================= -->
+    <div class="fixed bottom-[74px] left-0 right-0 max-w-[430px] mx-auto px-4 z-40 pointer-events-none">
+      <div class="pointer-events-auto bg-white border-2 border-[#8B7CFF] rounded-2xl p-2.5 shadow-xl flex items-center justify-between purple-glow">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="relative shrink-0">
+            <img id="myBarAvatar" src="https://sprofile.line-scdn.net/0h-f75F-i3ckkaTGHqoZMMNmoccSM5PStbNn47fHhJeXAldD0XMnhqKS4YKy4uemYdZSM7KicfeHwWXwUvBBqOfR18L3gmdDIXPyI9qg" class="w-9 h-9 rounded-full border-2 border-[#FF7AB8] object-cover">
+            <span id="myBarRankBadge" class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#8B7CFF] text-white font-black text-[9px] grid place-items-center shadow-xs">
+              #3
+            </span>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5">
+              <span id="myBarName" class="text-xs font-extrabold text-[#2D2342] truncate">Peesaderd 🐼</span>
+              <span class="text-[9px] bg-[#F5F0FF] text-[#6C5CE7] font-black px-1.5 py-0.2 rounded-full shrink-0">ฉัน</span>
             </div>
-
-            <!-- Badges List -->
-            <div id="badgesListContainer" class="p-4 space-y-3 overflow-y-auto flex-1">
-                <!-- Populated via API -->
-            </div>
-
-            <!-- Modal Footer -->
-            <div class="p-4 border-t border-slate-800 bg-slate-950/60 text-center">
-                <button onclick="closeBadgesModal()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-sm shadow-md hover:brightness-110">
-                    ปิดหน้าต่าง
-                </button>
-            </div>
+            <p id="myBarMotivation" class="text-[10px] text-[#7B7488] font-semibold truncate max-w-[190px]">
+              อีกเพียง 30 ดาวจะแซงอันดับ 2! สู้ๆ นะคนเก่ง!
+            </p>
+          </div>
         </div>
+
+        <div class="text-right shrink-0 pl-2">
+          <div class="text-sm font-black text-[#D97706] flex items-center gap-0.5 justify-end">
+            ⭐ <span id="myBarStars">260</span>
+          </div>
+          <span class="text-[9px] text-[#9A8FA8] font-bold">คะแนนรวม</span>
+        </div>
+      </div>
     </div>
 
-    <!-- 6-Tab Bottom Navigation Dock -->
-    <nav class="fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-slate-800 px-2 py-2">
-        <div class="max-w-lg mx-auto flex items-center justify-around text-center">
-            <a href="/theme/theme_home.html" class="flex flex-col items-center text-slate-400 hover:text-amber-400 transition-colors p-1">
-                <i class="fa-solid fa-house text-lg"></i>
-                <span class="text-[10px] font-medium mt-1">หน้าแรก</span>
-            </a>
-            <a href="/theme/theme_phonicsLevel.html" class="flex flex-col items-center text-slate-400 hover:text-amber-400 transition-colors p-1">
-                <i class="fa-solid fa-spell-check text-lg"></i>
-                <span class="text-[10px] font-medium mt-1">สะกดคำ</span>
-            </a>
-            <a href="/theme/theme_math_lobby.html" class="flex flex-col items-center text-slate-400 hover:text-amber-400 transition-colors p-1">
-                <i class="fa-solid fa-calculator text-lg"></i>
-                <span class="text-[10px] font-medium mt-1">ตัวเลข</span>
-            </a>
-            <a href="/theme/theme_chinese_lobby.html" class="flex flex-col items-center text-slate-400 hover:text-amber-400 transition-colors p-1">
-                <i class="fa-solid fa-dragon text-lg"></i>
-                <span class="text-[10px] font-medium mt-1">ภาษาจีน</span>
-            </a>
-            <a href="/theme/theme_games.html" class="flex flex-col items-center text-slate-400 hover:text-amber-400 transition-colors p-1">
-                <i class="fa-solid fa-gamepad text-lg"></i>
-                <span class="text-[10px] font-medium mt-1">เกม</span>
-            </a>
-            <a href="/theme/theme_leaderboard.html" class="flex flex-col items-center text-amber-400 transition-colors p-1">
-                <i class="fa-solid fa-trophy text-lg"></i>
-                <span class="text-[10px] font-bold mt-1">คะแนน</span>
-            </a>
+    <!-- ================= 8. BADGES / ACHIEVEMENTS MODAL ================= -->
+    <div id="badgesModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs hidden flex items-center justify-center p-4">
+      <div class="bg-white rounded-[28px] max-w-sm w-full max-h-[82vh] flex flex-col shadow-2xl border border-[#E9E0FF] overflow-hidden">
+        <!-- Header -->
+        <div class="px-5 py-4 border-b border-[#F0EBF8] flex items-center justify-between bg-[#F8F9FD]">
+          <div class="flex items-center gap-2.5">
+            <span class="text-2xl">🎖️</span>
+            <div>
+              <h3 class="font-extrabold text-[#2D2342] text-sm">คลังเหรียญรางวัลคนเก่ง</h3>
+              <p class="text-[10px] text-[#7B7488] font-bold">Kidobits Badges & Achievements</p>
+            </div>
+          </div>
+          <button onclick="closeBadgesModal()" class="w-8 h-8 rounded-full bg-[#F5F0FF] text-[#6C5CE7] hover:bg-[#EDE5FA] grid place-items-center transition active:scale-95 cursor-pointer">
+            ✕
+          </button>
         </div>
+
+        <!-- Badges List -->
+        <div id="badgesListContainer" class="p-4 space-y-2.5 overflow-y-auto flex-1">
+          <!-- Populated from API -->
+        </div>
+
+        <!-- Footer -->
+        <div class="p-3.5 border-t border-[#F0EBF8] bg-[#F8F9FD] text-center">
+          <button onclick="closeBadgesModal()" class="w-full py-2.5 rounded-xl bg-[#8B7CFF] text-white font-black text-xs shadow-md hover:brightness-105 active:scale-98 transition">
+            เข้าใจแล้ว คนเก่ง! 👍
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 9. FLOATING BOTTOM NAV DOCK (Exact Theme Match) ================= -->
+    <nav class="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto bg-white/95 backdrop-blur-md border-t border-[#EAE4F2] px-3 py-2 flex items-center justify-between z-50 shadow-lg" aria-label="Bottom Navigation">
+      <!-- Home -->
+      <button onclick="window.location.href='theme_home.html'" class="flex flex-col items-center gap-0.5 min-w-[50px] text-[#9A8FA8] hover:text-black transition">
+        <span class="w-10 h-10 grid place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+            <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          </svg>
+        </span>
+        <span class="text-[10px] font-extrabold text-[#9A8FA8]">Home</span>
+      </button>
+
+      <!-- Phonics -->
+      <button onclick="window.location.href='theme_phonicsLevel.html'" class="flex flex-col items-center gap-0.5 min-w-[50px] text-[#9A8FA8] hover:text-black transition">
+        <span class="w-10 h-10 grid place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+            <path d="M6 6h10"></path>
+            <path d="M6 10h10"></path>
+          </svg>
+        </span>
+        <span class="text-[10px] font-extrabold text-[#9A8FA8]">Phonics</span>
+      </button>
+
+      <!-- Math -->
+      <button onclick="window.location.href='theme_math_lobby.html'" class="flex flex-col items-center gap-0.5 min-w-[50px] text-[#9A8FA8] hover:text-black transition">
+        <span class="w-10 h-10 grid place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+            <line x1="8" x2="16" y1="6" y2="6"></line>
+            <line x1="16" x2="16" y1="14" y2="18"></line>
+            <path d="M16 10h.01"></path>
+            <path d="M12 10h.01"></path>
+            <path d="M8 10h.01"></path>
+            <path d="M12 14h.01"></path>
+            <path d="M8 14h.01"></path>
+            <path d="M12 18h.01"></path>
+            <path d="M8 18h.01"></path>
+          </svg>
+        </span>
+        <span class="text-[10px] font-extrabold text-[#9A8FA8]">Math</span>
+      </button>
+
+      <!-- Chinese -->
+      <button onclick="window.location.href='theme_chinese_lobby.html'" class="flex flex-col items-center gap-0.5 min-w-[50px] text-[#9A8FA8] hover:text-black transition">
+        <span class="w-10 h-10 grid place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+            <path d="M2 12h20"></path>
+          </svg>
+        </span>
+        <span class="text-[10px] font-extrabold text-[#9A8FA8]">Chinese</span>
+      </button>
+
+      <!-- Games -->
+      <button onclick="window.location.href='theme_games.html'" class="flex flex-col items-center gap-0.5 min-w-[50px] text-[#9A8FA8] hover:text-black transition">
+        <span class="w-10 h-10 grid place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="6" x2="10" y1="11" y2="11"></line>
+            <line x1="8" x2="8" y1="9" y2="13"></line>
+            <line x1="15" x2="15.01" y1="12" y2="12"></line>
+            <line x1="18" x2="18.01" y1="10" y2="10"></line>
+            <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"></path>
+          </svg>
+        </span>
+        <span class="text-[10px] font-extrabold text-[#9A8FA8]">Games</span>
+      </button>
+
+      <!-- Leaderboard (Active with #8B7CFF highlight) -->
+      <button onclick="window.location.href='theme_leaderboard.html'" class="flex flex-col items-center gap-0.5 min-w-[50px] text-[#8B7CFF] transition">
+        <span class="w-10 h-10 grid place-items-center rounded-full bg-[#F5F0FF] text-[#8B7CFF]">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+            <path d="M4 22h16"></path>
+            <path d="M10 14.66V17c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-2.34"></path>
+            <path d="M14 14.66V17c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-2.34"></path>
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+          </svg>
+        </span>
+        <span class="text-[10px] font-black text-[#8B7CFF]">Rank</span>
+      </button>
     </nav>
 
-    <!-- Global Dynamic Island & Activity Guard Scripts -->
-    <script src="/theme/js/kidobits_dynamic_island.js"></script>
-    <script src="/theme/js/kidobits_auth.js"></script>
+  </div>
 
-    <!-- Leaderboard Logic Script -->
-    <script>
-        let currentTimeframe = 'weekly';
-        let currentSubject = 'all';
-        let currentUser = null;
+  <!-- Dynamic Island Learning Timer -->
+  <script src="/theme/js/kidobits_dynamic_island.js"></script>
 
-        // Initialize User
-        function initUser() {
-            try {
-                const stored = localStorage.getItem('kidobits_user');
-                if (stored) {
-                    currentUser = JSON.parse(stored);
-                }
-            } catch (e) {
-                console.warn("Auth parse failed:", e);
-            }
+  <!-- Leaderboard Controller Script -->
+  <script>
+    let currentTimeframe = 'weekly';
+    let currentSubject = 'all';
+    let currentUser = null;
 
-            if (!currentUser) {
-                currentUser = {
-                    userId: "line_peesaderd",
-                    displayName: "Peesaderd 🐼",
-                    pictureUrl: "https://sprofile.line-scdn.net/0h-f75F-i3ckkaTGHqoZMMNmoccSM5PStbNn47fHhJeXAldD0XMnhqKS4YKy4uemYdZSM7KicfeHwWXwUvBBqOfR18L3gmdDIXPyI9qg",
-                    stars: 260
-                };
-            }
-
-            // Sync Header & Sticky Bar
-            document.getElementById('navUserName').textContent = currentUser.displayName || "คนเก่ง";
-            if (currentUser.pictureUrl) {
-                document.getElementById('navUserAvatar').src = currentUser.pictureUrl;
-                document.getElementById('myBarAvatar').src = currentUser.pictureUrl;
-            }
-            document.getElementById('myBarName').textContent = currentUser.displayName || "คนเก่ง";
+    function initUser() {
+      try {
+        const stored = localStorage.getItem('kidobits_user');
+        if (stored) {
+          currentUser = JSON.parse(stored);
         }
+      } catch (e) {
+        console.warn("Auth parse failed:", e);
+      }
 
-        // Switch Timeframe (weekly vs all_time)
-        function switchTimeframe(tf) {
-            currentTimeframe = tf;
-            const tabW = document.getElementById('tabWeekly');
-            const tabA = document.getElementById('tabAllTime');
+      if (!currentUser) {
+        currentUser = {
+          userId: "line_peesaderd",
+          displayName: "Peesaderd 🐼",
+          pictureUrl: "https://sprofile.line-scdn.net/0h-f75F-i3ckkaTGHqoZMMNmoccSM5PStbNn47fHhJeXAldD0XMnhqKS4YKy4uemYdZSM7KicfeHwWXwUvBBqOfR18L3gmdDIXPyI9qg",
+          stars: 260
+        };
+      }
 
-            if (tf === 'weekly') {
-                tabW.className = 'flex-1 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-md';
-                tabA.className = 'flex-1 py-2.5 rounded-xl font-semibold text-sm text-slate-400 hover:text-white transition-all flex items-center justify-center gap-2';
-            } else {
-                tabA.className = 'flex-1 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-md';
-                tabW.className = 'flex-1 py-2.5 rounded-xl font-semibold text-sm text-slate-400 hover:text-white transition-all flex items-center justify-center gap-2';
-            }
-            fetchLeaderboard();
-            fetchMyRank();
-        }
+      if (currentUser.pictureUrl) {
+        document.getElementById('myBarAvatar').src = currentUser.pictureUrl;
+      }
+      document.getElementById('myBarName').textContent = currentUser.displayName || "คนเก่ง";
+    }
 
-        // Switch Subject Filter
-        function switchSubject(sub) {
-            currentSubject = sub;
-            document.querySelectorAll('.sub-pill').forEach(btn => {
-                btn.className = 'sub-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition-all';
-            });
-            const activeBtn = document.getElementById(`sub-${sub}`);
-            if (activeBtn) {
-                activeBtn.className = 'sub-pill px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap bg-indigo-600 text-white shadow-md transition-all';
-            }
-            fetchLeaderboard();
-            fetchMyRank();
-        }
+    function switchTimeframe(tf) {
+      currentTimeframe = tf;
+      const tabW = document.getElementById('tabWeekly');
+      const tabA = document.getElementById('tabAllTime');
 
-        // Fetch Leaderboard from API
-        async function fetchLeaderboard() {
-            try {
-                const res = await fetch(`/api/v1/leaderboard?subject=${currentSubject}&timeframe=${currentTimeframe}&limit=20`);
-                if (!res.ok) throw new Error("Leaderboard API error");
-                const data = await res.json();
-                renderLeaderboard(data.rankings || []);
-            } catch (err) {
-                console.error("Fetch leaderboard error:", err);
-                renderFallbackLeaderboard();
-            }
-        }
+      if (tf === 'weekly') {
+        tabW.className = 'flex-1 py-2 rounded-xl text-xs font-black bg-white text-[#6C5CE7] shadow-sm transition';
+        tabA.className = 'flex-1 py-2 rounded-xl text-xs font-extrabold text-[#9A8FA8] hover:text-[#6C5CE7] transition';
+      } else {
+        tabA.className = 'flex-1 py-2 rounded-xl text-xs font-black bg-white text-[#6C5CE7] shadow-sm transition';
+        tabW.className = 'flex-1 py-2 rounded-xl text-xs font-extrabold text-[#9A8FA8] hover:text-[#6C5CE7] transition';
+      }
+      fetchLeaderboard();
+      fetchMyRank();
+    }
 
-        // Fetch Current User Rank
-        async function fetchMyRank() {
-            try {
-                const userId = currentUser ? currentUser.userId : 'line_peesaderd';
-                const res = await fetch(`/api/v1/leaderboard/me?user_id=${encodeURIComponent(userId)}&subject=${currentSubject}&timeframe=${currentTimeframe}`);
-                if (!res.ok) throw new Error("My Rank API error");
-                const data = await res.json();
-                
-                document.getElementById('myBarRankBadge').textContent = `#${data.rank || 3}`;
-                document.getElementById('myBarStars').textContent = data.stars || 260;
-                document.getElementById('navUserStars').textContent = data.stars || 260;
-                document.getElementById('myBarMotivation').textContent = data.motivational_text || "เก่งมากๆ สู้ต่อไปนะ!";
-            } catch (e) {
-                console.warn("My rank fetch error:", e);
-            }
-        }
+    function switchSubject(sub) {
+      currentSubject = sub;
+      document.querySelectorAll('.sub-pill').forEach(btn => {
+        btn.className = 'sub-pill px-3 py-1.5 rounded-xl text-[11px] font-extrabold bg-white border border-[#E9E0FF] text-[#7B7488] shrink-0 transition';
+      });
+      const activeBtn = document.getElementById(`sub-${sub}`);
+      if (activeBtn) {
+        activeBtn.className = 'sub-pill px-3 py-1.5 rounded-xl text-[11px] font-black bg-[#8B7CFF] text-white shadow-xs shrink-0 transition';
+      }
+      fetchLeaderboard();
+      fetchMyRank();
+    }
 
-        // Render Leaderboard
-        function renderLeaderboard(rankings) {
-            document.getElementById('rankingCount').textContent = `ทั้งหมด ${rankings.length} คน`;
+    async function fetchLeaderboard() {
+      try {
+        const res = await fetch(`/api/v1/leaderboard?subject=${currentSubject}&timeframe=${currentTimeframe}&limit=20`);
+        if (!res.ok) throw new Error("Leaderboard API error");
+        const data = await res.json();
+        renderLeaderboard(data.rankings || []);
+      } catch (err) {
+        console.error("Fetch leaderboard error:", err);
+        renderFallbackLeaderboard();
+      }
+    }
 
-            // Podium Top 3
-            if (rankings.length >= 1) {
-                const r1 = rankings[0];
-                document.getElementById('rank1Name').textContent = r1.name;
-                document.getElementById('rank1Stars').innerHTML = `<i class="fa-solid fa-star text-xs"></i> ${r1.stars}`;
-                if (r1.avatar_url) document.getElementById('rank1Avatar').src = r1.avatar_url;
-            }
-            if (rankings.length >= 2) {
-                const r2 = rankings[1];
-                document.getElementById('rank2Name').textContent = r2.name;
-                document.getElementById('rank2Stars').innerHTML = `<i class="fa-solid fa-star text-[10px]"></i> ${r2.stars}`;
-                if (r2.avatar_url) document.getElementById('rank2Avatar').src = r2.avatar_url;
-            }
-            if (rankings.length >= 3) {
-                const r3 = rankings[2];
-                document.getElementById('rank3Name').textContent = r3.name;
-                document.getElementById('rank3Stars').innerHTML = `<i class="fa-solid fa-star text-[10px]"></i> ${r3.stars}`;
-                if (r3.avatar_url) document.getElementById('rank3Avatar').src = r3.avatar_url;
-            }
+    async function fetchMyRank() {
+      try {
+        const userId = currentUser ? currentUser.userId : 'line_peesaderd';
+        const res = await fetch(`/api/v1/leaderboard/me?user_id=${encodeURIComponent(userId)}&subject=${currentSubject}&timeframe=${currentTimeframe}`);
+        if (!res.ok) throw new Error("My Rank API error");
+        const data = await res.json();
+        
+        document.getElementById('myBarRankBadge').textContent = `#${data.rank || 3}`;
+        document.getElementById('myBarStars').textContent = data.stars || 260;
+        document.getElementById('headerStars').textContent = data.stars || 260;
+        document.getElementById('myBarMotivation').textContent = data.motivational_text || "เก่งมากๆ สู้ต่อไปนะ!";
+      } catch (e) {
+        console.warn("My rank fetch error:", e);
+      }
+    }
 
-            // Rankings 4 to End
-            const container = document.getElementById('rankingListContainer');
-            container.innerHTML = '';
+    function renderLeaderboard(rankings) {
+      document.getElementById('rankingCount').textContent = `ทั้งหมด ${rankings.length} คน`;
 
-            const listItems = rankings.slice(3);
-            if (listItems.length === 0) {
-                container.innerHTML = '<div class="text-center py-6 text-xs text-slate-500">ไม่มีข้อมูลเพิ่มเติมในอันดับถัดไป</div>';
-                return;
-            }
+      // Podium Top 3
+      if (rankings.length >= 1) {
+        const r1 = rankings[0];
+        document.getElementById('rank1Name').textContent = r1.name;
+        document.getElementById('rank1Stars').textContent = `⭐ ${r1.stars}`;
+        if (r1.avatar_url) document.getElementById('rank1Avatar').src = r1.avatar_url;
+      }
+      if (rankings.length >= 2) {
+        const r2 = rankings[1];
+        document.getElementById('rank2Name').textContent = r2.name;
+        document.getElementById('rank2Stars').textContent = `⭐ ${r2.stars}`;
+        if (r2.avatar_url) document.getElementById('rank2Avatar').src = r2.avatar_url;
+      }
+      if (rankings.length >= 3) {
+        const r3 = rankings[2];
+        document.getElementById('rank3Name').textContent = r3.name;
+        document.getElementById('rank3Stars').textContent = `⭐ ${r3.stars}`;
+        if (r3.avatar_url) document.getElementById('rank3Avatar').src = r3.avatar_url;
+      }
 
-            listItems.forEach(item => {
-                const isMe = (currentUser && item.user_id === currentUser.userId) || item.name.includes("Peesaderd");
-                const card = document.createElement('div');
-                card.className = `flex items-center justify-between p-3 rounded-2xl border transition-all ${
-                    isMe 
-                    ? 'bg-amber-500/10 border-amber-400/80 shadow-md ring-1 ring-amber-400/50' 
-                    : 'bg-slate-800/60 border-slate-700/60 hover:bg-slate-800'
-                }`;
+      // Rankings 4 to End
+      const container = document.getElementById('rankingListContainer');
+      container.innerHTML = '';
 
-                card.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-slate-700/80 text-slate-300 font-bold text-xs flex items-center justify-center shadow">
-                            #${item.rank}
-                        </div>
-                        <img src="${item.avatar_url || 'https://api.dicebear.com/7.x/bottts/svg?seed=kid'}" class="w-10 h-10 rounded-full object-cover border border-slate-600 bg-slate-700">
-                        <div>
-                            <div class="flex items-center gap-1.5">
-                                <span class="font-bold text-sm text-white">${item.name}</span>
-                                ${isMe ? '<span class="text-[9px] bg-amber-400 text-slate-950 px-1.5 py-0.2 rounded font-extrabold">ฉัน</span>' : ''}
-                            </div>
-                            <div class="flex items-center gap-2 text-[10px] text-slate-400 mt-0.5">
-                                <span>${item.school || 'Kidobits'}</span>
-                                <span>•</span>
-                                <span class="text-amber-400 font-medium">🔥 ${item.streak_days || 1} วันติด</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-sm font-black text-amber-400 flex items-center gap-1 justify-end">
-                            <i class="fa-solid fa-star text-xs"></i> ${item.stars}
-                        </div>
-                        <span class="text-[10px] text-purple-300 font-medium">🎖️ ${item.badges_count || 1} เหรียญ</span>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
+      const listItems = rankings.slice(3);
+      if (listItems.length === 0) {
+        container.innerHTML = '<div class="text-center py-6 text-xs text-[#9A8FA8] font-bold">ไม่มีข้อมูลเพิ่มเติมในอันดับถัดไป</div>';
+        return;
+      }
 
-        // Fallback in case of network issue
-        function renderFallbackLeaderboard() {
-            renderLeaderboard([
-                { rank: 1, name: "Oliver 🦁", stars: 310, streak_days: 14, badges_count: 8, avatar_url: "https://api.dicebear.com/7.x/bottts/svg?seed=oliver", school: "Kidobits Inter" },
-                { rank: 2, name: "Chloe 🐰", stars: 290, streak_days: 12, badges_count: 6, avatar_url: "https://api.dicebear.com/7.x/bottts/svg?seed=chloe", school: "Kidobits Inter" },
-                { rank: 3, name: "Peesaderd 🐼", stars: 260, streak_days: 7, badges_count: 5, avatar_url: "https://sprofile.line-scdn.net/0h-f75F-i3ckkaTGHqoZMMNmoccSM5PStbNn47fHhJeXAldD0XMnhqKS4YKy4uemYdZSM7KicfeHwWXwUvBBqOfR18L3gmdDIXPyI9qg", school: "My School VIP" },
-                { rank: 4, name: "Leo 🦊", stars: 210, streak_days: 5, badges_count: 4, avatar_url: "https://api.dicebear.com/7.x/bottts/svg?seed=leo", school: "Bangkok Kids" },
-                { rank: 5, name: "Emma 🐱", stars: 190, streak_days: 6, badges_count: 3, avatar_url: "https://api.dicebear.com/7.x/bottts/svg?seed=emma", school: "Bangkok Kids" },
-                { rank: 6, name: "Alex 🐯", stars: 160, streak_days: 4, badges_count: 3, avatar_url: "https://api.dicebear.com/7.x/bottts/svg?seed=alex", school: "Kidobits Inter" }
-            ]);
-        }
+      listItems.forEach(item => {
+        const isMe = (currentUser && item.user_id === currentUser.userId) || item.name.includes("Peesaderd");
+        const card = document.createElement('div');
+        card.className = `flex items-center justify-between p-3 rounded-2xl border transition-all ${
+          isMe 
+          ? 'bg-[#F9F7FF] border-2 border-[#8B7CFF] shadow-md' 
+          : 'bg-white border border-[#F0EBF8] hover:border-[#E2D9F3] card-shadow'
+        }`;
 
-        // Badges Modal Logic
-        async function openBadgesModal() {
-            const modal = document.getElementById('badgesModal');
-            const container = document.getElementById('badgesListContainer');
-            modal.classList.remove('hidden');
+        card.innerHTML = `
+          <div class="flex items-center gap-2.5">
+            <div class="w-7 h-7 rounded-full ${isMe ? 'bg-[#8B7CFF] text-white' : 'bg-[#F5F0FF] text-[#6C5CE7]'} font-black text-xs grid place-items-center shrink-0">
+              #${item.rank}
+            </div>
+            <img src="${item.avatar_url || 'https://api.dicebear.com/7.x/bottts/svg?seed=kid'}" class="w-9 h-9 rounded-full object-cover border border-[#EAE4F2] bg-slate-50 shrink-0">
+            <div>
+              <div class="flex items-center gap-1.5">
+                <span class="font-extrabold text-xs text-[#2D2342]">${item.name}</span>
+                ${isMe ? '<span class="text-[9px] bg-[#8B7CFF] text-white px-1.5 py-0.2 rounded font-black">ฉัน</span>' : ''}
+              </div>
+              <div class="flex items-center gap-1.5 text-[10px] text-[#9A8FA8] font-bold mt-0.5">
+                <span>${item.school || 'Kidobits'}</span>
+                <span>•</span>
+                <span class="text-[#EA580C]">🔥 ${item.streak_days || 1} วันติด</span>
+              </div>
+            </div>
+          </div>
+          <div class="text-right shrink-0">
+            <div class="text-xs font-black text-[#D97706] flex items-center gap-0.5 justify-end">
+              ⭐ ${item.stars}
+            </div>
+            <span class="text-[10px] text-[#7C3AED] font-extrabold">🎖️ ${item.badges_count || 1} เหรียญ</span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
 
-            try {
-                container.innerHTML = '<div class="text-center py-6 text-slate-400 text-xs"><i class="fa-solid fa-spinner fa-spin mr-2"></i>กำลังดึงข้อมูลเหรียญรางวัล...</div>';
-                const res = await fetch('/api/v1/leaderboard/badges');
-                const data = await res.json();
-                
-                container.innerHTML = '';
-                (data.badges || []).forEach(b => {
-                    const bCard = document.createElement('div');
-                    bCard.className = `flex items-center gap-3 p-3 rounded-2xl border transition-all ${
-                        b.unlocked 
-                        ? 'bg-purple-950/30 border-purple-500/40' 
-                        : 'bg-slate-800/40 border-slate-700/40 opacity-60'
-                    }`;
+    function renderFallbackLeaderboard() {
+      renderLeaderboard([
+        { rank: 1, name: "Oliver 🦁", stars: 310, streak_days: 14, badges_count: 8, avatar_url: "https://api.dicebear.com/7.x/bottts/svg?seed=oliver", school: "Kidobits Inter" },
+        { rank: 2, name: "Chloe 🐰", stars: 290, streak_days: 12, badges_count: 6, avatar_url: "https://api.dicebear.com/7.x/bottts/svg?seed=chloe", school: "Kidobits Inter" },
+        { rank: 3, name: "Peesaderd 🐼", stars: 260, streak_days: 7, badges_count: 5, avatar_url: "https://sprofile.line-scdn.net/0h-f75F-i3ckkaTGHqoZMMNmoccSM5PStbNn47fHhJeXAldD0XMnhqKS4YKy4uemYdZSM7KicfeHwWXwUvBBqOfR18L3gmdDIXPyI9qg", school: "My School VIP" },
+        { rank: 4, name: "Leo 🦊", stars: 210, streak_days: 5, badges_count: 4, avatar_url: "https://api.dicebear.com/7.x/bottts/svg?seed=leo", school: "Bangkok Kids" },
+        { rank: 5, name: "Emma 🐱", stars: 190, streak_days: 6, badges_count: 3, avatar_url: "https://api.dicebear.com/7.x/bottts/svg?seed=emma", school: "Bangkok Kids" },
+        { rank: 6, name: "Alex 🐯", stars: 160, streak_days: 4, badges_count: 3, avatar_url: "https://api.dicebear.com/7.x/bottts/svg?seed=alex", school: "Kidobits Inter" }
+      ]);
+    }
 
-                    bCard.innerHTML = `
-                        <div class="w-12 h-12 rounded-2xl ${b.unlocked ? 'bg-purple-500/20 text-purple-300' : 'bg-slate-700 text-slate-500'} flex items-center justify-center text-2xl shrink-0">
-                            ${b.icon}
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="flex items-center gap-2">
-                                <h4 class="font-bold text-sm text-white truncate">${b.name}</h4>
-                                <span class="text-[9px] px-1.5 py-0.5 rounded font-bold ${
-                                    b.unlocked ? 'bg-green-500/20 text-green-300' : 'bg-slate-700 text-slate-400'
-                                }">
-                                    ${b.unlocked ? 'ปลดล็อคแล้ว' : 'ยังไม่ปลด'}
-                                </span>
-                            </div>
-                            <p class="text-xs text-slate-400 mt-0.5">${b.desc}</p>
-                        </div>
-                        <div class="text-right shrink-0">
-                            <span class="text-xs font-bold text-amber-400 flex items-center gap-0.5 justify-end">
-                                +${b.stars_reward} ⭐
-                            </span>
-                            <span class="text-[10px] text-purple-300 font-medium">${b.tier}</span>
-                        </div>
-                    `;
-                    container.appendChild(bCard);
-                });
-            } catch (err) {
-                console.error("Badges error:", err);
-                container.innerHTML = '<div class="text-center py-6 text-xs text-red-400">ไม่สามารถโหลดข้อมูลเหรียญรางวัลได้</div>';
-            }
-        }
+    async function openBadgesModal() {
+      const modal = document.getElementById('badgesModal');
+      const container = document.getElementById('badgesListContainer');
+      modal.classList.remove('hidden');
 
-        function closeBadgesModal() {
-            document.getElementById('badgesModal').classList.add('hidden');
-        }
+      try {
+        container.innerHTML = '<div class="text-center py-6 text-[#9A8FA8] text-xs font-bold">กำลังดึงข้อมูลเหรียญรางวัล...</div>';
+        const res = await fetch('/api/v1/leaderboard/badges');
+        const data = await res.json();
+        
+        container.innerHTML = '';
+        (data.badges || []).forEach(b => {
+          const bCard = document.createElement('div');
+          bCard.className = `flex items-center gap-3 p-2.5 rounded-2xl border transition-all ${
+            b.unlocked 
+            ? 'bg-[#F9F7FF] border-[#8B7CFF]/40' 
+            : 'bg-[#F8F9FD] border-[#EAE4F2] opacity-60'
+          }`;
 
-        // Init on load
-        window.addEventListener('DOMContentLoaded', () => {
-            initUser();
-            fetchLeaderboard();
-            fetchMyRank();
+          bCard.innerHTML = `
+            <div class="w-11 h-11 rounded-2xl ${b.unlocked ? 'bg-[#EDE5FA]' : 'bg-[#EAE4F2]'} grid place-items-center text-xl shrink-0">
+              ${b.icon}
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-1.5">
+                <h4 class="font-black text-xs text-[#2D2342] truncate">${b.name}</h4>
+                <span class="text-[9px] px-1.5 py-0.2 rounded font-black ${
+                  b.unlocked ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-200 text-slate-500'
+                }">
+                  ${b.unlocked ? 'ปลดล็อคแล้ว' : 'ยังไม่ปลด'}
+                </span>
+              </div>
+              <p class="text-[10px] text-[#7B7488] font-medium mt-0.5">${b.desc}</p>
+            </div>
+            <div class="text-right shrink-0">
+              <span class="text-[11px] font-black text-[#D97706] flex items-center gap-0.5 justify-end">
+                +${b.stars_reward} ⭐
+              </span>
+              <span class="text-[9px] text-[#8B7CFF] font-black">${b.tier}</span>
+            </div>
+          `;
+          container.appendChild(bCard);
         });
-    </script>
+      } catch (err) {
+        console.error("Badges error:", err);
+        container.innerHTML = '<div class="text-center py-6 text-xs text-rose-500 font-bold">ไม่สามารถโหลดข้อมูลเหรียญรางวัลได้</div>';
+      }
+    }
+
+    function closeBadgesModal() {
+      document.getElementById('badgesModal').classList.add('hidden');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initUser();
+      fetchLeaderboard();
+      fetchMyRank();
+    });
+  </script>
 </body>
 </html>
