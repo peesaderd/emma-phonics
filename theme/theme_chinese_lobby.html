@@ -683,7 +683,7 @@ const CHINESE_DATA = {
         `;
         container.appendChild(secHeader);
 
-        items.forEach(les => {
+        items.forEach((les, idx) => {
           const starsKey = 'kidobits_cn_stars_' + les.id;
           const savedStars = parseInt(localStorage.getItem(starsKey) || '0', 10);
           totalStars += savedStars;
