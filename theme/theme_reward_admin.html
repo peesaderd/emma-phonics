@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+  <title>Kidobits · Reward & Badges Admin</title>
+
+  <!-- PWA & Mobile Settings -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#8B7CFF">
+
+  <!-- Tailwind CSS & Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Prompt:wght@400;500;600;700;800;900&family=Noto+Sans+Thai:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    body {
+      font-family: 'Prompt', 'Noto Sans Thai', -apple-system, sans-serif;
+      background-color: #F8F9FD;
+      color: #2D2342;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .font-display {
+      font-family: 'Plus Jakarta Sans', 'Prompt', sans-serif;
+    }
+    .card-shadow {
+      box-shadow: 0 10px 25px rgba(45, 35, 66, 0.06);
+    }
+    .purple-glow {
+      box-shadow: 0 10px 28px rgba(139, 124, 255, 0.24);
+    }
+    .btn-press:active {
+      transform: scale(0.96);
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+
+  <script src="/theme/js/kidobits_auth.js"></script>
+</head>
+<body class="flex justify-center min-h-screen bg-slate-100">
+
+  <!-- Mobile Container (Max 430px) -->
+  <div class="w-full max-w-[430px] min-h-screen bg-white relative flex flex-col justify-between shadow-2xl pb-20">
+
+    <div class="px-5 pt-7">
+
+      <!-- ================= 1. HEADER ROW ================= -->
+      <header class="flex items-center justify-between gap-3 pt-2 pb-3">
+        <div class="flex items-center gap-3">
+          <button onclick="window.location.href='theme_leaderboard.html'" class="w-10 h-10 rounded-full bg-[#F5F0FF] hover:bg-[#EDE5FA] grid place-items-center text-[#6C5CE7] transition active:scale-95 cursor-pointer shadow-sm" aria-label="Back">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5"></path>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </button>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-[11px] font-bold text-[#9A8FA8]">⚙️ KIDOBITS ADMIN</span>
+              <span class="text-[9px] font-black text-white px-2 py-0.5 rounded-full bg-[#8B7CFF]">REWARD & RULES</span>
+            </div>
+            <h1 class="text-xl font-extrabold text-[#2D2342] leading-tight">
+              ตั้งค่าคะแนน & รางวัล 🎁
+            </h1>
+          </div>
+        </div>
+
+        <!-- Mode Badge -->
+        <span class="text-[10px] font-black text-[#6C5CE7] bg-[#F5F0FF] border border-[#E9E0FF] px-2.5 py-1 rounded-full">
+          Teacher / Admin
+        </span>
+      </header>
+
+      <!-- Subtitle Banner -->
+      <div class="mt-2 bg-gradient-to-r from-[#FFF5EB] to-[#FFF0F5] border border-[#FFE3D1] rounded-2xl p-3 flex items-center justify-between card-shadow">
+        <div class="flex items-center gap-2.5">
+          <span class="text-2xl">🏆</span>
+          <div>
+            <p class="text-xs font-black text-[#84360B]">ระบบจัดการ Gamification & Rewards</p>
+            <p class="text-[10px] text-[#A35D33] font-medium">ปรับเกณฑ์แจกดาว เหรียญตรา และรีเซ็ตการแข่งขัน</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 2. ADMIN TABS ================= -->
+      <div class="mt-4 flex p-1 bg-[#F5F0FF] rounded-2xl border border-[#E9E0FF] text-center">
+        <button id="adminTabRules" onclick="switchAdminTab('rules')" class="flex-1 py-2 rounded-xl text-xs font-black bg-white text-[#6C5CE7] shadow-sm transition">
+          ⚡ กฎแจกดาว
+        </button>
+        <button id="adminTabBadges" onclick="switchAdminTab('badges')" class="flex-1 py-2 rounded-xl text-xs font-extrabold text-[#9A8FA8] hover:text-[#6C5CE7] transition">
+          🎖️ เหรียญรางวัล
+        </button>
+        <button id="adminTabShop" onclick="switchAdminTab('shop')" class="flex-1 py-2 rounded-xl text-xs font-extrabold text-[#9A8FA8] hover:text-[#6C5CE7] transition">
+          🛍️ ร้านของขวัญ
+        </button>
+        <button id="adminTabStudents" onclick="switchAdminTab('students')" class="flex-1 py-2 rounded-xl text-xs font-extrabold text-[#9A8FA8] hover:text-[#6C5CE7] transition">
+          👥 ปรับคะแนน
+        </button>
+      </div>
+
+      <!-- ================= TAB 1: EARNING RULES ================= -->
+      <div id="tabContentRules" class="mt-4 space-y-3">
+        <div class="flex items-center justify-between px-1">
+          <h2 class="text-xs font-black text-[#7B7488] uppercase tracking-wider">
+            กำหนดจำนวนดาวที่จะได้รับ (Star Earning Rules)
+          </h2>
+          <span class="text-[10px] font-extrabold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Auto Sync</span>
+        </div>
+
+        <div id="rulesListContainer" class="space-y-2.5">
+          <!-- Populated from API -->
+          <div class="text-center py-6 text-xs text-[#9A8FA8] font-bold">
+            กำลังโหลดกฎการแจกดาว...
+          </div>
+        </div>
+
+        <button onclick="saveRules()" class="w-full mt-4 py-3 rounded-2xl bg-[#8B7CFF] hover:bg-[#7A6AE6] text-white font-extrabold text-sm shadow-md transition active:scale-98 flex items-center justify-center gap-2">
+          <span>💾 บันทึกการเปลี่ยนแปลง (Save Rules)</span>
+        </button>
+      </div>
+
+      <!-- ================= TAB 2: BADGES CATALOG ================= -->
+      <div id="tabContentBadges" class="mt-4 space-y-3 hidden">
+        <div class="flex items-center justify-between px-1">
+          <h2 class="text-xs font-black text-[#7B7488] uppercase tracking-wider">
+            คลังเหรียญตราความสำเร็จ (Badges)
+          </h2>
+          <button onclick="openAddBadgeModal()" class="px-2.5 py-1 bg-[#8B7CFF] text-white text-[11px] font-black rounded-xl shadow-xs transition active:scale-95">
+            + เพิ่มเหรียญ
+          </button>
+        </div>
+
+        <div id="badgesListContainer" class="space-y-2.5">
+          <!-- Populated from API -->
+        </div>
+      </div>
+
+      <!-- ================= TAB 3: REWARD SHOP ================= -->
+      <div id="tabContentShop" class="mt-4 space-y-3 hidden">
+        <div class="flex items-center justify-between px-1">
+          <h2 class="text-xs font-black text-[#7B7488] uppercase tracking-wider">
+            รายการของรางวัลสำหรับแลก (Redeemable Rewards)
+          </h2>
+          <button onclick="openAddRewardModal()" class="px-2.5 py-1 bg-[#8B7CFF] text-white text-[11px] font-black rounded-xl shadow-xs transition active:scale-95">
+            + เพิ่มของขวัญ
+          </button>
+        </div>
+
+        <div id="shopListContainer" class="space-y-2.5">
+          <!-- Populated from API -->
+        </div>
+      </div>
+
+      <!-- ================= TAB 4: STUDENT SCORES & RESET ================= -->
+      <div id="tabContentStudents" class="mt-4 space-y-4 hidden">
+        <!-- Search & Adjust Student -->
+        <div class="bg-white border border-[#EAE4F2] rounded-[24px] p-3.5 card-shadow">
+          <h3 class="text-xs font-black text-[#2D2342] mb-2 flex items-center gap-1.5">
+            <span>🔍</span> ค้นหานักเรียนเพื่อปรับคะแนน
+          </h3>
+          <div class="flex items-center gap-2 bg-[#F8F9FD] border border-[#E9E0FF] rounded-xl px-3 py-2 mb-3">
+            <span class="text-sm">🐼</span>
+            <input id="studentSearchInput" oninput="filterStudents()" type="text" placeholder="พิมพ์ชื่อนักเรียน เช่น Peesaderd, Oliver..." class="w-full bg-transparent text-xs font-bold outline-none text-[#2D2342]">
+          </div>
+
+          <div id="studentResultsList" class="space-y-2 max-h-56 overflow-y-auto no-scrollbar">
+            <!-- Student list with quick +/- buttons -->
+          </div>
+        </div>
+
+        <!-- Danger Zone / Weekly Reset -->
+        <div class="bg-rose-50/60 border-2 border-rose-200 rounded-[24px] p-4 card-shadow">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xl">⚠️</span>
+            <h3 class="text-xs font-black text-rose-700">รีเซ็ตการแข่งขันประจำสัปดาห์ (Weekly Reset)</h3>
+          </div>
+          <p class="text-[11px] text-rose-600 font-medium leading-relaxed mb-3">
+            กดปุ่มนี้เมื่อขึ้นสัปดาห์ใหม่ เพื่อรีเซ็ตคะแนนดาวของนักเรียนทุกคนในตารางประจำสัปดาห์เป็น 0 (คะแนนสะสมตลอดกาลของเด็กๆ จะยังคงอยู่ครบถ้วน)
+          </p>
+          <button onclick="confirmResetWeekly()" class="w-full py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs shadow transition active:scale-98 flex items-center justify-center gap-1.5">
+            <span>🔄 ยืนยันรีเซ็ตสัปดาห์ใหม่ (Reset Now)</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ================= ADD / EDIT BADGE MODAL ================= -->
+    <div id="badgeModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs hidden flex items-center justify-center p-4">
+      <div class="bg-white rounded-[28px] max-w-sm w-full p-5 shadow-2xl border border-[#E9E0FF]">
+        <div class="flex items-center justify-between mb-3 border-b border-[#F0EBF8] pb-2">
+          <h3 class="font-black text-sm text-[#2D2342]" id="badgeModalTitle">เพิ่มเหรียญรางวัลใหม่</h3>
+          <button onclick="closeBadgeModal()" class="w-7 h-7 rounded-full bg-[#F5F0FF] text-[#6C5CE7] grid place-items-center font-bold text-xs">✕</button>
+        </div>
+        <div class="space-y-2.5 text-xs font-bold">
+          <div>
+            <label class="text-[#7B7488] block mb-1">รหัสเหรียญ (ID)</label>
+            <input id="modalBadgeId" type="text" placeholder="เช่น b_story_master" class="w-full bg-[#F8F9FD] border border-[#E9E0FF] rounded-xl px-3 py-2 outline-none">
+          </div>
+          <div class="flex gap-2">
+            <div class="w-20">
+              <label class="text-[#7B7488] block mb-1">ไอคอน</label>
+              <input id="modalBadgeIcon" type="text" placeholder="📖" class="w-full text-center text-lg bg-[#F8F9FD] border border-[#E9E0FF] rounded-xl px-2 py-1 outline-none">
+            </div>
+            <div class="flex-1">
+              <label class="text-[#7B7488] block mb-1">ชื่อเหรียญ</label>
+              <input id="modalBadgeName" type="text" placeholder="เช่น ยอดนักอ่าน" class="w-full bg-[#F8F9FD] border border-[#E9E0FF] rounded-xl px-3 py-2 outline-none">
+            </div>
+          </div>
+          <div>
+            <label class="text-[#7B7488] block mb-1">คำอธิบาย</label>
+            <input id="modalBadgeDesc" type="text" placeholder="อ่านนิทานจบ 5 เรื่อง" class="w-full bg-[#F8F9FD] border border-[#E9E0FF] rounded-xl px-3 py-2 outline-none">
+          </div>
+          <div class="flex gap-2">
+            <div class="flex-1">
+              <label class="text-[#7B7488] block mb-1">ดาวรางวัล (+⭐)</label>
+              <input id="modalBadgeStars" type="number" value="100" class="w-full bg-[#F8F9FD] border border-[#E9E0FF] rounded-xl px-3 py-2 outline-none text-[#D97706] font-black">
+            </div>
+            <div class="flex-1">
+              <label class="text-[#7B7488] block mb-1">ระดับ Tier</label>
+              <select id="modalBadgeTier" class="w-full bg-[#F8F9FD] border border-[#E9E0FF] rounded-xl px-3 py-2 outline-none">
+                <option value="Bronze">Bronze 🥉</option>
+                <option value="Silver">Silver 🥈</option>
+                <option value="Gold">Gold 🥇</option>
+                <option value="Platinum">Platinum 💎</option>
+              </select>
+            </div>
+          </div>
+          <button onclick="submitSaveBadge()" class="w-full mt-3 py-2.5 rounded-xl bg-[#8B7CFF] text-white font-extrabold text-xs shadow transition active:scale-98">
+            บันทึกเหรียญรางวัล
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= ADD / EDIT REWARD MODAL ================= -->
+    <div id="rewardModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs hidden flex items-center justify-center p-4">
+      <div class="bg-white rounded-[28px] max-w-sm w-full p-5 shadow-2xl border border-[#E9E0FF]">
+        <div class="flex items-center justify-between mb-3 border-b border-[#F0EBF8] pb-2">
+          <h3 class="font-black text-sm text-[#2D2342]">เพิ่มของรางวัลในร้านค้า</h3>
+          <button onclick="closeRewardModal()" class="w-7 h-7 rounded-full bg-[#F5F0FF] text-[#6C5CE7] grid place-items-center font-bold text-xs">✕</button>
+        </div>
+        <div class="space-y-2.5 text-xs font-bold">
+          <div>
+            <label class="text-[#7B7488] block mb-1">รหัสของรางวัล (ID)</label>
+            <input id="modalRewardId" type="text" placeholder="เช่น r_toy_robot" class="w-full bg-[#F8F9FD] border border-[#E9E0FF] rounded-xl px-3 py-2 outline-none">
+          </div>
+          <div class="flex gap-2">
+            <div class="w-20">
+              <label class="text-[#7B7488] block mb-1">ไอคอน</label>
+              <input id="modalRewardIcon" type="text" placeholder="🤖" class="w-full text-center text-lg bg-[#F8F9FD] border border-[#E9E0FF] rounded-xl px-2 py-1 outline-none">
+            </div>
+            <div class="flex-1">
+              <label class="text-[#7B7488] block mb-1">ชื่อของรางวัล</label>
+              <input id="modalRewardTitle" type="text" placeholder="หุ่นยนต์นักสำรวจ" class="w-full bg-[#F8F9FD] border border-[#E9E0FF] rounded-xl px-3 py-2 outline-none">
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <div class="flex-1">
+              <label class="text-[#7B7488] block mb-1">ดาวที่ใช้แลก (⭐)</label>
+              <input id="modalRewardCost" type="number" value="300" class="w-full bg-[#F8F9FD] border border-[#E9E0FF] rounded-xl px-3 py-2 outline-none text-[#D97706] font-black">
+            </div>
+            <div class="flex-1">
+              <label class="text-[#7B7488] block mb-1">จำนวนคงเหลือ</label>
+              <input id="modalRewardStock" type="number" value="-1" placeholder="-1 = ไม่จำกัด" class="w-full bg-[#F8F9FD] border border-[#E9E0FF] rounded-xl px-3 py-2 outline-none">
+            </div>
+          </div>
+          <button onclick="submitSaveReward()" class="w-full mt-3 py-2.5 rounded-xl bg-[#8B7CFF] text-white font-extrabold text-xs shadow transition active:scale-98">
+            บันทึกของรางวัล
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 bg-[#2D2342] text-white px-4 py-2.5 rounded-2xl shadow-xl text-xs font-bold transition-all opacity-0 pointer-events-none flex items-center gap-2">
+      <span id="toastIcon">✅</span>
+      <span id="toastMsg">บันทึกเรียบร้อย</span>
+    </div>
+
+  </div>
+
+  <script>
+    let currentRules = {};
+    let allStudents = [];
+
+    // Switch Tab
+    function switchAdminTab(tab) {
+      const tabs = ['Rules', 'Badges', 'Shop', 'Students'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`adminTab${t}`);
+        const content = document.getElementById(`tabContent${t}`);
+        if (t.toLowerCase() === tab.toLowerCase()) {
+          btn.className = 'flex-1 py-2 rounded-xl text-xs font-black bg-white text-[#6C5CE7] shadow-sm transition';
+          content.classList.remove('hidden');
+        } else {
+          btn.className = 'flex-1 py-2 rounded-xl text-xs font-extrabold text-[#9A8FA8] hover:text-[#6C5CE7] transition';
+          content.classList.add('hidden');
+        }
+      });
+      if (tab === 'badges') loadBadges();
+      if (tab === 'shop') loadShop();
+      if (tab === 'students') loadStudents();
+    }
+
+    // Toast Notification Helper
+    function showToast(msg, icon = '✅') {
+      const t = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      document.getElementById('toastIcon').textContent = icon;
+      t.classList.remove('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        t.classList.add('opacity-0', 'pointer-events-none');
+      }, 2500);
+    }
+
+    // 1. Load Earning Rules
+    async function loadRules() {
+      try {
+        const res = await fetch('/api/v1/leaderboard/admin/rules');
+        const data = await res.json();
+        const container = document.getElementById('rulesListContainer');
+        container.innerHTML = '';
+
+        data.rules.forEach(r => {
+          currentRules[r.rule_key] = r.stars_reward;
+          const card = document.createElement('div');
+          card.className = 'bg-white border border-[#EAE4F2] rounded-2xl p-3 card-shadow flex items-center justify-between';
+          card.innerHTML = `
+            <div class="pr-2">
+              <h4 class="font-extrabold text-xs text-[#2D2342]">${r.rule_name}</h4>
+              <p class="text-[10px] text-[#7B7488] font-medium mt-0.5">${r.description || ''}</p>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0 bg-[#F8F9FD] border border-[#E9E0FF] px-2 py-1 rounded-xl">
+              <button onclick="adjustRule('${r.rule_key}', -5)" class="w-6 h-6 rounded-lg bg-white border border-[#E2D9F3] text-xs font-black text-[#6C5CE7] active:scale-95 shadow-xs">-</button>
+              <span id="ruleVal_${r.rule_key}" class="text-xs font-black text-[#D97706] min-w-[36px] text-center">⭐ ${r.stars_reward}</span>
+              <button onclick="adjustRule('${r.rule_key}', 5)" class="w-6 h-6 rounded-lg bg-white border border-[#E2D9F3] text-xs font-black text-[#6C5CE7] active:scale-95 shadow-xs">+</button>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      } catch (err) {
+        console.error("Rules load error:", err);
+      }
+    }
+
+    function adjustRule(key, delta) {
+      if (!currentRules[key]) currentRules[key] = 5;
+      currentRules[key] = Math.max(1, currentRules[key] + delta);
+      const el = document.getElementById(`ruleVal_${key}`);
+      if (el) el.textContent = `⭐ ${currentRules[key]}`;
+    }
+
+    async function saveRules() {
+      try {
+        const res = await fetch('/api/v1/leaderboard/admin/rules', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ rules: currentRules })
+        });
+        const d = await res.json();
+        if (d.ok) {
+          showToast("บันทึกกฎการแจกดาวสำเร็จ! 🌟");
+        }
+      } catch (e) {
+        showToast("เกิดข้อผิดพลาดในการบันทึก", "❌");
+      }
+    }
+
+    // 2. Load Badges
+    async function loadBadges() {
+      try {
+        const res = await fetch('/api/v1/leaderboard/admin/badges');
+        const data = await res.json();
+        const container = document.getElementById('badgesListContainer');
+        container.innerHTML = '';
+
+        data.badges.forEach(b => {
+          const card = document.createElement('div');
+          card.className = `p-3 rounded-2xl border flex items-center justify-between transition-all ${
+            b.active ? 'bg-white border-[#EAE4F2] card-shadow' : 'bg-[#F8F9FD] border-slate-200 opacity-60'
+          }`;
+          card.innerHTML = `
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="text-2xl">${b.icon}</span>
+              <div class="min-w-0">
+                <div class="flex items-center gap-1.5">
+                  <h4 class="font-extrabold text-xs text-[#2D2342] truncate">${b.name}</h4>
+                  <span class="text-[9px] font-black px-1.5 py-0.2 rounded bg-[#F5F0FF] text-[#6C5CE7]">${b.tier}</span>
+                </div>
+                <p class="text-[10px] text-[#7B7488] font-medium truncate max-w-[170px] mt-0.5">${b.desc}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <span class="text-xs font-black text-[#D97706]">⭐ ${b.stars_reward}</span>
+              <button onclick="toggleBadgeActive('${b.id}', ${b.active ? 0 : 1}, '${b.name}', '${b.icon}', '${b.desc}', ${b.stars_reward}, '${b.tier}')" class="px-2 py-1 rounded-lg text-[10px] font-black ${
+                b.active ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-200 text-slate-600'
+              }">
+                ${b.active ? 'เปิดอยู่' : 'ปิด'}
+              </button>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      } catch (e) {
+        console.error("Badges load error:", e);
+      }
+    }
+
+    async function toggleBadgeActive(id, newActive, name, icon, desc, stars, tier) {
+      await fetch('/api/v1/leaderboard/admin/badges', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, name, icon, desc, stars_reward: stars, tier, active: newActive })
+      });
+      showToast(newActive ? "เปิดใช้งานเหรียญแล้ว" : "ปิดใช้งานเหรียญแล้ว");
+      loadBadges();
+    }
+
+    function openAddBadgeModal() {
+      document.getElementById('badgeModal').classList.remove('hidden');
+    }
+    function closeBadgeModal() {
+      document.getElementById('badgeModal').classList.add('hidden');
+    }
+    async function submitSaveBadge() {
+      const id = document.getElementById('modalBadgeId').value.trim();
+      const icon = document.getElementById('modalBadgeIcon').value.trim() || '🎖️';
+      const name = document.getElementById('modalBadgeName').value.trim();
+      const desc = document.getElementById('modalBadgeDesc').value.trim();
+      const stars = parseInt(document.getElementById('modalBadgeStars').value) || 50;
+      const tier = document.getElementById('modalBadgeTier').value;
+
+      if (!id || !name) {
+        alert("กรุณากรอกรหัสและชื่อเหรียญ");
+        return;
+      }
+
+      await fetch('/api/v1/leaderboard/admin/badges', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, name, icon, desc, stars_reward: stars, tier, active: 1 })
+      });
+      closeBadgeModal();
+      showToast("เพิ่มเหรียญรางวัลใหม่สำเร็จ! 🎖️");
+      loadBadges();
+    }
+
+    // 3. Load Shop
+    async function loadShop() {
+      try {
+        const res = await fetch('/api/v1/leaderboard/admin/rewards');
+        const data = await res.json();
+        const container = document.getElementById('shopListContainer');
+        container.innerHTML = '';
+
+        data.rewards.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'bg-white border border-[#EAE4F2] rounded-2xl p-3 card-shadow flex items-center justify-between';
+          card.innerHTML = `
+            <div class="flex items-center gap-2.5">
+              <span class="text-2xl">${item.icon}</span>
+              <div>
+                <h4 class="font-extrabold text-xs text-[#2D2342]">${item.title}</h4>
+                <p class="text-[10px] text-[#7B7488] font-medium mt-0.5">ประเภท: ${item.category} • คงเหลือ: ${item.stock === -1 ? 'ไม่จำกัด' : item.stock}</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="text-xs font-black text-[#D97706] block">⭐ ${item.cost_stars}</span>
+              <span class="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.2 rounded">แลกได้</span>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      } catch (e) {
+        console.error("Shop load error:", e);
+      }
+    }
+
+    function openAddRewardModal() {
+      document.getElementById('rewardModal').classList.remove('hidden');
+    }
+    function closeRewardModal() {
+      document.getElementById('rewardModal').classList.add('hidden');
+    }
+    async function submitSaveReward() {
+      const id = document.getElementById('modalRewardId').value.trim();
+      const icon = document.getElementById('modalRewardIcon').value.trim() || '🎁';
+      const title = document.getElementById('modalRewardTitle').value.trim();
+      const cost = parseInt(document.getElementById('modalRewardCost').value) || 100;
+      const stock = parseInt(document.getElementById('modalRewardStock').value) || -1;
+
+      if (!id || !title) {
+        alert("กรุณากรอกรหัสและชื่อของรางวัล");
+        return;
+      }
+
+      await fetch('/api/v1/leaderboard/admin/rewards', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, title, icon, cost_stars: cost, category: 'gift', stock, active: 1 })
+      });
+      closeRewardModal();
+      showToast("เพิ่มของรางวัลสำเร็จ! 🛍️");
+      loadShop();
+    }
+
+    // 4. Load Students
+    async function loadStudents() {
+      try {
+        const res = await fetch('/api/v1/leaderboard?limit=30');
+        const data = await res.json();
+        allStudents = data.rankings || [];
+        renderStudentList(allStudents);
+      } catch (e) {
+        console.error("Students load error:", e);
+      }
+    }
+
+    function renderStudentList(list) {
+      const container = document.getElementById('studentResultsList');
+      container.innerHTML = '';
+      list.forEach(s => {
+        const item = document.createElement('div');
+        item.className = 'flex items-center justify-between p-2.5 rounded-xl border border-[#F0EBF8] bg-[#F8F9FD]';
+        item.innerHTML = `
+          <div class="flex items-center gap-2">
+            <img src="${s.avatar_url || 'https://api.dicebear.com/7.x/bottts/svg?seed=kid'}" class="w-8 h-8 rounded-full border border-slate-200 object-cover">
+            <div>
+              <p class="text-xs font-black text-[#2D2342]">${s.name}</p>
+              <p class="text-[10px] text-[#D97706] font-bold">⭐ ${s.stars} ดาว</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-1">
+            <button onclick="adjustStudentStars('${s.user_id}', -10)" class="px-2 py-1 rounded bg-white border border-[#E9E0FF] text-[10px] font-black text-rose-600 active:scale-95">-10</button>
+            <button onclick="adjustStudentStars('${s.user_id}', 10)" class="px-2 py-1 rounded bg-white border border-[#E9E0FF] text-[10px] font-black text-emerald-600 active:scale-95">+10</button>
+            <button onclick="adjustStudentStars('${s.user_id}', 50)" class="px-2 py-1 rounded bg-[#8B7CFF] text-[10px] font-black text-white active:scale-95">+50</button>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function filterStudents() {
+      const q = document.getElementById('studentSearchInput').value.toLowerCase().trim();
+      const filtered = allStudents.filter(s => s.name.toLowerCase().includes(q) || s.user_id.toLowerCase().includes(q));
+      renderStudentList(filtered);
+    }
+
+    async function adjustStudentStars(userId, amount) {
+      try {
+        const res = await fetch('/api/v1/leaderboard/admin/student-stars', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user_id: userId, stars_to_add: amount })
+        });
+        const d = await res.json();
+        if (d.ok) {
+          showToast(`ปรับ ${amount > 0 ? '+' : ''}${amount} ⭐ เรียบร้อย!`);
+          loadStudents();
+        }
+      } catch (e) {
+        showToast("ปรับคะแนนไม่สำเร็จ", "❌");
+      }
+    }
+
+    // Reset Weekly Competition
+    async function confirmResetWeekly() {
+      if (!confirm("คุณต้องการรีเซ็ตคะแนนตารางสัปดาห์นี้ของนักเรียนทุกคนเป็น 0 ใช่หรือไม่? (คะแนนสะสมตลอดกาลจะไม่ถูกลบ)")) {
+        return;
+      }
+      try {
+        const res = await fetch('/api/v1/leaderboard/admin/reset-weekly', { method: 'POST' });
+        const d = await res.json();
+        if (d.ok) {
+          showToast("รีเซ็ตคะแนนประจำสัปดาห์สำเร็จแล้ว! 🔄");
+          loadStudents();
+        }
+      } catch (e) {
+        showToast("รีเซ็ตไม่สำเร็จ", "❌");
+      }
+    }
+
+    // Init
+    window.addEventListener('DOMContentLoaded', () => {
+      loadRules();
+    });
+  </script>
+</body>
+</html>
