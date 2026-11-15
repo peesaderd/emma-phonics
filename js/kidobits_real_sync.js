@@ -681,32 +681,31 @@
         if (!btn) return;
         const txt = (btn.innerText || btn.textContent || '').trim();
 
-        if (btn.closest('nav')) {
-          if (txt === 'Home' || (txt.includes('Home') && !txt.includes('Back'))) {
-            e.preventDefault(); e.stopPropagation();
-            window.location.href = 'theme_home.html';
-            return;
-          }
-          if (txt.includes('Phonics')) {
-            e.preventDefault(); e.stopPropagation();
-            window.location.href = 'theme_phonics_hub.html';
-            return;
-          }
-          if (txt.includes('Math')) {
-            e.preventDefault(); e.stopPropagation();
-            window.location.href = 'theme_math_lobby.html';
-            return;
-          }
-          if (txt.includes('Chinese')) {
-            e.preventDefault(); e.stopPropagation();
-            window.location.href = 'theme_chinese_lobby.html';
-            return;
-          }
-          if (txt.includes('Profile')) {
-            e.preventDefault(); e.stopPropagation();
-            window.location.href = 'theme_profile.html';
-            return;
-          }
+        // Check nav or subject cards anywhere
+        if (txt === 'Home' || (txt.includes('Home') && !txt.includes('Back') && btn.closest('nav'))) {
+          e.preventDefault(); e.stopPropagation();
+          window.location.href = 'theme_home.html';
+          return;
+        }
+        if (txt.includes('Phonics') || txt.includes('โฟนิกส์')) {
+          e.preventDefault(); e.stopPropagation();
+          window.location.href = 'theme_phonicsLevel.html';
+          return;
+        }
+        if (txt.includes('Math') || txt.includes('คณิตศาสตร์') || txt.includes('Singapore Math')) {
+          e.preventDefault(); e.stopPropagation();
+          window.location.href = 'theme_math_lobby.html';
+          return;
+        }
+        if (txt.includes('Chinese') || txt.includes('ภาษาจีน')) {
+          e.preventDefault(); e.stopPropagation();
+          window.location.href = 'theme_chinese_lobby.html';
+          return;
+        }
+        if (txt.includes('Profile') || txt.includes('โปรไฟล์')) {
+          e.preventDefault(); e.stopPropagation();
+          window.location.href = 'theme_profile.html';
+          return;
         }
 
         if (txt.includes('Edit Avatar') || txt.includes('Edit avatar')) {
