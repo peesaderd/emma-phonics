@@ -23,6 +23,7 @@
   <script src="/theme/js/kidobits-resume.js"></script>
   <script src="/js/kidobits_wallet.js"></script>
   <script src="/js/kidobits_auth.js"></script>
+  <script src="/theme/js/kidobits_curriculum_lock.js"></script>
 </head>
 <body class="m-0 p-0 antialiased">
   <div class="min-h-[100dvh] w-full flex justify-center items-start sm:items-center px-0 sm:px-4 py-0 sm:py-5" style="background: linear-gradient(180deg,#FDF0F5 0%,#EDE7FF 52%,#DFF5FF 100%);">
@@ -929,20 +930,53 @@
       heroProg.textContent = "✅ ผ่านแล้ว 6/12 • 50%";
     }
 
-    // Render Lesson Cards
+    // Render Lesson Cards with Sequential Lock & Unlock
     const listEl = document.getElementById('lessons-list');
-    listEl.innerHTML = lessons.map(item => {
+    listEl.innerHTML = lessons.map((item, idx) => {
       const badgeBg = isLv6 ? "bg-[#A29BFE]"
         : isLv5 ? "bg-[#00CEC9]"
         : isLv4 ? "bg-[#FF9F43]"
         : isLv3 ? "bg-[#6C5CE7]"
         : isLv2 ? "bg-[#7ED9A8]"
         : "bg-[#8B7CFF]";
+      
+      const lessonIdx = idx + 1; // 1-based sequential progression
+      const isUnlocked = window.KidobitsLock ? KidobitsLock.isUnlocked('phonics', lessonIdx) : (lessonIdx === 1);
+      const isCompleted = window.KidobitsLock ? KidobitsLock.isCompleted('phonics', item.id) : false;
+
+      if (!isUnlocked) {
+        return `
+          <div onclick="if(window.KidobitsLock) KidobitsLock.shakeAndNotify(this, '${item.title}')" 
+               class="w-full text-left bg-slate-50/80 border border-dashed border-slate-200 rounded-[24px] p-4 flex gap-3.5 shadow-xs opacity-60 cursor-pointer select-none transition">
+            <span class="w-11 h-11 rounded-full bg-slate-200 text-slate-400 grid place-items-center font-extrabold text-base shrink-0 shadow-xs">
+              🔒
+            </span>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-1.5">
+                <b class="font-extrabold text-[15px] leading-tight text-slate-500">${item.title}</b>
+                <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">บทที่ ${item.n}</span>
+              </div>
+              <span class="block text-xs font-semibold text-slate-400 mt-0.5">${item.th}</span>
+              <div class="flex flex-wrap gap-1 mt-2.5">
+                ${item.chips.map(c => `<span class="bg-slate-100 text-slate-400 px-2.5 py-0.5 rounded-full text-[10px] font-bold">${c}</span>`).join('')}
+              </div>
+              <span class="inline-flex items-center gap-1 mt-2.5 bg-slate-200/70 text-slate-500 border border-slate-300/60 px-2.5 py-1 rounded-full text-[10px] font-extrabold">
+                🔒 ปลดล็อคเมื่อผ่านบทเรียนก่อนหน้า
+              </span>
+            </div>
+          </div>
+        `;
+      }
+
+      const statusBadge = isCompleted 
+        ? `<span class="inline-flex items-center gap-1 mt-2.5 bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-full text-[11px] font-extrabold">✅ ผ่านแล้ว • แตะเพื่อทบทวน ↻</span>`
+        : `<span class="inline-flex items-center gap-1 mt-2.5 bg-[#FFF8E0] text-[#8C6D1F] border border-[#FFE8A3] px-2.5 py-1 rounded-full text-[11px] font-extrabold">⏱ พร้อมเรียน • แตะเพื่อเริ่ม →</span>`;
+
       return `
         <button onclick="location.href='theme_phonicsLesson.html?lesson=${item.id}'" 
-                class="w-full text-left bg-white border border-[#F1EAF7] rounded-[24px] p-4 flex gap-3.5 shadow-sm hover:shadow-md hover:border-[#E4D7F5] active:scale-[0.98] transition">
+                class="w-full text-left bg-white border border-[#F1EAF7] rounded-[24px] p-4 flex gap-3.5 shadow-sm hover:shadow-md hover:border-[#E4D7F5] active:scale-[0.98] transition cursor-pointer">
           <span class="w-11 h-11 rounded-full ${badgeBg} text-white grid place-items-center font-extrabold text-base shrink-0 shadow-sm">
-            ${item.n}
+            ${isCompleted ? '✓' : item.n}
           </span>
           <div class="flex-1 min-w-0">
             <b class="block font-extrabold text-[15px] leading-tight text-[#1A1A1A]">${item.title}</b>
@@ -950,9 +984,7 @@
             <div class="flex flex-wrap gap-1 mt-2.5">
               ${item.chips.map(c => `<span class="bg-[#F7F3FF] text-[#5B4B8A] px-2.5 py-1 rounded-full text-[11px] font-bold">${c}</span>`).join('')}
             </div>
-            <span class="inline-block mt-2.5 bg-[#FFF8E0] text-[#8C6D1F] border border-[#FFE8A3] px-2.5 py-1 rounded-full text-[11px] font-extrabold">
-              ⏱ ${item.status} • แตะเพื่อเล่น →
-            </span>
+            ${statusBadge}
           </div>
         </button>
       `;

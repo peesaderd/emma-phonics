@@ -35,6 +35,7 @@
     .btn-press:active { transform: scale(0.97); }
   </style>
   <script src="/theme/js/kidobits-resume.js"></script>
+  <script src="/theme/js/kidobits_curriculum_lock.js"></script>
 </head>
 <body class="bg-[#F8F9FD] text-[#2C2623] min-h-screen flex justify-center pb-24">
 
@@ -268,10 +269,40 @@ const LESSONS = [{"id": "L01", "num": 1, "title": "Lesson 1: Forest Welcome (ก
           return `<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-lg bg-slate-50 text-[10px] font-semibold text-slate-600 border border-slate-100/80">${icon} ${name}</span>`;
         }).join('');
 
+        const isUnlocked = window.KidobitsLock ? KidobitsLock.isUnlocked('math', num) : (num === 1);
+        const isCompleted = window.KidobitsLock ? KidobitsLock.isCompleted('math', String(num)) : (savedStars > 0);
+
         const card = document.createElement('div');
+        if (!isUnlocked) {
+          card.className = 'w-full bg-slate-50/80 rounded-2xl p-3.5 border border-dashed border-slate-200 shadow-xs opacity-60 flex flex-col gap-2 cursor-pointer select-none transition';
+          card.onclick = () => {
+            if (window.KidobitsLock) KidobitsLock.shakeAndNotify(card, les.title);
+          };
+          card.innerHTML = `
+            <div class="flex items-start gap-3 w-full">
+              <div class="w-12 h-12 rounded-2xl bg-slate-200 flex items-center justify-center text-xl text-slate-400 shrink-0">
+                🔒
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between gap-1 mb-0.5">
+                  <span class="px-2 py-0.5 rounded-md bg-slate-100 text-[10px] font-black text-slate-500">${les.id}</span>
+                  <span class="text-[10px] text-slate-400 font-bold">🔒 ล็อคอยู่</span>
+                </div>
+                <h3 class="font-fredoka text-sm font-bold text-slate-600 truncate">${les.title}</h3>
+                <p class="text-[10px] text-slate-400 font-semibold mt-0.5">ผ่านบทเรียนก่อนหน้าเพื่อปลดล็อค</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-1 flex-wrap pt-2 border-t border-slate-100/60 opacity-50">
+              ${stagesHtml}
+            </div>
+          `;
+          container.appendChild(card);
+          return;
+        }
+
+        // Unlocked Math Card
         card.className = 'btn-press w-full bg-white rounded-2xl p-3.5 border border-slate-100 shadow-sm hover:shadow-md hover:border-orange-200 transition-all flex flex-col gap-2 cursor-pointer';
         card.onclick = () => {
-          // Navigate to math.html with direct lesson start
           window.location.href = `/math.html?lesson=${num}`;
         };
 
