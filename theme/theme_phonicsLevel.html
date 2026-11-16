@@ -56,6 +56,49 @@
       padding-bottom: max(112px, calc(100px + env(safe-area-inset-bottom, 0px))) !important;
     }
   </style>
+
+  <!-- Kidobits Phonics Level Landscape Grid CSS -->
+  <style id="kidobits-phonics-level-landscape">
+    @media (orientation: landscape) and (min-width: 600px) {
+      body {
+        padding-bottom: max(96px, calc(80px + env(safe-area-inset-bottom, 0px))) !important;
+      }
+      /* Expand container width in landscape */
+      .max-w-\[430px\] {
+        max-width: 920px !important;
+        height: auto !important;
+        min-height: 100vh !important;
+        border-radius: 0 !important;
+        padding-left: max(16px, calc(12px + env(safe-area-inset-left, 0px))) !important;
+        padding-right: max(16px, calc(12px + env(safe-area-inset-right, 0px))) !important;
+      }
+      /* Arrange lessons into a 2-column Grid */
+      #lessons-list {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+      }
+      /* Bottom nav centered */
+      nav.fixed[class*="bottom-"],
+      nav[class*="bottom-"] {
+        max-width: 500px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        right: auto !important;
+        width: calc(100% - 24px) !important;
+      }
+    }
+
+    @media (orientation: landscape) and (min-width: 900px) {
+      /* Expand to 3-column Grid on tablet / large screens */
+      .max-w-\[430px\] {
+        max-width: 1040px !important;
+      }
+      #lessons-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      }
+    }
+  </style>
 </head>
 <body class="m-0 p-0 antialiased">
   <div class="min-h-[100dvh] w-full flex justify-center items-start sm:items-center px-0 sm:px-4 py-0 sm:py-5" style="background: linear-gradient(180deg,#FDF0F5 0%,#EDE7FF 52%,#DFF5FF 100%);">

@@ -159,6 +159,58 @@
       padding-bottom: max(112px, calc(100px + env(safe-area-inset-bottom, 0px))) !important;
     }
   </style>
+
+  <!-- Kidobits Phonics Lesson Landscape Responsive Mode -->
+  <style id="kidobits-phonics-landscape">
+    @media (orientation: landscape) {
+      /* 1. Hide floating bottom navigation during lesson */
+      nav.fixed,
+      nav[class*="bottom-"] {
+        display: none !important;
+      }
+
+      /* 2. Expand screen container to wide landscape canvas */
+      body {
+        padding: 0 !important;
+        background-color: #FFFFFF !important;
+      }
+
+      .max-w-\[430px\] {
+        max-width: 960px !important;
+        width: 100% !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        border-radius: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding-left: max(16px, calc(10px + env(safe-area-inset-left, 0px))) !important;
+        padding-right: max(16px, calc(10px + env(safe-area-inset-right, 0px))) !important;
+      }
+
+      /* 3. Streamline main content scrolling and safe bottom */
+      main.overflow-y-auto {
+        padding-bottom: max(20px, calc(12px + env(safe-area-inset-bottom, 0px))) !important;
+      }
+
+      /* 4. Compact Hero card */
+      #lesson-hero {
+        padding: 10px 14px !important;
+        border-radius: 18px !important;
+      }
+      #hero-icon {
+        width: 44px !important;
+        height: 44px !important;
+        font-size: 1.5rem !important;
+      }
+
+      /* 5. Short landscape screens (phones with height <= 480px) */
+      @media (max-height: 480px) {
+        #step-canvas {
+          padding: 10px 14px !important;
+        }
+      }
+    }
+  </style>
 </head>
 <body class="bg-gradient-to-br from-[#F5E6FF] via-[#EDE9FE] to-[#FCE7F3] min-h-screen flex items-center justify-center p-0 sm:p-4 text-[#2E2A3B]">
 
@@ -1583,6 +1635,14 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+      try {
+        const curNum = (curMeta && curMeta.n) ? curMeta.n : parseInt((LID.split('.')[1] || '1'), 10);
+        if (window.KidobitsLock && curNum > 1) {
+          KidobitsLock.unlockTo('phonics', curNum);
+        }
+      } catch (e) {
+        console.warn('Phonics auto-unlock failed', e);
+      }
       startLessonWithAudio();
     });
   

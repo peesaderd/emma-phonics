@@ -151,6 +151,92 @@ body {
       padding-bottom: max(112px, calc(100px + env(safe-area-inset-bottom, 0px))) !important;
     }
   </style>
+
+  <!-- Kidobits Chinese Landscape Responsive Mode -->
+  <style id="kidobits-chinese-landscape">
+    @media (orientation: landscape) {
+      /* 1. Hide floating bottom navigation to prevent blocking player controls */
+      #playerModal nav.fixed,
+      nav.fixed,
+      html.direct-lesson-mode nav.fixed,
+      body.in-game nav.fixed {
+        display: none !important;
+      }
+
+      /* 2. Expand Player Modal to wide landscape canvas */
+      html.direct-lesson-mode #playerModal {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 !important;
+      }
+
+      html.direct-lesson-mode #playerModal > div,
+      #playerModal > div {
+        max-width: 960px !important;
+        width: 100% !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 6px 16px !important;
+        padding-top: max(6px, env(safe-area-inset-top, 0px)) !important;
+        padding-bottom: max(10px, env(safe-area-inset-bottom, 0px)) !important;
+        padding-left: max(16px, calc(10px + env(safe-area-inset-left, 0px))) !important;
+        padding-right: max(16px, calc(10px + env(safe-area-inset-right, 0px))) !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+
+      /* 3. Compact Header & Step Bar in Landscape */
+      #playerModal header {
+        padding-top: 4px !important;
+        padding-bottom: 4px !important;
+        margin-bottom: 2px !important;
+      }
+      #playerModal > div > div.bg-gradient-to-r {
+        padding-top: 4px !important;
+        padding-bottom: 4px !important;
+        margin-bottom: 2px !important;
+      }
+      #playerModal .bg-orange-50 {
+        padding-top: 4px !important;
+        padding-bottom: 4px !important;
+      }
+
+      /* 4. Streamlined Stage Body */
+      #playerStage {
+        min-height: auto !important;
+        padding: 8px 12px !important;
+        flex: 1 1 auto !important;
+        overflow-y: auto !important;
+      }
+
+      /* 5. Short landscape screens (phones with height <= 480px) */
+      @media (max-height: 480px) {
+        #btnListenReplay {
+          width: 50px !important;
+          height: 50px !important;
+          font-size: 1.4rem !important;
+        }
+        .tianzi-bg {
+          width: 160px !important;
+          height: 160px !important;
+        }
+        .tianzi-bg canvas {
+          width: 160px !important;
+          height: 160px !important;
+        }
+        .tianzi-bg > div {
+          font-size: 3.5rem !important;
+        }
+        #playerStage > div.space-y-4 {
+          margin-top: 0 !important;
+        }
+      }
+    }
+  </style>
 </head>
 <body class="min-h-screen text-slate-800 flex flex-col justify-between selection:bg-orange-200">
 
@@ -1204,7 +1290,7 @@ body {
       const stepParam = params.get('step');
       const forcedStep = stepParam !== null ? parseInt(stepParam, 10) : null;
       if (lId) {
-        setTimeout(() => openLesson(lId, forcedStep), 200);
+        openLesson(lId, forcedStep);
       }
     });
 
@@ -1218,6 +1304,12 @@ body {
       if (!found) return;
 
       const lessonNum = fIdx + 1;
+      const isDirectUrl = new URLSearchParams(window.location.search).has('id') || 
+                          new URLSearchParams(window.location.search).has('lesson') || 
+                          new URLSearchParams(window.location.search).has('les');
+      if (isDirectUrl && window.KidobitsLock) {
+        KidobitsLock.unlockTo('chinese', lessonNum);
+      }
       if (lessonNum > 1 && window.KidobitsLock && !KidobitsLock.isUnlocked('chinese', lessonNum)) {
         if (window.KidobitsLock) KidobitsLock.shakeAndNotify(null, found.title);
         return;

@@ -80,6 +80,31 @@
       padding-bottom: max(112px, calc(100px + env(safe-area-inset-bottom, 0px))) !important;
     }
   </style>
+
+  <!-- Kidobits Home Landscape Responsive CSS -->
+  <style id="kidobits-home-landscape">
+    @media (orientation: landscape) and (min-width: 600px) {
+      body {
+        padding-bottom: max(96px, calc(80px + env(safe-area-inset-bottom, 0px))) !important;
+      }
+      .max-w-\[430px\] {
+        max-width: 960px !important;
+        padding-left: max(16px, calc(12px + env(safe-area-inset-left, 0px))) !important;
+        padding-right: max(16px, calc(12px + env(safe-area-inset-right, 0px))) !important;
+      }
+      #core-curriculum-cards {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+      }
+      #core-curriculum-cards > div {
+        margin: 0 !important;
+      }
+      nav.fixed[class*="bottom-"] {
+        max-width: 500px !important;
+      }
+    }
+  </style>
 </head>
 <body class="flex justify-center min-h-screen bg-slate-100">
 
@@ -136,7 +161,14 @@
       </header>
 
       <!-- ================= 2. ZONE 1: 🎓 CORE SUBJECTS (3 เสาหลัก) ================= -->
-      <section class="mt-2 space-y-3">
+      <section class="mt-2">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-xs font-black text-[#7B7488] uppercase tracking-wider flex items-center gap-1.5">
+            <span>🎓</span> วิชาเรียนหลัก · Core Curriculum
+          </h3>
+          <span class="text-[11px] font-extrabold text-[#8B7CFF]">3 วิชา</span>
+        </div>
+        <div id="core-curriculum-cards" class="space-y-3">
         <div class="flex items-center justify-between">
           <h3 class="text-xs font-black text-[#7B7488] uppercase tracking-wider flex items-center gap-1.5">
             <span>🎓</span> วิชาเรียนหลัก · Core Curriculum
@@ -230,6 +262,9 @@
             </span>
           </div>
         </div>
+      </section>
+
+      </div>
       </section>
 
       <!-- ================= 3. ZONE 2: 🎮 CREATIVE & PLAY ZONE ================= -->
