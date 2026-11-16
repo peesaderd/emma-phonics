@@ -47,6 +47,7 @@
   </style>
 
   <script src="/theme/js/kidobits-resume.js"></script>
+  <script src="/theme/js/kidobits_curriculum_lock.js"></script>
   <script src="/js/kidobits_wallet.js"></script>
   <script src="/js/kidobits_auth.js"></script>
   <style id="pwa-safe-area-fix">
@@ -77,6 +78,40 @@
     }
     .pb-28, [class*="pb-28"] {
       padding-bottom: max(112px, calc(100px + env(safe-area-inset-bottom, 0px))) !important;
+    }
+  </style>
+
+  <!-- Kidobits Home Landscape Responsive CSS -->
+  <!-- Kidobits Home Landscape & Tablet Responsive CSS -->
+  <style id="kidobits-home-landscape">
+    @media (min-width: 640px), (orientation: landscape) and (min-width: 540px) {
+      body {
+        padding-bottom: max(96px, calc(80px + env(safe-area-inset-bottom, 0px))) !important;
+      }
+      .max-w-\[430px\] {
+        max-width: 860px !important;
+        padding-left: max(16px, calc(12px + env(safe-area-inset-left, 0px))) !important;
+        padding-right: max(16px, calc(12px + env(safe-area-inset-right, 0px))) !important;
+      }
+      #core-curriculum-cards {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 14px !important;
+      }
+      #core-curriculum-cards > div {
+        margin: 0 !important;
+        height: 100% !important;
+      }
+      #core-curriculum-cards > div:nth-child(3) {
+        grid-column: span 2 / span 2 !important;
+      }
+      nav.fixed[class*="bottom-"] {
+        max-width: 500px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        right: auto !important;
+        width: calc(100% - 24px) !important;
+      }
     }
   </style>
 </head>
@@ -135,16 +170,17 @@
       </header>
 
       <!-- ================= 2. ZONE 1: 🎓 CORE SUBJECTS (3 เสาหลัก) ================= -->
-      <section class="mt-2 space-y-3">
-        <div class="flex items-center justify-between">
+      <section class="mt-2">
+        <div class="flex items-center justify-between mb-2">
           <h3 class="text-xs font-black text-[#7B7488] uppercase tracking-wider flex items-center gap-1.5">
             <span>🎓</span> วิชาเรียนหลัก · Core Curriculum
           </h3>
           <span class="text-[11px] font-extrabold text-[#8B7CFF]">3 วิชา</span>
         </div>
+        <div id="core-curriculum-cards" class="space-y-3 sm:space-y-0">
 
         <!-- 1. PHONICS HERO CARD -->
-        <div onclick="window.location.href='theme_phonicsLevel.html'" class="w-full text-left rounded-[24px] p-4 text-white hero-glow relative overflow-hidden transition active:scale-[0.98] cursor-pointer" style="background: linear-gradient(135deg, #FF7AB8 0%, #8B7CFF 100%);">
+        <div onclick="window.location.href='theme_phonics_map.html'" class="w-full text-left rounded-[24px] p-4 text-white hero-glow relative overflow-hidden transition active:scale-[0.98] cursor-pointer" style="background: linear-gradient(135deg, #FF7AB8 0%, #8B7CFF 100%);">
           <div class="flex items-start justify-between relative z-10">
             <div class="flex gap-3 items-center">
               <span class="text-3xl bg-white/20 backdrop-blur-sm rounded-2xl w-14 h-14 grid place-items-center shrink-0 border border-white/30">
@@ -229,7 +265,8 @@
             </span>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       <!-- ================= 3. ZONE 2: 🎮 CREATIVE & PLAY ZONE ================= -->
       <section class="mt-6">
@@ -331,7 +368,7 @@
     <!-- ================= 6. FLOATING BOTTOM NAV (6 TABS) ================= -->
     <nav class="fixed bottom-3 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] max-w-[406px] bg-white/95 backdrop-blur-md shadow-[0_10px_30px_rgba(60,30,90,.18)] rounded-full px-2 py-2 flex justify-between border border-[#F3EDF8] z-30" aria-label="Main navigation">
       <!-- Home (Active) -->
-      <button onclick="window.location.href='theme_home_v2.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]">
+      <button onclick="window.location.href='theme_home.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]">
         <span class="w-10 h-10 grid place-items-center rounded-full bg-[#1A1A1A] text-white shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -342,7 +379,7 @@
       </button>
 
       <!-- Phonics -->
-      <button onclick="window.location.href='theme_phonicsLevel.html'" class="flex flex-col items-center gap-0.5 min-w-[52px] text-[#9A8FA8] hover:text-[#8B7CFF] transition">
+      <button onclick="window.location.href='theme_phonics_map.html'" class="flex flex-col items-center gap-0.5 min-w-[52px] text-[#9A8FA8] hover:text-[#8B7CFF] transition">
         <span class="w-10 h-10 grid place-items-center rounded-full">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
@@ -420,9 +457,26 @@
         const nameEl = document.getElementById('homeGreetingName');
         const avatarBox = document.getElementById('homeAvatarInner');
 
-        // 1. Sync User Name
-        if (user && user.name && nameEl) {
-          nameEl.textContent = `Hello, ${user.name} 👋`;
+        // 1. Sync User / Student Display Name
+        let student = null;
+        try {
+          const rawS = localStorage.getItem('kidobits_student_profile');
+          if (rawS) student = JSON.parse(rawS);
+        } catch(e) {}
+
+        let displayName = '';
+        if (student && student.displayPreference === 'parent' && user && user.name) {
+          displayName = user.name;
+        } else if (student && student.name && student.name.trim()) {
+          displayName = student.name.trim();
+        } else if (user && user.name) {
+          displayName = user.name;
+        } else {
+          displayName = 'น้องเอ็มม่า';
+        }
+
+        if (nameEl && displayName) {
+          nameEl.textContent = `Hello, ${displayName} 👋`;
         }
 
         // 2. Sync Real LINE Avatar
