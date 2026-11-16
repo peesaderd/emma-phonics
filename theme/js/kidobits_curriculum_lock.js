@@ -78,6 +78,17 @@
   }
 
   // Mark lesson completed and unlock the next lesson
+  function unlockTo(subject, targetIndex) {
+    if (!state[subject]) {
+      state[subject] = { unlockedMax: 1, completed: [] };
+    }
+    const idx = parseInt(targetIndex, 10) || 1;
+    if (idx > state[subject].unlockedMax) {
+      state[subject].unlockedMax = idx;
+      saveState();
+    }
+  }
+
   function markCompleted(subject, lessonId, nextIndex) {
     if (!state[subject]) {
       state[subject] = { unlockedMax: 1, completed: [] };
@@ -185,6 +196,7 @@
 
   // Global API
   window.KidobitsLock = {
+    unlockTo: unlockTo,
     isUnlocked: isUnlocked,
     isCompleted: isCompleted,
     markCompleted: markCompleted,

@@ -1466,9 +1466,24 @@ body {
     function startContinuousLesson(idx, startStage = null) {
       const les = LESSONS[idx];
       const num = (les && les.num) ? les.num : (idx + 1);
+
+      // If user opened with direct URL query (?lesson=X), allow access and unlock up to that lesson!
+      const isDirectUrl = window.location.search.includes('lesson=') || window.location.search.includes('les=') || window.location.search.includes('pizza=');
+      if (isDirectUrl && window.KidobitsLock) {
+        try {
+          if (KidobitsLock.unlockTo) {
+            KidobitsLock.unlockTo('math', num);
+          } else if (KidobitsLock.markCompleted) {
+            KidobitsLock.markCompleted('math', 'L' + (num < 10 ? '0' : '') + (num - 1), num);
+          }
+        } catch(e) {}
+      }
+
       if (num > 1 && window.KidobitsLock && !KidobitsLock.isUnlocked('math', num)) {
-        if (window.KidobitsLock) KidobitsLock.shakeAndNotify(null, les ? les.title : 'บทเรียนนี้');
-        return;
+        if (!isDirectUrl) {
+          if (window.KidobitsLock) KidobitsLock.shakeAndNotify(null, les ? les.title : 'บทเรียนนี้');
+          return;
+        }
       }
       CURRENT_LESSON_IDX = idx;
 
