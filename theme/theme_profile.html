@@ -22,7 +22,9 @@ button[class*="border-[#FF9A4D]"] + p[class*="bg-[#E8FFF0]"] {
 </style>
 <script src="/kidobits/js/kb-az-engine.js?v=20261111_v999"></script>
 <script src="/kidobits/js/kb-lesson.v2.js?v=20261111_v999"></script>
-<title>Kidobits · Profile & Member</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Kidobits · Profile & Member</title>
 <style>@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Prompt:wght@400;500;600;700&display=swap');
 
 *, ::before, ::after{
@@ -2584,6 +2586,116 @@ button{
       padding-bottom: max(112px, calc(100px + env(safe-area-inset-bottom, 0px))) !important;
     }
   </style>
+
+  <!-- Kidobits Profile Universal Responsive & Device Orientation CSS -->
+  <style id="kidobits-profile-responsive">
+    /* Tablet & Desktop Responsive Layout (min-width: 640px) */
+    @media (min-width: 640px), (orientation: landscape) and (min-width: 540px) {
+      #root > div {
+        align-items: center !important;
+        padding: 16px !important;
+      }
+
+      /* Expand container on Tablet and Desktop */
+      #root > div > div {
+        max-width: 860px !important;
+        height: auto !important;
+        min-height: 88vh !important;
+        max-height: 94vh !important;
+        border-radius: 32px !important;
+        box-shadow: 0 24px 70px rgba(90,60,140,.24) !important;
+      }
+
+      /* 2-Column Responsive Grid inside Profile Content */
+      #root .px-5.pt-5 {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 16px !important;
+        align-items: start !important;
+      }
+
+      /* Title spans full width */
+      #root .px-5.pt-5 > h2:first-child {
+        grid-column: 1 / -1 !important;
+        margin-bottom: 0 !important;
+      }
+
+      /* Centered Bottom Navigation */
+      nav[aria-label="Main navigation"],
+      nav[role="navigation"] {
+        max-width: 480px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        right: auto !important;
+        width: calc(100% - 24px) !important;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      #root > div > div {
+        max-width: 1080px !important;
+      }
+      #root .px-5.pt-5 {
+        gap: 20px !important;
+      }
+    }
+
+    /* Small Phone Landscape Warning */
+    @media (max-width: 639px) and (orientation: landscape) and (max-height: 500px) {
+      #root > div > div {
+        max-width: 100% !important;
+        height: 100vh !important;
+        border-radius: 0 !important;
+      }
+    }
+  </style>
+
+  <!-- Kidobits Device Orientation Manager -->
+  <script id="kidobits-device-orientation">
+    (function() {
+      const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      const isTablet = /(iPad|Tablet|(Android(?!.*Mobile)))/i.test(navigator.userAgent) || 
+                       (navigator.maxTouchPoints > 1 && window.innerWidth >= 600 && window.innerWidth <= 1366);
+      const isPhone = isMobile && !isTablet;
+
+      function applyOrientationLock() {
+        try {
+          if (screen.orientation && screen.orientation.lock) {
+            if (isPhone) {
+              screen.orientation.lock('portrait').catch(function(){});
+            } else if (isTablet) {
+              screen.orientation.lock('landscape').catch(function(){});
+            }
+          }
+        } catch(e) {}
+      }
+
+      window.addEventListener('DOMContentLoaded', applyOrientationLock);
+      document.addEventListener('click', applyOrientationLock, { once: true });
+
+      function checkOrientationBanner() {
+        if (!isPhone) return;
+        let overlay = document.getElementById('kbRotatePhoneNotice');
+        const isLandscape = window.innerWidth > window.innerHeight && window.innerHeight < 550;
+        
+        if (isLandscape) {
+          if (!overlay) {
+            overlay = document.createElement('div');
+            overlay.id = 'kbRotatePhoneNotice';
+            overlay.style.cssText = 'position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:#1A1A1AE6;backdrop-filter:blur(8px);color:white;padding:8px 18px;border-radius:999px;font-size:12px;font-weight:bold;z-index:999999;display:flex;align-items:center;gap:8px;box-shadow:0 10px 25px rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.2);white-space:nowrap;';
+            overlay.innerHTML = '<span>📱 กรุณาหมุนโทรศัพท์เป็นแนวตั้ง เพื่อการใช้งานที่ดีที่สุด</span><button onclick="this.parentElement.remove()" style="color:#aaa;background:none;border:none;cursor:pointer;font-weight:bold;margin-left:4px;">✕</button>';
+            document.body.appendChild(overlay);
+          }
+        } else {
+          if (overlay) overlay.remove();
+        }
+      }
+
+      window.addEventListener('resize', checkOrientationBanner);
+      window.addEventListener('orientationchange', checkOrientationBanner);
+      window.addEventListener('DOMContentLoaded', checkOrientationBanner);
+    })();
+  </script>
 </head>
 <body>
 <div id="root"></div>
@@ -2926,9 +3038,9 @@ document.addEventListener('click', function(e) {
 }, true);
 </script>
 
-<script src="js/kidobits_wallet.js"></script>
-<script src="js/kidobits_auth.js"></script>
-<script src="js/kidobits_real_sync.js"></script>
+<script src="/js/kidobits_wallet.js"></script>
+<script src="/js/kidobits_auth.js"></script>
+<script src="/theme/js/kidobits_real_sync.js"></script>
   <script src="/theme/js/kidobits_dynamic_island.js"></script>
 </body>
 
