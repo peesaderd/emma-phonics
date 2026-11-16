@@ -31,6 +31,34 @@
   const KidobitsSync = {
     activeMode: 'cartoon', // 'cartoon' | 'social' | 'upload'
     uploadedDataUrl: null,
+    displayPreference: 'child',
+
+    calcAge(dobStr) {
+      if (!dobStr) return { years: 6, months: 0, text: '6 ปีบริบูรณ์', grade: 'ประถมศึกษาปีที่ 1 (ป.1)' };
+      const birth = new Date(dobStr);
+      if (isNaN(birth.getTime())) return { years: 6, months: 0, text: '6 ปีบริบูรณ์', grade: 'ประถมศึกษาปีที่ 1 (ป.1)' };
+      const today = new Date();
+      let years = today.getFullYear() - birth.getFullYear();
+      let months = today.getMonth() - birth.getMonth();
+      if (today.getDate() < birth.getDate()) {
+        months--;
+      }
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+      years = Math.max(0, years);
+      months = Math.max(0, months);
+      let grade = 'เตรียมอนุบาล';
+      if (years >= 12) grade = `มัธยมศึกษาปีที่ ${years - 11} (ม.${years - 11})`;
+      else if (years >= 7) grade = `ประถมศึกษาปีที่ ${years - 5} (ป.${years - 5})`;
+      else if (years === 6) grade = 'ประถมศึกษาปีที่ 1 (ป.1)';
+      else if (years === 5) grade = 'อนุบาล 3 (อ.3)';
+      else if (years === 4) grade = 'อนุบาล 2 (อ.2)';
+      else if (years === 3) grade = 'อนุบาล 1 (อ.1)';
+      const text = months > 0 ? `${years} ปี ${months} เดือน` : `${years} ปีบริบูรณ์`;
+      return { years, months, text, grade };
+    },
 
     // -------------------------------------------------------------
     // 1. AVATAR CUSTOMIZER & STUDENT SETUP
@@ -507,7 +535,7 @@
         // Subtitle: Age & Parent link
         const subP = document.querySelector('h3 + p');
         if (subP) {
-          const ageInfo = KidobitsRealSync.calcAge(student.birthdate);
+          const ageInfo = KidobitsSync.calcAge(student.birthdate);
           const ageDisplay = student.birthdate ? `${ageInfo.text} (${ageInfo.grade})` : `อายุ ${student.age || '6'} ปี`;
           subP.innerHTML = `🎂 ${ageDisplay} • ${user ? `บัญชีผู้ปกครอง: <b>${user.name}</b>` : 'Kidobits Explorer'}`;
         }
