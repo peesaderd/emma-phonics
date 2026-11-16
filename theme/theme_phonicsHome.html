@@ -41,6 +41,40 @@
   <!-- Kidobits Core Engines -->
   <script src="/js/kidobits_wallet.js"></script>
   <script src="/js/kidobits_lock.js"></script>
+  <!-- Kidobits Phonics Home Universal Responsive Grid CSS -->
+  <style id="kidobits-phonics-home-responsive">
+    @media (min-width: 640px), (orientation: landscape) and (min-width: 540px) {
+      .phonics-home-container {
+        max-width: 860px !important;
+      }
+      .phonics-level-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 14px !important;
+      }
+      .phonics-level-grid > * {
+        margin: 0 !important;
+        height: 100% !important;
+      }
+      nav.phonics-bottom-nav {
+        max-width: 500px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        right: auto !important;
+        width: calc(100% - 24px) !important;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .phonics-home-container {
+        max-width: 1080px !important;
+      }
+      .phonics-level-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 16px !important;
+      }
+    }
+  </style>
 </head>
 <body class="bg-white">
 
@@ -48,7 +82,7 @@
   <div class="min-h-[100dvh] w-full flex justify-center items-start sm:items-center px-0 sm:px-4 py-0 sm:py-5" 
        style="background: linear-gradient(rgb(253, 240, 245) 0%, rgb(237, 231, 255) 52%, rgb(223, 245, 255) 100%); padding-top: var(--safe-area-inset-top);">
     
-    <div class="w-full max-w-[430px] sm:rounded-[36px] rounded-none overflow-hidden shadow-[0_24px_70px_rgba(90,60,140,.28)] flex flex-col h-[100dvh] sm:h-[860px] sm:max-h-[92vh] relative" 
+    <div class="phonics-home-container w-full max-w-[430px] sm:rounded-[36px] rounded-none overflow-hidden shadow-[0_24px_70px_rgba(90,60,140,.28)] flex flex-col h-[100dvh] sm:h-[860px] sm:max-h-[92vh] relative" 
          style="background: rgb(255, 255, 255); color: rgb(26, 26, 26); font-size: 16px;">
       
       <!-- Scrollable Content Area -->
@@ -109,7 +143,7 @@
           <h3 class="font-extrabold text-lg mt-4 text-[#2D2342]">เลือกระดับ • เล่นตามลำดับ</h3>
 
           <!-- 6 Level Cards -->
-          <div class="space-y-3 mt-2">
+          <div class="phonics-level-grid space-y-3 sm:space-y-0 mt-2">
 
             <!-- LEVEL 1 -->
             <button onclick="window.location.href='theme_phonicsLevel.html?lv=1'" 
@@ -237,7 +271,7 @@
       </div>
 
       <!-- Floating Capsule Bottom Navigation -->
-      <nav class="absolute bottom-3 left-3 right-3 bg-white shadow-[0_10px_30px_rgba(60,30,90,.18)] rounded-full px-2 py-2 flex justify-between border border-[#F3EDF8]" aria-label="Main navigation">
+      <nav class="phonics-bottom-nav absolute bottom-3 left-3 right-3 bg-white shadow-[0_10px_30px_rgba(60,30,90,.18)] rounded-full px-2 py-2 flex justify-between border border-[#F3EDF8]" aria-label="Main navigation">
         <button onclick="window.location.href='theme_home.html'" class="flex flex-col items-center gap-0.5 min-w-[52px] cursor-pointer">
           <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:text-[#8B7CFF]">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

@@ -59,7 +59,7 @@
 
   <!-- Kidobits Phonics Level Landscape Grid CSS -->
   <style id="kidobits-phonics-level-landscape">
-    @media (orientation: landscape) and (min-width: 600px) {
+    @media (min-width: 640px), (orientation: landscape) and (min-width: 540px) {
       body {
         padding-bottom: max(96px, calc(80px + env(safe-area-inset-bottom, 0px))) !important;
       }
@@ -89,7 +89,7 @@
       }
     }
 
-    @media (orientation: landscape) and (min-width: 900px) {
+    @media (min-width: 1024px) {
       /* Expand to 3-column Grid on tablet / large screens */
       .max-w-\[430px\] {
         max-width: 1040px !important;
