@@ -4,7 +4,7 @@
 
 <!-- Kidobits PWA Setup -->
 <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#8B7CFF">
+<meta name="theme-color" content="#FFFFFF">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -2554,6 +2554,36 @@ button{
 </style>
   <script src="/js/kidobits_wallet.js"></script>
   <script src="/js/kidobits_auth.js"></script>
+  <style id="pwa-safe-area-fix">
+    :root {
+      --sat: env(safe-area-inset-top, 0px);
+      --sab: env(safe-area-inset-bottom, 0px);
+    }
+    html {
+      background-color: #FFFFFF !important;
+    }
+    body {
+      background-color: #FFFFFF !important;
+    }
+    /* Safe Top for mobile frames and top sections */
+    .pt-7, [class*="pt-7"] {
+      padding-top: max(24px, calc(12px + env(safe-area-inset-top, 0px))) !important;
+    }
+    .pt-4, [class*="pt-4"] {
+      padding-top: max(16px, calc(10px + env(safe-area-inset-top, 0px))) !important;
+    }
+    /* Safe Bottom for floating navigation */
+    nav.fixed[class*="bottom-"] {
+      bottom: max(12px, calc(10px + env(safe-area-inset-bottom, 0px))) !important;
+    }
+    /* Safe Bottom padding for scrollable body/containers */
+    .pb-24, [class*="pb-24"] {
+      padding-bottom: max(96px, calc(88px + env(safe-area-inset-bottom, 0px))) !important;
+    }
+    .pb-28, [class*="pb-28"] {
+      padding-bottom: max(112px, calc(100px + env(safe-area-inset-bottom, 0px))) !important;
+    }
+  </style>
 </head>
 <body>
 <div id="root"></div>

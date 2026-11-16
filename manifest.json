@@ -12,8 +12,8 @@
     "browser"
   ],
   "orientation": "any",
-  "background_color": "#FDF0F5",
-  "theme_color": "#8B7CFF",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF",
   "lang": "th",
   "dir": "ltr",
   "categories": [
