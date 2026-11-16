@@ -66,6 +66,42 @@
       padding-bottom: max(112px, calc(100px + env(safe-area-inset-bottom, 0px))) !important;
     }
   </style>
+
+  <!-- Kidobits Math Lobby Landscape Grid CSS -->
+  <style id="kidobits-lobby-landscape">
+    @media (orientation: landscape) and (min-width: 600px) {
+      body {
+        padding-bottom: max(96px, calc(80px + env(safe-area-inset-bottom, 0px))) !important;
+      }
+      /* Expand container width in landscape */
+      .max-w-\[430px\] {
+        max-width: 920px !important;
+        padding-left: max(16px, calc(12px + env(safe-area-inset-left, 0px))) !important;
+        padding-right: max(16px, calc(12px + env(safe-area-inset-right, 0px))) !important;
+      }
+      /* Arrange lessons into a 2-column Grid */
+      #lessonsList {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+      }
+      /* Bottom nav width expand slightly or stay neat pill */
+      nav.fixed[class*="bottom-"] {
+        max-width: 500px !important;
+      }
+    }
+
+    @media (orientation: landscape) and (min-width: 900px) {
+      /* Expand to 3-column Grid on tablet / large screens */
+      .max-w-\[430px\] {
+        max-width: 1040px !important;
+      }
+      #lessonsList {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      }
+    }
+  </style>
+
 </head>
 <body class="bg-[#F8F9FD] text-[#2C2623] min-h-screen flex justify-center pb-24">
 

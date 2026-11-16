@@ -320,6 +320,123 @@ body {
       padding-bottom: max(112px, calc(100px + env(safe-area-inset-bottom, 0px))) !important;
     }
   </style>
+
+  <!-- Kidobits Landscape Mode CSS -->
+  <style id="kidobits-landscape-mode">
+    @media (orientation: landscape) {
+      /* 1. Hide floating bottom nav to maximize vertical space for game */
+      #lessonModal nav.fixed,
+      html.direct-lesson-mode nav.fixed,
+      body.in-game nav.fixed {
+        display: none !important;
+      }
+
+      /* 2. Expand Modal Card from 430px portrait to wide landscape canvas */
+      html.direct-lesson-mode #lessonModal > div,
+      #modalCard,
+      #lessonModal > div {
+        max-width: 960px !important;
+        width: 100% !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 8px 20px !important;
+        padding-top: max(8px, env(safe-area-inset-top, 0px)) !important;
+        padding-bottom: max(10px, env(safe-area-inset-bottom, 0px)) !important;
+        padding-left: max(20px, calc(14px + env(safe-area-inset-left, 0px))) !important;
+        padding-right: max(20px, calc(14px + env(safe-area-inset-right, 0px))) !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+      }
+
+      /* 3. Compact Top Control Header */
+      #modalHeaderRow {
+        padding-bottom: 2px !important;
+        margin-bottom: 2px !important;
+      }
+      #modalLessonBanner {
+        padding-bottom: 2px !important;
+        margin-bottom: 2px !important;
+      }
+      #modalStepperSection {
+        margin-top: 2px !important;
+        margin-bottom: 4px !important;
+      }
+      #stagePillsRow {
+        gap: 6px !important;
+      }
+      #stagePillsRow > button {
+        padding: 2px 6px !important;
+        font-size: 11px !important;
+      }
+
+      /* 4. Streamlined Stage Container */
+      #lessonStageContainer {
+        padding-top: 2px !important;
+        padding-bottom: 4px !important;
+        min-height: auto !important;
+        width: 100% !important;
+        flex: 1 1 auto !important;
+      }
+
+      /* 5. Fluid Responsive Arenas in Landscape */
+      #catchPlayfield,
+      #pumpArena,
+      #assemblyArena,
+      #matchPlayground,
+      #bondsArena,
+      #compareArena,
+      #patternArena,
+      #tenframeArena,
+      #sorterArena,
+      #kittenPlayfield,
+      #pizzaArena,
+      #seesawArena {
+        max-width: 880px !important;
+        width: 100% !important;
+        min-height: 240px !important;
+        max-height: calc(100vh - 100px) !important;
+        height: auto !important;
+        padding: 8px 16px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+
+      /* 6. Landscape 2-Column Split for Number Bonds */
+      @media (min-width: 600px) {
+        #bondsArena {
+          flex-direction: row !important;
+          align-items: center !important;
+          justify-content: space-around !important;
+          padding: 10px 24px !important;
+        }
+        #bondsArena > .relative.z-20:last-child {
+          width: auto !important;
+          max-width: 320px !important;
+        }
+
+        #catchPlayfield {
+          padding: 8px 20px !important;
+        }
+
+        #pumpArena {
+          padding: 10px 32px !important;
+        }
+      }
+
+      /* 7. Bottom Audio Replay - compact inline */
+      #modalAudioSection {
+        margin-top: 2px !important;
+        padding-top: 2px !important;
+      }
+    }
+  </style>
+
 </head>
 <body id="worldBody" class="bg-[#F0F5FD] flex flex-col justify-between selection:bg-amber-400 min-h-screen text-slate-800">
 
@@ -399,10 +516,10 @@ body {
   <!-- MODAL: 4-IN-1 CONTINUOUS LESSON ARENA                    -->
   <!-- ======================================================== -->
   <div id="lessonModal" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm hidden flex-col items-center justify-center p-3 sm:p-4">
-    <div class="w-full max-w-xl bg-white border-4 border-amber-200/90 rounded-[36px] p-5 sm:p-6 shadow-[0_25px_60px_-15px_rgba(15,23,42,0.18)] flex flex-col relative max-h-[95vh] overflow-y-auto text-slate-800">
+    <div id="modalCard" class="w-full max-w-xl bg-white border-4 border-amber-200/90 rounded-[36px] p-4 sm:p-6 shadow-[0_25px_60px_-15px_rgba(15,23,42,0.18)] flex flex-col relative max-h-[95vh] overflow-y-auto text-slate-800">
       
       <!-- Top Bar: Standard Kidobits Header with Back & Stats Chips -->
-      <header class="flex items-center justify-between gap-2 pb-2.5 mb-2 border-b border-slate-100">
+      <header id="modalHeaderRow" class="flex items-center justify-between gap-2 pb-2 mb-1.5 border-b border-slate-100">
         <button onclick="closeLessonModal()" class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700 transition" title="ย้อนกลับ">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M19 12H5"></path>
@@ -428,7 +545,7 @@ body {
       </header>
 
       <!-- Lesson Banner Info -->
-      <div class="flex items-center justify-between pb-2 mb-2">
+      <div id="modalLessonBanner" class="flex items-center justify-between pb-1.5 mb-1.5">
         <div class="flex items-center gap-2.5">
           <span class="text-3xl" id="activeLessonIcon">🐣</span>
           <div>
@@ -442,7 +559,7 @@ body {
       </div>
 
       <!-- 4-GAME CONTINUOUS STEPPER TABS -->
-      <div class="my-3">
+      <div id="modalStepperSection" class="my-2">
         <div class="flex items-center justify-between text-xs mb-2">
           <div class="flex items-center gap-1.5 font-black text-amber-600" id="currentStageBadge">
             <span>🎮</span>
@@ -467,7 +584,7 @@ body {
       </div>
 
       <!-- Bottom Audio Replay -->
-      <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+      <div id="modalAudioSection" class="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
         <button onclick="replayTutorAudio()" class="text-indigo-600 hover:text-indigo-700 font-bold flex items-center gap-1.5 transition">
           <span>🔊</span>
           <span id="modalAudioText">Repeat Tutor Voice</span>
