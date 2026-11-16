@@ -116,7 +116,7 @@
       <div class="absolute -right-4 -bottom-6 opacity-20 pointer-events-none text-9xl">👩‍🏫</div>
       <div class="relative z-10 max-w-3xl">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/15 text-white text-xs font-bold mb-3 backdrop-blur-sm border border-white/20">
-          <span>✨</span> ระบบเรียนสดกับครูเอ็มม่า (Teacher Emma AI Tutor) · Level 2 Fluent Reader
+          <span>✨</span> ระบบเรียนสดกับครูเอ็มม่า (Teacher Emma AI Tutor) · Level 3 Master Storyteller
         </div>
         <h1 class="font-display text-2xl sm:text-4xl font-black text-white tracking-tight leading-tight mb-2">
           From 4 Letters to 8-Letter Tales! 📚✨
@@ -653,8 +653,8 @@
 
   <!-- ================= TEACHER EMMA LIVE ARENA MODAL ================= -->
   <!-- NO LOBBY START BUTTON: Opens and starts immediately! -->
-  <div id="playerModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-    <div class="bg-white border-2 border-orange-300 rounded-3xl w-full max-w-[calc(100vw-16px)] sm:max-w-2xl shadow-2xl overflow-hidden flex flex-col my-auto min-h-0 max-h-[92vh]">
+  <div id="playerModal" class="fixed inset-0 z-[100] hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-0 sm:p-4 overflow-y-auto">
+    <div class="bg-white sm:border-2 sm:border-orange-300 sm:rounded-3xl rounded-none w-full max-w-full sm:max-w-2xl shadow-2xl overflow-hidden flex flex-col h-[100dvh] sm:h-auto sm:max-h-[92vh] relative my-auto">
 
       <!-- HEADER: Top Status & Teacher Avatar -->
       <div class="p-3 sm:p-5 border-b border-orange-100 bg-[#FFFBF5] flex items-center justify-between gap-2">
@@ -720,12 +720,12 @@
       </div>
 
       <!-- ================= DYNAMIC ACTIVITY STAGE ================= -->
-      <div id="appStage" class="p-5 sm:p-6 overflow-y-auto flex-1 flex flex-col justify-center bg-[#FFFBF5]">
+      <div id="appStage" class="p-3 sm:p-6 overflow-y-auto flex-1 flex flex-col justify-start bg-[#FFFBF5] pb-6">
         <!-- Dynamically rendered per step -->
       </div>
 
       <!-- FOOTER: Mode Status & Guidance -->
-      <div class="p-3 bg-white border-t border-orange-100 flex items-center justify-between text-xs px-5">
+      <div class="p-3 bg-white border-t border-orange-100 flex items-center justify-between text-xs px-4 sm:px-5 shrink-0 pb-[max(12px,calc(8px+env(safe-area-inset-bottom,0px)))]">
         <div class="flex items-center gap-2">
           <button id="btnHearTeacher" onclick="replayTeacherVoice()" class="px-3.5 py-1.5 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold border border-orange-200 flex items-center gap-1 transition">
             <span>🔊</span> <span>ฟังครูพูดซ้ำ</span>
@@ -1507,7 +1507,7 @@
       const wordAudio = lessonWordAudio(it.word);   /* FIX: w_ ก่อน ถ้าไม่มีใช้ g_ ที่มีจริงครบ 169 คำ */
       const stage = document.getElementById('appStage');
       let h = `
-        <div class="text-center space-y-4">
+        <div class="text-center space-y-3 sm:space-y-4 my-auto py-2">
           <div class="text-5xl sm:text-6xl drop-shadow-sm">${it.emoji || '✨'}</div>
           
           <div class="inline-block px-3.5 py-1 rounded-full bg-orange-100 text-orange-950 text-xs font-black">
@@ -1596,7 +1596,7 @@
 
       const stage = document.getElementById('appStage');
       let h = `
-        <div class="text-center space-y-4">
+        <div class="text-center space-y-3 sm:space-y-4 my-auto py-2">
           <div class="text-5xl sm:text-6xl drop-shadow-sm">${it.emoji || '✨'}</div>
           
           <div class="inline-block px-3.5 py-1 rounded-full bg-orange-100 text-orange-950 text-xs font-black">
@@ -1684,7 +1684,7 @@
       const wordAudio = lessonWordAudio(it.word);   /* FIX: w_ ก่อน ถ้าไม่มีใช้ g_ ที่มีจริงครบ 169 คำ */
       const stage = document.getElementById('appStage');
       let h = `
-        <div class="text-center space-y-4">
+        <div class="text-center space-y-3 sm:space-y-4 my-auto py-2">
           <div class="flex items-center justify-center">
             <button onclick="playEmmaMp3('${wordAudio}')" class="px-5 py-3 rounded-2xl bg-orange-100 hover:bg-orange-200 text-orange-950 font-black text-sm flex items-center gap-2 shadow-sm border border-orange-200 hover:scale-105 active:scale-95 transition cursor-pointer">
               <span class="text-3xl">${it.emoji || '🎧'}</span>
@@ -1753,7 +1753,7 @@
 
       const stage = document.getElementById('appStage');
       let h = `
-        <div class="text-center space-y-4">
+        <div class="text-center space-y-3 sm:space-y-4 my-auto py-2">
           <div class="text-5xl drop-shadow-sm">📖</div>
           
           <div class="inline-block px-3.5 py-1 rounded-full bg-rose-100 text-rose-900 text-xs font-black">
@@ -1994,8 +1994,8 @@
                 <span>▶ ไปบทเรียนถัดไป (${nextLid}) ทันที</span>
               </button>
             ` : `
-              <button onclick="alert('🏆 ยินดีด้วย! หนูพิชิต Level 2 ครบทั้ง 16 บทเรียนแล้ว!')" class="w-full py-3 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-sm shadow-xl">
-                <span>🏆 รับเกียรติบัตร Level 2 Master Reader</span>
+              <button onclick="alert('🏆 ยินดีด้วย! หนูพิชิต Level 3 ครบทั้ง 16 บทเรียนแล้ว!')" class="w-full py-3 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-sm shadow-xl">
+                <span>🏆 รับเกียรติบัตร Level 3 Master Storyteller</span>
               </button>
             `}
             <button onclick="openLesson('${STATE.lid}')" class="w-full py-2 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs border border-slate-300">
@@ -2109,6 +2109,7 @@
       const w = String(it.word || '').toLowerCase();
       if (sp.type === 'walk' || sp.type === 'mouth') {
         const a = sp.a, b = sp.b;
+        if (!a) return '';
         const inA = hasAffix(w, a), inB = hasAffix(w, b);
         return actIntroHTML(sp, `
           <div class="flex items-center justify-center gap-2 mt-2">
@@ -2222,14 +2223,16 @@
       const stage = document.getElementById('appStage');
       if (!stage || !stage.firstElementChild) return;
       const wrap = stage.firstElementChild;
-      const holder = document.createElement('div');
-      holder.className = 'act-holder mb-3';
       const it = (STATE.step === 0 ? (STATE.lesson.blend || [])[STATE.i]
                 : STATE.step === 1 ? (STATE.lesson.segment_build || [])[STATE.i]
                 : (STATE.lesson.listen_choose || [])[STATE.i]) || {};
-      holder.innerHTML = STATE.step === 0 ? actPanelStep1(sp, it)
-                        : STATE.step === 1 ? actPanelStep2(sp, it)
-                        : actPanelStep3(sp, it);
+      const html = STATE.step === 0 ? actPanelStep1(sp, it)
+                 : STATE.step === 1 ? actPanelStep2(sp, it)
+                 : actPanelStep3(sp, it);
+      if (!html || !html.trim()) return;
+      const holder = document.createElement('div');
+      holder.className = 'act-holder mb-3';
+      holder.innerHTML = html;
       wrap.insertBefore(holder, wrap.firstChild);
     }
 
@@ -2288,6 +2291,8 @@
       // Opens immediately! NO START BUTTON!
       document.getElementById('playerModal').classList.remove('hidden');
       document.body.style.overflow = 'hidden';
+      const mainNav = document.querySelector('nav[aria-label="Main navigation"]');
+      if (mainNav) mainNav.style.display = 'none';
 
       render();
     }
@@ -2326,6 +2331,8 @@
       activeMediaRec = null; isSentenceListening = false; stopListeningFn = null;
       document.getElementById('playerModal').classList.add('hidden');
       document.body.style.overflow = '';
+      const mainNav = document.querySelector('nav[aria-label="Main navigation"]');
+      if (mainNav) mainNav.style.display = '';
       try { const st = document.getElementById('appStage'); if (st) st.scrollTop = 0; } catch(e) {}
       try { refreshContinueBanner(); } catch(e) {}
     }
