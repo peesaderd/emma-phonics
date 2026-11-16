@@ -2584,6 +2584,119 @@ button{
       padding-bottom: max(112px, calc(100px + env(safe-area-inset-bottom, 0px))) !important;
     }
   </style>
+
+  <!-- Kidobits Phonics Home Landscape & Tablet Responsive Mode -->
+  <style id="kidobits-phonics-home-responsive">
+    @media (orientation: landscape) and (min-width: 600px), (min-width: 768px) {
+      /* Full screen background centering without shrinking wrapper */
+      #root > div {
+        align-items: flex-start !important;
+        padding: 0 !important;
+        min-height: 100vh !important;
+      }
+
+      /* Expand container width from 430px up to 960px */
+      #root > div > div {
+        max-width: 960px !important;
+        width: 100% !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        border-radius: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding-left: max(16px, calc(12px + env(safe-area-inset-left, 0px))) !important;
+        padding-right: max(16px, calc(12px + env(safe-area-inset-right, 0px))) !important;
+      }
+
+      /* 2-Column Responsive Grid for Level Cards */
+      #root div.space-y-3.mt-2,
+      #root div[class*="space-y-3 mt-2"] {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+        row-gap: 12px !important;
+        margin-top: 10px !important;
+      }
+      #root div.space-y-3.mt-2 > *,
+      #root div[class*="space-y-3 mt-2"] > * {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+      }
+
+      /* Safe bottom padding for scroll container */
+      #root > div > div > div[class*="overflow-y-auto"] {
+        padding-bottom: max(96px, calc(84px + env(safe-area-inset-bottom, 0px))) !important;
+      }
+
+      /* Centered Bottom Navigation */
+      nav.absolute,
+      nav.fixed {
+        max-width: 500px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        right: auto !important;
+        width: calc(100% - 24px) !important;
+      }
+    }
+
+    /* 3-Column Grid on Tablet / Desktop (>= 960px) */
+    @media (min-width: 960px) {
+      #root > div > div {
+        max-width: 1080px !important;
+      }
+      #root div.space-y-3.mt-2,
+      #root div[class*="space-y-3 mt-2"] {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      }
+    }
+
+    /* Short Landscape on Phones (Height <= 500px) */
+    @media (orientation: landscape) and (max-height: 500px) {
+      /* Compact Header Bar */
+      #root > div > div > div:first-child {
+        padding-top: max(4px, env(safe-area-inset-top, 0px)) !important;
+        padding-bottom: 4px !important;
+      }
+
+      /* Compact Hero Banner */
+      #root div[class*="from-[#8B7CFF]"] {
+        padding: 8px 14px !important;
+        border-radius: 18px !important;
+      }
+      #root div[class*="from-[#8B7CFF]"] span[class*="rounded-[18px]"] {
+        width: 42px !important;
+        height: 42px !important;
+        font-size: 1.5rem !important;
+        border-radius: 12px !important;
+      }
+      #root div[class*="from-[#8B7CFF]"] h2 {
+        font-size: 16px !important;
+      }
+
+      /* Compact Warm-up Card */
+      #root div[class*="border-[#FF9A4D]"] {
+        padding: 8px 14px !important;
+        margin-top: 6px !important;
+        border-radius: 16px !important;
+      }
+
+      /* Level Cards compact */
+      #root div.space-y-3.mt-2 article {
+        padding: 10px 12px !important;
+        border-radius: 18px !important;
+      }
+
+      /* Bottom Nav lower margin */
+      nav.absolute,
+      nav.fixed {
+        bottom: 8px !important;
+      }
+    }
+  </style>
 </head>
 <body>
 <div id="root"></div>
