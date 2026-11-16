@@ -171,6 +171,14 @@
         chinese: { unlockedMax: 1, completed: [] }
       };
     }
+    // Also clear lesson stars if resetting math
+    if (!subject || subject === 'math') {
+      for (let i = 1; i <= 12; i++) {
+        const id = 'L' + (i < 10 ? '0' : '') + i;
+        localStorage.removeItem('kidobits_lesson_stars_' + id);
+      }
+      localStorage.removeItem('kidobits_math_stars');
+    }
     localStorage.removeItem(BYPASS_KEY);
     saveState();
   }
