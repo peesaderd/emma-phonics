@@ -5262,7 +5262,7 @@ function renderBubbleStage(arena, stage) {
           if (lIdx >= 1 && lIdx <= 12) lIdx = lIdx - 1; // 1-based converted to 0-based
           lIdx = Math.max(0, Math.min(11, lIdx));
           let sIdx = stageParam !== null ? parseInt(stageParam, 10) : null;
-          setTimeout(() => startContinuousLesson(lIdx, sIdx), 250);
+          startContinuousLesson(lIdx, sIdx);
         }
       }
 
@@ -5273,7 +5273,7 @@ function renderBubbleStage(arena, stage) {
         if (!isNaN(num) && num >= 1 && num <= 12) {
           lessonIdx = num - 1;
         }
-        setTimeout(() => startContinuousLesson(lessonIdx, 3), 200);
+        startContinuousLesson(lessonIdx, 3);
       }
     });
   </script>
