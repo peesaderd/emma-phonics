@@ -270,9 +270,10 @@ body {
       max-width: 430px !important;
       width: 100% !important;
       padding-top: env(safe-area-inset-top, 10px) !important;
-      padding-bottom: 96px !important;
+      padding-bottom: 120px !important;
       background: #FFFFFF !important;
       overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch !important;
     }
   </style>
   <script>
@@ -1340,7 +1341,7 @@ body {
           </div>
 
           <!-- THE RIVER ADVENTURE PLAYFIELD -->
-          <div class="relative w-full max-w-md h-60 sm:h-64 rounded-3xl bg-gradient-to-b from-sky-900/80 via-blue-950 to-slate-950 border-2 border-cyan-400/50 shadow-2xl overflow-hidden p-2 flex flex-col justify-between my-1">
+          <div class="relative w-full max-w-md min-h-[270px] sm:min-h-[300px] h-auto rounded-3xl bg-gradient-to-b from-sky-900/80 via-blue-950 to-slate-950 border-2 border-cyan-400/50 shadow-2xl overflow-hidden p-2.5 flex flex-col justify-between my-1">
             
             <!-- Flowing River Water Background -->
             <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-600/20 via-sky-800/30 to-blue-950/80 pointer-events-none"></div>
@@ -1593,7 +1594,7 @@ body {
           </div>
 
           <!-- THE COUNTING PLAYFIELD (10 ITEMS SCATTERED) -->
-          <div class="relative w-full max-w-md h-64 sm:h-72 rounded-3xl bg-gradient-to-b from-emerald-950/70 via-slate-900/80 to-slate-950 border-2 border-emerald-500/50 p-3 flex flex-col justify-between overflow-hidden shadow-2xl my-1 relative" id="catchPlayfield">
+          <div class="relative w-full max-w-md min-h-[300px] sm:min-h-[340px] h-auto rounded-3xl bg-gradient-to-b from-emerald-950/70 via-slate-900/80 to-slate-950 border-2 border-emerald-500/50 p-3.5 flex flex-col justify-between overflow-hidden shadow-2xl my-1 relative" id="catchPlayfield">
             
             <!-- Background Garden / Nature Atmosphere -->
             <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-600/15 via-teal-900/20 to-transparent pointer-events-none"></div>
@@ -1761,7 +1762,7 @@ body {
           </div>
 
           <!-- THE PLAYGROUND: Balloon on Left/Center + Real Standing Pump on Right -->
-          <div class="relative w-full max-w-lg h-64 sm:h-72 rounded-3xl bg-gradient-to-b from-sky-950/60 via-slate-900/80 to-slate-950 border-2 border-slate-800 p-3 overflow-visible flex items-end justify-between sm:justify-around px-4">
+          <div class="relative w-full max-w-lg min-h-[300px] sm:min-h-[340px] h-auto rounded-3xl bg-gradient-to-b from-sky-950/60 via-slate-900/80 to-slate-950 border-2 border-slate-800 p-3.5 overflow-visible flex items-end justify-between sm:justify-around px-4">
 
             <!-- Background Clouds -->
             <div class="absolute top-3 left-6 text-2xl opacity-20 pointer-events-none floating">☁️</div>
@@ -2535,8 +2536,8 @@ body {
             </div>
           </div>
 
-          <!-- THE PLAYGROUND (h-80 sm:h-96, max-w-lg) -->
-          <div id="assemblyArena" class="relative w-full max-w-lg h-80 sm:h-96 rounded-3xl bg-gradient-to-b ${cfg.bgTheme} border-2 p-3 overflow-hidden flex flex-col items-center justify-between">
+          <!-- THE PLAYGROUND (min-h-[400px] sm:min-h-[450px], max-w-lg) -->
+          <div id="assemblyArena" class="relative w-full max-w-lg min-h-[400px] sm:min-h-[450px] h-auto rounded-3xl bg-gradient-to-b ${cfg.bgTheme} border-2 p-3 sm:p-4 flex flex-col items-center justify-between">
             ${cfg.decoHtml}
 
             <!-- Top Status Banner -->
@@ -2885,8 +2886,8 @@ body {
             </div>
           </div>
 
-          <!-- THE PLAYGROUND (h-80 sm:h-96, max-w-lg) -->
-          <div id="matchPlayground" class="relative w-full max-w-lg h-80 sm:h-96 rounded-3xl bg-gradient-to-b ${bgTheme} border-2 p-3 overflow-hidden flex flex-col items-center justify-between">
+          <!-- THE PLAYGROUND (min-h-[420px] sm:min-h-[480px], max-w-lg) -->
+          <div id="matchPlayground" class="relative w-full max-w-lg min-h-[420px] sm:min-h-[480px] h-auto rounded-3xl bg-gradient-to-b ${bgTheme} border-2 p-3 sm:p-4 flex flex-col items-center justify-between">
             
             <!-- Background floating deco -->
             <div class="absolute inset-0 pointer-events-none overflow-hidden opacity-15">
@@ -3219,7 +3220,7 @@ body {
             </div>
 
             <!-- THE PLAYGROUND -->
-            <div id="bondsArena" class="relative w-full max-w-lg h-80 sm:h-96 rounded-3xl bg-gradient-to-b from-[#064e3b] via-[#022c22] to-[#0b0f19] border-2 border-emerald-900/60 p-4 overflow-hidden flex flex-col items-center justify-between">
+            <div id="bondsArena" class="relative w-full max-w-lg min-h-[420px] sm:min-h-[460px] h-auto rounded-3xl bg-gradient-to-b from-[#064e3b] via-[#022c22] to-[#0b0f19] border-2 border-emerald-900/60 p-4 sm:p-5 flex flex-col items-center justify-between">
               
               <!-- Deco background -->
               <div class="absolute inset-0 pointer-events-none opacity-20">
@@ -3240,24 +3241,24 @@ body {
               <div class="relative z-20 flex flex-col items-center justify-center my-auto w-full max-w-xs">
                 
                 <!-- WHOLE (ส่วนรวม - ด้านบน) -->
-                <div class="relative flex flex-col items-center justify-center w-24 h-24 rounded-full bg-gradient-to-tr from-amber-400 via-amber-300 to-yellow-200 border-4 border-amber-100 shadow-[0_0_25px_rgba(251,191,36,0.6)] z-20">
-                  <span class="text-4xl font-black text-slate-950">${rnd.whole}</span>
+                <div class="relative flex flex-col items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-amber-400 via-amber-300 to-yellow-200 border-4 border-amber-100 shadow-[0_0_25px_rgba(251,191,36,0.6)] z-20">
+                  <span class="text-3xl sm:text-4xl font-black text-slate-950">${rnd.whole}</span>
                   <div class="flex gap-0.5 mt-0.5">
                     ${Array.from({length: Math.min(rnd.whole, 8)}).map(() => `<span class="text-[10px]">${rnd.item || '🍎'}</span>`).join('')}
                   </div>
                 </div>
 
                 <!-- SVG BRANCHING LINES -->
-                <svg class="w-64 h-16 pointer-events-none -my-2 z-10" viewBox="0 0 256 64">
+                <svg class="w-56 h-12 sm:w-64 sm:h-14 pointer-events-none -my-1 z-10" viewBox="0 0 256 64">
                   <line x1="128" y1="4" x2="64" y2="60" stroke="#34d399" stroke-width="5" stroke-linecap="round" />
                   <line x1="128" y1="4" x2="192" y2="60" stroke="#34d399" stroke-width="5" stroke-linecap="round" />
                 </svg>
 
                 <!-- TWO BRANCH PARTS (ด้านล่าง: ส่วนย่อย A และ ส่วนย่อย B) -->
-                <div class="flex items-center justify-between w-64 px-2 z-20">
+                <div class="flex items-center justify-between w-56 sm:w-64 px-1 z-20">
                   <!-- PART A (GIVEN) -->
-                  <div class="flex flex-col items-center justify-center w-20 h-20 rounded-full bg-slate-900 border-4 border-emerald-400 shadow-xl">
-                    <span class="text-3xl font-black text-emerald-300">${rnd.partA}</span>
+                  <div class="flex flex-col items-center justify-center w-18 h-18 sm:w-20 sm:h-20 rounded-full bg-slate-900 border-4 border-emerald-400 shadow-xl">
+                    <span class="text-2xl sm:text-3xl font-black text-emerald-300">${rnd.partA}</span>
                     <div class="flex gap-0.5 mt-0.5">
                       ${Array.from({length: rnd.partA}).map(() => `<span class="text-[10px]">${rnd.item || '🍎'}</span>`).join('')}
                     </div>
@@ -3266,8 +3267,8 @@ body {
                   <span class="text-2xl font-black text-emerald-400 drop-shadow">+</span>
 
                   <!-- PART B (TARGET MISSING SLOT) -->
-                  <div id="bondsSlotB" class="flex flex-col items-center justify-center w-20 h-20 rounded-full bg-slate-900/90 border-4 border-dashed border-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.5)] transition-all">
-                    <span id="slotBText" class="text-3xl font-black text-amber-300">?</span>
+                  <div id="bondsSlotB" class="flex flex-col items-center justify-center w-18 h-18 sm:w-20 sm:h-20 rounded-full bg-slate-900/90 border-4 border-dashed border-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.5)] transition-all">
+                    <span id="slotBText" class="text-2xl sm:text-3xl font-black text-amber-300">?</span>
                   </div>
                 </div>
 
@@ -3363,7 +3364,7 @@ body {
           </div>
 
           <!-- THE PLAYGROUND -->
-          <div id="compareArena" class="relative w-full max-w-lg h-80 sm:h-96 rounded-3xl bg-gradient-to-b from-[#431407] via-[#1c0a04] to-[#0b0f19] border-2 border-orange-900/60 p-4 overflow-hidden flex flex-col items-center justify-between">
+          <div id="compareArena" class="relative w-full max-w-lg min-h-[400px] sm:min-h-[460px] h-auto rounded-3xl bg-gradient-to-b from-[#431407] via-[#1c0a04] to-[#0b0f19] border-2 border-orange-900/60 p-4 sm:p-5 flex flex-col items-center justify-between">
             
             <!-- Top Prompt Banner -->
             <div class="relative z-10 px-4 py-1.5 rounded-full bg-slate-900/90 border border-slate-700 shadow-md text-center">
@@ -3496,7 +3497,7 @@ body {
           </div>
 
           <!-- THE PLAYGROUND -->
-          <div id="patternArena" class="relative w-full max-w-lg h-80 sm:h-96 rounded-3xl bg-gradient-to-b from-[#2e1065] via-[#1e1b4b] to-[#0b0f19] border-2 border-purple-900/60 p-4 overflow-hidden flex flex-col items-center justify-between">
+          <div id="patternArena" class="relative w-full max-w-lg min-h-[400px] sm:min-h-[460px] h-auto rounded-3xl bg-gradient-to-b from-[#2e1065] via-[#1e1b4b] to-[#0b0f19] border-2 border-purple-900/60 p-4 sm:p-5 flex flex-col items-center justify-between">
             
             <!-- Top Instruction Banner -->
             <div class="relative z-10 px-4 py-1.5 rounded-full bg-slate-900/90 border border-slate-700 shadow-md text-center">
@@ -3632,7 +3633,7 @@ body {
           </div>
 
           <!-- THE PLAYGROUND -->
-          <div id="tenframeArena" class="relative w-full max-w-lg h-80 sm:h-96 rounded-3xl bg-gradient-to-b from-[#083344] via-[#082f49] to-[#0b0f19] border-2 border-cyan-900/60 p-4 overflow-hidden flex flex-col items-center justify-between">
+          <div id="tenframeArena" class="relative w-full max-w-lg min-h-[400px] sm:min-h-[460px] h-auto rounded-3xl bg-gradient-to-b from-[#083344] via-[#082f49] to-[#0b0f19] border-2 border-cyan-900/60 p-4 sm:p-5 flex flex-col items-center justify-between">
             
             <!-- Top Prompt Banner -->
             <div class="relative z-10 px-4 py-1.5 rounded-full bg-slate-900/90 border border-slate-700 shadow-md text-center">
