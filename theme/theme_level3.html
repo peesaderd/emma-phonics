@@ -2223,6 +2223,8 @@
       const stage = document.getElementById('appStage');
       if (!stage || !stage.firstElementChild) return;
       const wrap = stage.firstElementChild;
+      // Clean up any existing act-holder to prevent duplicate cards
+      wrap.querySelectorAll('.act-holder').forEach(el => el.remove());
       const it = (STATE.step === 0 ? (STATE.lesson.blend || [])[STATE.i]
                 : STATE.step === 1 ? (STATE.lesson.segment_build || [])[STATE.i]
                 : (STATE.lesson.listen_choose || [])[STATE.i]) || {};
