@@ -15,17 +15,17 @@
   <style>
     body {
       font-family: 'Plus Jakarta Sans', 'Noto Sans Thai', sans-serif;
-      background-color: #FFFBF5;
+      background-color: #FAF8FF;
       color: #1e293b;
       -webkit-tap-highlight-color: transparent;
     }
     .font-display { font-family: 'Plus Jakarta Sans', sans-serif; }
     .card-glow:hover {
-      box-shadow: 0 16px 32px -8px rgba(249, 115, 22, 0.2);
+      box-shadow: 0 16px 32px -8px rgba(139, 124, 255, 0.22);
       transform: translateY(-3px);
     }
-    .glow-orange {
-      box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.3);
+    .glow-purple {
+      box-shadow: 0 10px 25px -5px rgba(139, 124, 255, 0.3);
     }
     .glow-green {
       box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.3);
@@ -71,7 +71,7 @@
     }
   </style>
 </head>
-<body class="bg-[#FFFBF5] text-slate-800 antialiased min-h-screen pb-24 selection:bg-orange-500 selection:text-white">
+<body class="bg-[#FAF8FF] text-slate-800 antialiased min-h-screen pb-24 selection:bg-[#8B7CFF] selection:text-white">
 
   <!-- ================= TOP APP BAR ================= -->
   
@@ -112,7 +112,7 @@
   </div>
 </section>
 <section class="max-w-6xl mx-auto px-4 pt-6 pb-2">
-    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-orange-500 via-amber-500 to-amber-600 p-6 sm:p-9 shadow-xl border border-orange-300 text-white">
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#8B7CFF] via-purple-600 to-indigo-600 p-6 sm:p-9 shadow-xl border border-purple-200 text-white">
       <div class="absolute -right-4 -bottom-6 opacity-20 pointer-events-none text-9xl">👩‍🏫</div>
       <div class="relative z-10 max-w-3xl">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/15 text-white text-xs font-bold mb-3 backdrop-blur-sm border border-white/20">
@@ -121,7 +121,7 @@
         <h1 class="font-display text-2xl sm:text-4xl font-black text-white tracking-tight leading-tight mb-2">
           From 4 Letters to 8-Letter Tales! 📚✨
         </h1>
-        <p class="text-orange-50 text-xs sm:text-sm leading-relaxed mb-6">
+        <p class="text-purple-100 text-xs sm:text-sm leading-relaxed mb-6">
           ไม่ต้องกดปุ่มเริ่มเกม! พอกดเข้าบทเรียน ครูเอ็มม่าจะพูดนำทันที เมื่อครูพูดจบระบบจะรอให้น้องออกเสียงผ่านไมค์หรือแตะคำตอบ เมื่อตอบถูกครูจะให้กำลังใจและข้ามไปข้อต่อไปให้อัตโนมัติ!
         </p>
 
@@ -130,17 +130,17 @@
           <div class="p-3 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 text-left">
             <span class="text-[10px] font-black uppercase text-amber-100 block mb-0.5">ขั้นที่ 1 · 4 ตัว</span>
             <span class="font-display font-black text-xs text-white block">Digraphs</span>
-            <span class="text-[10px] text-orange-100">sh, ch, th, ck, ng</span>
+            <span class="text-[10px] text-purple-200">sh, ch, th, ck, ng</span>
           </div>
           <div class="p-3 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 text-left">
             <span class="text-[10px] font-black uppercase text-amber-100 block mb-0.5">ขั้นที่ 2 · 4–5 ตัว</span>
             <span class="font-display font-black text-xs text-white block">Blends</span>
-            <span class="text-[10px] text-orange-100">bl, cl, fr, st, -nd, -mp</span>
+            <span class="text-[10px] text-purple-200">bl, cl, fr, st, -nd, -mp</span>
           </div>
           <div class="p-3 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 text-left">
             <span class="text-[10px] font-black uppercase text-amber-100 block mb-0.5">ขั้นที่ 3 · 5–6 ตัว</span>
             <span class="font-display font-black text-xs text-white block">Magic 'e'</span>
-            <span class="text-[10px] text-orange-100">plane, stripe, stone</span>
+            <span class="text-[10px] text-purple-200">plane, stripe, stone</span>
           </div>
           <div class="p-3 rounded-2xl bg-white/35 backdrop-blur-sm border-2 border-white text-left shadow-md">
             <span class="text-[10px] font-black uppercase text-yellow-200 block mb-0.5">ขั้นที่ 4 · 6–8 ตัว 🔥</span>
@@ -160,7 +160,7 @@
               <div class="h-full bg-gradient-to-r from-yellow-300 via-amber-200 to-white rounded-full" style="width: 100%"></div>
             </div>
           </div>
-          <button onclick="openLesson('L3.01')" class="px-5 py-2.5 rounded-xl bg-white hover:bg-orange-50 text-orange-700 font-black text-xs sm:text-sm shadow-md transition-transform active:scale-95 flex-shrink-0 flex items-center gap-1.5">
+          <button onclick="openLesson('L3.01')" class="px-5 py-2.5 rounded-xl bg-white hover:bg-purple-50 text-purple-700 font-black text-xs sm:text-sm shadow-md transition-transform active:scale-95 flex-shrink-0 flex items-center gap-1.5">
             <span>👩‍🏫</span> <span>เริ่มเรียนกับครูเอ็มม่า</span>
           </button>
         </div>
@@ -170,18 +170,18 @@
   </section>
 
   <!-- ================= WORLD FILTER TABS ================= -->
-  <section class="max-w-6xl mx-auto px-4 py-4 sticky top-14 z-30 bg-[#FFFBF5]/95 backdrop-blur-md">
+  <section class="max-w-6xl mx-auto px-4 py-4 sticky top-14 z-30 bg-[#FAF8FF]/95 backdrop-blur-md">
     <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-      <button onclick="filterWorld('all')" class="world-tab active px-4 py-2 rounded-2xl bg-orange-500 text-white font-black text-xs whitespace-nowrap shadow-md shadow-orange-500/20 transition-all">
+      <button onclick="filterWorld('all')" class="world-tab active px-4 py-2 rounded-2xl bg-[#8B7CFF] text-white font-black text-xs whitespace-nowrap shadow-md shadow-purple-500/20 transition-all">
         🌟 ทั้งหมด 16 บทเรียน
       </button>
-      <button onclick="filterWorld('w1')" class="world-tab px-4 py-2 rounded-2xl bg-white border border-orange-200 text-slate-700 hover:text-orange-600 font-bold text-xs whitespace-nowrap transition-all shadow-sm">
+      <button onclick="filterWorld('w1')" class="world-tab px-4 py-2 rounded-2xl bg-white border border-purple-200 text-slate-700 hover:text-[#8B7CFF] font-bold text-xs whitespace-nowrap transition-all shadow-sm">
         🌊 World 1: Digraphs (4 ตัว)
       </button>
-      <button onclick="filterWorld('w2')" class="world-tab px-4 py-2 rounded-2xl bg-white border border-orange-200 text-slate-700 hover:text-orange-600 font-bold text-xs whitespace-nowrap transition-all shadow-sm">
+      <button onclick="filterWorld('w2')" class="world-tab px-4 py-2 rounded-2xl bg-white border border-purple-200 text-slate-700 hover:text-[#8B7CFF] font-bold text-xs whitespace-nowrap transition-all shadow-sm">
         🌲 World 2: Blends (4–5 ตัว)
       </button>
-      <button onclick="filterWorld('w3')" class="world-tab px-4 py-2 rounded-2xl bg-white border border-orange-200 text-slate-700 hover:text-orange-600 font-bold text-xs whitespace-nowrap transition-all shadow-sm">
+      <button onclick="filterWorld('w3')" class="world-tab px-4 py-2 rounded-2xl bg-white border border-purple-200 text-slate-700 hover:text-[#8B7CFF] font-bold text-xs whitespace-nowrap transition-all shadow-sm">
         ✨ World 3: Magic 'e' (5–6 ตัว)
       </button>
       <button onclick="filterWorld('w4')" class="world-tab px-4 py-2 rounded-2xl bg-white border border-rose-200 text-rose-700 hover:text-rose-800 font-bold text-xs whitespace-nowrap transition-all shadow-sm">
@@ -194,12 +194,12 @@
   <main class="max-w-6xl mx-auto px-4 space-y-10">
 
     <section id="w1" class="world-section space-y-4">
-      <div class="flex items-center justify-between border-b border-orange-100 pb-2.5">
+      <div class="flex items-center justify-between border-b border-purple-100 pb-2.5">
         <div>
           <h2 class="font-display font-extrabold text-lg sm:text-xl text-slate-900 flex items-center gap-2"><span>🌳 World 1: Vowel Teams</span></h2>
           <p class="text-xs text-slate-500 mt-0.5">สระคู่ ee/ea · ai/ay · oa/ow · igh/ie</p>
         </div>
-        <span class="text-xs font-bold text-orange-700 bg-orange-50 px-3 py-1 rounded-full border border-orange-200">4 บทเรียน</span>
+        <span class="text-xs font-bold text-purple-700 bg-purple-50 px-3 py-1 rounded-full border border-purple-200">4 บทเรียน</span>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
@@ -207,23 +207,23 @@
         <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.01</span>
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-800 border border-purple-200">L3.01</span>
               <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 9</span>
             </div>
             <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">&#x27;ee&#x27; &amp; &#x27;ea&#x27; — สระคู่เสียงยาว /iː/</h3>
             <p class="text-xs text-slate-500 mb-3 line-clamp-2">เข้าใจกฎสระคู่ สองตัวติดกันเปล่งเป็น 1 เสียงยาว</p>
             <div class="mb-4">
               <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
-              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">tree 🌳</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">seed 🌱</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">feet 🦶</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">green 🟢</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">leaf 🍃</span></div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">tree 🌳</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">seed 🌱</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">feet 🦶</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">green 🟢</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">leaf 🍃</span></div>
             </div>
-            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
-              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-purple-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-[#8B7CFF] font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
               <span class="italic font-medium">"I sleep under a green tree...."</span>
             </div>
           </div>
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
             <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
-            <button onclick="openLesson('L3.01')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+            <button onclick="openLesson('L3.01')" class="px-4 py-1.5 rounded-xl bg-[#8B7CFF] hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-purple-500/20 transition-all active:scale-95">
               <span>เริ่มเรียน</span> <span>›</span>
             </button>
           </div>
@@ -232,23 +232,23 @@
         <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.02</span>
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-800 border border-purple-200">L3.02</span>
               <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 9</span>
             </div>
             <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">&#x27;ai&#x27; &amp; &#x27;ay&#x27; — สระคู่ /eɪ/</h3>
             <p class="text-xs text-slate-500 mb-3 line-clamp-2">แยกกฎ ai ใช้กลางคำ · ay ใช้ท้ายคำ</p>
             <div class="mb-4">
               <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
-              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">rain 🌧️</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">tail 🐒</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">train 🚂</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">wait ⏳</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">sail ⛵</span></div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">rain 🌧️</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">tail 🐒</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">train 🚂</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">wait ⏳</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">sail ⛵</span></div>
             </div>
-            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
-              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-purple-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-[#8B7CFF] font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
               <span class="italic font-medium">"Wait for the train in the rain...."</span>
             </div>
           </div>
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
             <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
-            <button onclick="openLesson('L3.02')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+            <button onclick="openLesson('L3.02')" class="px-4 py-1.5 rounded-xl bg-[#8B7CFF] hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-purple-500/20 transition-all active:scale-95">
               <span>เริ่มเรียน</span> <span>›</span>
             </button>
           </div>
@@ -257,23 +257,23 @@
         <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.03</span>
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-800 border border-purple-200">L3.03</span>
               <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 9</span>
             </div>
             <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">&#x27;oa&#x27; &amp; &#x27;ow&#x27; — สระคู่ /oʊ/</h3>
             <p class="text-xs text-slate-500 mb-3 line-clamp-2">เปรียบเทียบตำแหน่งคำของ oa และ ow</p>
             <div class="mb-4">
               <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
-              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">boat ⛵</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">road 🛣️</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">coat 🧥</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">soap 🧼</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">snow ❄️</span></div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">boat ⛵</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">road 🛣️</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">coat 🧥</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">soap 🧼</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">snow ❄️</span></div>
             </div>
-            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
-              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-purple-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-[#8B7CFF] font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
               <span class="italic font-medium">"The boat on the road is slow...."</span>
             </div>
           </div>
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
             <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
-            <button onclick="openLesson('L3.03')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+            <button onclick="openLesson('L3.03')" class="px-4 py-1.5 rounded-xl bg-[#8B7CFF] hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-purple-500/20 transition-all active:scale-95">
               <span>เริ่มเรียน</span> <span>›</span>
             </button>
           </div>
@@ -282,23 +282,23 @@
         <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.04</span>
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-800 border border-purple-200">L3.04</span>
               <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 9</span>
             </div>
             <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">&#x27;igh&#x27; &amp; &#x27;ie&#x27; — สระ /aɪ/</h3>
             <p class="text-xs text-slate-500 mb-3 line-clamp-2">กลุ่มอักษร 3 ตัวออกเป็น 1 เสียงสระยาว</p>
             <div class="mb-4">
               <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
-              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">night 🌙</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">light 💡</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">bright 🔆</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">high ⬆️</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">fight 🥊</span></div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">night 🌙</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">light 💡</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">bright 🔆</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">high ⬆️</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">fight 🥊</span></div>
             </div>
-            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
-              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-purple-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-[#8B7CFF] font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
               <span class="italic font-medium">"The bright light is high at night...."</span>
             </div>
           </div>
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
             <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
-            <button onclick="openLesson('L3.04')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+            <button onclick="openLesson('L3.04')" class="px-4 py-1.5 rounded-xl bg-[#8B7CFF] hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-purple-500/20 transition-all active:scale-95">
               <span>เริ่มเรียน</span> <span>›</span>
             </button>
           </div>
@@ -308,12 +308,12 @@
     </section>
 
     <section id="w2" class="world-section space-y-4">
-      <div class="flex items-center justify-between border-b border-orange-100 pb-2.5">
+      <div class="flex items-center justify-between border-b border-purple-100 pb-2.5">
         <div>
           <h2 class="font-display font-extrabold text-lg sm:text-xl text-slate-900 flex items-center gap-2"><span>⭐ World 2: Bossy R</span></h2>
           <p class="text-xs text-slate-500 mt-0.5">r ควบคุมเสียง ar · or · er/ir/ur และประโยค</p>
         </div>
-        <span class="text-xs font-bold text-orange-700 bg-orange-50 px-3 py-1 rounded-full border border-orange-200">4 บทเรียน</span>
+        <span class="text-xs font-bold text-purple-700 bg-purple-50 px-3 py-1 rounded-full border border-purple-200">4 บทเรียน</span>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
@@ -321,23 +321,23 @@
         <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.05</span>
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-800 border border-purple-200">L3.05</span>
               <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 10</span>
             </div>
             <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Bossy R &#x27;ar&#x27; — /ɑːr/</h3>
             <p class="text-xs text-slate-500 mb-3 line-clamp-2">เข้าใจว่า r ตามหลังสระ a จะควบคุมเสียง</p>
             <div class="mb-4">
               <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
-              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">car 🚗</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">star ⭐</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">farm 🚜</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">park 🏞️</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">shark 🦈</span></div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">car 🚗</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">star ⭐</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">farm 🚜</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">park 🏞️</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">shark 🦈</span></div>
             </div>
-            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
-              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-purple-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-[#8B7CFF] font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
               <span class="italic font-medium">"The smart shark is in the dark park...."</span>
             </div>
           </div>
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
             <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
-            <button onclick="openLesson('L3.05')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+            <button onclick="openLesson('L3.05')" class="px-4 py-1.5 rounded-xl bg-[#8B7CFF] hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-purple-500/20 transition-all active:scale-95">
               <span>เริ่มเรียน</span> <span>›</span>
             </button>
           </div>
@@ -346,23 +346,23 @@
         <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.06</span>
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-800 border border-purple-200">L3.06</span>
               <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 10</span>
             </div>
             <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Bossy R &#x27;or&#x27; — /ɔːr/</h3>
             <p class="text-xs text-slate-500 mb-3 line-clamp-2">เสียง r ควบคุมสระ o</p>
             <div class="mb-4">
               <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
-              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">fork 🍴</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">corn 🌽</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">horn 📯</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">storm 🌪️</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">short 📏</span></div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">fork 🍴</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">corn 🌽</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">horn 📯</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">storm 🌪️</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">short 📏</span></div>
             </div>
-            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
-              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-purple-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-[#8B7CFF] font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
               <span class="italic font-medium">"The horse is short in the storm...."</span>
             </div>
           </div>
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
             <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
-            <button onclick="openLesson('L3.06')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+            <button onclick="openLesson('L3.06')" class="px-4 py-1.5 rounded-xl bg-[#8B7CFF] hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-purple-500/20 transition-all active:scale-95">
               <span>เริ่มเรียน</span> <span>›</span>
             </button>
           </div>
@@ -371,23 +371,23 @@
         <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.07</span>
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-800 border border-purple-200">L3.07</span>
               <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 10</span>
             </div>
             <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Triplets &#x27;er, ir, ur&#x27; — /ɜːr/</h3>
             <p class="text-xs text-slate-500 mb-3 line-clamp-2">กลุ่มสามพี่น้องรูปต่างกันแต่เสียงเดียวกัน</p>
             <div class="mb-4">
               <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
-              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">her 👩</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">fern 🌿</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">bird 🐦</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">girl 👧</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">shirt 👕</span></div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">her 👩</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">fern 🌿</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">bird 🐦</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">girl 👧</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">shirt 👕</span></div>
             </div>
-            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
-              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-purple-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-[#8B7CFF] font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
               <span class="italic font-medium">"The girl in the shirt has a bird...."</span>
             </div>
           </div>
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
             <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
-            <button onclick="openLesson('L3.07')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+            <button onclick="openLesson('L3.07')" class="px-4 py-1.5 rounded-xl bg-[#8B7CFF] hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-purple-500/20 transition-all active:scale-95">
               <span>เริ่มเรียน</span> <span>›</span>
             </button>
           </div>
@@ -396,23 +396,23 @@
         <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.08</span>
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-800 border border-purple-200">L3.08</span>
               <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 10</span>
             </div>
             <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Bossy R ประโยค</h3>
             <p class="text-xs text-slate-500 mb-3 line-clamp-2">อ่านประโยคที่มีคำ R-controlled หลายคำต่อเนื่อง</p>
             <div class="mb-4">
               <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
-              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">smart 🧠</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">girl 👧</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">star ⭐</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">dark 🌑</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">park 🏞️</span></div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">smart 🧠</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">girl 👧</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">star ⭐</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">dark 🌑</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">park 🏞️</span></div>
             </div>
-            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
-              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-purple-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-[#8B7CFF] font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
               <span class="italic font-medium">"The smart girl saw a star in the dark park...."</span>
             </div>
           </div>
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
             <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
-            <button onclick="openLesson('L3.08')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+            <button onclick="openLesson('L3.08')" class="px-4 py-1.5 rounded-xl bg-[#8B7CFF] hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-purple-500/20 transition-all active:scale-95">
               <span>เริ่มเรียน</span> <span>›</span>
             </button>
           </div>
@@ -422,12 +422,12 @@
     </section>
 
     <section id="w3" class="world-section space-y-4">
-      <div class="flex items-center justify-between border-b border-orange-100 pb-2.5">
+      <div class="flex items-center justify-between border-b border-purple-100 pb-2.5">
         <div>
           <h2 class="font-display font-extrabold text-lg sm:text-xl text-slate-900 flex items-center gap-2"><span>🪙 World 3: Diphthongs</span></h2>
           <p class="text-xs text-slate-500 mt-0.5">สระผสม oi/oy · ou/ow · oo สองเสียง · au/aw + ตัวเงียบ</p>
         </div>
-        <span class="text-xs font-bold text-orange-700 bg-orange-50 px-3 py-1 rounded-full border border-orange-200">4 บทเรียน</span>
+        <span class="text-xs font-bold text-purple-700 bg-purple-50 px-3 py-1 rounded-full border border-purple-200">4 บทเรียน</span>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
@@ -435,23 +435,23 @@
         <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.09</span>
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-800 border border-purple-200">L3.09</span>
               <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 11</span>
             </div>
             <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Diphthongs &#x27;oi&#x27; &amp; &#x27;oy&#x27; — /ɔɪ/</h3>
             <p class="text-xs text-slate-500 mb-3 line-clamp-2">สระผสมสองเสียงที่รูปปากเลื่อนจากกลมไปแบน</p>
             <div class="mb-4">
               <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
-              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">coin 🪙</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">point 👉</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">boil 🍲</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">spoil 💔</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">oil 🛢️</span></div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">coin 🪙</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">point 👉</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">boil 🍲</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">spoil 💔</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">oil 🛢️</span></div>
             </div>
-            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
-              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-purple-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-[#8B7CFF] font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
               <span class="italic font-medium">"A happy boy plays with his new toy...."</span>
             </div>
           </div>
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
             <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
-            <button onclick="openLesson('L3.09')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+            <button onclick="openLesson('L3.09')" class="px-4 py-1.5 rounded-xl bg-[#8B7CFF] hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-purple-500/20 transition-all active:scale-95">
               <span>เริ่มเรียน</span> <span>›</span>
             </button>
           </div>
@@ -460,23 +460,23 @@
         <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.10</span>
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-800 border border-purple-200">L3.10</span>
               <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 11</span>
             </div>
             <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Diphthongs &#x27;ou&#x27; &amp; &#x27;ow&#x27; — /aʊ/</h3>
             <p class="text-xs text-slate-500 mb-3 line-clamp-2">เปรียบเทียบ ou กลางคำ กับ ow ท้ายคำ</p>
             <div class="mb-4">
               <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
-              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">cloud ☁️</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">house 🏠</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">mouse 🐭</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">shout 📢</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">cow 🐄</span></div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">cloud ☁️</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">house 🏠</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">mouse 🐭</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">shout 📢</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">cow 🐄</span></div>
             </div>
-            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
-              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-purple-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-[#8B7CFF] font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
               <span class="italic font-medium">"The mouse in the house can shout...."</span>
             </div>
           </div>
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
             <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
-            <button onclick="openLesson('L3.10')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+            <button onclick="openLesson('L3.10')" class="px-4 py-1.5 rounded-xl bg-[#8B7CFF] hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-purple-500/20 transition-all active:scale-95">
               <span>เริ่มเรียน</span> <span>›</span>
             </button>
           </div>
@@ -485,23 +485,23 @@
         <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.11</span>
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-800 border border-purple-200">L3.11</span>
               <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 11</span>
             </div>
             <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Double &#x27;oo&#x27; — สั้น /ʊ/ กับ ยาว /uː/</h3>
             <p class="text-xs text-slate-500 mb-3 line-clamp-2">แยก oo สั้นกับ oo ยาว</p>
             <div class="mb-4">
               <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
-              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">book 📚</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">cook 👨‍🍳</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">look 👀</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">foot 🦶</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">moon 🌕</span></div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">book 📚</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">cook 👨‍🍳</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">look 👀</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">foot 🦶</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">moon 🌕</span></div>
             </div>
-            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
-              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-purple-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-[#8B7CFF] font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
               <span class="italic font-medium">"Look at the book by the cool moon...."</span>
             </div>
           </div>
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
             <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
-            <button onclick="openLesson('L3.11')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+            <button onclick="openLesson('L3.11')" class="px-4 py-1.5 rounded-xl bg-[#8B7CFF] hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-purple-500/20 transition-all active:scale-95">
               <span>เริ่มเรียน</span> <span>›</span>
             </button>
           </div>
@@ -510,23 +510,23 @@
         <div class="card-glow bg-white border border-emerald-200 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.12</span>
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-800 border border-purple-200">L3.12</span>
               <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Unit 11</span>
             </div>
             <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">&#x27;au, aw&#x27; &amp; ตัวอักษรเงียบ</h3>
             <p class="text-xs text-slate-500 mb-3 line-clamp-2">สระ /ɔː/ และพยัญชนะที่ไม่ออกเสียง (kn, wr)</p>
             <div class="mb-4">
               <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
-              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">sauce 🥫</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">draw ✏️</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">saw 🪚</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">claw 🦅</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">knight 🛡️</span></div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">sauce 🥫</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">draw ✏️</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">saw 🪚</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">claw 🦅</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">knight 🛡️</span></div>
             </div>
-            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
-              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-purple-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-[#8B7CFF] font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
               <span class="italic font-medium">"Draw the sauce with a straw...."</span>
             </div>
           </div>
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
             <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
-            <button onclick="openLesson('L3.12')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+            <button onclick="openLesson('L3.12')" class="px-4 py-1.5 rounded-xl bg-[#8B7CFF] hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-purple-500/20 transition-all active:scale-95">
               <span>เริ่มเรียน</span> <span>›</span>
             </button>
           </div>
@@ -536,12 +536,12 @@
     </section>
 
     <section id="w4" class="world-section space-y-4">
-      <div class="flex items-center justify-between border-b border-orange-100 pb-2.5">
+      <div class="flex items-center justify-between border-b border-purple-100 pb-2.5">
         <div>
           <h2 class="font-display font-extrabold text-lg sm:text-xl text-slate-900 flex items-center gap-2"><span>📖 World 4: Story Books</span></h2>
           <p class="text-xs text-slate-500 mt-0.5">นิทาน 3 บท และการจบหลักสูตร Phonics</p>
         </div>
-        <span class="text-xs font-bold text-orange-700 bg-orange-50 px-3 py-1 rounded-full border border-orange-200">4 บทเรียน</span>
+        <span class="text-xs font-bold text-purple-700 bg-purple-50 px-3 py-1 rounded-full border border-purple-200">4 บทเรียน</span>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
@@ -549,23 +549,23 @@
         <div class="card-glow bg-white border border-fuchsia-300 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.13</span>
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-800 border border-purple-200">L3.13</span>
               <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">📖 นิทาน</span>
             </div>
             <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Chapter 1 — Oliver&#x27;s Treehouse Quest</h3>
             <p class="text-xs text-slate-500 mb-3 line-clamp-2">อ่านนิทาน 80–100 คำ ฝึกแบ่งวรรคและใส่อารมณ์</p>
             <div class="mb-4">
               <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
-              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">climbed 🧗</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">ladder 🪜</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">bright 🔆</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">golden 🪙</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">smile 😊</span></div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">climbed 🧗</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">ladder 🪜</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">bright 🔆</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">golden 🪙</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">smile 😊</span></div>
             </div>
-            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
-              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-purple-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-[#8B7CFF] font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
               <span class="italic font-medium">"Oliver the fox climbed the tall wooden ladder to his treehou..."</span>
             </div>
           </div>
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
             <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
-            <button onclick="openLesson('L3.13')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+            <button onclick="openLesson('L3.13')" class="px-4 py-1.5 rounded-xl bg-[#8B7CFF] hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-purple-500/20 transition-all active:scale-95">
               <span>เริ่มเรียน</span> <span>›</span>
             </button>
           </div>
@@ -574,23 +574,23 @@
         <div class="card-glow bg-white border border-fuchsia-300 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.14</span>
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-800 border border-purple-200">L3.14</span>
               <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">📖 นิทาน</span>
             </div>
             <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Chapter 2 — The Star Bird in the Dark Woods</h3>
             <p class="text-xs text-slate-500 mb-3 line-clamp-2">อ่านนิทานบทที่สอง เน้นการเชื่อมคำและความเข้าใจ</p>
             <div class="mb-4">
               <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
-              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">followed 👣</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">dark 🌑</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">fern 🌿</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">wing 🪽</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">sweet 🍬</span></div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">followed 👣</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">dark 🌑</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">fern 🌿</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">wing 🪽</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">sweet 🍬</span></div>
             </div>
-            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
-              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-purple-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-[#8B7CFF] font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
               <span class="italic font-medium">"Deep in the dark woods, a small bird sang a sweet song. Oliv..."</span>
             </div>
           </div>
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
             <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
-            <button onclick="openLesson('L3.14')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+            <button onclick="openLesson('L3.14')" class="px-4 py-1.5 rounded-xl bg-[#8B7CFF] hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-purple-500/20 transition-all active:scale-95">
               <span>เริ่มเรียน</span> <span>›</span>
             </button>
           </div>
@@ -599,23 +599,23 @@
         <div class="card-glow bg-white border border-fuchsia-300 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.15</span>
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-800 border border-purple-200">L3.15</span>
               <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">📖 นิทาน</span>
             </div>
             <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Chapter 3 — The Secret of the Golden Boat</h3>
             <p class="text-xs text-slate-500 mb-3 line-clamp-2">อ่านนิทานบทที่สาม เตรียมความพร้อมอ่านหนังสือจริง</p>
             <div class="mb-4">
               <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
-              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">golden 🪙</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">silver 🥈</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">sail ⛵</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">island 🏝️</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">sunset 🌅</span></div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">golden 🪙</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">silver 🥈</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">sail ⛵</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">island 🏝️</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">sunset 🌅</span></div>
             </div>
-            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
-              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-purple-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-[#8B7CFF] font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
               <span class="italic font-medium">"By the green lake stood a golden boat with a silver sail. Ol..."</span>
             </div>
           </div>
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
             <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
-            <button onclick="openLesson('L3.15')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+            <button onclick="openLesson('L3.15')" class="px-4 py-1.5 rounded-xl bg-[#8B7CFF] hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-purple-500/20 transition-all active:scale-95">
               <span>เริ่มเรียน</span> <span>›</span>
             </button>
           </div>
@@ -624,23 +624,23 @@
         <div class="card-glow bg-white border border-fuchsia-300 rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-xl">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-orange-100 text-orange-800 border border-orange-200">L3.16</span>
+              <span class="font-display font-black text-xs px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-800 border border-purple-200">L3.16</span>
               <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">📖 นิทาน</span>
             </div>
             <h3 class="font-display font-extrabold text-base text-slate-900 mb-1 leading-snug">Master Graduation 🎓👑</h3>
             <p class="text-xs text-slate-500 mb-3 line-clamp-2">จบหลักสูตร Phonics อย่างสมบูรณ์</p>
             <div class="mb-4">
               <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">คำศัพท์เป้าหมาย:</div>
-              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">treasure 💎</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">adventure 🗺️</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">cheered 🎉</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">friends 👫</span> <span class="px-2 py-0.5 rounded-lg bg-orange-50/80 text-[11px] font-mono font-bold text-orange-950 border border-orange-200/80">magical ✨</span></div>
+              <div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">treasure 💎</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">adventure 🗺️</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">cheered 🎉</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">friends 👫</span> <span class="px-2 py-0.5 rounded-lg bg-purple-50/80 text-[11px] font-mono font-bold text-purple-950 border border-purple-200/80">magical ✨</span></div>
             </div>
-            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-orange-100 text-[11px] text-slate-700 mb-4">
-              <span class="text-orange-600 font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
+            <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-purple-100 text-[11px] text-slate-700 mb-4">
+              <span class="text-[#8B7CFF] font-extrabold block mb-0.5">📖 ประโยคฝึกอ่าน:</span>
               <span class="italic font-medium">"Deep in the green forest of Littlewood, Oliver the fox climb..."</span>
             </div>
           </div>
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
             <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1"><span>👩‍🏫</span> <span>ครูเอ็มม่าสอนสด</span></span>
-            <button onclick="openLesson('L3.16')" class="px-4 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-orange-500/20 transition-all active:scale-95">
+            <button onclick="openLesson('L3.16')" class="px-4 py-1.5 rounded-xl bg-[#8B7CFF] hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-purple-500/20 transition-all active:scale-95">
               <span>เริ่มเรียน</span> <span>›</span>
             </button>
           </div>
@@ -654,22 +654,22 @@
   <!-- ================= TEACHER EMMA LIVE ARENA MODAL ================= -->
   <!-- NO LOBBY START BUTTON: Opens and starts immediately! -->
   <div id="playerModal" class="fixed inset-0 z-[100] hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-0 sm:p-4 overflow-y-auto">
-    <div class="bg-white sm:border-2 sm:border-orange-300 sm:rounded-3xl rounded-none w-full max-w-full sm:max-w-2xl shadow-2xl overflow-hidden flex flex-col h-[100dvh] sm:h-auto sm:max-h-[92vh] relative my-auto">
+    <div class="bg-white sm:border-2 sm:border-purple-200 sm:rounded-3xl rounded-none w-full max-w-full sm:max-w-2xl shadow-2xl overflow-hidden flex flex-col h-[100dvh] sm:h-auto sm:max-h-[92vh] relative my-auto">
 
       <!-- HEADER: Top Status & Teacher Avatar -->
-      <div class="p-3 sm:p-5 border-b border-orange-100 bg-[#FFFBF5] flex items-center justify-between gap-2">
+      <div class="p-3 sm:p-5 border-b border-purple-100 bg-[#FAF8FF] flex items-center justify-between gap-2">
         <div class="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
-          <button type="button" onclick="closeLesson()" class="h-11 min-w-11 px-3 rounded-2xl bg-white hover:bg-orange-50 active:scale-95 text-slate-700 font-black flex items-center justify-center gap-1 text-sm border-2 border-slate-200 shadow-sm transition" title="กลับสู่แผนที่รวมด่าน" aria-label="กลับสู่แผนที่รวมด่าน"><span class="text-lg leading-none">‹</span><span class="hidden sm:inline">กลับ</span></button>
+          <button type="button" onclick="closeLesson()" class="h-11 min-w-11 px-3 rounded-2xl bg-white hover:bg-purple-50 active:scale-95 text-slate-700 font-black flex items-center justify-center gap-1 text-sm border-2 border-slate-200 shadow-sm transition" title="กลับสู่แผนที่รวมด่าน" aria-label="กลับสู่แผนที่รวมด่าน"><span class="text-lg leading-none">‹</span><span class="hidden sm:inline">กลับ</span></button>
           <div class="flex items-center gap-2.5 min-w-0">
-            <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-400 to-orange-500 text-white flex items-center justify-center text-xl shadow-sm">
+            <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#B69CFF] to-[#8B7CFF] text-white flex items-center justify-center text-xl shadow-sm">
               👩‍🏫
             </div>
             <div>
               <div class="flex items-center gap-2">
                 <span class="font-display font-extrabold text-sm sm:text-base text-slate-900 leading-tight">ครูเอ็มม่า (Teacher Emma)</span>
-                <span id="playerLid" class="px-2 py-0.5 rounded-md bg-orange-500 text-white text-[10px] font-black">L3.01</span>
+                <span id="playerLid" class="px-2 py-0.5 rounded-md bg-[#8B7CFF] text-white text-[10px] font-black">L3.01</span>
               </div>
-              <div id="playerTitle" class="text-[11px] text-orange-600 font-semibold truncate max-w-xs">The 'sh' Sound</div>
+              <div id="playerTitle" class="text-[11px] text-[#8B7CFF] font-semibold truncate max-w-xs">The 'sh' Sound</div>
             </div>
           </div>
         </div>
@@ -678,19 +678,19 @@
       </div>
 
       <!-- STEPBAR (4 STEPS + SUMMARY) -->
-      <div class="px-5 pt-3 pb-2 bg-white border-b border-orange-100">
+      <div class="px-5 pt-3 pb-2 bg-white border-b border-purple-100">
         <div class="flex items-center justify-between mb-1.5">
           <div class="flex items-center gap-1.5">
             <span id="stepIcon" class="text-sm">🎚️</span>
-            <span id="stepName" class="font-display font-black text-xs text-orange-700 uppercase tracking-wide">ขั้นที่ 1: ผสมเสียง (Blend)</span>
+            <span id="stepName" class="font-display font-black text-xs text-purple-700 uppercase tracking-wide">ขั้นที่ 1: ผสมเสียง (Blend)</span>
           </div>
           <span id="stepProgressText" class="text-[11px] font-extrabold text-slate-500">คำที่ 1 / 4</span>
         </div>
         
-        <div id="actBanner" class="hidden mt-2 flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-orange-100 to-amber-50 border border-orange-200/70 text-xs leading-tight flex-wrap"></div>
+        <div id="actBanner" class="hidden mt-2 flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-purple-100 to-violet-50 border border-purple-200/70 text-xs leading-tight flex-wrap"></div>
 
         <div class="grid grid-cols-4 gap-2 mt-2">
-          <div id="stepBar0" class="h-2 rounded-full bg-orange-500 transition-all duration-300"></div>
+          <div id="stepBar0" class="h-2 rounded-full bg-[#8B7CFF] transition-all duration-300"></div>
           <div id="stepBar1" class="h-2 rounded-full bg-slate-200 transition-all duration-300"></div>
           <div id="stepBar2" class="h-2 rounded-full bg-slate-200 transition-all duration-300"></div>
           <div id="stepBar3" class="h-2 rounded-full bg-slate-200 transition-all duration-300"></div>
@@ -699,7 +699,7 @@
       </div>
 
       <!-- LIVE TEACHER EMMA STATUS BADGE & PROMPT STRIP -->
-      <div class="px-5 py-3 bg-gradient-to-r from-orange-50 via-amber-50 to-orange-50 border-b border-orange-100 flex flex-col gap-1.5">
+      <div class="px-5 py-3 bg-gradient-to-r from-purple-50 via-violet-50 to-purple-50 border-b border-purple-100 flex flex-col gap-1.5">
         <div class="flex items-center justify-between">
           <div id="tutorStateBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500 text-white text-xs font-black shadow-sm animate-pulse">
             <span class="w-2 h-2 rounded-full bg-white animate-ping"></span>
@@ -720,20 +720,20 @@
       </div>
 
       <!-- ================= DYNAMIC ACTIVITY STAGE ================= -->
-      <div id="appStage" class="p-3 sm:p-6 overflow-y-auto flex-1 flex flex-col justify-start bg-[#FFFBF5] pb-6">
+      <div id="appStage" class="p-3 sm:p-6 overflow-y-auto flex-1 flex flex-col justify-start bg-[#FAF8FF] pb-6">
         <!-- Dynamically rendered per step -->
       </div>
 
       <!-- FOOTER: Mode Status & Guidance -->
-      <div class="p-3 bg-white border-t border-orange-100 flex items-center justify-between text-xs px-4 sm:px-5 shrink-0 pb-[max(12px,calc(8px+env(safe-area-inset-bottom,0px)))]">
+      <div class="p-3 bg-white border-t border-purple-100 flex items-center justify-between text-xs px-4 sm:px-5 shrink-0 pb-[max(12px,calc(8px+env(safe-area-inset-bottom,0px)))]">
         <div class="flex items-center gap-2">
-          <button id="btnHearTeacher" onclick="replayTeacherVoice()" class="px-3.5 py-1.5 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold border border-orange-200 flex items-center gap-1 transition">
+          <button id="btnHearTeacher" onclick="replayTeacherVoice()" class="px-3.5 py-1.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold border border-purple-200 flex items-center gap-1 transition">
             <span>🔊</span> <span>ฟังครูพูดซ้ำ</span>
           </button>
         </div>
 
         <!-- Mode Indicator -->
-        <div id="footerModeStatus" class="px-4 py-1.5 rounded-full bg-orange-100 text-orange-900 border border-orange-200 font-black text-xs flex items-center gap-1.5 shadow-sm">
+        <div id="footerModeStatus" class="px-4 py-1.5 rounded-full bg-purple-100 text-purple-900 border border-purple-200 font-black text-xs flex items-center gap-1.5 shadow-sm">
           <span>👆 โหมดแตะหน้าจอ</span>
         </div>
 
@@ -1111,7 +1111,7 @@
         textEl.textContent = "ยินดีด้วยค่ะคนเก่ง! 🎉";
       } else {
         // Steps 0, 1, 2 are Touch / Tap
-        badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500 text-white text-xs font-black shadow-md";
+        badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#8B7CFF] text-white text-xs font-black shadow-md";
         textEl.textContent = "ถึงตาหนูแตะคำตอบแล้วจ้า 👆";
       }
     }
@@ -1458,7 +1458,7 @@
       for (let s = 0; s < 4; s++) {
         const bar = document.getElementById('stepBar' + s);
         if (s < STATE.step) bar.className = 'h-2 rounded-full bg-emerald-500';
-        else if (s === STATE.step) bar.className = 'h-2 rounded-full bg-orange-500';
+        else if (s === STATE.step) bar.className = 'h-2 rounded-full bg-[#8B7CFF]';
         else bar.className = 'h-2 rounded-full bg-slate-200';
       }
 
@@ -1474,8 +1474,8 @@
           else {
             banner.classList.remove('hidden');
             banner.innerHTML = `<span class="text-base">${ACT_ICON[sp.type] || '⭐'}</span>
-              <span class="font-black text-orange-900">${sp.label}</span>
-              <span class="text-[11px] text-orange-700/80">${sp.hint || ''}</span>`;
+              <span class="font-black text-purple-900">${sp.label}</span>
+              <span class="text-[11px] text-purple-700/80">${sp.hint || ''}</span>`;
           }
         }
       } catch (e) {}
@@ -1510,8 +1510,8 @@
         <div class="text-center space-y-3 sm:space-y-4 my-auto py-2">
           <div class="text-5xl sm:text-6xl drop-shadow-sm">${it.emoji || '✨'}</div>
           
-          <div class="inline-block px-3.5 py-1 rounded-full bg-orange-100 text-orange-950 text-xs font-black">
-            👉 กิจกรรม: แตะกล่องเสียงตามลำดับ เพื่อรวมเป็นคำว่า <b class="text-orange-600 font-mono text-sm">${it.word}</b>
+          <div class="inline-block px-3.5 py-1 rounded-full bg-purple-100 text-purple-950 text-xs font-black">
+            👉 กิจกรรม: แตะกล่องเสียงตามลำดับ เพื่อรวมเป็นคำว่า <b class="text-[#8B7CFF] font-mono text-sm">${it.word}</b>
           </div>
 
           <!-- Grapheme chips -->
@@ -1520,12 +1520,12 @@
 
       it.graphemes.forEach((g, idx) => {
         h += `
-          <button data-idx="${idx}" class="blend-chip w-16 sm:w-20 h-16 sm:h-20 rounded-2xl bg-white border-2 border-orange-300 font-display font-black text-2xl sm:text-3xl text-orange-950 flex items-center justify-center shadow-sm hover:border-orange-500 active:scale-95 transition-all cursor-pointer">
+          <button data-idx="${idx}" class="blend-chip w-16 sm:w-20 h-16 sm:h-20 rounded-2xl bg-white border-2 border-purple-200 font-display font-black text-2xl sm:text-3xl text-purple-950 flex items-center justify-center shadow-sm hover:border-[#8B7CFF] active:scale-95 transition-all cursor-pointer">
             ${g}
           </button>
         `;
         if (idx < it.graphemes.length - 1) {
-          h += `<span class="text-orange-300 font-black text-2xl">+</span>`;
+          h += `<span class="text-purple-300 font-black text-2xl">+</span>`;
         }
       });
 
@@ -1534,13 +1534,13 @@
 
           <!-- Merged Result & Replay Button -->
           <div id="blendResultBox" class="p-3">
-            <span class="font-display font-black text-4xl sm:text-5xl text-orange-600 tracking-wider">${it.word}</span>
+            <span class="font-display font-black text-4xl sm:text-5xl text-[#8B7CFF] tracking-wider">${it.word}</span>
             <div class="flex items-center justify-center gap-3 mt-1.5">
               <span class="text-xs font-mono font-bold text-slate-500">${it.ipa}</span>
               <span class="text-slate-300">•</span>
               <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-0.5 rounded-full border border-emerald-200">${it.th}</span>
             </div>
-            <button onclick="playEmmaMp3('${wordAudio}')" class="inline-flex items-center gap-1.5 px-3.5 py-1 mt-2.5 rounded-full bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold text-xs border border-orange-200 transition cursor-pointer">
+            <button onclick="playEmmaMp3('${wordAudio}')" class="inline-flex items-center gap-1.5 px-3.5 py-1 mt-2.5 rounded-full bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold text-xs border border-purple-200 transition cursor-pointer">
               <span>🔊</span> <span>ฟังเสียงคำนี้</span>
             </button>
           </div>
@@ -1560,7 +1560,7 @@
           const idx = parseInt(btn.dataset.idx, 10);
           if (idx === currentTap) {
             playChime('pop');
-            btn.classList.add('bg-orange-500', 'text-white', 'border-orange-600');
+            btn.classList.add('bg-[#8B7CFF]', 'text-white', 'border-[#7A6AE6]');
             const gText = btn.textContent.trim().toLowerCase();
             playEmmaMp3(`/kidobits/audio/l3/g_${gText}.mp3`);
             currentTap++;
@@ -1599,8 +1599,8 @@
         <div class="text-center space-y-3 sm:space-y-4 my-auto py-2">
           <div class="text-5xl sm:text-6xl drop-shadow-sm">${it.emoji || '✨'}</div>
           
-          <div class="inline-block px-3.5 py-1 rounded-full bg-orange-100 text-orange-950 text-xs font-black">
-            👉 กิจกรรม: แตะตัวอักษรใส่ช่องว่าง สะกดคำว่า <b class="text-orange-600 font-mono text-sm">${it.word}</b>
+          <div class="inline-block px-3.5 py-1 rounded-full bg-purple-100 text-purple-950 text-xs font-black">
+            👉 กิจกรรม: แตะตัวอักษรใส่ช่องว่าง สะกดคำว่า <b class="text-[#8B7CFF] font-mono text-sm">${it.word}</b>
           </div>
 
           <!-- Empty Slots -->
@@ -1609,7 +1609,7 @@
 
       it.graphemes.forEach((g, idx) => {
         h += `
-          <div data-idx="${idx}" class="seg-slot w-14 sm:w-16 h-15 sm:h-16 rounded-2xl border-2 border-dashed border-orange-300 bg-white font-display font-black text-2xl text-slate-400 flex items-center justify-center transition-all">
+          <div data-idx="${idx}" class="seg-slot w-14 sm:w-16 h-15 sm:h-16 rounded-2xl border-2 border-dashed border-purple-200 bg-white font-display font-black text-2xl text-slate-400 flex items-center justify-center transition-all">
             ?
           </div>
         `;
@@ -1625,7 +1625,7 @@
 
       shuffled.forEach(g => {
         h += `
-          <button data-g="${g}" class="seg-opt w-14 sm:w-16 h-14 sm:h-16 rounded-2xl bg-white hover:bg-orange-500 hover:text-white border-2 border-orange-200 text-slate-800 font-display font-black text-2xl shadow-sm transition active:scale-95 cursor-pointer">
+          <button data-g="${g}" class="seg-opt w-14 sm:w-16 h-14 sm:h-16 rounded-2xl bg-white hover:bg-[#8B7CFF] hover:text-white border-2 border-purple-200 text-slate-800 font-display font-black text-2xl shadow-sm transition active:scale-95 cursor-pointer">
             ${g}
           </button>
         `;
@@ -1651,7 +1651,7 @@
 
           slots[userPicks.length - 1].textContent = g;
           slots[userPicks.length - 1].classList.remove('border-dashed', 'text-slate-400');
-          slots[userPicks.length - 1].classList.add('border-orange-500', 'bg-orange-50', 'text-orange-950', 'shadow-sm');
+          slots[userPicks.length - 1].classList.add('border-[#8B7CFF]', 'bg-purple-50', 'text-purple-950', 'shadow-sm');
 
           if (userPicks.length === it.graphemes.length) {
             const formed = userPicks.join('');
@@ -1686,13 +1686,13 @@
       let h = `
         <div class="text-center space-y-3 sm:space-y-4 my-auto py-2">
           <div class="flex items-center justify-center">
-            <button onclick="playEmmaMp3('${wordAudio}')" class="px-5 py-3 rounded-2xl bg-orange-100 hover:bg-orange-200 text-orange-950 font-black text-sm flex items-center gap-2 shadow-sm border border-orange-200 hover:scale-105 active:scale-95 transition cursor-pointer">
+            <button onclick="playEmmaMp3('${wordAudio}')" class="px-5 py-3 rounded-2xl bg-purple-100 hover:bg-purple-100 text-purple-950 font-black text-sm flex items-center gap-2 shadow-sm border border-purple-200 hover:scale-105 active:scale-95 transition cursor-pointer">
               <span class="text-3xl">${it.emoji || '🎧'}</span>
               <span>🔊 แตะฟังเสียงครูเอ็มม่าอีกครั้ง</span>
             </button>
           </div>
           
-          <div class="inline-block px-3.5 py-1 rounded-full bg-orange-100 text-orange-950 text-xs font-black">
+          <div class="inline-block px-3.5 py-1 rounded-full bg-purple-100 text-purple-950 text-xs font-black">
             👉 กิจกรรม: ฟังเสียงแล้วแตะการ์ดคำศัพท์ที่ถูกต้อง
           </div>
 
@@ -1702,7 +1702,7 @@
 
       it.options.forEach(opt => {
         h += `
-          <button data-opt="${opt}" class="listen-btn p-4 rounded-2xl bg-white hover:bg-orange-50 border-2 border-slate-200 hover:border-orange-400 font-display font-extrabold text-base text-slate-800 transition-all shadow-sm active:scale-95 cursor-pointer">
+          <button data-opt="${opt}" class="listen-btn p-4 rounded-2xl bg-white hover:bg-purple-50 border-2 border-slate-200 hover:border-purple-400 font-display font-extrabold text-base text-slate-800 transition-all shadow-sm active:scale-95 cursor-pointer">
             ${opt}
           </button>
         `;
@@ -1761,13 +1761,13 @@
           </div>
 
           <!-- Sentence Display with Clickable Words -->
-          <div class="p-5 rounded-3xl bg-white border-2 border-orange-200 text-center shadow-sm max-w-lg mx-auto">
+          <div class="p-5 rounded-3xl bg-white border-2 border-purple-200 text-center shadow-sm max-w-lg mx-auto">
             <div class="font-display font-black text-xl sm:text-2xl text-slate-900 leading-relaxed flex flex-wrap items-center justify-center gap-2">
       `;
 
       words.forEach(w => {
         const cleanWord = w.replace(/[^a-zA-Z]/g, '');
-        h += `<span onclick="speakSingleWord('${cleanWord}')" class="sent-word px-2 py-1 rounded-xl hover:bg-orange-100 active:scale-95 cursor-pointer transition select-none" title="แตะเพื่อฟังคำนี้">${w}</span>`;
+        h += `<span onclick="speakSingleWord('${cleanWord}')" class="sent-word px-2 py-1 rounded-xl hover:bg-purple-100 active:scale-95 cursor-pointer transition select-none" title="แตะเพื่อฟังคำนี้">${w}</span>`;
       });
 
       h += `
@@ -1777,7 +1777,7 @@
 
           <!-- Controls: Listen again & Mic Button -->
           <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-            <button onclick="playEmmaMp3('${sentAudio}')" class="px-4 py-2.5 rounded-2xl bg-orange-100 hover:bg-orange-200 text-orange-950 font-bold text-xs flex items-center gap-1.5 shadow-sm active:scale-95 transition cursor-pointer">
+            <button onclick="playEmmaMp3('${sentAudio}')" class="px-4 py-2.5 rounded-2xl bg-purple-100 hover:bg-purple-100 text-purple-950 font-bold text-xs flex items-center gap-1.5 shadow-sm active:scale-95 transition cursor-pointer">
               <span>🔊 ฟังครูอ่านอีกครั้ง</span>
             </button>
             <button id="btnSentenceMic" class="px-6 py-3 rounded-2xl bg-rose-500 hover:bg-rose-600 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-rose-500/25 active:scale-95 transition cursor-pointer">
@@ -1857,12 +1857,12 @@
             if (waveContainer) waveContainer.classList.remove('hidden');
           } else if (state === 'thinking') {
             if (micBtn) {
-              micBtn.className = "px-6 py-3 rounded-2xl bg-orange-500 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25";
+              micBtn.className = "px-6 py-3 rounded-2xl bg-[#8B7CFF] text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-purple-500/25";
               micBtn.innerHTML = '<span>🎧 กำลังส่งเสียงให้ครูเอ็มม่าตรวจ...</span>';
             }
-            if (statusDot) statusDot.className = "w-2.5 h-2.5 rounded-full bg-orange-400";
+            if (statusDot) statusDot.className = "w-2.5 h-2.5 rounded-full bg-[#9D8FFF]";
             if (statusLabel) statusLabel.textContent = "สถานะ: กำลังตรวจเสียงอ่าน 🎧";
-            if (transcriptEl) transcriptEl.innerHTML = '<span class="text-orange-600 font-bold animate-pulse">กำลังประมวลผลเสียงอ่าน... 🎧</span>';
+            if (transcriptEl) transcriptEl.innerHTML = '<span class="text-[#8B7CFF] font-bold animate-pulse">กำลังประมวลผลเสียงอ่าน... 🎧</span>';
             if (waveContainer) waveContainer.classList.add('hidden');
           } else {
             resetMicBtnUI();
@@ -1971,7 +1971,7 @@
           <div class="text-6xl animate-bounce">🎉</div>
           
           <div>
-            <span class="inline-block px-3 py-1 rounded-full bg-orange-100 text-orange-800 text-xs font-black uppercase mb-1">
+            <span class="inline-block px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-xs font-black uppercase mb-1">
               LESSON COMPLETED!
             </span>
             <h2 class="font-display font-black text-2xl text-slate-900">
@@ -1980,17 +1980,17 @@
             <p class="text-xs text-slate-500 mt-0.5">${STATE.lesson.title}</p>
           </div>
 
-          <div class="p-4 rounded-3xl bg-white border-2 border-orange-200 text-left space-y-2 shadow-sm text-xs font-bold text-slate-700">
+          <div class="p-4 rounded-3xl bg-white border-2 border-purple-200 text-left space-y-2 shadow-sm text-xs font-bold text-slate-700">
             <div class="flex justify-between"><span>🎚️ 1. ผสมเสียง (Blend):</span><b class="text-emerald-600">${cnt.blend} / ${tot.blend} ผ่าน ✔</b></div>
             <div class="flex justify-between"><span>🧩 2. เรียงตัวอักษร (Segment):</span><b class="text-emerald-600">${cnt.segment} / ${tot.segment} ผ่าน ✔</b></div>
             <div class="flex justify-between"><span>🎯 3. ฟังเลือกคำ (Listen):</span><b class="text-emerald-600">${cnt.listen} / ${tot.listen} ผ่าน ✔</b></div>
             <div class="flex justify-between"><span>🎙️ 4. อ่านประโยค (Sentences):</span><b class="text-emerald-600">${cnt.read} / ${tot.read} ผ่าน ✔</b></div>
-            ${cnt.mic ? `<div class="flex justify-between border-t border-orange-100 pt-2 mt-1"><span>🔊 ตรวจด้วยไมค์:</span><b class="text-sky-600">${cnt.mic} ครั้ง</b></div>` : ''}
+            ${cnt.mic ? `<div class="flex justify-between border-t border-purple-100 pt-2 mt-1"><span>🔊 ตรวจด้วยไมค์:</span><b class="text-sky-600">${cnt.mic} ครั้ง</b></div>` : ''}
           </div>
 
           <div class="space-y-2 pt-1">
             ${hasNext ? `
-              <button onclick="openLesson('${nextLid}')" class="w-full py-3 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-black text-sm uppercase tracking-wide flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25 active:scale-98">
+              <button onclick="openLesson('${nextLid}')" class="w-full py-3 rounded-2xl bg-gradient-to-r from-[#8B7CFF] to-purple-600 hover:from-[#7A6AE6] hover:to-purple-700 text-white font-black text-sm uppercase tracking-wide flex items-center justify-center gap-2 shadow-lg shadow-purple-500/25 active:scale-98">
                 <span>▶ ไปบทเรียนถัดไป (${nextLid}) ทันที</span>
               </button>
             ` : `
@@ -2001,7 +2001,7 @@
             <button onclick="openLesson('${STATE.lid}')" class="w-full py-2 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs border border-slate-300">
               🔄 เล่นบทนี้อีกครั้ง
             </button>
-            <button onclick="closeLesson()" class="w-full py-2 rounded-2xl bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold text-xs border border-orange-200">
+            <button onclick="closeLesson()" class="w-full py-2 rounded-2xl bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold text-xs border border-purple-200">
               🏠 กลับสู่แผนที่รวมด่าน
             </button>
           </div>
@@ -2093,12 +2093,12 @@
     function actIntroHTML(sp, extra) {
       if (!sp) return '';
       return `
-        <div class="mx-auto max-w-lg p-3 rounded-2xl bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-orange-200 text-left">
+        <div class="mx-auto max-w-lg p-3 rounded-2xl bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-purple-200 text-left">
           <div class="flex items-center gap-2 mb-1">
             <span class="text-lg">${ACT_ICON[sp.type] || '⭐'}</span>
-            <span class="font-display font-black text-sm text-orange-900">${sp.label}</span>
+            <span class="font-display font-black text-sm text-purple-900">${sp.label}</span>
           </div>
-          <p class="text-[11px] text-orange-900/70 font-bold leading-snug">${sp.hint || ''}</p>
+          <p class="text-[11px] text-purple-900/70 font-bold leading-snug">${sp.hint || ''}</p>
           ${extra || ''}
         </div>`;
     }
@@ -2127,13 +2127,13 @@
           <div class="flex items-center justify-center gap-3 mt-2">
             <span class="relative inline-flex items-center justify-center w-12 h-12 rounded-xl bg-white border-2 border-slate-200 font-display font-black text-xl text-slate-700">${vowel}</span>
             <span class="text-xl">😰</span>
-            <span class="relative inline-flex items-center justify-center w-12 h-12 rounded-xl bg-amber-400 border-2 border-amber-600 font-display font-black text-xl text-amber-950 shadow-md">
+            <span class="relative inline-flex items-center justify-center w-12 h-12 rounded-xl bg-purple-400 border-2 border-purple-400 font-display font-black text-xl text-purple-950 shadow-md">
               r<span class="absolute -top-4 left-1/2 -translate-x-1/2 text-2xl">🏴‍☠️</span>
             </span>
             <span class="text-xl">➡️</span>
-            <span class="px-3 py-1.5 rounded-xl bg-orange-500 text-white font-display font-black text-lg">${sp.a}</span>
+            <span class="px-3 py-1.5 rounded-xl bg-[#8B7CFF] text-white font-display font-black text-lg">${sp.a}</span>
           </div>
-          <p class="text-center text-[11px] font-black mt-2 text-orange-900">ตัว r สวมหมวกโจรสลัด บังคับเสียงตัว ${vowel}!</p>`);
+          <p class="text-center text-[11px] font-black mt-2 text-purple-900">ตัว r สวมหมวกโจรสลัด บังคับเสียงตัว ${vowel}!</p>`);
       }
       if (sp.type === 'silent') {
         const kn = hasAffix(w, 'kn');
@@ -2172,9 +2172,9 @@
         const idx = g.findIndex(x => String(x).toLowerCase() === af);
         return actIntroHTML(sp, `
           <div class="flex items-center justify-center gap-1.5 mt-2 font-mono font-black text-lg">
-            ${g.map((x, k) => `<span class="px-2.5 py-1 rounded-lg ${k === idx ? 'bg-orange-500 text-white' : 'bg-white text-slate-500'} border border-orange-200 transition-all">${x}</span>`).join('<span class="text-orange-300">+</span>')}
+            ${g.map((x, k) => `<span class="px-2.5 py-1 rounded-lg ${k === idx ? 'bg-[#8B7CFF] text-white' : 'bg-white text-slate-500'} border border-purple-200 transition-all">${x}</span>`).join('<span class="text-purple-300">+</span>')}
           </div>
-          <p class="text-center text-[11px] font-black mt-1.5 text-orange-900">เลื่อนชิ้นส่วน <b>${af}</b> ให้เข้าที่ ➔ <b>${it.word}</b></p>`);
+          <p class="text-center text-[11px] font-black mt-1.5 text-purple-900">เลื่อนชิ้นส่วน <b>${af}</b> ให้เข้าที่ ➔ <b>${it.word}</b></p>`);
       }
       return actIntroHTML(sp);
     }
@@ -2186,19 +2186,19 @@
         return actIntroHTML(sp, `
           <div class="flex items-center justify-center gap-1 mt-2">
             ${(STATE.lesson.listen_choose || []).map((o, k) => `
-              <span class="px-2 py-1 rounded-lg text-[10px] font-black ${o.word === it.word ? 'bg-emerald-500 text-white' : 'bg-white text-slate-400 border border-orange-200'}">${k + 1}</span>`).join('<span class="text-orange-300">→</span>')}
+              <span class="px-2 py-1 rounded-lg text-[10px] font-black ${o.word === it.word ? 'bg-emerald-500 text-white' : 'bg-white text-slate-400 border border-purple-200'}">${k + 1}</span>`).join('<span class="text-purple-300">→</span>')}
             <span class="text-lg ml-1">🦊</span>
           </div>
-          <p class="text-center text-[11px] font-black mt-1.5 text-orange-900">พา Oliver ไปตามทางที่ถูก — ฟังแล้วเลือกคำให้ตรง</p>`);
+          <p class="text-center text-[11px] font-black mt-1.5 text-purple-900">พา Oliver ไปตามทางที่ถูก — ฟังแล้วเลือกคำให้ตรง</p>`);
       }
       if (sp.type === 'coin') {
         return actIntroHTML(sp, `
           <div class="flex items-center justify-center gap-1.5 mt-2">
             <span class="text-2xl">🪙</span>
-            <span class="font-mono font-black text-sm text-orange-900">${String(it.word).split('').map(c => `<span class="px-1.5 py-0.5 mx-0.5 rounded bg-white border border-amber-300">${c}</span>`).join('')}</span>
+            <span class="font-mono font-black text-sm text-purple-900">${String(it.word).split('').map(c => `<span class="px-1.5 py-0.5 mx-0.5 rounded bg-white border border-purple-200">${c}</span>`).join('')}</span>
             <span class="text-2xl">🪙</span>
           </div>
-          <p class="text-center text-[11px] font-black mt-1.5 text-amber-800">เก็บเหรียญทองให้ครบตามคำที่ได้ยิน</p>`);
+          <p class="text-center text-[11px] font-black mt-1.5 text-purple-800">เก็บเหรียญทองให้ครบตามคำที่ได้ยิน</p>`);
       }
       return actIntroHTML(sp);
     }
@@ -2208,9 +2208,9 @@
       if (!sp) return '';
       const isCert = sp.type === 'cert';
       return actIntroHTML(sp, isCert ? `
-        <div class="mt-2 p-2.5 rounded-xl bg-white border-2 border-amber-300 text-center">
+        <div class="mt-2 p-2.5 rounded-xl bg-white border-2 border-purple-200 text-center">
           <div class="text-2xl">🏅</div>
-          <div class="font-display font-black text-xs text-amber-900 mt-0.5">Master Phonics Explorer</div>
+          <div class="font-display font-black text-xs text-purple-900 mt-0.5">Master Phonics Explorer</div>
           <div class="text-[10px] text-slate-500 font-bold">Kidobits Phonics · Level 3</div>
         </div>` : '');
     }
@@ -2354,10 +2354,10 @@
 
     function filterWorld(wid) {
       document.querySelectorAll('.world-tab').forEach(b => {
-        b.classList.remove('active', 'bg-orange-500', 'text-white', 'shadow-md', 'shadow-orange-500/20');
-        b.classList.add('bg-white', 'text-slate-700', 'border', 'border-orange-200');
+        b.classList.remove('active', 'bg-[#8B7CFF]', 'text-white', 'shadow-md', 'shadow-purple-500/20');
+        b.classList.add('bg-white', 'text-slate-700', 'border', 'border-purple-200');
       });
-      event.target.classList.add('active', 'bg-orange-500', 'text-white', 'shadow-md', 'shadow-orange-500/20');
+      event.target.classList.add('active', 'bg-[#8B7CFF]', 'text-white', 'shadow-md', 'shadow-purple-500/20');
       event.target.classList.remove('bg-white', 'text-slate-700', 'border');
 
       const sections = document.querySelectorAll('.world-section');
