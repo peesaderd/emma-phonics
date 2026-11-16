@@ -108,8 +108,13 @@
       container.id = 'kidobits-avatar-setup-container';
       container.className = 'w-full my-4 space-y-3';
 
+      const prefMode = student.displayPreference || 'child';
+      this.displayPreference = prefMode;
+      const initialAge = this.calcAge(student.birthdate);
+      const initAgeDisplay = student.birthdate ? `<span>🎂 ${initialAge.text} (${initialAge.grade})</span>` : `<span class="text-slate-400">ระบุวันเกิดเพื่อคำนวณอายุและระดับชั้น</span>`;
+
       container.innerHTML = `
-        <!-- Student Name & Parent Info Card -->
+        <!-- Student Name & Birthday Profile Card -->
         <div class="bg-white border-2 border-purple-200/90 rounded-[24px] p-4 shadow-sm text-left">
           <div class="flex items-center justify-between mb-2">
             <span class="text-xs font-black text-purple-700 bg-purple-100 px-3 py-1 rounded-full flex items-center gap-1">
@@ -118,16 +123,51 @@
             ${user ? `<span class="text-[11px] font-bold text-slate-500">ผู้ปกครอง: <b class="text-slate-700">${user.name}</b></span>` : `<span class="text-[11px] font-bold text-amber-600">ยังไม่เข้าสู่ระบบ</span>`}
           </div>
           
-          <div class="grid grid-cols-3 gap-2 mt-2">
-            <div class="col-span-2">
-              <label class="text-[11px] font-bold text-slate-500 block mb-1">ชื่อเล่นน้อง / ชื่อนักเรียน</label>
-              <input id="input-student-name" type="text" value="${student.name || ''}" placeholder="เช่น น้องเอ็มม่า หรือชื่อผู้ปกครอง" 
-                class="w-full px-3 py-2 border-2 border-slate-200 rounded-xl text-sm font-black focus:border-purple-500 outline-none transition" />
-            </div>
+          <div class="space-y-3 mt-2">
+            <!-- 1. Child Nickname / Student Name -->
             <div>
-              <label class="text-[11px] font-bold text-slate-500 block mb-1">อายุ (ปี)</label>
-              <input id="input-student-age" type="number" min="3" max="15" value="${student.age || '7'}"
-                class="w-full px-3 py-2 border-2 border-slate-200 rounded-xl text-sm font-black text-center focus:border-purple-500 outline-none transition" />
+              <label class="text-[11px] font-bold text-slate-600 block mb-1">
+                👶 ชื่อเล่นน้อง / ชื่อนักเรียน (Child's Nickname):
+              </label>
+              <input id="input-student-name" type="text" value="${student.name || ''}" placeholder="เช่น น้องเอ็มม่า, น้องมาร์ค" 
+                class="w-full px-3.5 py-2.5 border-2 border-slate-200 rounded-xl text-sm font-black focus:border-purple-500 outline-none transition" />
+            </div>
+
+            <!-- 2. Date of Birth & Dynamic Age / Grade Calculator -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div>
+                <label class="text-[11px] font-bold text-slate-600 block mb-1">
+                  🎂 วันเดือนปีเกิด (Date of Birth):
+                </label>
+                <input id="input-student-dob" type="date" value="${student.birthdate || ''}" 
+                  class="w-full px-3 py-2 border-2 border-slate-200 rounded-xl text-xs font-bold focus:border-purple-500 outline-none transition bg-white" />
+              </div>
+              <div>
+                <label class="text-[11px] font-bold text-slate-600 block mb-1">
+                  อายุ & ชั้นเรียนที่คำนวณได้:
+                </label>
+                <div id="student-age-preview" class="w-full px-3 py-2 bg-purple-50 border-2 border-purple-200 rounded-xl text-xs font-black text-purple-800 text-center flex items-center justify-center min-h-[38px]">
+                  ${initAgeDisplay}
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Display Name Preference on Header -->
+            <div class="pt-2 border-t border-slate-100">
+              <label class="text-[11px] font-bold text-slate-600 block mb-1.5">
+                🏷️ เลือกชื่อที่แสดงบนหน้าหลัก (Home Header Display):
+              </label>
+              <div class="grid grid-cols-2 gap-2 text-xs font-black">
+                <button type="button" id="pref-display-child" class="p-2.5 rounded-xl border-2 flex items-center justify-center gap-1.5 transition active:scale-95 ${prefMode === 'child' ? 'bg-purple-600 text-white border-purple-600 shadow-xs' : 'bg-slate-50 border-slate-200 text-slate-600'}">
+                  <span>👶</span><span>ชื่อเล่นน้อง (แนะนำ)</span>
+                </button>
+                <button type="button" id="pref-display-parent" class="p-2.5 rounded-xl border-2 flex items-center justify-center gap-1.5 transition active:scale-95 ${prefMode === 'parent' ? 'bg-purple-600 text-white border-purple-600 shadow-xs' : 'bg-slate-50 border-slate-200 text-slate-600'}">
+                  <span>👤</span><span>ชื่อผู้ปกครอง</span>
+                </button>
+              </div>
+              <p class="text-[10px] text-slate-400 mt-1" id="display-name-hint">
+                ${prefMode === 'child' ? 'หน้าหลักจะแสดง: Hello, ' + (student.name || 'ชื่อน้อง') + ' 👋' : 'หน้าหลักจะแสดง: Hello, ' + (user ? user.name : 'ผู้ปกครอง') + ' 👋'}
+              </p>
             </div>
           </div>
         </div>
@@ -244,6 +284,52 @@
       btnSocial.addEventListener('click', () => setMode('social'));
       btnUpload.addEventListener('click', () => setMode('upload'));
 
+      // DOB & Display Preference Listeners
+      const dobInput = document.getElementById('input-student-dob');
+      const agePreview = document.getElementById('student-age-preview');
+      const nameInput = document.getElementById('input-student-name');
+      const hintText = document.getElementById('display-name-hint');
+      const btnPrefChild = document.getElementById('pref-display-child');
+      const btnPrefParent = document.getElementById('pref-display-parent');
+
+      const updateAgeDisplay = () => {
+        if (!dobInput || !agePreview) return;
+        const val = dobInput.value;
+        const info = this.calcAge(val);
+        agePreview.innerHTML = val ? `<span>🎂 ${info.text} (${info.grade})</span>` : '<span class="text-slate-400">ระบุวันเกิดเพื่อคำนวณ</span>';
+      };
+
+      const updateHint = () => {
+        if (!hintText) return;
+        const cName = (nameInput && nameInput.value.trim()) || 'ชื่อน้อง';
+        const pName = (user && user.name) || 'ผู้ปกครอง';
+        hintText.textContent = this.displayPreference === 'child' 
+          ? `หน้าหลักจะแสดง: Hello, ${cName} 👋`
+          : `หน้าหลักจะแสดง: Hello, ${pName} 👋`;
+      };
+
+      if (dobInput) {
+        dobInput.addEventListener('change', updateAgeDisplay);
+        dobInput.addEventListener('input', updateAgeDisplay);
+      }
+      if (nameInput) {
+        nameInput.addEventListener('input', updateHint);
+      }
+      if (btnPrefChild && btnPrefParent) {
+        btnPrefChild.addEventListener('click', () => {
+          this.displayPreference = 'child';
+          btnPrefChild.className = 'p-2.5 rounded-xl border-2 font-black text-xs flex items-center justify-center gap-1.5 transition active:scale-95 bg-purple-600 text-white border-purple-600 shadow-xs';
+          btnPrefParent.className = 'p-2.5 rounded-xl border-2 font-black text-xs flex items-center justify-center gap-1.5 transition active:scale-95 bg-slate-50 border-slate-200 text-slate-600';
+          updateHint();
+        });
+        btnPrefParent.addEventListener('click', () => {
+          this.displayPreference = 'parent';
+          btnPrefParent.className = 'p-2.5 rounded-xl border-2 font-black text-xs flex items-center justify-center gap-1.5 transition active:scale-95 bg-purple-600 text-white border-purple-600 shadow-xs';
+          btnPrefChild.className = 'p-2.5 rounded-xl border-2 font-black text-xs flex items-center justify-center gap-1.5 transition active:scale-95 bg-slate-50 border-slate-200 text-slate-600';
+          updateHint();
+        });
+      }
+
       // File upload handler
       const fileInput = document.getElementById('input-file-picker');
       const btnBrowse = document.getElementById('btn-browse-file');
@@ -295,13 +381,24 @@
 
     async handleFullAvatarSave(user) {
       const studentNameInput = document.getElementById('input-student-name');
-      const studentAgeInput = document.getElementById('input-student-age');
+      const studentDobInput = document.getElementById('input-student-dob');
 
       const studentName = (studentNameInput ? studentNameInput.value.trim() : '') || (user ? user.name : 'น้องเอ็มม่า');
-      const studentAge = (studentAgeInput ? studentAgeInput.value.trim() : '') || '7';
+      const studentDob = studentDobInput ? studentDobInput.value : '';
+      const ageInfo = this.calcAge(studentDob);
+      const studentAge = String(ageInfo.years || '6');
+      const displayPref = this.displayPreference || 'child';
 
       // 1. Save Student Profile
-      const studentData = { name: studentName, age: studentAge, updatedAt: new Date().toISOString() };
+      const studentData = { 
+        name: studentName, 
+        birthdate: studentDob, 
+        age: studentAge, 
+        ageText: ageInfo.text,
+        grade: ageInfo.grade,
+        displayPreference: displayPref,
+        updatedAt: new Date().toISOString() 
+      };
       localStorage.setItem(STUDENT_KEY, JSON.stringify(studentData));
 
       // 2. Determine Avatar payload based on activeMode
@@ -334,9 +431,12 @@
       // 4. Update KidobitsWallet
       if (window.KidobitsWallet) {
         const wUser = window.KidobitsWallet.getUser();
-        wUser.name = studentName;
+        wUser.name = (displayPref === 'parent' && user) ? user.name : studentName;
         wUser.studentName = studentName;
+        wUser.studentDob = studentDob;
         wUser.studentAge = studentAge;
+        wUser.grade = ageInfo.grade;
+        wUser.displayPreference = displayPref;
         wUser.avatar = avatarConfig.face;
         wUser.avatarUrl = effectiveAvatar;
         wUser.avatarType = this.activeMode;
@@ -407,7 +507,9 @@
         // Subtitle: Age & Parent link
         const subP = document.querySelector('h3 + p');
         if (subP) {
-          subP.innerHTML = `อายุ ${student.age} ขวบ • ${user ? `บัญชีผู้ปกครอง: <b>${user.name}</b>` : 'Kidobits Explorer'}`;
+          const ageInfo = KidobitsRealSync.calcAge(student.birthdate);
+          const ageDisplay = student.birthdate ? `${ageInfo.text} (${ageInfo.grade})` : `อายุ ${student.age || '6'} ปี`;
+          subP.innerHTML = `🎂 ${ageDisplay} • ${user ? `บัญชีผู้ปกครอง: <b>${user.name}</b>` : 'Kidobits Explorer'}`;
         }
 
         // 2. Update Avatar Circle in Profile Header Card

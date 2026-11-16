@@ -2683,15 +2683,28 @@ if ('serviceWorker' in navigator) {
     const profile = (KidobitsAuth.getUser ? KidobitsAuth.getUser() : (KidobitsAuth.getProfile ? KidobitsAuth.getProfile() : null));
 
     // 1. Update Top Greeting & Avatar
+    let student = null;
+    try {
+      const rawS = localStorage.getItem('kidobits_student_profile');
+      if (rawS) student = JSON.parse(rawS);
+    } catch(e) {}
+
+    let displayName = '';
+    if (student && student.displayPreference === 'parent' && profile && profile.name) {
+      displayName = profile.name;
+    } else if (student && student.name && student.name.trim()) {
+      displayName = student.name.trim();
+    } else if (profile && profile.name) {
+      displayName = profile.name;
+    } else {
+      displayName = 'น้องเอ็มม่า';
+    }
+
     const headings = document.querySelectorAll('h2');
     headings.forEach(h => {
       const text = h.innerText || h.textContent || '';
       if (text.includes('Hello,') || text.includes('Marion')) {
-        if (profile && profile.name) {
-          h.textContent = `Hello, ${profile.name} 👋`;
-        } else {
-          h.textContent = 'Hello, Little Explorer 👋';
-        }
+        h.textContent = `Hello, ${displayName} 👋`;
       }
     });
 

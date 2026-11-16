@@ -391,9 +391,26 @@
         const nameEl = document.getElementById('homeGreetingName');
         const avatarBox = document.getElementById('homeAvatarInner');
 
-        // 1. Sync User Name
-        if (user && user.name && nameEl) {
-          nameEl.textContent = `Hello, ${user.name} 👋`;
+        // 1. Sync User / Student Display Name
+        let student = null;
+        try {
+          const rawS = localStorage.getItem('kidobits_student_profile');
+          if (rawS) student = JSON.parse(rawS);
+        } catch(e) {}
+
+        let displayName = '';
+        if (student && student.displayPreference === 'parent' && user && user.name) {
+          displayName = user.name;
+        } else if (student && student.name && student.name.trim()) {
+          displayName = student.name.trim();
+        } else if (user && user.name) {
+          displayName = user.name;
+        } else {
+          displayName = 'น้องเอ็มม่า';
+        }
+
+        if (nameEl && displayName) {
+          nameEl.textContent = `Hello, ${displayName} 👋`;
         }
 
         // 2. Sync Real LINE Avatar
