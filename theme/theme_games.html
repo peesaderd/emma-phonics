@@ -95,11 +95,44 @@
       padding-bottom: max(112px, calc(100px + env(safe-area-inset-bottom, 0px))) !important;
     }
   </style>
+  <!-- Kidobits Games Hub Universal Responsive Grid CSS -->
+  <style id="kidobits-games-responsive">
+    @media (min-width: 640px), (orientation: landscape) and (min-width: 540px) {
+      .games-container {
+        max-width: 860px !important;
+      }
+      .games-interactive-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 16px !important;
+      }
+      .games-interactive-grid > section {
+        margin: 0 !important;
+        height: 100% !important;
+      }
+      .games-adventures-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+      }
+      nav[aria-label="Bottom Navigation"] {
+        max-width: 480px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        right: auto !important;
+        width: calc(100% - 24px) !important;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .games-container {
+        max-width: 1080px !important;
+      }
+    }
+  </style>
 </head>
 <body class="flex justify-center min-h-screen bg-slate-100">
 
   <!-- Mobile Container (Max 430px) -->
-  <div class="w-full max-w-[430px] min-h-screen bg-white relative flex flex-col justify-between shadow-2xl pb-24">
+  <div class="games-container w-full max-w-[430px] md:max-w-[860px] lg:max-w-[1080px] min-h-screen bg-white relative flex flex-col justify-between shadow-2xl pb-24 transition-all duration-200">
 
     <div class="px-5 pt-7">
 
@@ -144,8 +177,11 @@
         </span>
       </div>
 
+      <!-- ================= INTERACTIVE MINI-GAMES GRID ================= -->
+      <div class="games-interactive-grid grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
+
       <!-- ================= 2. GAME 1: MEMORY MATCH (จับคู่ความจำ) ================= -->
-      <section class="mt-5 bg-[#FFFDF5] border border-[#FFEAA7] rounded-[24px] p-4 card-shadow">
+      <section class="bg-[#FFFDF5] border border-[#FFEAA7] rounded-[24px] p-4 card-shadow flex flex-col justify-between">
         <div class="flex items-center justify-between mb-3">
           <div class="flex items-center gap-2">
             <span class="w-8 h-8 rounded-xl bg-[#FFEAA7] grid place-items-center text-lg shadow-xs">🦁</span>
@@ -179,7 +215,7 @@
       </section>
 
       <!-- ================= 3. GAME 2: QUICK QUIZ (ควิซตอบไว) ================= -->
-      <section class="mt-4 bg-[#F2FAF6] border border-[#C6F6D5] rounded-[24px] p-4 card-shadow">
+      <section class="bg-[#F2FAF6] border border-[#C6F6D5] rounded-[24px] p-4 card-shadow flex flex-col justify-between">
         <div class="flex items-center justify-between mb-2">
           <div class="flex items-center gap-2">
             <span class="w-8 h-8 rounded-xl bg-[#C6F6D5] grid place-items-center text-lg shadow-xs">⚡</span>
@@ -209,13 +245,15 @@
         <p id="quizFeedback" class="text-center text-xs font-extrabold mt-2 h-4 transition-all"></p>
       </section>
 
+      </div>
+
       <!-- ================= 4. MORE KIDOBITS ADVENTURES ================= -->
       <section class="mt-5 space-y-2.5">
         <h3 class="text-xs font-black text-[#7B7488] uppercase tracking-wider flex items-center gap-1.5">
           <span>🚀</span> เกมผจญภัยและการเรียนรู้
         </h3>
 
-        <div class="grid grid-cols-2 gap-2.5">
+        <div class="games-adventures-grid grid grid-cols-2 md:grid-cols-4 gap-3">
           <!-- Phonics Arena -->
           <div onclick="window.location.href='/v2/game.html'" class="bg-gradient-to-br from-[#8B7CFF] to-[#6C5CE7] text-white p-3.5 rounded-2xl card-shadow cursor-pointer transition active:scale-95">
             <span class="text-2xl block mb-1">🎯</span>
@@ -249,7 +287,7 @@
     </div>
 
     <!-- ================= 5. FLOATING BOTTOM NAV DOCK ================= -->
-    <nav class="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto bg-white/95 backdrop-blur-md border-t border-[#EAE4F2] px-3 py-2 flex items-center justify-between z-50 shadow-lg" aria-label="Bottom Navigation">
+    <nav class="fixed bottom-3 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] max-w-[460px] bg-white/95 backdrop-blur-md shadow-[0_10px_30px_rgba(60,30,90,.18)] rounded-full px-2 py-2 flex justify-between border border-[#F3EDF8] z-50" aria-label="Bottom Navigation">
       <!-- Home -->
       <button onclick="window.location.href='theme_home.html'" class="flex flex-col items-center gap-0.5 min-w-[52px] text-[#9A8FA8] hover:text-black transition">
         <span class="w-10 h-10 grid place-items-center rounded-full">
@@ -262,7 +300,7 @@
       </button>
 
       <!-- Phonics -->
-      <button onclick="window.location.href='theme_phonicsLevel.html'" class="flex flex-col items-center gap-0.5 min-w-[52px] text-[#9A8FA8] hover:text-black transition">
+      <button onclick="window.location.href='theme_phonics_map.html'" class="flex flex-col items-center gap-0.5 min-w-[52px] text-[#9A8FA8] hover:text-black transition">
         <span class="w-10 h-10 grid place-items-center rounded-full">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
