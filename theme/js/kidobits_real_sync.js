@@ -819,7 +819,7 @@
         }
         if (txt.includes('Phonics') || txt.includes('โฟนิกส์')) {
           e.preventDefault(); e.stopPropagation();
-          window.location.href = 'theme_phonicsLevel.html';
+          window.location.href = 'theme_phonics_map.html';
           return;
         }
         if (txt.includes('Math') || txt.includes('คณิตศาสตร์') || txt.includes('Singapore Math')) {
