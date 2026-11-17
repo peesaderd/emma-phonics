@@ -1152,6 +1152,25 @@ body {
     };
 
     /* สถานะปุ่มไมค์ 3 แบบ — ใช้ร่วมกันทุกจุด */
+        /* ================= ฟังก์ชันปิดไมค์แบบปลอดภัย ครอบคลุมทุกสภาวะ ================= */
+    window.__cnActiveRecognizer = null;
+    window.__cnSilenceTimer = null;
+
+    function stopChineseMic() {
+      if (window.__cnSilenceTimer) {
+        clearTimeout(window.__cnSilenceTimer);
+        window.__cnSilenceTimer = null;
+      }
+      if (window.__cnActiveRecognizer) {
+        try {
+          window.__cnActiveRecognizer.abort();
+        } catch(e) {}
+        window.__cnActiveRecognizer = null;
+      }
+      isMicListening = false;
+      cnMicUI('retry', '');
+    }
+
     function cnMicUI(state, message) {
       const btn = document.getElementById('btnChineseMic');
       const st  = document.getElementById('micStatusText');
@@ -1348,6 +1367,7 @@ body {
     }
 
     function closeLesson() {
+      stopChineseMic();
       if ('speechSynthesis' in window) window.speechSynthesis.cancel();
       if (window.location.search.includes('lesson=') || window.location.search.includes('id=') || window.location.search.includes('les=')) {
         location.href = '/theme/theme_chinese_lobby.html';
@@ -1375,6 +1395,9 @@ body {
     }
 
     function renderStep() {
+      if (CURRENT_STEP !== 1) {
+        stopChineseMic();
+      }
       updateStepPills();
       try {
         if (window.KidobitsResume && CURRENT_LESSON) {
@@ -1523,6 +1546,18 @@ body {
           if (window.__cnAutoMic === true) { return; }   /* กัน click() จาก auto */
           window.__micManual = (window.__micManual || 0) + 1;
           cnStopQueue();
+
+          // Condition 3: แตะไมค์ซ้ำขณะฟังอยู่ ให้ปิดไมค์ทันที
+          if (isMicListening && window.__cnActiveRecognizer) {
+            stopChineseMic();
+            const sa = document.getElementById('micStatusText');
+            if (sa) {
+              sa.className = 'text-xs font-bold text-slate-500 mt-2';
+              sa.textContent = 'ปิดไมค์เรียบร้อยค่ะ — แตะไมค์อีกครั้งเมื่อพร้อมพูดนะคะ';
+            }
+            return;
+          }
+
           triggerChineseMic(micBtn0.getAttribute('data-target'));
         };
       }
@@ -1532,6 +1567,9 @@ body {
       const btn = document.getElementById('btnChineseMic');
       const st = document.getElementById('micStatusText');
       const fb = document.getElementById('stepFeedback');
+
+      // ปิดไมค์เดิมก่อนเสมอ เพื่อไม่ให้มี Stream ค้าง
+      stopChineseMic();
 
       const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRec) {
@@ -1546,7 +1584,7 @@ body {
           stream.getTracks().forEach(t => t.stop());
           return true;
         } catch (e) {
-          cnMicUI('retry', '');
+          stopChineseMic();
           const sa = document.getElementById('micStatusText');
           if (sa) {
             sa.className = 'text-xs font-bold text-rose-600';
@@ -1566,7 +1604,23 @@ body {
         recognizer.continuous = false;
         recognizer.interimResults = true;   /* ให้เห็นคำที่กำลังพูดทีละคำ */
 
-        cnMicUI('listening', 'กำลังรับฟังเสียงภาษาจีน... 🎙️');
+        window.__cnActiveRecognizer = recognizer;
+        isMicListening = true;
+
+        cnMicUI('listening', 'กำลังรับฟังเสียงภาษาจีน... 🎙️ (แตะไมค์อีกครั้งเพื่อหยุด)');
+
+        /* เงื่อนไขที่ 2: Silence Timeout (6 วินาที) ถ้าไม่ได้ยินเสียง ให้ปิดไมค์อัตโนมัติ */
+        if (window.__cnSilenceTimer) clearTimeout(window.__cnSilenceTimer);
+        window.__cnSilenceTimer = setTimeout(() => {
+          if (isMicListening) {
+            stopChineseMic();
+            const sa = document.getElementById('micStatusText');
+            if (sa) {
+              sa.className = 'text-xs font-bold text-slate-500 mt-2';
+              sa.textContent = 'ยังไม่ได้ยินเสียง — แตะไมค์ลองใหม่อีกครั้งนะคะ 🙂';
+            }
+          }
+        }, 6000);
 
         /* กล่องคำพูดสด — เห็นข้อความโตขึ้นระหว่างพูด */
         const liveBox = () => document.getElementById('micLiveWords');
@@ -1599,8 +1653,11 @@ body {
           if (!finalText) return;
           const heard = finalText.trim();
           setLive(heard, true);
+
+          // เงื่อนไขที่ 1: ประมวลผลเสร็จแล้ว ปิดไมค์ทันที!
+          stopChineseMic();
+
           const st2 = document.getElementById('micStatusText');
-          cnMicUI('idle', '');
           if (st2) {
             st2.className = 'text-xs font-bold text-slate-500 mt-2';
             st2.innerHTML = `เทียบกับคำเป้าหมาย: <b class="text-slate-800">${targetText}</b>`;
@@ -1631,7 +1688,9 @@ body {
 
         recognizer.onerror = (err) => {
           const code = (err && err.error) || 'unknown';
-          cnMicUI('retry', '');
+          // ปิดไมค์ทันทีเมื่อเกิด error (ไม่เปิดวนซ้ำ)
+          stopChineseMic();
+
           const stx = document.getElementById('micStatusText');
           const msg = {
             'not-allowed': 'ยังไม่ได้อนุญาตไมโครโฟน — กดไอคอน 🔒 ข้างช่องที่อยู่ แล้วอนุญาตค่ะ',
@@ -1640,16 +1699,13 @@ body {
             'no-speech': 'ไม่ได้ยินเสียง — แตะไมค์แล้วพูดดัง ๆ ใกล้ไมค์อีกครั้งนะคะ',
             'network': 'ต่อเซิร์ฟเวอร์ฟังเสียงไม่ได้ (ตรวจอินเทอร์เน็ต)'
           }[code] || ('ฟังเสียงไม่สำเร็จ (' + code + ')');
-          if (stx) { stx.className = 'text-xs font-bold text-rose-600'; stx.textContent = msg; }
+          if (stx) { stx.className = 'text-xs font-bold text-slate-500 mt-2'; stx.textContent = msg; }
           window.__cnLog = window.__cnLog || [];
           window.__cnLog.push({ key: 'mic', via: 'error:' + code });
+        };
 
-          /* ลองซ้ำอัตโนมัติ 1 ครั้ง สำหรับเคสที่รอบแรกถูกรบกวน
-             (ไม่ลองซ้ำกับ not-allowed / audio-capture เพราะจะล้มเหมือนเดิม) */
-          if (!triggerChineseMic.__retried && (code === 'network' || code === 'no-speech' || code === 'aborted')) {
-            triggerChineseMic.__retried = true;
-            setTimeout(() => { triggerChineseMic.__retried = false; if (window.__cnAutoOpenMic) window.__cnAutoOpenMic(); }, 900);
-          }
+        recognizer.onend = () => {
+          stopChineseMic();
         };
 
         /* ขอสิทธิ์ก่อน แล้วค่อยเริ่มฟังจริง */
@@ -1661,7 +1717,7 @@ body {
             window.__cnLog.push({ key: 'mic', via: 'started' });
           }
           catch (e) {
-            cnMicUI('retry', '');
+            stopChineseMic();
             const sx = document.getElementById('micStatusText');
             if (sx) {
               sx.className = 'text-xs font-bold text-rose-600';
@@ -1672,8 +1728,7 @@ body {
           }
         });
       } catch(e) {
-        btn.className = "px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-display font-black text-sm shadow-lg shadow-emerald-600/30 transition cursor-pointer flex items-center justify-center gap-2 mx-auto";
-        btn.innerHTML = '<span>🎙️ แตะไมค์แล้วเริ่มพูด</span>';
+        stopChineseMic();
       }
     }
 
@@ -2065,6 +2120,7 @@ body {
     }
 
     function handleManualPass() {
+      stopChineseMic();
       if (CURRENT_STEP < 4) {
         CURRENT_STEP++;
         renderStep();
