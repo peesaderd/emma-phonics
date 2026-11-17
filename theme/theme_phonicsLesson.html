@@ -1112,7 +1112,7 @@
         if (!currentItem || currentItem.step !== 1) return;
         if (idx < letters.length) {
           const l = letters[idx];
-          const chip = document.getElementById(`btn-letter-${l}`);
+          const chip = document.getElementById(`btn-letter-${l}-${idx}`);
           if (chip) chip.classList.add('chip-demo');
           playLetterSound(l, () => {
             if (chip) chip.classList.remove('chip-demo');
@@ -1190,10 +1190,12 @@
           </span>
         `).join('');
 
-        const letterButtons = letters.map(l => {
-          const used = typedLetters.includes(l);
+        const letterButtons = letters.map((l, idx) => {
+          const occurrenceBefore = letters.slice(0, idx + 1).filter(x => x === l).length;
+          const typedCount = typedLetters.filter(x => x === l).length;
+          const used = occurrenceBefore <= typedCount;
           return `
-            <button id="btn-letter-${l}" onclick="handleTypeLetter('${l}')" ${used ? 'disabled' : ''}
+            <button id="btn-letter-${l}-${idx}" onclick="handleTypeLetter('${l}')" ${used ? 'disabled' : ''}
                     class="w-14 h-14 rounded-2xl bg-[#FFF0F5] border-2 border-[#FDE3EC] font-extrabold text-2xl text-[#5B4B8A] shadow-sm hover:bg-[#FFE3EC] active:scale-95 disabled:opacity-25 transition">
               ${l}
             </button>
@@ -1250,12 +1252,18 @@
             ${typedLetters.join('') || "<span class='text-gray-300'>แตะตัวอักษรด้านล่าง</span>"}
           </div>
           <div class="flex justify-center gap-3 my-4">
-            ${letters.slice().reverse().map(l => `
-              <button onclick="handleTypeLetter('${l}')"
-                      class="w-14 h-14 rounded-2xl bg-[#EBF8FF] border border-[#CEE8FF] font-extrabold text-2xl text-[#2B6CB0] shadow-sm active:scale-95 transition">
-                ${l}
-              </button>
-            `).join('')}
+            ${letters.slice().reverse().map((l, rIdx) => {
+              const origIdx = letters.length - 1 - rIdx;
+              const occurrenceBefore = letters.slice(0, origIdx + 1).filter(x => x === l).length;
+              const typedCount = typedLetters.filter(x => x === l).length;
+              const used = occurrenceBefore <= typedCount;
+              return `
+                <button onclick="handleTypeLetter('${l}')" ${used ? 'disabled' : ''}
+                        class="w-14 h-14 rounded-2xl bg-[#EBF8FF] border border-[#CEE8FF] font-extrabold text-2xl text-[#2B6CB0] shadow-sm active:scale-95 disabled:opacity-25 transition">
+                  ${l}
+                </button>
+              `;
+            }).join('')}
           </div>
           <button onclick="clearLetters()" class="text-xs font-bold text-[#8E869E] hover:underline">
             ล้างคำ ↺
