@@ -2709,6 +2709,7 @@ button{
     })();
   </script>
   <link rel="stylesheet" href="/theme/kidobits_fonts.css">
+  <script src="/theme/js/kidobits_student_ssot.js"></script>
 </head>
 <body>
 <div id="root"></div>
@@ -2849,6 +2850,7 @@ if ('serviceWorker' in navigator) {
 <script>
 (function() {
   function syncThemeAuth() {
+    if (window.KidobitsStudent) KidobitsStudent.syncDOM();
     if (!window.KidobitsAuth) return;
     const profile = (KidobitsAuth.getUser ? KidobitsAuth.getUser() : (KidobitsAuth.getProfile ? KidobitsAuth.getProfile() : null));
 

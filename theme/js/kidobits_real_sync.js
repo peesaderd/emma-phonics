@@ -428,6 +428,9 @@
         updatedAt: new Date().toISOString() 
       };
       localStorage.setItem(STUDENT_KEY, JSON.stringify(studentData));
+      if (window.KidobitsStudent && KidobitsStudent.saveProfile) {
+        KidobitsStudent.saveProfile(studentData);
+      }
 
       // 2. Determine Avatar payload based on activeMode
       let effectiveAvatar = '👦';

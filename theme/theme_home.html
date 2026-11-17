@@ -128,6 +128,7 @@
     })();
   </script>
   <link rel="stylesheet" href="/theme/kidobits_fonts.css">
+  <script src="/theme/js/kidobits_student_ssot.js"></script>
 </head>
 <body class="flex justify-center min-h-screen bg-slate-100">
 
@@ -154,7 +155,7 @@
             <span class="text-[9px] font-black text-white px-2 py-0.5 rounded-full bg-[#8B7CFF]">VIP</span>
           </div>
           <h2 id="homeGreetingName" class="text-[19px] font-extrabold text-[#2D2342] leading-tight truncate">
-            Hello, น้องเอ็มม่า 👋
+            Hello, Putter 👋
           </h2>
           <p class="text-[11px] font-bold text-[#7B7488] flex items-center gap-1.5 mt-0.5">
             <span>⭐ <b class="text-[#7C3AED]" id="homeStarsCounter">28</b> ดาว</span>
@@ -485,9 +486,9 @@
         } else if (student && student.nickname && student.nickname.trim()) {
           displayName = student.nickname.trim();
         } else if (user && (user.student_name || user.child_name || user.nickname)) {
-          displayName = (user.student_name || user.child_name || user.nickname).trim();
+          displayName = (window.KidobitsStudent ? KidobitsStudent.getName() : 'Putter');
         } else {
-          displayName = 'น้องเอ็มม่า';
+          displayName = (window.KidobitsStudent ? KidobitsStudent.getName() : 'Putter');
         }
 
         if (nameEl && displayName) {

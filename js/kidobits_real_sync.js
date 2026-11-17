@@ -428,6 +428,9 @@
         updatedAt: new Date().toISOString() 
       };
       localStorage.setItem(STUDENT_KEY, JSON.stringify(studentData));
+      if (window.KidobitsStudent && KidobitsStudent.saveProfile) {
+        KidobitsStudent.saveProfile(studentData);
+      }
 
       // 2. Determine Avatar payload based on activeMode
       let effectiveAvatar = '👦';
@@ -819,7 +822,7 @@
         }
         if (txt.includes('Phonics') || txt.includes('โฟนิกส์')) {
           e.preventDefault(); e.stopPropagation();
-          window.location.href = 'theme_phonicsLevel.html';
+          window.location.href = 'theme_phonics_map.html';
           return;
         }
         if (txt.includes('Math') || txt.includes('คณิตศาสตร์') || txt.includes('Singapore Math')) {
