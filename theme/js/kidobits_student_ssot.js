@@ -1,7 +1,7 @@
 /**
  * Kidobits Student Profile SSOT (Single Source of Truth)
  * Centralizes student identity, name, age, and grade across all themes and modules.
- * Default Fallback Name: 'Putter'
+ * Default / Fallback Student Name: 'Putter'
  */
 (function() {
   'use strict';
@@ -21,30 +21,30 @@
         if (raw) student = JSON.parse(raw);
       } catch (e) {}
 
-      // If empty or missing name, check auth user cache
+      // If missing or holds legacy hardcoded dummy names, upgrade to Putter
       if (!student || !student.name || student.name === 'น้องเอ็มม่า' || student.name === 'Marion') {
+        student = student || {};
+        // Check if auth cache has a custom student name
+        var foundAuthName = null;
         try {
           var rawAuth = localStorage.getItem('kidobits_auth_user');
           if (rawAuth) {
             var authUser = JSON.parse(rawAuth);
-            if (authUser && authUser.student_name && authUser.student_name !== 'น้องเอ็มม่า') {
-              student = student || {};
-              student.name = authUser.student_name;
+            if (authUser && authUser.student_name && authUser.student_name !== 'น้องเอ็มม่า' && authUser.student_name !== 'Marion') {
+              foundAuthName = authUser.student_name;
             }
           }
         } catch (e) {}
-      }
 
-      if (!student) {
-        student = {
-          name: FALLBACK,
-          nickname: FALLBACK,
-          age: '6',
-          grade: 'K3 / อนุบาล 3',
-          level: 1
-        };
-      } else if (!student.name) {
-        student.name = FALLBACK;
+        student.name = foundAuthName || FALLBACK;
+        if (!student.age) student.age = '6';
+        if (!student.grade) student.grade = 'K3 / อนุบาล 3';
+        if (!student.level) student.level = 1;
+
+        // Save migrated profile
+        try {
+          localStorage.setItem(KEY, JSON.stringify(student));
+        } catch(e) {}
       }
 
       return student;
@@ -53,8 +53,9 @@
     // 2. Get Student Name (Guaranteed SSOT, never parent's LINE name)
     getName: function() {
       var p = this.getProfile();
-      if (p && p.name && p.name.trim()) return p.name.trim();
-      if (p && p.nickname && p.nickname.trim()) return p.nickname.trim();
+      if (p && p.name && p.name.trim() && p.name !== 'น้องเอ็มม่า' && p.name !== 'Marion') {
+        return p.name.trim();
+      }
       return FALLBACK;
     },
 
@@ -150,6 +151,20 @@
 
   window.KidobitsStudent = KidobitsStudent;
 
+  // Intercept any student name inputs across the app and save to SSOT automatically
+  document.addEventListener('input', function(e) {
+    if (e.target && e.target.tagName === 'INPUT') {
+      var placeholder = e.target.placeholder || '';
+      var id = e.target.id || '';
+      if (placeholder === 'Marion' || placeholder === 'เช่น น้องเอ็มม่า, น้องมาร์ค' || id === 'input-student-name') {
+        var val = e.target.value.trim();
+        if (val && val !== 'Marion' && val !== 'น้องเอ็มม่า') {
+          KidobitsStudent.saveProfile({ name: val });
+        }
+      }
+    }
+  }, true);
+
   // Auto-run on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
@@ -158,6 +173,14 @@
   } else {
     KidobitsStudent.syncDOM();
   }
+
+  // Periodic DOM sync to catch any late client renders (e.g. React mount)
+  var syncCount = 0;
+  var syncInterval = setInterval(function() {
+    KidobitsStudent.syncDOM();
+    syncCount++;
+    if (syncCount > 10) clearInterval(syncInterval);
+  }, 300);
 
   // Listen to cross-tab storage changes
   window.addEventListener('storage', function(e) {

@@ -479,17 +479,8 @@
           if (rawS) student = JSON.parse(rawS);
         } catch(e) {}
 
-        let displayName = '';
-        // Always prioritize Student Name (never show Parent name in Hello greeting)
-        if (student && student.name && student.name.trim()) {
-          displayName = student.name.trim();
-        } else if (student && student.nickname && student.nickname.trim()) {
-          displayName = student.nickname.trim();
-        } else if (user && (user.student_name || user.child_name || user.nickname)) {
-          displayName = (window.KidobitsStudent ? KidobitsStudent.getName() : 'Putter');
-        } else {
-          displayName = (window.KidobitsStudent ? KidobitsStudent.getName() : 'Putter');
-        }
+        // 1. Single Source of Truth (SSOT) Student Name
+        let displayName = (window.KidobitsStudent && KidobitsStudent.getName) ? KidobitsStudent.getName() : 'Putter';
 
         if (nameEl && displayName) {
           nameEl.textContent = `Hello, ${displayName} 👋`;
