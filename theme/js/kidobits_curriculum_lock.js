@@ -143,6 +143,17 @@
   }
 
   // Level Check
+    // Chinese Tier helper (early -> lower -> upper)
+  function isChineseTierUnlocked(tierKey) {
+    if (isBypass()) return true;
+    if (tierKey === 'early' || tierKey === 1) return true;
+    const sub = state.chinese || { unlockedLevel: 1 };
+    const lv = sub.unlockedLevel || 1;
+    if (tierKey === 'lower' || tierKey === 2) return lv >= 2;
+    if (tierKey === 'upper' || tierKey === 3) return lv >= 3;
+    return false;
+  }
+
   function isLevelUnlocked(subject, level) {
     if (isBypass()) return true;
     const lv = parseInt(level, 10) || 1;
@@ -386,6 +397,7 @@
   window.KidobitsLock = {
     isUnlocked: isUnlocked,
     isLevelUnlocked: isLevelUnlocked,
+    isChineseTierUnlocked: isChineseTierUnlocked,
     unlockLevel: unlockLevel,
     isCompleted: isCompleted,
     unlockTo: unlockTo,
