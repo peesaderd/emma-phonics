@@ -80,8 +80,13 @@
         padding-left: max(16px, calc(12px + env(safe-area-inset-left, 0px))) !important;
         padding-right: max(16px, calc(12px + env(safe-area-inset-right, 0px))) !important;
       }
-      /* Arrange lessons into a 2-column Grid */
       #chineseLessonsList {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+      }
+      /* Only the lesson cards form a 2-column Grid, headers remain full-width non-grid */
+      .chinese-tier-grid {
         display: grid !important;
         grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
         gap: 12px !important;
@@ -93,11 +98,11 @@
     }
 
     @media (orientation: landscape) and (min-width: 900px) {
-      /* Expand to 3-column Grid on tablet / large screens */
+      /* Expand to 3-column Grid for cards on tablet / large screens */
       .max-w-\[430px\] {
         max-width: 1040px !important;
       }
-      #chineseLessonsList {
+      .chinese-tier-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
       }
     }
@@ -736,9 +741,15 @@ const CHINESE_DATA = {
         const items = CHINESE_DATA[tier.key] || [];
         if (items.length === 0) return;
 
-        // Section header
+        const isTierUnlocked = window.KidobitsLock ? KidobitsLock.isChineseTierUnlocked(tier.key) : (tier.key === 'early');
+
+        // Tier Section Wrapper (Headers stay full-width, not in grid)
+        const tierSection = document.createElement('section');
+        tierSection.className = 'w-full flex flex-col gap-2';
+
+        // Section header (Full width, independent of cards grid)
         const secHeader = document.createElement('div');
-        secHeader.className = 'flex items-center justify-between pt-2 pb-1 text-xs font-bold text-slate-700';
+        secHeader.className = 'w-full flex items-center justify-between pt-2 pb-1 text-xs font-bold text-slate-700';
         secHeader.innerHTML = `
           <span class="font-bold flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full bg-red-500"></span>
@@ -746,7 +757,12 @@ const CHINESE_DATA = {
           </span>
           <span class="px-2 py-0.5 rounded-full bg-red-50 text-[10px] font-black text-red-600 border border-red-100">${tier.tag}</span>
         `;
-        container.appendChild(secHeader);
+        tierSection.appendChild(secHeader);
+
+        // Cards grid for this tier
+        const cardsGrid = document.createElement('div');
+        cardsGrid.className = 'chinese-tier-grid grid grid-cols-1 gap-2.5';
+        tierSection.appendChild(cardsGrid);
 
         items.forEach((les, idx) => {
           const starsKey = 'kidobits_cn_stars_' + les.id;
@@ -763,7 +779,7 @@ const CHINESE_DATA = {
           }
 
           const lessonIdx = idx + 1;
-          const isUnlocked = window.KidobitsLock ? KidobitsLock.isUnlocked('chinese', tier.key, lessonIdx) : (lessonIdx === 1);
+          const isUnlocked = isTierUnlocked && (window.KidobitsLock ? KidobitsLock.isUnlocked('chinese', tier.key, lessonIdx) : (lessonIdx === 1));
           const isCompleted = window.KidobitsLock ? KidobitsLock.isCompleted('chinese', tier.key, les.id) : (savedStars > 0);
 
           const card = document.createElement('div');
@@ -787,7 +803,7 @@ const CHINESE_DATA = {
                 </div>
               </div>
             `;
-            container.appendChild(card);
+            cardsGrid.appendChild(card);
             return;
           }
 
@@ -823,8 +839,10 @@ const CHINESE_DATA = {
             </div>
           `;
 
-          container.appendChild(card);
+          cardsGrid.appendChild(card);
         });
+
+        container.appendChild(tierSection);
       });
 
       const starsChip = document.getElementById('starsChip');
