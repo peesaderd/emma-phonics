@@ -2592,18 +2592,29 @@ button{
     /* Tablet & Desktop Responsive Layout (min-width: 640px) */
     @media (min-width: 640px), (orientation: landscape) and (min-width: 540px) {
       #root > div {
-        align-items: center !important;
-        padding: 16px !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
+        padding: 30px 16px 80px 16px !important;
+        min-height: 100vh !important;
       }
 
-      /* Expand container on Tablet and Desktop */
+      /* Container on Tablet & Desktop */
       #root > div > div {
-        max-width: 860px !important;
+        max-width: 960px !important;
+        width: 100% !important;
         height: auto !important;
-        min-height: 88vh !important;
-        max-height: 94vh !important;
-        border-radius: 32px !important;
-        box-shadow: 0 24px 70px rgba(90,60,140,.24) !important;
+        min-height: auto !important;
+        max-height: none !important;
+        border-radius: 28px !important;
+        box-shadow: 0 20px 60px rgba(90,60,140,.18) !important;
+        margin: 0 auto !important;
+        overflow: visible !important;
+      }
+
+      /* Give room for top Dynamic Island and bottom floating nav */
+      #root .px-5.pt-5 {
+        padding-top: 28px !important;
+        padding-bottom: 90px !important;
       }
 
       /* Balanced 2-Column Grid on Tablet & Desktop */
@@ -2620,11 +2631,6 @@ button{
         gap: 16px !important;
       }
 
-      #root > div > div {
-        max-width: 900px !important;
-        padding-bottom: 110px !important;
-      }
-
       /* Centered Bottom Navigation */
       nav[aria-label="Main navigation"],
       nav[role="navigation"] {
@@ -2633,15 +2639,16 @@ button{
         transform: translateX(-50%) !important;
         right: auto !important;
         width: calc(100% - 24px) !important;
+        bottom: 14px !important;
       }
     }
 
     @media (min-width: 1024px) {
       #root > div > div {
-        max-width: 1080px !important;
+        max-width: 1040px !important;
       }
-      #root .px-5.pt-5 {
-        gap: 20px !important;
+      .kb-profile-grid {
+        gap: 28px !important;
       }
     }
 
@@ -2649,7 +2656,7 @@ button{
     @media (max-width: 639px) and (orientation: landscape) and (max-height: 500px) {
       #root > div > div {
         max-width: 100% !important;
-        height: 100vh !important;
+        height: auto !important;
         border-radius: 0 !important;
       }
     }
