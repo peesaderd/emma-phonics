@@ -1091,7 +1091,7 @@ body {
         setTimeout(renderLessonVictorySummary, 800);
       } else {
         const nextStage = LESSONS[SESSION.lessonIdx].stages[SESSION.stageIdx];
-        speakEnglish('Stage cleared! Next is ' + nextStage.title);
+        // removed 'Stage cleared' voice per user request
         setTimeout(renderActiveStage, 800);
       }
     }
