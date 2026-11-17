@@ -11,7 +11,7 @@
     "minimal-ui",
     "browser"
   ],
-  "orientation": "any",
+  "orientation": "portrait",
   "background_color": "#FFFFFF",
   "theme_color": "#FFFFFF",
   "lang": "th",

@@ -1,0 +1,17 @@
+/* Kidobits Universal Font System (Profile Standard)
+ * English & Display: Baloo 2 (Rounded, friendly kids font)
+ * Thai & Body: Prompt (Clean, modern Thai font)
+ */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Prompt:wght@400;500;600;700;800&display=swap');
+
+html, body, button, input, select, textarea {
+  font-family: 'Baloo 2', 'Prompt', system-ui, -apple-system, sans-serif !important;
+}
+
+.font-thai {
+  font-family: 'Prompt', 'Baloo 2', sans-serif !important;
+}
+
+.font-display {
+  font-family: 'Baloo 2', 'Prompt', sans-serif !important;
+}
