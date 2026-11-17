@@ -1016,8 +1016,8 @@
         : "bg-[#8B7CFF]";
       
       const lessonIdx = idx + 1; // 1-based sequential progression
-      const isUnlocked = window.KidobitsLock ? KidobitsLock.isUnlocked('phonics', lessonIdx) : (lessonIdx === 1);
-      const isCompleted = window.KidobitsLock ? KidobitsLock.isCompleted('phonics', item.id) : false;
+      const isUnlocked = window.KidobitsLock ? KidobitsLock.isUnlocked('phonics', lv, lessonIdx) : (lessonIdx === 1);
+      const isCompleted = window.KidobitsLock ? KidobitsLock.isCompleted('phonics', lv, item.id) : false;
 
       if (!isUnlocked) {
         return `

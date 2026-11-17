@@ -763,8 +763,8 @@ const CHINESE_DATA = {
           }
 
           const lessonIdx = idx + 1;
-          const isUnlocked = window.KidobitsLock ? KidobitsLock.isUnlocked('chinese', lessonIdx) : (lessonIdx === 1);
-          const isCompleted = window.KidobitsLock ? KidobitsLock.isCompleted('chinese', les.id) : (savedStars > 0);
+          const isUnlocked = window.KidobitsLock ? KidobitsLock.isUnlocked('chinese', tier.key, lessonIdx) : (lessonIdx === 1);
+          const isCompleted = window.KidobitsLock ? KidobitsLock.isCompleted('chinese', tier.key, les.id) : (savedStars > 0);
 
           const card = document.createElement('div');
           if (!isUnlocked) {
