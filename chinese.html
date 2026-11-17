@@ -932,6 +932,14 @@ body {
       ]
     };
 
+        // Flattened all lessons for progression and navigation
+    const LESSONS = [
+      ...(CHINESE_DATA.early || []),
+      ...(CHINESE_DATA.lower || []),
+      ...(CHINESE_DATA.upper || [])
+    ];
+    window.LESSONS = LESSONS;
+
     // ================= APPLICATION STATE =================
     let CURRENT_STAGE = 'early';
     let CURRENT_LESSON = null;
@@ -1969,8 +1977,13 @@ body {
       }
 
       // Mark completed & unlock next lesson in KidobitsLock
-      const curIdx = LESSONS.findIndex(l => l.id === CURRENT_LESSON.id);
-      const nextLesson = (curIdx >= 0 && curIdx < LESSONS.length - 1) ? LESSONS[curIdx + 1] : null;
+      const allLessons = window.LESSONS || [
+        ...(CHINESE_DATA.early || []),
+        ...(CHINESE_DATA.lower || []),
+        ...(CHINESE_DATA.upper || [])
+      ];
+      const curIdx = allLessons.findIndex(l => l.id === CURRENT_LESSON.id);
+      const nextLesson = (curIdx >= 0 && curIdx < allLessons.length - 1) ? allLessons[curIdx + 1] : null;
       const nextIdx = (curIdx >= 0) ? (curIdx + 2) : 2;
 
       if (window.KidobitsLock) {

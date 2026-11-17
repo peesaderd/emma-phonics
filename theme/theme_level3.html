@@ -70,6 +70,7 @@
       padding-bottom: max(112px, calc(100px + env(safe-area-inset-bottom, 0px))) !important;
     }
   </style>
+  <script src="js/kidobits_curriculum_lock.js"></script>
 </head>
 <body class="bg-[#FAF8FF] text-slate-800 antialiased min-h-screen pb-24 selection:bg-[#8B7CFF] selection:text-white">
 
@@ -1889,11 +1890,8 @@
             micBtn.className = "px-6 py-3 rounded-2xl bg-emerald-600 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25";
             micBtn.innerHTML = '<span>✅ ยอดเยี่ยมมากค่ะ!</span>';
           }
-          playEmmaMp3('/kidobits/audio/l3/praise_reading.mp3', () => {
-            setTimeout(() => {
-              handleChildSuccess(it, 'mic');
-            }, 400);
-          });
+          // Single praise playback handled inside handleChildSuccess
+          handleChildSuccess(it, 'mic');
         } else if (!heard) {
           if (transcriptEl) {
             transcriptEl.innerHTML = '<span class="text-amber-600 font-bold">ไม่ได้ยินเสียงชัด ๆ — ลองพูดอีกครั้งนะ 🙂 หรือแตะ "หนูอ่านคล่องแล้ว"</span>';
@@ -1990,18 +1988,19 @@
 
           <div class="space-y-2 pt-1">
             ${hasNext ? `
-              <button onclick="openLesson('${nextLid}')" class="w-full py-3 rounded-2xl bg-gradient-to-r from-[#8B7CFF] to-purple-600 hover:from-[#7A6AE6] hover:to-purple-700 text-white font-black text-sm uppercase tracking-wide flex items-center justify-center gap-2 shadow-lg shadow-purple-500/25 active:scale-98">
+              <button id="btnAutoNextL3" onclick="if(window.l3AutoNextTimer) clearInterval(window.l3AutoNextTimer); openLesson('${nextLid}')" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#8B7CFF] to-purple-600 hover:from-[#7A6AE6] hover:to-purple-700 text-white font-black text-sm uppercase tracking-wide flex items-center justify-center gap-2 shadow-lg shadow-purple-500/25 active:scale-98 cursor-pointer">
                 <span>▶ ไปบทเรียนถัดไป (${nextLid}) ทันที</span>
+                <span id="l3AutoCount" class="bg-black/25 text-white text-xs px-2.5 py-0.5 rounded-full font-mono">3s</span>
               </button>
             ` : `
               <button onclick="alert('🏆 ยินดีด้วย! หนูพิชิต Level 3 ครบทั้ง 16 บทเรียนแล้ว!')" class="w-full py-3 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-sm shadow-xl">
                 <span>🏆 รับเกียรติบัตร Level 3 Master Storyteller</span>
               </button>
             `}
-            <button onclick="openLesson('${STATE.lid}')" class="w-full py-2 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs border border-slate-300">
+            <button onclick="if(window.l3AutoNextTimer) clearInterval(window.l3AutoNextTimer); openLesson('${STATE.lid}')" class="w-full py-2 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs border border-slate-300 cursor-pointer">
               🔄 เล่นบทนี้อีกครั้ง
             </button>
-            <button onclick="closeLesson()" class="w-full py-2 rounded-2xl bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold text-xs border border-purple-200">
+            <button onclick="if(window.l3AutoNextTimer) clearInterval(window.l3AutoNextTimer); closeLesson()" class="w-full py-2 rounded-2xl bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold text-xs border border-purple-200 cursor-pointer">
               🏠 กลับสู่แผนที่รวมด่าน
             </button>
           </div>
@@ -2009,6 +2008,26 @@
       `;
 
       emmaSpeak(`Wonderful work! You completed lesson ${STATE.lid}. See you in the next lesson!`, `/kidobits/audio/l3/prompt_lesson_done.mp3`);
+
+      // Update curriculum lock
+      if (window.KidobitsLock) {
+        KidobitsLock.markCompleted('phonics', STATE.lid, nextNum);
+      }
+
+      // Auto-Next Timer (3 seconds)
+      if (hasNext) {
+        let remain = 3;
+        const countEl = document.getElementById('l3AutoCount');
+        if (window.l3AutoNextTimer) clearInterval(window.l3AutoNextTimer);
+        window.l3AutoNextTimer = setInterval(() => {
+          remain--;
+          if (countEl) countEl.textContent = remain + 's';
+          if (remain <= 0) {
+            clearInterval(window.l3AutoNextTimer);
+            openLesson(nextLid);
+          }
+        }, 1000);
+      }
     }
 
     // ================= CHILD ANSWER SUCCESS -> STEP-SPECIFIC PRAISE =================
