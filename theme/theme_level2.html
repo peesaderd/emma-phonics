@@ -1981,15 +1981,19 @@
       playChime('success');
       confetti({ particleCount: 60, spread: 80, origin: { y: 0.6 } });
 
-      document.getElementById('stepProgressText').textContent = '100% สำเร็จ!';
-      document.getElementById('tutorStateBadge').className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500 text-white text-xs font-black shadow-md";
-      document.getElementById('tutorStateText').textContent = "ยินดีด้วยค่ะคนเก่ง! จบบทเรียนแล้ว 🎉";
-      document.getElementById('tutorSpeechText').textContent = `ครูเอ็มม่า: "ยอดเยี่ยมมากเลยค่ะ! หนูผ่านบทเรียน ${STATE.lid} ครบทุกกิจกรรมแล้ว เก่งมากๆ เลยค่ะ!"`;
+      /* SAFE: ทุกการเขียน DOM ผ่าน guard เพราะหน้า modal ถูก render ใหม่ทั้งก้อนได้ */
+      const _sp = document.getElementById('stepProgressText'); if (_sp) _sp.textContent = '100% สำเร็จ!';
+      const _badge = document.getElementById('tutorStateBadge');
+      if (_badge) _badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500 text-white text-xs font-black shadow-md";
+      const _stateTxt = document.getElementById('tutorStateText');
+      if (_stateTxt) _stateTxt.textContent = "ยินดีด้วยค่ะคนเก่ง! จบบทเรียนแล้ว 🎉";
+      const _speech = document.getElementById('tutorSpeechText');
+      if (_speech) _speech.textContent = `ครูเอ็มม่า: "ยอดเยี่ยมมากเลยค่ะ! หนูผ่านบทเรียน ${STATE.lid} ครบทุกกิจกรรมแล้ว เก่งมากๆ เลยค่ะ!"`;
       const modeEl = document.getElementById('footerModeStatus');
       if (modeEl) modeEl.innerHTML = '<span>🏆 จบบทเรียนสมบูรณ์</span>';
 
       STATE.earnedStars += 4;
-      document.getElementById('starCounter').textContent = STATE.earnedStars + ' / 64 Stars';
+      const _star = document.getElementById('starCounter'); if (_star) _star.textContent = STATE.earnedStars + ' / 64 Stars';
 
       const nextNum = STATE.lesson.num + 1;
       const nextLid = 'L2.' + String(nextNum).padStart(2, '0');
