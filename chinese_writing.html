@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#FFFFFF">
+  <title>Kidobits Hanzi Studio · คลังฝึกเขียนอักษรจีนอัจฉริยะ 🐼</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Noto+Sans+Thai:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Plus Jakarta Sans', 'Noto Sans Thai', 'sans-serif'],
+            thai: ['Noto Sans Thai', 'sans-serif'],
+            zh: ['"WenQuanYi Zen Hei"', '"Noto Sans CJK SC"', '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif']
+          },
+          colors: {
+            panda: {
+              50: '#FDF8F6',
+              100: '#F2E8E5',
+              200: '#EADDD7',
+              500: '#C2410C',
+              600: '#EA580C',
+              800: '#7C2D12',
+              900: '#431407'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: 'Noto Sans Thai', 'Plus Jakarta Sans', sans-serif;
+      overscroll-behavior-y: none;
+      background-color: #FFFDF9;
+    }
+    .zh-font {
+      font-family: 'WenQuanYi Zen Hei', 'Noto Sans CJK SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    }
+    /* Tianzi Ge (田字格) / Mizi Ge (米字格) Grid */
+    .mizi-box {
+      position: relative;
+      background-color: #FFFFFF;
+      background-image:
+        linear-gradient(to right, rgba(239, 68, 68, 0.28) 1.5px, transparent 1.5px),
+        linear-gradient(to bottom, rgba(239, 68, 68, 0.28) 1.5px, transparent 1.5px),
+        linear-gradient(45deg, transparent calc(50% - 0.75px), rgba(239, 68, 68, 0.16) calc(50% - 0.75px), rgba(239, 68, 68, 0.16) calc(50% + 0.75px), transparent calc(50% + 0.75px)),
+        linear-gradient(-45deg, transparent calc(50% - 0.75px), rgba(239, 68, 68, 0.16) calc(50% - 0.75px), rgba(239, 68, 68, 0.16) calc(50% + 0.75px), transparent calc(50% + 0.75px));
+      background-size: 50% 50%, 50% 50%, 100% 100%, 100% 100%;
+      background-position: center center;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); box-shadow: 0 4px 14px rgba(234, 88, 12, 0.2); }
+      50% { transform: scale(1.03); box-shadow: 0 6px 20px rgba(234, 88, 12, 0.4); }
+    }
+    .pulse-btn {
+      animation: pulseGlow 2.5s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-800 flex flex-col justify-between selection:bg-orange-100">
+
+  <!-- TOP APP BAR -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-orange-100 shadow-xs">
+    <div class="max-w-4xl mx-auto px-4 py-2.5 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <a href="index.html" class="w-9 h-9 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-700 flex items-center justify-center transition active:scale-95 border border-orange-200" title="กลับหน้าแรก">
+          <i class="fa-solid fa-arrow-left text-sm"></i>
+        </a>
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🐼</span>
+          <div>
+            <h1 class="text-sm font-black text-slate-900 leading-tight flex items-center gap-1.5">
+              <span>Hanzi Studio</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-orange-100 text-orange-800 font-bold">ฝึกเขียนอักษรจีน</span>
+            </h1>
+            <p class="text-[10.5px] text-slate-500 font-medium">ตาราง田字格 · ลำดับขีดมาตรฐาน · ตรวจจับลายเส้น Real-time</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="chinese.html" class="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-800 text-xs font-bold border border-orange-200 transition">
+          <i class="fa-solid fa-gamepad text-xs"></i>
+          <span>Arena 4 ทักษะ</span>
+        </a>
+        <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-black shadow-xs">
+          <span>⭐</span>
+          <span id="starCounter">0</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WRITING STUDIO CONTAINER -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-3 sm:px-6 py-4 flex flex-col gap-4">
+
+    <!-- CHARACTER CATEGORIES TABS -->
+    <div class="bg-white rounded-2xl p-2 shadow-xs border border-slate-200">
+      <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1" id="categoryTabs">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- CHARACTER SELECTOR HORIZONTAL SHELF -->
+    <div class="bg-white rounded-2xl p-3 shadow-xs border border-slate-200">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-xs font-bold text-slate-600 flex items-center gap-1" id="shelfTitle">
+          <i class="fa-solid fa-shapes text-orange-500"></i> เลือกตัวอักษรจีนที่ต้องการฝึกคัด
+        </span>
+        <div class="flex items-center gap-1">
+          <input type="text" id="customCharInput" maxlength="1" placeholder="พิมพ์ตัวจีนเอง..." class="w-24 text-center px-2 py-1 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-orange-500 font-zh" />
+          <button onclick="loadCustomChar()" class="px-2.5 py-1 text-xs font-bold bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition active:scale-95">
+            คัดตัวนี้
+          </button>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1" id="charShelf">
+        <!-- Characters rendered by JS -->
+      </div>
+    </div>
+
+    <!-- MAIN CANVAS & WORKSPACE AREA -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
+
+      <!-- LEFT: Character Info Card -->
+      <div class="md:col-span-4 bg-white rounded-3xl p-4 sm:p-5 shadow-xs border border-slate-200 flex flex-col items-center text-center space-y-3">
+        <div class="w-full flex items-center justify-between">
+          <span class="px-2.5 py-0.5 rounded-full bg-orange-50 border border-orange-200 text-orange-800 text-[11px] font-black" id="charTag">
+            หมวดตัวเลข
+          </span>
+          <button onclick="speakCurrentChar()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-orange-100 text-slate-600 hover:text-orange-600 flex items-center justify-center transition active:scale-95" title="ฟังเสียงอ่าน">
+            <i class="fa-solid fa-volume-high text-xs"></i>
+          </button>
+        </div>
+
+        <div class="text-7xl sm:text-8xl font-black text-slate-900 zh-font tracking-tight py-1" id="cardCharDisplay">
+          一
+        </div>
+
+        <div class="space-y-0.5">
+          <div class="text-xl font-black text-orange-600" id="cardPinyinDisplay">yī</div>
+          <div class="text-sm font-bold text-slate-700" id="cardThaiDisplay">หนึ่ง (1)</div>
+        </div>
+
+        <div class="w-full pt-2 border-t border-slate-100 flex items-center justify-around text-xs font-bold text-slate-500">
+          <div>
+            <span class="block text-[10px] text-slate-400 font-medium">จำนวนขีด</span>
+            <span class="text-slate-800 font-black text-sm" id="cardStrokesDisplay">1 ขีด</span>
+          </div>
+          <div class="w-px h-6 bg-slate-100"></div>
+          <div>
+            <span class="block text-[10px] text-slate-400 font-medium">หมวดนำ (Radical)</span>
+            <span class="text-slate-800 font-black text-sm" id="cardRadicalDisplay">一</span>
+          </div>
+        </div>
+
+        <!-- Stroke Hint Box -->
+        <div class="w-full p-2.5 rounded-xl bg-orange-50/70 border border-orange-100 text-[11px] font-medium text-orange-950 text-left">
+          <span class="font-bold text-orange-700"><i class="fa-solid fa-lightbulb"></i> เทคนิคการลาก:</span>
+          <span id="cardHintDisplay" class="block mt-0.5 text-slate-600">ขีดแนวนอนจากซ้ายไปขวา (横)</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: Interactive Writing Arena -->
+      <div class="md:col-span-8 bg-white rounded-3xl p-4 sm:p-6 shadow-xs border border-slate-200 flex flex-col items-center">
+
+        <!-- Mode Selector Switcher -->
+        <div class="w-full flex items-center justify-center gap-1.5 mb-4 bg-slate-100/80 p-1 rounded-2xl max-w-md">
+          <button onclick="setMode('animate')" id="btnModeAnimate" class="flex-1 py-1.5 px-2 rounded-xl text-xs font-bold text-slate-600 transition flex items-center justify-center gap-1">
+            <i class="fa-solid fa-play text-[11px]"></i>
+            <span>ดูตัวอย่าง</span>
+          </button>
+          <button onclick="setMode('guided')" id="btnModeGuided" class="flex-1 py-1.5 px-2 rounded-xl text-xs font-bold text-slate-600 transition flex items-center justify-center gap-1">
+            <i class="fa-solid fa-pen text-[11px]"></i>
+            <span>เขียนตามรอย</span>
+          </button>
+          <button onclick="setMode('quiz')" id="btnModeQuiz" class="flex-1 py-1.5 px-2 rounded-xl text-xs font-black bg-white text-orange-600 shadow-sm transition flex items-center justify-center gap-1">
+            <i class="fa-solid fa-graduation-cap text-[11px]"></i>
+            <span>ทดสอบเขียน</span>
+          </button>
+        </div>
+
+        <!-- Tianzi Ge Canvas Box -->
+        <div class="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] rounded-3xl border-4 border-rose-300 mizi-box shadow-inner overflow-hidden flex items-center justify-center touch-none">
+          <div id="hanziWriterTarget" class="w-full h-full flex items-center justify-center cursor-crosshair"></div>
+          
+          <!-- Watermark hint in corner -->
+          <div class="absolute bottom-2 right-2 text-[10px] font-bold text-rose-300 pointer-events-none select-none">
+            田字格
+          </div>
+        </div>
+
+        <!-- Dynamic Status / Feedback Strip -->
+        <div id="feedbackText" class="h-8 mt-3 flex items-center justify-center text-xs font-black text-slate-600">
+          แตะหรือลากเส้นตามลำดับขีดในกรอบได้เลยค่ะ ✍️
+        </div>
+
+        <!-- Control Action Buttons -->
+        <div class="w-full max-w-sm flex items-center justify-center gap-2 pt-1 flex-wrap">
+          <button onclick="actionHint()" class="flex-1 min-w-[90px] py-2 px-3 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-bold border border-amber-200 transition active:scale-95 flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-wand-magic-sparkles text-xs"></i>
+            <span>ใบ้เส้นถัดไป</span>
+          </button>
+          <button onclick="actionReset()" class="flex-1 min-w-[90px] py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold border border-slate-200 transition active:scale-95 flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-rotate-right text-xs"></i>
+            <span>ลบเขียนใหม่</span>
+          </button>
+          <button onclick="actionNextChar()" class="flex-1 min-w-[90px] py-2 px-3 rounded-xl bg-orange-600 hover:bg-orange-700 text-white text-xs font-black shadow-md shadow-orange-600/20 transition active:scale-95 flex items-center justify-center gap-1.5">
+            <span>ตัวถัดไป</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- CELEBRATION MODAL -->
+  <div id="celebrationModal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-orange-100 transform transition-all animate-bounce">
+      <div class="text-5xl animate-bounce">🎉</div>
+      <div>
+        <h3 class="text-xl font-black text-slate-900 zh-font">太棒了！写得真漂亮！</h3>
+        <p class="text-xs font-bold text-emerald-600 mt-1" id="celebDetail">ยอดเยี่ยมมาก! เขียนตัวอักษรจีนได้ถูกต้องครบทุกขีด</p>
+      </div>
+      <div class="p-3 rounded-2xl bg-orange-50 border border-orange-200 text-orange-900 flex items-center justify-center gap-2 text-sm font-black">
+        <span>⭐ ได้รับ +1 ดาวสะสม</span>
+      </div>
+      <button onclick="closeModalAndNext()" class="w-full py-3 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-black text-sm shadow-lg shadow-orange-500/25 active:scale-95 transition">
+        ฝึกเขียนตัวถัดไป ➔
+      </button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-100 py-3 text-center text-xs text-slate-400 font-medium">
+    Kidobits Chinese Learning Hub · ออกแบบสำหรับเด็กอนุบาลและประถมศึกษา
+  </footer>
+
+  <!-- JAVASCRIPT APPLICATION LOGIC -->
+  <script>
+    // 1. DATA REPOSITORY (CURATED CHARACTER SETS)
+    const CATEGORIES = [
+      {
+        id: 'numbers',
+        name: 'ตัวเลข (1-10)',
+        icon: '🔢',
+        chars: [
+          { char: '一', py: 'yī', th: 'หนึ่ง (1)', strokes: 1, radical: '一', hint: 'ขีดแนวนอนจากซ้ายไปขวา (横)' },
+          { char: '二', py: 'èr', th: 'สอง (2)', strokes: 2, radical: '二', hint: 'ขีดบนสั้น ขีดล่างยาว (横, 横)' },
+          { char: '三', py: 'sān', th: 'สาม (3)', strokes: 3, radical: '一', hint: 'สามขีด ขีดกลางสั้นสุด ขีดล่างยาวสุด' },
+          { char: '四', py: 'sì', th: 'สี่ (4)', strokes: 5, radical: '囗', hint: 'กรอบนอก ใส่ขีดข้างใน แล้วปิดฐาน' },
+          { char: '五', py: 'wǔ', th: 'ห้า (5)', strokes: 4, radical: '二', hint: 'ขีดบน เส้นตั้งเอียง ขีดหัก แล้วปิดฐาน' },
+          { char: '六', py: 'liù', th: 'หก (6)', strokes: 4, radical: '八', hint: 'จุดบน ขีดกลาง จุดซ้ายและจุดขวา' },
+          { char: '七', py: 'qī', th: 'เจ็ด (7)', strokes: 2, radical: '一', hint: 'ขีดขวาง แล้วลากขีดตั้งโค้งเกี่ยว' },
+          { char: '八', py: 'bā', th: 'แปด (8)', strokes: 2, radical: '八', hint: 'ปัดซ้าย 撇 แล้วปัดขวา 捺 ไม่ติดกัน' },
+          { char: '九', py: 'jiǔ', th: 'เก้า (9)', strokes: 2, radical: '丿', hint: 'ปัดซ้ายก่อน แล้วลากเส้นหักเกี่ยว' },
+          { char: '十', py: 'shí', th: 'สิบ (10)', strokes: 2, radical: '十', hint: 'ขีดนอนก่อน แล้วขีดตั้งผ่ากลาง' }
+        ]
+      },
+      {
+        id: 'nature',
+        name: 'ธรรมชาติ & ธาตุ',
+        icon: '🌿',
+        chars: [
+          { char: '日', py: 'rì', th: 'ดวงอาทิตย์ / วัน', strokes: 4, radical: '日', hint: 'ตั้งซ้าย ขีดหัก ขีดกลาง ปิดล่าง' },
+          { char: '月', py: 'yuè', th: 'ดวงจันทร์ / เดือน', strokes: 4, radical: '月', hint: 'ปัดซ้าย ขีดหักเกี่ยว สองขีดกลาง' },
+          { char: '水', py: 'shuǐ', th: 'น้ำ', strokes: 4, radical: '水', hint: 'ขีดตั้งเกี่ยวตรงกลางก่อน แล้วซ้ายขวา' },
+          { char: '火', py: 'huǒ', th: 'ไฟ', strokes: 4, radical: '火', hint: 'จุดซ้าย จุดขวา แล้วปัดซ้าย ปัดขวา' },
+          { char: '木', py: 'mù', th: 'ต้นไม้ / ไม้', strokes: 4, radical: '木', hint: 'ขีดนอน ขีดตั้ง ปัดซ้าย ปัดขวา' },
+          { char: '土', py: 'tǔ', th: 'ดิน', strokes: 3, radical: '土', hint: 'ขีดนอนสั้น ขีดตั้ง ขีดนอนยาว' },
+          { char: '山', py: 'shān', th: 'ภูเขา', strokes: 3, radical: '山', hint: 'ยอดเขากลางสูงกว่า แล้วลากข้างซ้ายขวา' },
+          { char: '石', py: 'shí', th: 'หิน', strokes: 5, radical: '石', hint: 'ขีดนอน ปัดซ้าย แล้วเขียน 口 ด้านล่าง' },
+          { char: '田', py: 'tián', th: 'ทุ่งนา', strokes: 5, radical: '田', hint: 'กรอบนอก ใส่กากบาทข้างใน แล้วปิดล่าง' }
+        ]
+      },
+      {
+        id: 'body',
+        name: 'ร่างกาย & คน',
+        icon: '👤',
+        chars: [
+          { char: '人', py: 'rén', th: 'คน', strokes: 2, radical: '人', hint: 'ปัดซ้าย 撇 แล้วปัดขวา 捺' },
+          { char: '口', py: 'kǒu', th: 'ปาก', strokes: 3, radical: '口', hint: 'ตั้งซ้าย ขีดหักมุม ปิดฐานล่าง' },
+          { char: '目', py: 'mù', th: 'ดวงตา', strokes: 5, radical: '目', hint: 'ตั้งซ้าย ขีดหัก สองขีดใน ปิดล่าง' },
+          { char: '手', py: 'shǒu', th: 'มือ', strokes: 4, radical: '手', hint: 'ปัดซ้ายบน ขีดนอนสองเส้น ขีดตั้งโค้งเกี่ยว' },
+          { char: '耳', py: 'ěr', th: 'หู', strokes: 6, radical: '耳', hint: 'ขีดนอนบน เส้นตั้งสองเส้น ขีดกลาง ขีดล่าง' },
+          { char: '心', py: 'xīn', th: 'หัวใจ / ใจ', strokes: 4, radical: '心', hint: 'จุดซ้าย โค้งเกี่ยว จุดกลาง จุดขวา' },
+          { char: '女', py: 'nǚ', th: 'ผู้หญิง', strokes: 3, radical: '女', hint: 'เส้นหักมุม ปัดซ้าย ขีดนอนยาวตัดขวาง' },
+          { char: '子', py: 'zǐ', th: 'เด็ก / ลูก', strokes: 3, radical: '子', hint: 'ขีดหักบน เส้นโค้งเกี่ยว ขีดนอนตัด' }
+        ]
+      },
+      {
+        id: 'adjectives',
+        name: 'ขนาด & ทิศทาง',
+        icon: '↔️',
+        chars: [
+          { char: '大', py: 'dà', th: 'ใหญ่', strokes: 3, radical: '大', hint: 'ขีดนอน ปัดซ้าย ปัดขวา' },
+          { char: '小', py: 'xiǎo', th: 'เล็ก', strokes: 3, radical: '小', hint: 'ขีดตั้งเกี่ยวตรงกลางก่อน แล้วจุดซ้ายขวา' },
+          { char: '上', py: 'shàng', th: 'บน / ขึ้น', strokes: 3, radical: '一', hint: 'ขีดตั้ง ขีดนอนสั้น ขีดนอนยาว' },
+          { char: '下', py: 'xià', th: 'ล่าง / ลง', strokes: 3, radical: '一', hint: 'ขีดนอนยาว ขีดตั้ง จุดขวา' },
+          { char: '中', py: 'zhōng', th: 'กลาง / จีน', strokes: 4, radical: '丨', hint: 'เขียน 口 ก่อน แล้วขีดตั้งยาวผ่ากลาง' },
+          { char: '左', py: 'zuǒ', th: 'ซ้าย', strokes: 5, radical: '工', hint: 'ขีดนอน ปัดซ้าย แล้วเขียน 工' },
+          { char: '右', py: 'yòu', th: 'ขวา', strokes: 5, radical: '口', hint: 'ขีดนอน ปัดซ้าย แล้วเขียน 口' },
+          { char: '白', py: 'bái', th: 'สีขาว', strokes: 5, radical: '白', hint: 'ปัดสั้นบน แล้วเขียน 日 ข้างล่าง' }
+        ]
+      },
+      {
+        id: 'popular',
+        name: 'คำสำคัญในบทเรียน',
+        icon: '⭐',
+        chars: [
+          { char: '你', py: 'nǐ', th: 'เธอ / คุณ', strokes: 7, radical: '亻', hint: 'หมวดนำคน 亻 ด้านซ้ายก่อน' },
+          { char: '好', py: 'hǎo', th: 'ดี', strokes: 6, radical: '女', hint: 'ผู้หญิง 女 ทางซ้าย ลูก 子 ทางขวา' },
+          { char: '爸', py: 'bà', th: 'คุณพ่อ', strokes: 8, radical: '父', hint: 'หมวดพ่อ 父 ด้านบน 巴 ด้านล่าง' },
+          { char: '妈', py: 'mā', th: 'คุณแม่', strokes: 6, radical: '女', hint: 'หมวดหญิง 女 ด้านซ้าย ม้า 马 ด้านขวา' },
+          { char: '门', py: 'mén', th: 'ประตู', strokes: 3, radical: '门', hint: 'จุดซ้าย ตั้งซ้าย ขีดหักเกี่ยว' },
+          { char: '书', py: 'shū', th: 'หนังสือ', strokes: 4, radical: '乙', hint: 'ขีดหักบนสองชั้น ขีดตั้งยาว จุดขวา' },
+          { char: '天', py: 'tiān', th: 'ท้องฟ้า / วัน', strokes: 4, radical: '大', hint: 'ขีดนอนบน แล้วเขียน 大 ข้างล่าง' }
+        ]
+      }
+    ];
+
+    // 2. APP STATE
+    let currentCategoryIndex = 0;
+    let currentCharIndex = 0;
+    let currentCharObj = CATEGORIES[0].chars[0];
+    let currentMode = 'quiz'; // 'animate', 'guided', 'quiz'
+    let writer = null;
+    let userStars = parseInt(localStorage.getItem('KB_STARS') || '0', 10);
+
+    // Audio Context for UI Sound FX
+    function playTone(type) {
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return;
+        const ctx = new Ctx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        const t = ctx.currentTime;
+
+        if (type === 'pop') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(520, t);
+          osc.frequency.exponentialRampToValueAtTime(880, t + 0.08);
+          gain.gain.setValueAtTime(0.2, t);
+          gain.gain.exponentialRampToValueAtTime(0.01, t + 0.08);
+          osc.start(t);
+          osc.stop(t + 0.09);
+        } else if (type === 'wrong') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, t);
+          osc.frequency.linearRampToValueAtTime(140, t + 0.15);
+          gain.gain.setValueAtTime(0.18, t);
+          gain.gain.linearRampToValueAtTime(0.01, t + 0.15);
+          osc.start(t);
+          osc.stop(t + 0.16);
+        } else if (type === 'win') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, t);
+          osc.frequency.setValueAtTime(659.25, t + 0.1);
+          osc.frequency.setValueAtTime(783.99, t + 0.2);
+          osc.frequency.setValueAtTime(1046.50, t + 0.3);
+          gain.gain.setValueAtTime(0.25, t);
+          gain.gain.linearRampToValueAtTime(0.01, t + 0.5);
+          osc.start(t);
+          osc.stop(t + 0.52);
+        }
+      } catch(e) {}
+    }
+
+    function speakCurrentChar() {
+      if (!currentCharObj) return;
+      const text = currentCharObj.char;
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const ut = new SpeechSynthesisUtterance(text);
+        ut.lang = 'zh-CN';
+        ut.rate = 0.85;
+        window.speechSynthesis.speak(ut);
+      }
+    }
+
+    function updateStarsDisplay() {
+      document.getElementById('starCounter').textContent = userStars;
+      localStorage.setItem('KB_STARS', userStars);
+    }
+
+    // 3. UI RENDERING
+    function renderCategories() {
+      const container = document.getElementById('categoryTabs');
+      container.innerHTML = CATEGORIES.map((cat, idx) => `
+        <button onclick="selectCategory(${idx})" class="shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${idx === currentCategoryIndex ? 'bg-orange-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">
+          <span>${cat.icon}</span>
+          <span>${cat.name}</span>
+        </button>
+      `).join('');
+    }
+
+    function renderCharShelf() {
+      const cat = CATEGORIES[currentCategoryIndex];
+      document.getElementById('shelfTitle').innerHTML = `<i class="fa-solid fa-shapes text-orange-500"></i> ${cat.name} (${cat.chars.length} ตัวอักษร)`;
+      const shelf = document.getElementById('charShelf');
+      shelf.innerHTML = cat.chars.map((item, idx) => {
+        const isCurrent = (item.char === currentCharObj.char);
+        return `
+          <button onclick="selectChar(${idx})" class="shrink-0 w-12 h-14 rounded-2xl flex flex-col items-center justify-center transition border active:scale-95 ${isCurrent ? 'bg-orange-500 text-white border-orange-600 shadow-md scale-105' : 'bg-slate-50 hover:bg-orange-50 text-slate-800 border-slate-200'}">
+            <span class="text-xl font-black zh-font">${item.char}</span>
+            <span class="text-[9px] font-bold ${isCurrent ? 'text-orange-100' : 'text-slate-400'}">${item.py}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function updateCardInfo() {
+      document.getElementById('charTag').textContent = CATEGORIES[currentCategoryIndex].name;
+      document.getElementById('cardCharDisplay').textContent = currentCharObj.char;
+      document.getElementById('cardPinyinDisplay').textContent = currentCharObj.py;
+      document.getElementById('cardThaiDisplay').textContent = currentCharObj.th;
+      document.getElementById('cardStrokesDisplay').textContent = `${currentCharObj.strokes || '?'} ขีด`;
+      document.getElementById('cardRadicalDisplay').textContent = currentCharObj.radical || currentCharObj.char;
+      document.getElementById('cardHintDisplay').textContent = currentCharObj.hint || 'ลากเส้นตามลำดับขีดมาตรฐาน';
+    }
+
+    // 4. HANZI WRITER INITIALIZATION & MODES
+    function getWriterSize() {
+      const w = window.innerWidth;
+      if (w < 400) return 250;
+      if (w < 640) return 270;
+      return 300;
+    }
+
+    function initWriter() {
+      const target = document.getElementById('hanziWriterTarget');
+      target.innerHTML = '';
+      const size = getWriterSize();
+
+      try {
+        writer = HanziWriter.create('hanziWriterTarget', currentCharObj.char, {
+          width: size,
+          height: size,
+          padding: 16,
+          showOutline: currentMode !== 'quiz',
+          strokeAnimationSpeed: 1.2,
+          delayBetweenStrokes: 150,
+          strokeColor: '#C2410C',     // warm terracotta
+          outlineColor: '#CBD5E1',    // soft slate outline
+          drawingColor: '#2563EB',    // vibrant blue brush
+          drawingWidth: 16,
+          showHintAfterMisses: 2,
+          highlightColor: '#10B981',  // emerald
+          onCorrectStroke: function(data) {
+            playTone('pop');
+            setFeedback(`✨ ขีดที่ ${data.strokeNum + 1} ถูกต้อง!`, 'text-blue-600');
+          },
+          onMistake: function(data) {
+            playTone('wrong');
+            setFeedback(`ยังไม่ตรงนะคะ (ลองทิศทางตามลูกศร)`, 'text-rose-500');
+          },
+          onComplete: function(summary) {
+            onQuizPassed(summary);
+          }
+        });
+
+        applyCurrentMode();
+      } catch (err) {
+        console.error('HanziWriter error:', err);
+        setFeedback('เกิดข้อผิดพลาดในการโหลดตัวอักษร', 'text-rose-500');
+      }
+    }
+
+    function applyCurrentMode() {
+      if (!writer) return;
+
+      // Update Tab Styles
+      ['btnModeAnimate', 'btnModeGuided', 'btnModeQuiz'].forEach(id => {
+        const btn = document.getElementById(id);
+        btn.className = 'flex-1 py-1.5 px-2 rounded-xl text-xs font-bold text-slate-600 transition flex items-center justify-center gap-1';
+      });
+
+      if (currentMode === 'animate') {
+        document.getElementById('btnModeAnimate').className = 'flex-1 py-1.5 px-2 rounded-xl text-xs font-black bg-white text-orange-600 shadow-sm transition flex items-center justify-center gap-1';
+        setFeedback('🎬 กำลังสาธิตลำดับขีดและทิศทาง...', 'text-orange-600');
+        writer.showOutline();
+        writer.animateCharacter({
+          onComplete: () => {
+            setFeedback('แอนิเมชันจบแล้ว แตะ "เขียนตามรอย" หรือ "ทดสอบ" เพื่อเริ่มคัดค่ะ', 'text-slate-600');
+          }
+        });
+      } else if (currentMode === 'guided') {
+        document.getElementById('btnModeGuided').className = 'flex-1 py-1.5 px-2 rounded-xl text-xs font-black bg-white text-orange-600 shadow-sm transition flex items-center justify-center gap-1';
+        setFeedback('✍️ ลากเส้นตามรอยประสีเทาได้เลยค่ะ', 'text-slate-600');
+        writer.showOutline();
+        writer.quiz();
+      } else if (currentMode === 'quiz') {
+        document.getElementById('btnModeQuiz').className = 'flex-1 py-1.5 px-2 rounded-xl text-xs font-black bg-white text-orange-600 shadow-sm transition flex items-center justify-center gap-1';
+        setFeedback('🧠 โหมดทดสอบ: เขียนจากความจำได้เลยค่ะ!', 'text-orange-600');
+        writer.hideOutline();
+        writer.quiz();
+      }
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+      applyCurrentMode();
+    }
+
+    function setFeedback(msg, colorClass) {
+      const fb = document.getElementById('feedbackText');
+      fb.className = `h-8 mt-3 flex items-center justify-center text-xs font-black ${colorClass || 'text-slate-600'}`;
+      fb.textContent = msg;
+    }
+
+    // 5. USER ACTIONS
+    function selectCategory(idx) {
+      currentCategoryIndex = idx;
+      currentCharIndex = 0;
+      currentCharObj = CATEGORIES[idx].chars[0];
+      renderCategories();
+      renderCharShelf();
+      updateCardInfo();
+      initWriter();
+      speakCurrentChar();
+    }
+
+    function selectChar(idx) {
+      currentCharIndex = idx;
+      currentCharObj = CATEGORIES[currentCategoryIndex].chars[idx];
+      renderCharShelf();
+      updateCardInfo();
+      initWriter();
+      speakCurrentChar();
+    }
+
+    function loadCustomChar() {
+      const input = document.getElementById('customCharInput');
+      const val = (input.value || '').trim();
+      if (!val) return;
+      currentCharObj = {
+        char: val,
+        py: '',
+        th: 'ตัวอักษรค้นหา',
+        strokes: '?',
+        radical: val,
+        hint: 'ลากเส้นตามลำดับขีดที่ระบบแนะนำ'
+      };
+      updateCardInfo();
+      initWriter();
+      speakCurrentChar();
+      input.value = '';
+    }
+
+    function actionHint() {
+      if (!writer) return;
+      writer.highlightStroke();
+      setFeedback('💡 ใบ้เส้นถัดไปให้แล้วค่ะ ลองลากตามเส้นสีเขียวนะคะ', 'text-amber-600');
+    }
+
+    function actionReset() {
+      if (!writer) return;
+      initWriter();
+      setFeedback('ล้างกระดานเรียบร้อย เริ่มเขียนใหม่ได้เลยค่ะ 🔄', 'text-slate-500');
+    }
+
+    function actionNextChar() {
+      const cat = CATEGORIES[currentCategoryIndex];
+      if (currentCharIndex + 1 < cat.chars.length) {
+        selectChar(currentCharIndex + 1);
+      } else {
+        // Next category
+        const nextCatIdx = (currentCategoryIndex + 1) % CATEGORIES.length;
+        selectCategory(nextCatIdx);
+      }
+    }
+
+    // 6. COMPLETION & REWARD
+    function onQuizPassed(summary) {
+      playTone('win');
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.6 }
+      });
+      userStars += 1;
+      updateStarsDisplay();
+
+      // Show Modal
+      document.getElementById('celebDetail').textContent = `เก่งมากค่ะ! คัดตัวอักษร "${currentCharObj.char}" (${currentCharObj.py}) สำเร็จครบถ้วน`;
+      document.getElementById('celebrationModal').classList.remove('hidden');
+
+      // Speak praise in Mandarin
+      if ('speechSynthesis' in window) {
+        const ut = new SpeechSynthesisUtterance('太棒了！写得真漂亮！');
+        ut.lang = 'zh-CN';
+        ut.rate = 0.9;
+        window.speechSynthesis.speak(ut);
+      }
+    }
+
+    function closeModalAndNext() {
+      document.getElementById('celebrationModal').classList.add('hidden');
+      actionNextChar();
+    }
+
+    // 7. INITIALIZATION ON PAGE LOAD
+    window.addEventListener('DOMContentLoaded', () => {
+      updateStarsDisplay();
+      renderCategories();
+
+      // Check query param e.g. ?char=口 or ?cat=nature
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryChar = urlParams.get('char');
+      if (queryChar) {
+        // Find in categories
+        let found = false;
+        for (let c = 0; c < CATEGORIES.length; c++) {
+          const idx = CATEGORIES[c].chars.findIndex(i => i.char === queryChar);
+          if (idx !== -1) {
+            currentCategoryIndex = c;
+            currentCharIndex = idx;
+            currentCharObj = CATEGORIES[c].chars[idx];
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          currentCharObj = {
+            char: queryChar,
+            py: '',
+            th: 'แบบฝึกคัดพิเศษ',
+            strokes: '?',
+            radical: queryChar,
+            hint: 'ลากเส้นตามลำดับขีดที่แนะนำ'
+          };
+        }
+      }
+
+      renderCharShelf();
+      updateCardInfo();
+      setTimeout(initWriter, 120);
+    });
+
+    // Resize handler
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (writer) initWriter();
+      }, 300);
+    });
+  </script>
+</body>
+</html>
