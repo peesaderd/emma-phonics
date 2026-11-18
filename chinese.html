@@ -39,7 +39,7 @@ tailwind.config = {
 * { -webkit-tap-highlight-color: transparent; }
 body {
   font-family: 'Noto Sans Thai', 'Plus Jakarta Sans', sans-serif;
-  overscroll-behavior-y: none;
+  overscroll-behavior-y: auto;
   background-color: #FFFDF9;
 }
 .font-brush {
@@ -85,7 +85,8 @@ body {
     /* Direct lesson mode inside Chinese 4-Skills Arena */
     html.direct-lesson-mode body {
       background-color: #F8F9FD !important;
-      overflow: hidden !important;
+      overflow-y: auto !important;
+      overscroll-behavior-y: auto !important;
     }
     html.direct-lesson-mode > body > header,
     html.direct-lesson-mode > body > main,
@@ -100,6 +101,7 @@ body {
       position: fixed !important;
       inset: 0 !important;
       z-index: 9999 !important;
+      overscroll-behavior-y: auto !important;
     }
     html.direct-lesson-mode #playerModal > div {
       border: none !important;
@@ -110,9 +112,10 @@ body {
       max-width: 430px !important;
       width: 100% !important;
       padding-top: env(safe-area-inset-top, 8px) !important;
-      padding-bottom: 96px !important;
+      padding-bottom: 112px !important;
       background: #FFFFFF !important;
       overflow-y: auto !important;
+      overscroll-behavior-y: auto !important;
     }
   </style>
   <script>
@@ -246,37 +249,46 @@ body {
 </head>
 <body class="min-h-screen text-slate-800 flex flex-col justify-between selection:bg-orange-200">
 
-  <!-- TOP HEADER / NAV -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-orange-100 shadow-sm">
-    <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-2.5">
-        <a href="/" class="w-10 h-10 rounded-2xl bg-orange-50 border border-orange-200 flex items-center justify-center text-xl shadow-sm hover:bg-orange-100 transition active:scale-95" title="กลับหน้าหลัก">
-          🐼
-        </a>
+  <!-- TOP HEADER / NAV (Standard Kidobits Top Bar) -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-orange-100 shadow-xs">
+    <div class="max-w-5xl mx-auto px-4 py-2 flex items-center justify-between gap-2">
+      <button onclick="if (history.length > 1) { history.back(); } else { location.href='/theme/theme_chinese_lobby.html'; }" class="btn-press flex items-center gap-1 px-3 py-1.5 rounded-full bg-white shadow-xs border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-50 transition active:scale-95" title="ย้อนกลับ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5"></path>
+          <path d="M12 19l-7-7 7-7"></path>
+        </svg>
+        <span>กลับ</span>
+      </button>
+
+      <div class="flex items-center gap-2">
+        <span class="text-xl">🐼</span>
         <div>
           <div class="flex items-center gap-1.5">
-            <span class="font-display font-black text-slate-900 text-base sm:text-lg tracking-tight">Kidobits Chinese</span>
-            <span class="px-2 py-0.5 rounded-full bg-red-100 text-red-700 text-[10px] font-bold">4-Skills Arena</span>
+            <span class="font-display font-black text-slate-900 text-xs sm:text-sm tracking-tight">Chinese 4-Skills Arena</span>
+            <span class="hidden sm:inline-block px-2 py-0.2 rounded-full bg-red-100 text-red-700 text-[10px] font-bold">อ.1 - ป.6</span>
           </div>
-          <p class="text-[11px] text-slate-500 font-medium">แบบฝึกหัดภาษาจีน 4 ทักษะ (ฟัง · พูด · อ่าน · เขียน) อ.1 - ป.6</p>
         </div>
       </div>
 
-      <!-- Action items -->
-      <div class="flex items-center gap-2">
-        <a href="/Kidobits_Chinese_Curriculum_K_to_P6.pdf" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-800 text-xs font-bold border border-orange-200 transition">
-          <span>📄 แผนหลักสูตร PDF</span>
-        </a>
-        <div class="flex items-center gap-1 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-bold">
+      <div class="flex items-center gap-1.5">
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-50 border border-red-100 text-[11px] font-black text-red-600 shadow-2xs">
+          <span>🔥</span>
+          <span id="streakChip">7</span>
+        </div>
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-100 text-[11px] font-black text-amber-600 shadow-2xs">
           <span>⭐</span>
           <span id="globalStars">0</span>
+        </div>
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-[11px] font-black text-emerald-600 shadow-2xs">
+          <span>🪙</span>
+          <span id="userCoins">240</span>
         </div>
       </div>
     </div>
   </header>
 
   <!-- MAIN HUB CONTENT -->
-  <main class="max-w-5xl mx-auto px-4 py-6 w-full flex-1">
+  <main class="max-w-5xl mx-auto px-4 py-6 w-full flex-1 pb-28">
 
     <!-- WELCOME BANNER -->
     <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-red-600 via-orange-600 to-amber-600 p-6 sm:p-8 text-white shadow-lg mb-8">
@@ -407,75 +419,7 @@ body {
       </div>
 
     
-  <!-- Floating Bottom Navigation inside Chinese Player Modal -->
-  <nav class="fixed bottom-3 left-3 right-3 max-w-[430px] mx-auto bg-white shadow-[0_10px_30px_rgba(60,30,90,.18)] rounded-full px-2 py-2 flex justify-between border border-[#F3EDF8] z-[10000]" aria-label="Main navigation">
-    <button onclick="window.location.href='/theme/theme_home.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Home">
-      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
-          <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-        </svg>
-      </span>
-      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Home</span>
-    </button>
-    <button onclick="window.location.href='/theme/theme_phonics_map.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Phonics">
-      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 7v14"></path>
-          <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>
-        </svg>
-      </span>
-      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Phonics</span>
-    </button>
-    <button onclick="window.location.href='/theme/theme_math_lobby.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Math">
-      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect width="16" height="20" x="4" y="2" rx="2"></rect>
-          <line x1="8" x2="16" y1="6" y2="6"></line>
-          <line x1="16" x2="16" y1="14" y2="18"></line>
-          <path d="M16 10h.01"></path>
-          <path d="M12 10h.01"></path>
-          <path d="M8 10h.01"></path>
-          <path d="M12 14h.01"></path>
-          <path d="M8 14h.01"></path>
-          <path d="M12 18h.01"></path>
-          <path d="M8 18h.01"></path>
-        </svg>
-      </span>
-      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Math</span>
-    </button>
-    <button onclick="closeLesson()" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Chinese">
-      <span class="w-10 h-10 grid place-items-center rounded-full transition bg-[#E53935] text-white shadow-md shadow-red-500/25">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
-          <path d="M2 12h20"></path>
-        </svg>
-      </span>
-      <span class="text-[10px] font-black text-[#E53935]">Chinese</span>
-    </button>
-    <button onclick="window.location.href='/theme/theme_games.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Games">
-      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="6" x2="10" y1="11" y2="11"></line>
-          <line x1="8" x2="8" y1="9" y2="13"></line>
-          <line x1="15" x2="15.01" y1="12" y2="12"></line>
-          <line x1="18" x2="18.01" y1="10" y2="10"></line>
-          <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"></path>
-        </svg>
-      </span>
-      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Games</span>
-    </button>
-    <button onclick="window.location.href='/theme/theme_profile.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Profile">
-      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </svg>
-      </span>
-      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Profile</span>
-    </button>
-  </nav>
+  
     </div>
   </div>
 
@@ -2584,5 +2528,87 @@ body {
     });
   </script>
   <script src="/theme/js/kidobits_dynamic_island.js"></script>
+
+  <!-- STANDARD KIDOBITS FLOATING BOTTOM NAVIGATION -->
+  <nav class="fixed bottom-3 left-3 right-3 max-w-[430px] mx-auto bg-white shadow-[0_10px_30px_rgba(60,30,90,.18)] rounded-full px-2 py-2 flex justify-between border border-[#F3EDF8] z-[10000]" aria-label="Main navigation">
+    <!-- 1. Home -->
+    <button onclick="window.location.href='/theme/theme_home.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Home">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+          <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Home</span>
+    </button>
+
+    <!-- 2. Phonics -->
+    <button onclick="window.location.href='/theme/theme_phonics_map.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Phonics">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 7v14"></path>
+          <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Phonics</span>
+    </button>
+
+    <!-- 3. Math -->
+    <button onclick="window.location.href='/theme/theme_math_lobby.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Math">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+          <line x1="8" x2="16" y1="6" y2="6"></line>
+          <line x1="16" x2="16" y1="14" y2="18"></line>
+          <path d="M16 10h.01"></path>
+          <path d="M12 10h.01"></path>
+          <path d="M8 10h.01"></path>
+          <path d="M12 14h.01"></path>
+          <path d="M8 14h.01"></path>
+          <path d="M12 18h.01"></path>
+          <path d="M8 18h.01"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Math</span>
+    </button>
+
+    <!-- 4. Chinese (Active: Red) -->
+    <button onclick="if (typeof closeLesson === 'function' && document.getElementById('playerModal') && !document.getElementById('playerModal').classList.contains('hidden')) { closeLesson(); } else { window.location.href='/theme/theme_chinese_lobby.html'; }" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Chinese">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition bg-[#E53935] text-white shadow-md shadow-red-500/25">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+          <path d="M2 12h20"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-black text-[#E53935]">Chinese</span>
+    </button>
+
+    <!-- 5. Games -->
+    <button onclick="window.location.href='/theme/theme_games.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Games">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="6" x2="10" y1="11" y2="11"></line>
+          <line x1="8" x2="8" y1="9" y2="13"></line>
+          <line x1="15" x2="15.01" y1="12" y2="12"></line>
+          <line x1="18" x2="18.01" y1="10" y2="10"></line>
+          <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Games</span>
+    </button>
+
+    <!-- 6. Profile -->
+    <button onclick="window.location.href='/theme/theme_profile.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Profile">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Profile</span>
+    </button>
+  </nav>
+
 </body>
 </html>
