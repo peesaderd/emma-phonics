@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th" class="h-full">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="theme-color" content="#FFFFFF">
-  <title>Kidobits Hanzi Studio · คลังฝึกเขียนอักษรจีนอัจฉริยะ 🐼</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Noto+Sans+Thai:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#FFFDF9">
+  <title>Kidobits Hanzi Studio · คลังฝึกเขียนอักษรจีนพู่กันอัจฉริยะ 🐼</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@600;900&family=Plus+Jakarta+Sans:wght@600;700;800;900&family=Noto+Sans+Thai:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
@@ -37,10 +39,17 @@
   </script>
   <style>
     * { -webkit-tap-highlight-color: transparent; }
-    body {
+    html, body {
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
       font-family: 'Noto Sans Thai', 'Plus Jakarta Sans', sans-serif;
       overscroll-behavior-y: none;
       background-color: #FFFDF9;
+    }
+    .font-brush {
+      font-family: 'Ma Shan Zheng', 'STKaiti', 'KaiTi', 'BiauKai', 'DFKai-SB', 'AR PL UKai CN', '楷体', '楷体_GB2312', 'Noto Serif SC', serif !important;
+      letter-spacing: 0.05em;
     }
     .zh-font {
       font-family: 'WenQuanYi Zen Hei', 'Noto Sans CJK SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
@@ -61,41 +70,50 @@
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     
     @keyframes pulseGlow {
-      0%, 100% { transform: scale(1); box-shadow: 0 4px 14px rgba(234, 88, 12, 0.2); }
-      50% { transform: scale(1.03); box-shadow: 0 6px 20px rgba(234, 88, 12, 0.4); }
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
     }
     .pulse-btn {
-      animation: pulseGlow 2.5s infinite ease-in-out;
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.92); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .animate-pop {
+      animation: popIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
   </style>
 </head>
-<body class="min-h-screen text-slate-800 flex flex-col justify-between selection:bg-orange-100">
+<body class="h-full flex flex-col justify-between text-slate-800 select-none">
 
-  <!-- TOP APP BAR -->
-  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-orange-100 shadow-xs">
-    <div class="max-w-4xl mx-auto px-4 py-2.5 flex items-center justify-between">
+  <!-- 1. COMPACT TOP HEADER (48px) -->
+  <header class="shrink-0 bg-white/95 backdrop-blur-md border-b border-orange-100 shadow-xs z-30">
+    <div class="max-w-4xl mx-auto px-3 py-2 flex items-center justify-between">
       <div class="flex items-center gap-2">
-        <a href="index.html" class="w-9 h-9 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-700 flex items-center justify-center transition active:scale-95 border border-orange-200" title="กลับหน้าแรก">
-          <i class="fa-solid fa-arrow-left text-sm"></i>
+        <a href="chinese_phonics.html" class="w-8 h-8 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-700 flex items-center justify-center transition active:scale-95 border border-orange-200" title="กลับไปบทเรียน">
+          <i class="fa-solid fa-arrow-left text-xs"></i>
         </a>
-        <div class="flex items-center gap-2">
-          <span class="text-2xl">🐼</span>
-          <div>
-            <h1 class="text-sm font-black text-slate-900 leading-tight flex items-center gap-1.5">
-              <span>Hanzi Studio</span>
-              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-orange-100 text-orange-800 font-bold">ฝึกเขียนอักษรจีน</span>
-            </h1>
-            <p class="text-[10.5px] text-slate-500 font-medium">ตาราง田字格 · ลำดับขีดมาตรฐาน · ตรวจจับลายเส้น Real-time</p>
+        <!-- Current Char Badge with Brush Font -->
+        <div class="flex items-center gap-2 px-2.5 py-1 rounded-xl bg-orange-50/70 border border-orange-200/80">
+          <span id="headerCharDisplay" class="text-2xl font-brush text-slate-900 leading-none">一</span>
+          <div class="flex flex-col text-left">
+            <span id="headerPinyinDisplay" class="text-xs font-black text-orange-600 leading-none">yī</span>
+            <span id="headerThaiDisplay" class="text-[10px] text-slate-500 font-bold leading-tight mt-0.5">หนึ่ง (1)</span>
           </div>
+          <button onclick="speakCurrentChar()" class="w-6 h-6 rounded-lg bg-white shadow-xs text-orange-600 hover:text-orange-700 flex items-center justify-center transition active:scale-90" title="ฟังเสียงอ่าน">
+            <i class="fa-solid fa-volume-high text-[10px]"></i>
+          </button>
         </div>
       </div>
 
-      <div class="flex items-center gap-2">
-        <a href="chinese.html" class="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-800 text-xs font-bold border border-orange-200 transition">
-          <i class="fa-solid fa-gamepad text-xs"></i>
-          <span>Arena 4 ทักษะ</span>
-        </a>
-        <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-black shadow-xs">
+      <div class="flex items-center gap-1.5">
+        <button onclick="openCategoryModal()" class="px-2.5 py-1 rounded-xl bg-slate-100 hover:bg-orange-50 text-slate-700 hover:text-orange-800 text-[11px] font-black border border-slate-200 transition active:scale-95 flex items-center gap-1">
+          <i class="fa-solid fa-book-open text-[10px] text-orange-500"></i>
+          <span id="headerCatName" class="max-w-[70px] sm:max-w-none truncate">ตัวเลข</span>
+          <i class="fa-solid fa-chevron-down text-[8px] opacity-60"></i>
+        </button>
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-black shadow-xs">
           <span>⭐</span>
           <span id="starCounter">0</span>
         </div>
@@ -103,152 +121,103 @@
     </div>
   </header>
 
-  <!-- MAIN WRITING STUDIO CONTAINER -->
-  <main class="flex-1 max-w-4xl w-full mx-auto px-3 sm:px-6 py-4 flex flex-col gap-4">
+  <!-- 2. MAIN WORKSPACE CONTAINER (FITS 1 SCREEN) -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-3 flex flex-col justify-between py-1.5 overflow-hidden">
 
-    <!-- CHARACTER CATEGORIES TABS -->
-    <div class="bg-white rounded-2xl p-2 shadow-xs border border-slate-200">
-      <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1" id="categoryTabs">
-        <!-- Rendered by JS -->
+    <!-- CHARACTER SELECTOR HORIZONTAL MINI-SHELF (Compact ~38px) -->
+    <div class="shrink-0 w-full overflow-hidden">
+      <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5" id="charShelf">
+        <!-- Character mini-pills rendered by JS -->
       </div>
     </div>
 
-    <!-- CHARACTER SELECTOR HORIZONTAL SHELF -->
-    <div class="bg-white rounded-2xl p-3 shadow-xs border border-slate-200">
-      <div class="flex items-center justify-between mb-2">
-        <span class="text-xs font-bold text-slate-600 flex items-center gap-1" id="shelfTitle">
-          <i class="fa-solid fa-shapes text-orange-500"></i> เลือกตัวอักษรจีนที่ต้องการฝึกคัด
-        </span>
-        <div class="flex items-center gap-1">
-          <input type="text" id="customCharInput" maxlength="1" placeholder="พิมพ์ตัวจีนเอง..." class="w-24 text-center px-2 py-1 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-orange-500 font-zh" />
-          <button onclick="loadCustomChar()" class="px-2.5 py-1 text-xs font-bold bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition active:scale-95">
-            คัดตัวนี้
-          </button>
-        </div>
+    <!-- MAIN INTERACTIVE ARENA -->
+    <div class="flex-1 flex flex-col items-center justify-center min-h-0 py-1">
+
+      <!-- Mode Selector Switcher (Compact ~34px) -->
+      <div class="shrink-0 w-full max-w-xs flex items-center justify-center gap-1 mb-2 bg-slate-100/90 p-1 rounded-2xl shadow-xs">
+        <button onclick="setMode('animate')" id="btnModeAnimate" class="flex-1 py-1 px-2 rounded-xl text-xs font-bold text-slate-600 transition flex items-center justify-center gap-1">
+          <i class="fa-solid fa-play text-[10px]"></i>
+          <span>ดูตัวอย่าง</span>
+        </button>
+        <button onclick="setMode('guided')" id="btnModeGuided" class="flex-1 py-1 px-2 rounded-xl text-xs font-bold text-slate-600 transition flex items-center justify-center gap-1">
+          <i class="fa-solid fa-pen text-[10px]"></i>
+          <span>เขียนตามรอย</span>
+        </button>
+        <button onclick="setMode('quiz')" id="btnModeQuiz" class="flex-1 py-1 px-2 rounded-xl text-xs font-black bg-white text-orange-600 shadow-sm transition flex items-center justify-center gap-1">
+          <i class="fa-solid fa-graduation-cap text-[10px]"></i>
+          <span>ทดสอบเขียน</span>
+        </button>
       </div>
-      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1" id="charShelf">
-        <!-- Characters rendered by JS -->
-      </div>
-    </div>
 
-    <!-- MAIN CANVAS & WORKSPACE AREA -->
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
-
-      <!-- LEFT: Character Info Card -->
-      <div class="md:col-span-4 bg-white rounded-3xl p-4 sm:p-5 shadow-xs border border-slate-200 flex flex-col items-center text-center space-y-3">
-        <div class="w-full flex items-center justify-between">
-          <span class="px-2.5 py-0.5 rounded-full bg-orange-50 border border-orange-200 text-orange-800 text-[11px] font-black" id="charTag">
-            หมวดตัวเลข
-          </span>
-          <button onclick="speakCurrentChar()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-orange-100 text-slate-600 hover:text-orange-600 flex items-center justify-center transition active:scale-95" title="ฟังเสียงอ่าน">
-            <i class="fa-solid fa-volume-high text-xs"></i>
-          </button>
-        </div>
-
-        <div class="text-7xl sm:text-8xl font-black text-slate-900 zh-font tracking-tight py-1" id="cardCharDisplay">
+      <!-- Tianzi Ge Canvas Box with Authentic Brush Watermark -->
+      <div class="relative w-[240px] h-[240px] sm:w-[280px] sm:h-[280px] rounded-3xl border-4 border-rose-300 mizi-box shadow-md overflow-hidden flex items-center justify-center touch-none shrink-0">
+        <!-- Brush Watermark Guide in Background -->
+        <div id="brushWatermark" class="absolute inset-0 flex items-center justify-center text-8xl sm:text-9xl font-brush text-rose-200/45 pointer-events-none select-none">
           一
         </div>
-
-        <div class="space-y-0.5">
-          <div class="text-xl font-black text-orange-600" id="cardPinyinDisplay">yī</div>
-          <div class="text-sm font-bold text-slate-700" id="cardThaiDisplay">หนึ่ง (1)</div>
-        </div>
-
-        <div class="w-full pt-2 border-t border-slate-100 flex items-center justify-around text-xs font-bold text-slate-500">
-          <div>
-            <span class="block text-[10px] text-slate-400 font-medium">จำนวนขีด</span>
-            <span class="text-slate-800 font-black text-sm" id="cardStrokesDisplay">1 ขีด</span>
-          </div>
-          <div class="w-px h-6 bg-slate-100"></div>
-          <div>
-            <span class="block text-[10px] text-slate-400 font-medium">หมวดนำ (Radical)</span>
-            <span class="text-slate-800 font-black text-sm" id="cardRadicalDisplay">一</span>
-          </div>
-        </div>
-
-        <!-- Stroke Hint Box -->
-        <div class="w-full p-2.5 rounded-xl bg-orange-50/70 border border-orange-100 text-[11px] font-medium text-orange-950 text-left">
-          <span class="font-bold text-orange-700"><i class="fa-solid fa-lightbulb"></i> เทคนิคการลาก:</span>
-          <span id="cardHintDisplay" class="block mt-0.5 text-slate-600">ขีดแนวนอนจากซ้ายไปขวา (横)</span>
+        <div id="hanziWriterTarget" class="w-full h-full flex items-center justify-center cursor-crosshair relative z-10"></div>
+        
+        <!-- Watermark label -->
+        <div class="absolute bottom-1.5 right-2 text-[9px] font-bold text-rose-300/80 pointer-events-none select-none">
+          田字格
         </div>
       </div>
 
-      <!-- RIGHT: Interactive Writing Arena -->
-      <div class="md:col-span-8 bg-white rounded-3xl p-4 sm:p-6 shadow-xs border border-slate-200 flex flex-col items-center">
-
-        <!-- Mode Selector Switcher -->
-        <div class="w-full flex items-center justify-center gap-1.5 mb-4 bg-slate-100/80 p-1 rounded-2xl max-w-md">
-          <button onclick="setMode('animate')" id="btnModeAnimate" class="flex-1 py-1.5 px-2 rounded-xl text-xs font-bold text-slate-600 transition flex items-center justify-center gap-1">
-            <i class="fa-solid fa-play text-[11px]"></i>
-            <span>ดูตัวอย่าง</span>
-          </button>
-          <button onclick="setMode('guided')" id="btnModeGuided" class="flex-1 py-1.5 px-2 rounded-xl text-xs font-bold text-slate-600 transition flex items-center justify-center gap-1">
-            <i class="fa-solid fa-pen text-[11px]"></i>
-            <span>เขียนตามรอย</span>
-          </button>
-          <button onclick="setMode('quiz')" id="btnModeQuiz" class="flex-1 py-1.5 px-2 rounded-xl text-xs font-black bg-white text-orange-600 shadow-sm transition flex items-center justify-center gap-1">
-            <i class="fa-solid fa-graduation-cap text-[11px]"></i>
-            <span>ทดสอบเขียน</span>
-          </button>
-        </div>
-
-        <!-- Tianzi Ge Canvas Box -->
-        <div class="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] rounded-3xl border-4 border-rose-300 mizi-box shadow-inner overflow-hidden flex items-center justify-center touch-none">
-          <div id="hanziWriterTarget" class="w-full h-full flex items-center justify-center cursor-crosshair"></div>
-          
-          <!-- Watermark hint in corner -->
-          <div class="absolute bottom-2 right-2 text-[10px] font-bold text-rose-300 pointer-events-none select-none">
-            田字格
-          </div>
-        </div>
-
-        <!-- Dynamic Status / Feedback Strip -->
-        <div id="feedbackText" class="h-8 mt-3 flex items-center justify-center text-xs font-black text-slate-600">
-          แตะหรือลากเส้นตามลำดับขีดในกรอบได้เลยค่ะ ✍️
-        </div>
-
-        <!-- Control Action Buttons -->
-        <div class="w-full max-w-sm flex items-center justify-center gap-2 pt-1 flex-wrap">
-          <button onclick="actionHint()" class="flex-1 min-w-[90px] py-2 px-3 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-bold border border-amber-200 transition active:scale-95 flex items-center justify-center gap-1.5">
-            <i class="fa-solid fa-wand-magic-sparkles text-xs"></i>
-            <span>ใบ้เส้นถัดไป</span>
-          </button>
-          <button onclick="actionReset()" class="flex-1 min-w-[90px] py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold border border-slate-200 transition active:scale-95 flex items-center justify-center gap-1.5">
-            <i class="fa-solid fa-rotate-right text-xs"></i>
-            <span>ลบเขียนใหม่</span>
-          </button>
-          <button onclick="actionNextChar()" class="flex-1 min-w-[90px] py-2 px-3 rounded-xl bg-orange-600 hover:bg-orange-700 text-white text-xs font-black shadow-md shadow-orange-600/20 transition active:scale-95 flex items-center justify-center gap-1.5">
-            <span>ตัวถัดไป</span>
-            <i class="fa-solid fa-arrow-right text-xs"></i>
-          </button>
-        </div>
-
+      <!-- Dynamic Status / Feedback Strip (Compact ~26px) -->
+      <div id="feedbackText" class="h-7 mt-1.5 flex items-center justify-center text-xs font-black text-slate-700 text-center px-2">
+        แตะหรือลากเส้นตามลำดับขีดในกรอบได้เลยค่ะ ✍️
       </div>
+
+    </div>
+
+    <!-- 3. BOTTOM CONTROL ACTION BUTTONS (~44px) -->
+    <div class="shrink-0 w-full max-w-sm mx-auto flex items-center justify-center gap-2 pb-1.5 pt-0.5">
+      <button onclick="actionHint()" class="flex-1 py-2 px-2.5 rounded-2xl bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-bold border border-amber-200 transition active:scale-95 flex items-center justify-center gap-1">
+        <i class="fa-solid fa-wand-magic-sparkles text-xs text-amber-600"></i>
+        <span>ใบ้เส้น</span>
+      </button>
+      <button onclick="actionReset()" class="flex-1 py-2 px-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold border border-slate-200 transition active:scale-95 flex items-center justify-center gap-1">
+        <i class="fa-solid fa-rotate-right text-xs"></i>
+        <span>ลบเขียนใหม่</span>
+      </button>
+      <button id="btnNextChar" onclick="actionNextChar()" class="flex-1 py-2 px-3 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white text-xs font-black shadow-md shadow-orange-500/20 transition active:scale-95 flex items-center justify-center gap-1">
+        <span>ตัวถัดไป</span>
+        <i class="fa-solid fa-arrow-right text-xs"></i>
+      </button>
     </div>
 
   </main>
 
-  <!-- CELEBRATION MODAL -->
-  <div id="celebrationModal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-orange-100 transform transition-all animate-bounce">
-      <div class="text-5xl animate-bounce">🎉</div>
-      <div>
-        <h3 class="text-xl font-black text-slate-900 zh-font">太棒了！写得真漂亮！</h3>
-        <p class="text-xs font-bold text-emerald-600 mt-1" id="celebDetail">ยอดเยี่ยมมาก! เขียนตัวอักษรจีนได้ถูกต้องครบทุกขีด</p>
+  <!-- CATEGORY SELECTION MODAL (OPENS ONLY WHEN TAPPED) -->
+  <div id="categoryModal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4 hidden" onclick="if(event.target === this) closeCategoryModal();">
+    <div class="bg-white rounded-t-3xl sm:rounded-3xl max-w-md w-full p-5 space-y-4 shadow-2xl border border-orange-100 max-h-[85vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <h3 class="text-sm font-black text-slate-900 flex items-center gap-1.5">
+          <i class="fa-solid fa-book-open text-orange-500"></i>
+          <span>เลือกหมวดหมู่ตัวอักษรจีน</span>
+        </h3>
+        <button onclick="closeCategoryModal()" class="w-7 h-7 rounded-full bg-slate-100 text-slate-500 hover:text-slate-800 flex items-center justify-center text-xs">
+          ✕
+        </button>
       </div>
-      <div class="p-3 rounded-2xl bg-orange-50 border border-orange-200 text-orange-900 flex items-center justify-center gap-2 text-sm font-black">
-        <span>⭐ ได้รับ +1 ดาวสะสม</span>
+
+      <div class="grid grid-cols-1 gap-2" id="modalCategoryList">
+        <!-- Rendered by JS -->
       </div>
-      <button onclick="closeModalAndNext()" class="w-full py-3 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-black text-sm shadow-lg shadow-orange-500/25 active:scale-95 transition">
-        ฝึกเขียนตัวถัดไป ➔
-      </button>
+
+      <!-- Custom character input in modal -->
+      <div class="pt-2 border-t border-slate-100">
+        <div class="text-[11px] font-bold text-slate-500 mb-1.5">หรือพิมพ์ตัวอักษรจีนที่ต้องการคัดเอง:</div>
+        <div class="flex items-center gap-1.5">
+          <input type="text" id="customCharInput" maxlength="1" placeholder="พิมพ์ตัวจีน เช่น 木" class="flex-1 text-center px-3 py-2 text-sm border border-slate-300 rounded-xl focus:outline-none focus:border-orange-500 font-brush text-xl" />
+          <button onclick="loadCustomChar()" class="px-4 py-2 text-xs font-black bg-orange-600 hover:bg-orange-700 text-white rounded-xl transition active:scale-95">
+            คัดตัวนี้ ➔
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-
-  <!-- FOOTER -->
-  <footer class="bg-white border-t border-slate-100 py-3 text-center text-xs text-slate-400 font-medium">
-    Kidobits Chinese Learning Hub · ออกแบบสำหรับเด็กอนุบาลและประถมศึกษา
-  </footer>
 
   <!-- JAVASCRIPT APPLICATION LOGIC -->
   <script>
@@ -280,19 +249,20 @@
           { char: '月', py: 'yuè', th: 'ดวงจันทร์ / เดือน', strokes: 4, radical: '月', hint: 'ปัดซ้าย ขีดหักเกี่ยว สองขีดกลาง' },
           { char: '水', py: 'shuǐ', th: 'น้ำ', strokes: 4, radical: '水', hint: 'ขีดตั้งเกี่ยวตรงกลางก่อน แล้วซ้ายขวา' },
           { char: '火', py: 'huǒ', th: 'ไฟ', strokes: 4, radical: '火', hint: 'จุดซ้าย จุดขวา แล้วปัดซ้าย ปัดขวา' },
-          { char: '木', py: 'mù', th: 'ต้นไม้ / ไม้', strokes: 4, radical: '木', hint: 'ขีดนอน ขีดตั้ง ปัดซ้าย ปัดขวา' },
-          { char: '土', py: 'tǔ', th: 'ดิน', strokes: 3, radical: '土', hint: 'ขีดนอนสั้น ขีดตั้ง ขีดนอนยาว' },
-          { char: '山', py: 'shān', th: 'ภูเขา', strokes: 3, radical: '山', hint: 'ยอดเขากลางสูงกว่า แล้วลากข้างซ้ายขวา' },
+          { char: '木', py: 'mù', th: 'ต้นไม้ / ไม้', strokes: 4, radical: '木', hint: 'ขีดนอน ขีดตั้งตรงกลาง ปัดซ้าย ปัดขวา' },
+          { char: '金', py: 'jīn', th: 'ทอง / โลหะ', strokes: 8, radical: '金', hint: 'ปัดซ้ายขวาบน ขีดนอน จุดซ้ายขวา ปิดล่าง' },
+          { char: '土', py: 'tǔ', th: 'ดิน', strokes: 3, radical: '土', hint: 'ขีดนอนสั้น ขีดตั้ง ขีดนอนยาวฐานล่าง' },
+          { char: '山', py: 'shān', th: 'ภูเขา', strokes: 3, radical: '山', hint: 'ขีดตั้งตรงกลางก่อน ลากหักซ้าย ขีดตั้งขวา' },
           { char: '石', py: 'shí', th: 'หิน', strokes: 5, radical: '石', hint: 'ขีดนอน ปัดซ้าย แล้วเขียน 口 ด้านล่าง' },
-          { char: '田', py: 'tián', th: 'ทุ่งนา', strokes: 5, radical: '田', hint: 'กรอบนอก ใส่กากบาทข้างใน แล้วปิดล่าง' }
+          { char: '田', py: 'tián', th: 'ทุ่งนา', strokes: 5, radical: '田', hint: 'กรอบนอก ขีดตั้ง ขีดนอนผ่ากลาง แล้วปิดฐาน' }
         ]
       },
       {
         id: 'body',
-        name: 'ร่างกาย & คน',
-        icon: '👤',
+        name: 'ครอบครัว & คน',
+        icon: '👨‍👩‍👧',
         chars: [
-          { char: '人', py: 'rén', th: 'คน', strokes: 2, radical: '人', hint: 'ปัดซ้าย 撇 แล้วปัดขวา 捺' },
+          { char: '人', py: 'rén', th: 'คน', strokes: 2, radical: '人', hint: 'ปัดซ้าย 撇 แล้วปัดขวา 捺 ทรงพลัง' },
           { char: '口', py: 'kǒu', th: 'ปาก', strokes: 3, radical: '口', hint: 'ตั้งซ้าย ขีดหักมุม ปิดฐานล่าง' },
           { char: '目', py: 'mù', th: 'ดวงตา', strokes: 5, radical: '目', hint: 'ตั้งซ้าย ขีดหัก สองขีดใน ปิดล่าง' },
           { char: '手', py: 'shǒu', th: 'มือ', strokes: 4, radical: '手', hint: 'ปัดซ้ายบน ขีดนอนสองเส้น ขีดตั้งโค้งเกี่ยว' },
@@ -340,6 +310,7 @@
     let currentMode = 'quiz'; // 'animate', 'guided', 'quiz'
     let writer = null;
     let userStars = parseInt(localStorage.getItem('KB_STARS') || '0', 10);
+    window.__cnNextTimer = null;
 
     // Audio Context for UI Sound FX
     function playTone(type) {
@@ -372,13 +343,13 @@
         } else if (type === 'win') {
           osc.type = 'triangle';
           osc.frequency.setValueAtTime(523.25, t);
-          osc.frequency.setValueAtTime(659.25, t + 0.1);
-          osc.frequency.setValueAtTime(783.99, t + 0.2);
-          osc.frequency.setValueAtTime(1046.50, t + 0.3);
+          osc.frequency.setValueAtTime(659.25, t + 0.09);
+          osc.frequency.setValueAtTime(783.99, t + 0.18);
+          osc.frequency.setValueAtTime(1046.50, t + 0.28);
           gain.gain.setValueAtTime(0.25, t);
-          gain.gain.linearRampToValueAtTime(0.01, t + 0.5);
+          gain.gain.linearRampToValueAtTime(0.01, t + 0.48);
           osc.start(t);
-          osc.stop(t + 0.52);
+          osc.stop(t + 0.5);
         }
       } catch(e) {}
     }
@@ -401,50 +372,63 @@
     }
 
     // 3. UI RENDERING
-    function renderCategories() {
-      const container = document.getElementById('categoryTabs');
-      container.innerHTML = CATEGORIES.map((cat, idx) => `
-        <button onclick="selectCategory(${idx})" class="shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${idx === currentCategoryIndex ? 'bg-orange-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">
-          <span>${cat.icon}</span>
-          <span>${cat.name}</span>
-        </button>
-      `).join('');
-    }
-
     function renderCharShelf() {
       const cat = CATEGORIES[currentCategoryIndex];
-      document.getElementById('shelfTitle').innerHTML = `<i class="fa-solid fa-shapes text-orange-500"></i> ${cat.name} (${cat.chars.length} ตัวอักษร)`;
       const shelf = document.getElementById('charShelf');
       shelf.innerHTML = cat.chars.map((item, idx) => {
         const isCurrent = (item.char === currentCharObj.char);
         return `
-          <button onclick="selectChar(${idx})" class="shrink-0 w-12 h-14 rounded-2xl flex flex-col items-center justify-center transition border active:scale-95 ${isCurrent ? 'bg-orange-500 text-white border-orange-600 shadow-md scale-105' : 'bg-slate-50 hover:bg-orange-50 text-slate-800 border-slate-200'}">
-            <span class="text-xl font-black zh-font">${item.char}</span>
-            <span class="text-[9px] font-bold ${isCurrent ? 'text-orange-100' : 'text-slate-400'}">${item.py}</span>
+          <button onclick="selectChar(${idx})" class="shrink-0 px-3 py-1.5 rounded-xl flex items-center gap-1.5 transition border active:scale-95 ${isCurrent ? 'bg-orange-500 text-white border-orange-600 shadow-sm scale-105' : 'bg-white hover:bg-orange-50 text-slate-800 border-slate-200'}">
+            <span class="text-base font-brush">${item.char}</span>
+            <span class="text-[10px] font-bold ${isCurrent ? 'text-orange-100' : 'text-slate-400'}">${item.py}</span>
           </button>
         `;
       }).join('');
     }
 
-    function updateCardInfo() {
-      document.getElementById('charTag').textContent = CATEGORIES[currentCategoryIndex].name;
-      document.getElementById('cardCharDisplay').textContent = currentCharObj.char;
-      document.getElementById('cardPinyinDisplay').textContent = currentCharObj.py;
-      document.getElementById('cardThaiDisplay').textContent = currentCharObj.th;
-      document.getElementById('cardStrokesDisplay').textContent = `${currentCharObj.strokes || '?'} ขีด`;
-      document.getElementById('cardRadicalDisplay').textContent = currentCharObj.radical || currentCharObj.char;
-      document.getElementById('cardHintDisplay').textContent = currentCharObj.hint || 'ลากเส้นตามลำดับขีดมาตรฐาน';
+    function updateHeaderInfo() {
+      const cat = CATEGORIES[currentCategoryIndex];
+      document.getElementById('headerCatName').textContent = cat.name.split(' ')[0];
+      document.getElementById('headerCharDisplay').textContent = currentCharObj.char;
+      document.getElementById('headerPinyinDisplay').textContent = currentCharObj.py || '';
+      document.getElementById('headerThaiDisplay').textContent = currentCharObj.th || '';
+      
+      const watermark = document.getElementById('brushWatermark');
+      if (watermark) watermark.textContent = currentCharObj.char;
     }
 
-    // 4. HANZI WRITER INITIALIZATION & MODES
+    function openCategoryModal() {
+      const list = document.getElementById('modalCategoryList');
+      list.innerHTML = CATEGORIES.map((cat, idx) => `
+        <button onclick="selectCategory(${idx}); closeCategoryModal();" class="w-full px-4 py-3 rounded-2xl flex items-center justify-between transition border text-left active:scale-98 ${idx === currentCategoryIndex ? 'bg-orange-50 border-orange-300 text-orange-950 font-black' : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'}">
+          <div class="flex items-center gap-2.5">
+            <span class="text-xl">${cat.icon}</span>
+            <div>
+              <div class="text-xs font-black">${cat.name}</div>
+              <div class="text-[10.5px] text-slate-400 font-medium">${cat.chars.length} ตัวอักษร</div>
+            </div>
+          </div>
+          ${idx === currentCategoryIndex ? '<span class="text-xs font-black text-orange-600">✓ เลือกอยู่</span>' : '<i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>'}
+        </button>
+      `).join('');
+      document.getElementById('categoryModal').classList.remove('hidden');
+    }
+
+    function closeCategoryModal() {
+      document.getElementById('categoryModal').classList.add('hidden');
+    }
+
+    // 4. HANZI WRITER INITIALIZATION
     function getWriterSize() {
       const w = window.innerWidth;
-      if (w < 400) return 250;
-      if (w < 640) return 270;
-      return 300;
+      const h = window.innerHeight;
+      if (w < 380 || h < 650) return 230;
+      if (w < 640) return 250;
+      return 280;
     }
 
     function initWriter() {
+      if (window.__cnNextTimer) { clearTimeout(window.__cnNextTimer); window.__cnNextTimer = null; }
       const target = document.getElementById('hanziWriterTarget');
       target.innerHTML = '';
       const size = getWriterSize();
@@ -453,23 +437,23 @@
         writer = HanziWriter.create('hanziWriterTarget', currentCharObj.char, {
           width: size,
           height: size,
-          padding: 16,
+          padding: 14,
           showOutline: currentMode !== 'quiz',
           strokeAnimationSpeed: 1.2,
           delayBetweenStrokes: 150,
-          strokeColor: '#C2410C',     // warm terracotta
-          outlineColor: '#CBD5E1',    // soft slate outline
-          drawingColor: '#2563EB',    // vibrant blue brush
+          strokeColor: '#0F172A',     // authentic deep black Chinese ink
+          outlineColor: '#CBD5E1',    // soft outline guide
+          drawingColor: '#2563EB',    // vibrant blue brush user stroke
           drawingWidth: 16,
           showHintAfterMisses: 2,
-          highlightColor: '#10B981',  // emerald
+          highlightColor: '#10B981',  // emerald highlight
           onCorrectStroke: function(data) {
             playTone('pop');
-            setFeedback(`✨ ขีดที่ ${data.strokeNum + 1} ถูกต้อง!`, 'text-blue-600');
+            setFeedback(`✨ ขีดที่ ${data.strokeNum + 1} ถูกต้อง!`, 'text-blue-600 font-bold');
           },
           onMistake: function(data) {
             playTone('wrong');
-            setFeedback(`ยังไม่ตรงนะคะ (ลองทิศทางตามลูกศร)`, 'text-rose-500');
+            setFeedback('ยังไม่ตรงเส้น ลองสังเกตทิศทางขีดอีกครั้งนะคะ 🙂', 'text-rose-500 font-bold');
           },
           onComplete: function(summary) {
             onQuizPassed(summary);
@@ -489,26 +473,31 @@
       // Update Tab Styles
       ['btnModeAnimate', 'btnModeGuided', 'btnModeQuiz'].forEach(id => {
         const btn = document.getElementById(id);
-        btn.className = 'flex-1 py-1.5 px-2 rounded-xl text-xs font-bold text-slate-600 transition flex items-center justify-center gap-1';
+        btn.className = 'flex-1 py-1 px-2 rounded-xl text-xs font-bold text-slate-600 transition flex items-center justify-center gap-1';
       });
 
+      const watermark = document.getElementById('brushWatermark');
+
       if (currentMode === 'animate') {
-        document.getElementById('btnModeAnimate').className = 'flex-1 py-1.5 px-2 rounded-xl text-xs font-black bg-white text-orange-600 shadow-sm transition flex items-center justify-center gap-1';
-        setFeedback('🎬 กำลังสาธิตลำดับขีดและทิศทาง...', 'text-orange-600');
+        document.getElementById('btnModeAnimate').className = 'flex-1 py-1 px-2 rounded-xl text-xs font-black bg-white text-orange-600 shadow-sm transition flex items-center justify-center gap-1';
+        setFeedback('🎬 กำลังสาธิตลำดับขีดและทิศทาง...', 'text-orange-600 font-bold');
+        if (watermark) watermark.style.opacity = '0.15';
         writer.showOutline();
         writer.animateCharacter({
           onComplete: () => {
-            setFeedback('แอนิเมชันจบแล้ว แตะ "เขียนตามรอย" หรือ "ทดสอบ" เพื่อเริ่มคัดค่ะ', 'text-slate-600');
+            setFeedback('แอนิเมชันจบแล้ว แตะ "เขียนตามรอย" หรือ "ทดสอบ" เพื่อเริ่มคัดค่ะ ✍️', 'text-slate-600 font-bold');
           }
         });
       } else if (currentMode === 'guided') {
-        document.getElementById('btnModeGuided').className = 'flex-1 py-1.5 px-2 rounded-xl text-xs font-black bg-white text-orange-600 shadow-sm transition flex items-center justify-center gap-1';
-        setFeedback('✍️ ลากเส้นตามรอยประสีเทาได้เลยค่ะ', 'text-slate-600');
+        document.getElementById('btnModeGuided').className = 'flex-1 py-1 px-2 rounded-xl text-xs font-black bg-white text-orange-600 shadow-sm transition flex items-center justify-center gap-1';
+        setFeedback('✍️ ลากเส้นตามรอยโครงสร้างได้เลยค่ะ', 'text-slate-700 font-bold');
+        if (watermark) watermark.style.opacity = '0.35';
         writer.showOutline();
         writer.quiz();
       } else if (currentMode === 'quiz') {
-        document.getElementById('btnModeQuiz').className = 'flex-1 py-1.5 px-2 rounded-xl text-xs font-black bg-white text-orange-600 shadow-sm transition flex items-center justify-center gap-1';
-        setFeedback('🧠 โหมดทดสอบ: เขียนจากความจำได้เลยค่ะ!', 'text-orange-600');
+        document.getElementById('btnModeQuiz').className = 'flex-1 py-1 px-2 rounded-xl text-xs font-black bg-white text-orange-600 shadow-sm transition flex items-center justify-center gap-1';
+        setFeedback('🧠 โหมดทดสอบ: เขียนจากความจำในตาราง田字格ได้เลยค่ะ!', 'text-orange-700 font-bold');
+        if (watermark) watermark.style.opacity = '0.08';
         writer.hideOutline();
         writer.quiz();
       }
@@ -521,7 +510,7 @@
 
     function setFeedback(msg, colorClass) {
       const fb = document.getElementById('feedbackText');
-      fb.className = `h-8 mt-3 flex items-center justify-center text-xs font-black ${colorClass || 'text-slate-600'}`;
+      fb.className = `h-7 mt-1.5 flex items-center justify-center text-xs text-center px-2 ${colorClass || 'text-slate-700 font-bold'}`;
       fb.textContent = msg;
     }
 
@@ -530,9 +519,8 @@
       currentCategoryIndex = idx;
       currentCharIndex = 0;
       currentCharObj = CATEGORIES[idx].chars[0];
-      renderCategories();
       renderCharShelf();
-      updateCardInfo();
+      updateHeaderInfo();
       initWriter();
       speakCurrentChar();
     }
@@ -541,7 +529,7 @@
       currentCharIndex = idx;
       currentCharObj = CATEGORIES[currentCategoryIndex].chars[idx];
       renderCharShelf();
-      updateCardInfo();
+      updateHeaderInfo();
       initWriter();
       speakCurrentChar();
     }
@@ -553,12 +541,14 @@
       currentCharObj = {
         char: val,
         py: '',
-        th: 'ตัวอักษรค้นหา',
+        th: 'อักษรค้นหา',
         strokes: '?',
         radical: val,
         hint: 'ลากเส้นตามลำดับขีดที่ระบบแนะนำ'
       };
-      updateCardInfo();
+      closeCategoryModal();
+      renderCharShelf();
+      updateHeaderInfo();
       initWriter();
       speakCurrentChar();
       input.value = '';
@@ -567,16 +557,17 @@
     function actionHint() {
       if (!writer) return;
       writer.highlightStroke();
-      setFeedback('💡 ใบ้เส้นถัดไปให้แล้วค่ะ ลองลากตามเส้นสีเขียวนะคะ', 'text-amber-600');
+      setFeedback('💡 ใบ้เส้นถัดไปให้แล้วค่ะ ลองลากตามเส้นสีเขียวนะคะ', 'text-amber-600 font-black');
     }
 
     function actionReset() {
       if (!writer) return;
       initWriter();
-      setFeedback('ล้างกระดานเรียบร้อย เริ่มเขียนใหม่ได้เลยค่ะ 🔄', 'text-slate-500');
+      setFeedback('ล้างกระดานเรียบร้อย เริ่มเขียนใหม่ได้เลยค่ะ 🔄', 'text-slate-500 font-bold');
     }
 
     function actionNextChar() {
+      if (window.__cnNextTimer) { clearTimeout(window.__cnNextTimer); window.__cnNextTimer = null; }
       const cat = CATEGORIES[currentCategoryIndex];
       if (currentCharIndex + 1 < cat.chars.length) {
         selectChar(currentCharIndex + 1);
@@ -587,45 +578,52 @@
       }
     }
 
-    // 6. COMPLETION & REWARD
+    // 6. COMPLETION & REWARD (NO ANNOYING BOUNCY POPUP MODAL!)
     function onQuizPassed(summary) {
       playTone('win');
       confetti({
-        particleCount: 50,
-        spread: 60,
+        particleCount: 75,
+        spread: 70,
         origin: { y: 0.6 }
       });
       userStars += 1;
       updateStarsDisplay();
 
-      // Show Modal
-      document.getElementById('celebDetail').textContent = `เก่งมากค่ะ! คัดตัวอักษร "${currentCharObj.char}" (${currentCharObj.py}) สำเร็จครบถ้วน`;
-      document.getElementById('celebrationModal').classList.remove('hidden');
+      // Show warm, celebratory praise directly on screen (NO MODAL POPUP)
+      setFeedback(`🎉 เก่งมากค่ะ! คัดตัว "${currentCharObj.char}" (${currentCharObj.py}) สำเร็จครบถ้วน ⭐ +1 ดาว`, 'text-emerald-600 font-black animate-pop');
 
       // Speak praise in Mandarin
       if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
         const ut = new SpeechSynthesisUtterance('太棒了！写得真漂亮！');
         ut.lang = 'zh-CN';
         ut.rate = 0.9;
         window.speechSynthesis.speak(ut);
       }
-    }
 
-    function closeModalAndNext() {
-      document.getElementById('celebrationModal').classList.add('hidden');
-      actionNextChar();
+      // Highlight the next button
+      const nextBtn = document.getElementById('btnNextChar');
+      if (nextBtn) {
+        nextBtn.classList.add('ring-4', 'ring-emerald-400');
+        setTimeout(() => {
+          nextBtn.classList.remove('ring-4', 'ring-emerald-400');
+        }, 1800);
+      }
+
+      // Smooth auto-advance after 1.5s
+      if (window.__cnNextTimer) clearTimeout(window.__cnNextTimer);
+      window.__cnNextTimer = setTimeout(() => {
+        actionNextChar();
+      }, 1600);
     }
 
     // 7. INITIALIZATION ON PAGE LOAD
     window.addEventListener('DOMContentLoaded', () => {
       updateStarsDisplay();
-      renderCategories();
 
-      // Check query param e.g. ?char=口 or ?cat=nature
       const urlParams = new URLSearchParams(window.location.search);
       const queryChar = urlParams.get('char');
       if (queryChar) {
-        // Find in categories
         let found = false;
         for (let c = 0; c < CATEGORIES.length; c++) {
           const idx = CATEGORIES[c].chars.findIndex(i => i.char === queryChar);
@@ -641,7 +639,7 @@
           currentCharObj = {
             char: queryChar,
             py: '',
-            th: 'แบบฝึกคัดพิเศษ',
+            th: 'อักษรจีน',
             strokes: '?',
             radical: queryChar,
             hint: 'ลากเส้นตามลำดับขีดที่แนะนำ'
@@ -650,7 +648,7 @@
       }
 
       renderCharShelf();
-      updateCardInfo();
+      updateHeaderInfo();
       setTimeout(initWriter, 120);
     });
 

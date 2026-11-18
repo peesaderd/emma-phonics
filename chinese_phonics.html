@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="theme-color" content="#FFFFFF">
 <meta charset="utf-8">
@@ -39,7 +42,10 @@ body {
   overscroll-behavior-y: none;
   background-color: #FFFDF9;
 }
-.zh-font {
+.font-brush {
+      font-family: "Ma Shan Zheng", "STKaiti", "KaiTi", "BiauKai", "DFKai-SB", "AR PL UKai CN", "楷体", "楷体_GB2312", serif !important;
+    }
+    .zh-font {
   font-family: 'WenQuanYi Zen Hei', 'Noto Sans CJK SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
 }
 /* Grid for Tianzi Ge Canvas (田字格) */
@@ -2824,7 +2830,7 @@ body {
           <!-- Tianzi Ge Canvas -->
           <div class="relative w-52 h-52 mx-auto rounded-2xl border-4 border-rose-300 tianzi-bg bg-white shadow-inner overflow-hidden flex items-center justify-center">
             <!-- Shadow Guide -->
-            <div class="absolute inset-0 flex items-center justify-center text-7xl font-zh text-slate-200 select-none pointer-events-none">
+            <div class="absolute inset-0 flex items-center justify-center text-8xl font-brush text-rose-300/40 select-none pointer-events-none">
               ${data.char}
             </div>
             <canvas id="strokeCanvas" width="208" height="208" class="relative z-10 touch-none cursor-crosshair"></canvas>
