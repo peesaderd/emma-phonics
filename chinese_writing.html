@@ -134,6 +134,30 @@
     <!-- MAIN INTERACTIVE ARENA -->
     <div class="flex-1 flex flex-col items-center justify-center min-h-0 py-1">
 
+      <!-- Compact Character Example & Calligraphy Tile (ตรงช่วงที่ว่างข้างบน) -->
+      <div class="shrink-0 flex items-center justify-between gap-2.5 mb-1.5 px-3 py-1.5 rounded-2xl bg-white border border-orange-200/90 shadow-xs max-w-xs w-full">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <!-- Mini Brush Calligraphy Tile (ตัวอย่างอักษรจีนแบบพู่กัน) -->
+          <div class="w-10 h-10 rounded-xl bg-orange-50/90 border border-orange-200 flex items-center justify-center shrink-0 shadow-xs">
+            <span id="exampleCharTile" class="text-3xl font-brush text-slate-900 leading-none">一</span>
+          </div>
+
+          <!-- Character Details & Stroke Info -->
+          <div class="flex-1 min-w-0 text-left">
+            <div class="flex items-center gap-1.5">
+              <span id="examplePinyin" class="text-sm font-black text-orange-600 leading-tight">yī</span>
+              <span class="text-[9.5px] px-1.5 py-0.2 rounded-md bg-orange-100/80 text-orange-800 font-bold" id="exampleStrokeCount">1 ขีด</span>
+            </div>
+            <div class="text-[11px] font-bold text-slate-700 truncate leading-tight mt-0.5" id="exampleMeaning">หนึ่ง (1)</div>
+          </div>
+        </div>
+
+        <!-- Speaker Button -->
+        <button onclick="speakCurrentChar()" class="w-8 h-8 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-600 border border-orange-200 flex items-center justify-center transition active:scale-95 shrink-0" title="ฟังเสียงอ่าน">
+          <i class="fa-solid fa-volume-high text-xs"></i>
+        </button>
+      </div>
+
       <!-- Mode Selector Switcher (Compact ~34px) -->
       <div class="shrink-0 w-full max-w-xs flex items-center justify-center gap-1 mb-2 bg-slate-100/90 p-1 rounded-2xl shadow-xs">
         <button onclick="setMode('animate')" id="btnModeAnimate" class="flex-1 py-1 px-2 rounded-xl text-xs font-bold text-slate-600 transition flex items-center justify-center gap-1">
@@ -392,7 +416,17 @@
       document.getElementById('headerCharDisplay').textContent = currentCharObj.char;
       document.getElementById('headerPinyinDisplay').textContent = currentCharObj.py || '';
       document.getElementById('headerThaiDisplay').textContent = currentCharObj.th || '';
-      
+
+      // Update Compact Example Tile above mode buttons
+      const exTile = document.getElementById('exampleCharTile');
+      if (exTile) exTile.textContent = currentCharObj.char;
+      const exPy = document.getElementById('examplePinyin');
+      if (exPy) exPy.textContent = currentCharObj.py || '';
+      const exStrokes = document.getElementById('exampleStrokeCount');
+      if (exStrokes) exStrokes.textContent = (currentCharObj.strokes ? `${currentCharObj.strokes} ขีด` : '');
+      const exMeaning = document.getElementById('exampleMeaning');
+      if (exMeaning) exMeaning.textContent = currentCharObj.th || '';
+
       const watermark = document.getElementById('brushWatermark');
       if (watermark) watermark.textContent = currentCharObj.char;
     }
