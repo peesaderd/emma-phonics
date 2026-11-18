@@ -421,14 +421,24 @@
       setTimeout(() => playTone(280, 0.2, 'sawtooth'), 120);
     }
 
-    function speakChineseWord(text, pinyin, thaiMeaning) {
+    function speakChineseWord(text, extraPraise = '') {
       if (!('speechSynthesis' in window)) return;
-      window.speechSynthesis.cancel();
-      const ut = new SpeechSynthesisUtterance(text);
-      ut.lang = 'zh-CN';
-      ut.rate = 0.85;
-      ut.pitch = 1.05;
-      window.speechSynthesis.speak(ut);
+      try {
+        window.speechSynthesis.cancel();
+        setTimeout(() => {
+          const fullText = extraPraise ? `${text}！${extraPraise}` : text;
+          const ut = new SpeechSynthesisUtterance(fullText);
+          ut.lang = 'zh-CN';
+          ut.rate = 0.85;
+          ut.pitch = 1.05;
+          const voices = window.speechSynthesis.getVoices();
+          const zhVoice = voices.find(v => v.lang.startsWith('zh') || v.lang.includes('cmn'));
+          if (zhVoice) ut.voice = zhVoice;
+          window.speechSynthesis.speak(ut);
+        }, 30);
+      } catch (e) {
+        console.warn('Speech error:', e);
+      }
     }
 
     // 4. CATEGORY & DIFFICULTY CONTROLS
@@ -449,6 +459,9 @@
       currentCategoryIndex = idx;
       renderCategoryTabs();
       restartGame();
+      const catNames = ['动物 (dòngwù)', '水果 (shuǐguǒ)', '数字 (shùzì)', '家人 (jiārén)'];
+      const catZh = ['动物', '水果', '数字', '家人'];
+      speakChineseWord(catZh[idx] || '');
     }
 
     function nextCategory() {
@@ -535,13 +548,18 @@
                 <span class="text-[9px] font-bold text-white/90 uppercase tracking-widest mt-0.5">Kidobits</span>
               </div>
               <!-- Card Back (Content) -->
-              <div class="card-back flex flex-col items-center justify-center p-2 select-none">
+              <div class="card-back flex flex-col items-center justify-center p-2 select-none relative">
+                <!-- Speaker icon indicator -->
+                <span class="absolute top-1.5 right-2 text-[10px] text-slate-300 hover:text-red-500">🔊</span>
                 ${card.type === 'chinese' ? `
                   <span class="text-3xl sm:text-4xl font-brush text-red-600 leading-none">${card.word}</span>
                   <span class="text-[11px] font-black text-slate-700 mt-1">${card.pinyin}</span>
                 ` : `
                   <span class="text-3xl sm:text-4xl leading-none">${card.icon}</span>
-                  <span class="text-[10.5px] font-bold text-slate-700 mt-1 truncate max-w-full px-1">${card.meaning}</span>
+                  <div class="flex flex-col items-center mt-1 leading-tight">
+                    <span class="text-[11px] font-black text-red-600">${card.pinyin}</span>
+                    <span class="text-[10px] font-bold text-slate-600 truncate max-w-full px-1">${card.meaning}</span>
+                  </div>
                 `}
               </div>
             </div>
@@ -554,15 +572,32 @@
     function onCardClick(index) {
       if (isProcessing) return;
       const cardEl = document.getElementById(`card_${index}`);
-      if (!cardEl || cardEl.classList.contains('card-flipped') || cardEl.classList.contains('card-matched')) return;
+      if (!cardEl) return;
+
+      // If already flipped or matched, tapping card replays the Chinese pronunciation!
+      if (cardEl.classList.contains('card-flipped') || cardEl.classList.contains('card-matched')) {
+        playTone(520, 0.08, 'sine');
+        speakChineseWord(activeCards[index].word);
+        return;
+      }
 
       playCardFlipSfx();
       cardEl.classList.add('card-flipped');
       flippedCards.push({ index, card: activeCards[index], el: cardEl });
 
-      // Speak card if it's Chinese
-      if (activeCards[index].type === 'chinese') {
-        speakChineseWord(activeCards[index].word, activeCards[index].pinyin, activeCards[index].meaning);
+      // ALWAYS speak the Chinese pronunciation for BOTH character and picture cards!
+      speakChineseWord(activeCards[index].word);
+
+      // Update banner with the spoken word
+      const card = activeCards[index];
+      const banner = document.getElementById('praiseBanner');
+      if (banner) {
+        banner.innerHTML = `
+          <span class="text-slate-800 flex items-center gap-1.5">
+            <span>🔊</span>
+            <span>กำลังพูด: <b class="text-red-600 text-sm font-brush">${card.word}</b> (${card.pinyin}) - ${card.meaning}</span>
+          </span>
+        `;
       }
 
       if (flippedCards.length === 2) {
@@ -582,7 +617,7 @@
           second.el.classList.add('card-matched', 'animate-match');
 
           // Spoken Mandarin Praise & Word
-          speakChineseWord(first.card.word, first.card.pinyin, first.card.meaning);
+          speakChineseWord(first.card.word, '太棒了！');
 
           // Update praise banner
           const praiseBanner = document.getElementById('praiseBanner');
