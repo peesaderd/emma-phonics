@@ -1720,6 +1720,12 @@ body {
     function stopChineseMic(shouldProcess = false, silent = false, fullRelease = false) {
       if (__cnMaxTimer) { clearTimeout(__cnMaxTimer); __cnMaxTimer = null; }
       if (window.__cnSilenceTimer) { clearTimeout(window.__cnSilenceTimer); window.__cnSilenceTimer = null; }
+      if (window.__cnAutoMicTimer) { clearTimeout(window.__cnAutoMicTimer); window.__cnAutoMicTimer = null; }
+      if (window.__cnVadRaf) { cancelAnimationFrame(window.__cnVadRaf); window.__cnVadRaf = null; }
+      if (window.__cnVadCtx) {
+        try { window.__cnVadCtx.close(); } catch(e) {}
+        window.__cnVadCtx = null;
+      }
 
       if (__cnMediaRecorder && __cnMediaRecorder.state === 'recording') {
         if (shouldProcess) {
@@ -2161,44 +2167,114 @@ body {
     }
 
     // Kid-Friendly Phoneme Evaluator (Highly tolerant for single syllables & children)
-    const PHONICS_EQUIV = {
-      'ma': ['妈', '吗', '麻', '马', '骂', '嘛', 'ma', 'ba', 'na', 'a', 'mo', 'me', 'm'],
-      'mā': ['妈', '吗', '麻', '马', '骂', '嘛', 'ma', 'ba', 'na', 'a', 'mo', 'me', 'm'],
-      'yi': ['一', '壹', '依', '衣', '医', 'yi', 'i', 'e', 'ye', 'ya', '1'],
-      'yī': ['一', '壹', '依', '衣', '医', 'yi', 'i', 'e', 'ye', 'ya', '1'],
-      'da': ['大', '达', '答', '打', '带', 'da', 'ta', 'ba', 'a', 'ga'],
-      'dà': ['大', '达', '答', '打', '带', 'da', 'ta', 'ba', 'a', 'ga'],
-      'kou': ['口', '扣', '蔻', '寇', 'kou', 'ko', 'ou', 'ho', 'co'],
-      'kǒu': ['口', '扣', '蔻', '寇', 'kou', 'ko', 'ou', 'ho', 'co'],
-      'shui': ['水', '睡', '谁', '说', 'shui', 'sui', 'hui', 'shei'],
-      'shuǐ': ['水', '睡', '谁', '说', 'shui', 'sui', 'hui', 'shei'],
-      'huo': ['火', '活', '伙', '或', 'huo', 'ho', 'fo', 'wo'],
-      'huǒ': ['火', '活', '伙', '或', 'huo', 'ho', 'fo', 'wo'],
-      'tu': ['土', '吐', '图', '兔', 'tu', 'to', 'du', 'u'],
-      'tǔ': ['土', '吐', '图', '兔', 'tu', 'to', 'du', 'u'],
-      'shan': ['山', '闪', '扇', '善', 'shan', 'san', 'an', 'tan'],
-      'shān': ['山', '闪', '扇', '善', 'shan', 'san', 'an', 'tan'],
-      'shi': ['石', '十', '时', '事', '市', 'shi', 'si', 'chi', 'ci'],
-      'shí': ['石', '十', '时', '事', '市', 'shi', 'si', 'chi', 'ci'],
-      'tian': ['田', '天', '甜', '填', 'tian', 'tan', 'dian', 'ian'],
-      'tián': ['田', '天', '甜', '填', 'tian', 'tan', 'dian', 'ian']
+    // ================= CHINESE PHONICS & SPEECH ENGINE (A-Z PHONICS ARCHITECTURE) =================
+    // 1. Comprehensive Kid-Tolerant Word Aliases & Context Dictionary
+    const CHINESE_WORD_ALIASES = {
+      // Level 1: 1 Syllable / Phonics Foundation
+      "mā": ["mā", "ma", "má", "mà", "mǎ", "妈", "吗", "麻", "马", "骂", "嘛", "ba", "na", "a", "mo", "me", "m", "หม่า", "มา", "ม้า"],
+      "ma": ["mā", "ma", "má", "mà", "mǎ", "妈", "吗", "麻", "马", "骂", "嘛", "ba", "na", "a", "mo", "me", "m", "หม่า", "มา", "ม้า"],
+      "一": ["一", "yi", "yī", "yí", "yǐ", "yì", "1", "壹", "依", "衣", "医", "i", "e", "ye", "ya", "อี", "ยี"],
+      "yī": ["一", "yi", "yī", "yí", "yǐ", "yì", "1", "壹", "依", "衣", "医", "i", "e", "ye", "ya", "อี", "ยี"],
+      "yi": ["一", "yi", "yī", "yí", "yǐ", "yì", "1", "壹", "依", "衣", "医", "i", "e", "ye", "ya", "อี", "ยี"],
+      "大": ["大", "da", "dà", "dá", "dǎ", "ta", "ba", "a", "ga", "达", "答", "打", "带", "ดา", "ด้า", "ต้า"],
+      "dà": ["大", "da", "dà", "dá", "dǎ", "ta", "ba", "a", "ga", "达", "答", "打", "带", "ดา", "ด้า", "ต้า"],
+      "da": ["大", "da", "dà", "dá", "dǎ", "ta", "ba", "a", "ga", "达", "答", "打", "带", "ดา", "ด้า", "ต้า"],
+      "口": ["口", "kou", "kǒu", "kóu", "ko", "ou", "ho", "co", "扣", "蔻", "寇", "โค่ว", "โคว", "ข่อ"],
+      "kǒu": ["口", "kou", "kǒu", "kóu", "ko", "ou", "ho", "co", "扣", "蔻", "寇", "โค่ว", "โคว", "ข่อ"],
+      "kou": ["口", "kou", "kǒu", "kóu", "ko", "ou", "ho", "co", "扣", "蔻", "寇", "โค่ว", "โคว", "ข่อ"],
+      "水": ["水", "shui", "shuǐ", "sui", "hui", "shei", "shu", "睡", "谁", "税", "说", "ซุ่ย", "ฉุ่ย", "สุ่ย"],
+      "shuǐ": ["水", "shui", "shuǐ", "sui", "hui", "shei", "shu", "睡", "谁", "税", "说", "ซุ่ย", "ฉุ่ย", "สุ่ย"],
+      "shui": ["水", "shui", "shuǐ", "sui", "hui", "shei", "shu", "睡", "谁", "税", "说", "ซุ่ย", "ฉุ่ย", "สุ่ย"],
+      "人": ["人", "ren", "rén", "rěn", "rèn", "len", "yen", "en", "任", "忍", "认", "เหริน", "เริน"],
+      "rén": ["人", "ren", "rén", "rěn", "rèn", "len", "yen", "en", "任", "忍", "认", "เหริน", "เริน"],
+      "ren": ["人", "ren", "rén", "rěn", "rèn", "len", "yen", "en", "任", "忍", "认", "เหริน", "เริน"],
+      "huo": ["火", "huo", "huǒ", "ho", "fo", "wo", "活", "伙", "或", "ฮั่ว"],
+      "huǒ": ["火", "huo", "huǒ", "ho", "fo", "wo", "活", "伙", "或", "ฮั่ว"],
+      "火": ["火", "huo", "huǒ", "ho", "fo", "wo", "活", "伙", "或", "ฮั่ว"],
+      "tu": ["土", "tu", "tǔ", "to", "du", "u", "吐", "图", "兔", "ถู่"],
+      "tǔ": ["土", "tu", "tǔ", "to", "du", "u", "吐", "图", "兔", "ถู่"],
+      "土": ["土", "tu", "tǔ", "to", "du", "u", "吐", "图", "兔", "ถู่"],
+      "shan": ["山", "shan", "shān", "san", "an", "tan", "闪", "扇", "善", "ซาน"],
+      "shān": ["山", "shan", "shān", "san", "an", "tan", "闪", "扇", "善", "ซาน"],
+      "山": ["山", "shan", "shān", "san", "an", "tan", "闪", "扇", "善", "ซาน"],
+      "shi": ["石", "shi", "shí", "si", "chi", "ci", "十", "时", "事", "市", "สือ"],
+      "shí": ["石", "shi", "shí", "si", "chi", "ci", "十", "时", "事", "市", "สือ"],
+      "石": ["石", "shi", "shí", "si", "chi", "ci", "十", "时", "事", "市", "สือ"],
+      "tian": ["田", "tian", "tián", "tan", "dian", "ian", "天", "甜", "填", "เถียน"],
+      "tián": ["田", "tian", "tián", "tan", "dian", "ian", "天", "甜", "填", "เถียน"],
+      "田": ["田", "tian", "tián", "tan", "dian", "ian", "天", "甜", "填", "เถียน"],
+
+      // Level 2: 2 Syllables / Common Vocabulary
+      "你好": ["你好", "nihao", "nǐ hǎo", "ni hao", "nǐhǎo", "你", "好", "หนีห่าว", "นีฮ่าว", "หนีฮ่าว", "nihow", "ni haw"],
+      "谢谢": ["谢谢", "xiexie", "xièxie", "xie xie", "she she", "se se", "谢", "เซี่ยเซี่ย", "เชี่ยเชี่ย", "เซี่ยะ", "xie", "thank"],
+      "妈妈": ["妈妈", "mama", "māma", "ma ma", "妈", "mā", "หม่าม้า", "มาม่า", "มามะ", "mami", "mom"],
+      "红色": ["红色", "hongse", "hóngsè", "hong se", "hong", "se", "红", "หงเซ่อ", "หง", "hongs", "red"],
+      "苹果": ["苹果", "pingguo", "píngguǒ", "ping guo", "ping", "guo", "ผิงกั่ว", "พิงกัว", "apple"],
+      "喝水": ["喝水", "heshui", "hē shuǐ", "he shui", "he", "shui", "喝", "水", "เฮอสุ่ย", "เฮอฉุ่ย", "heshu"],
+
+      // Level 3: 3 Syllables / Phrases
+      "早上好": ["早上好", "zaoshanghao", "zǎoshang hǎo", "zao shang hao", "zaoshang", "早上", "好", "จ่าวซ่างห่าว", "จ่าว", "早安", "zao an"],
+      "我要水": ["我要水", "woyaoshui", "wǒ yào shuǐ", "wo yao shui", "要水", "我要", "yao shui", "wo yao", "หว่อเย่าสุ่ย", "shui", "水"],
+      "这是书": ["这是书", "zheshishu", "zhè shì shū", "zhe shi shu", "这是", "是书", "zhe shi", "shi shu", "书", "เจ้อซื่อซู"],
+      "我喜欢": ["我喜欢", "woxihuan", "wǒ xǐhuan", "wo xi huan", "喜欢", "我", "xihuan", "xi huan", "หวอสี่ฮวน", "หวอสี่ฮวาน"],
+      "大苹果": ["大苹果", "dapingguo", "dà píngguǒ", "da ping guo", "大", "苹果", "pingguo", "da ping", "ต้าผิงกั่ว"],
+
+      // Level 4: 4 Syllables / Sentences
+      "我叫小明": ["我叫小明", "wojiaoxiaoming", "wǒ jiào xiǎomíng", "wo jiao xiao ming", "小明", "我叫", "xiaoming", "หว่อเจี้ยวเสี่ยวหมิง"],
+      "现在八点": ["现在八点", "xianzaibadian", "xiànzài bā diǎn", "xian zai ba dian", "八点", "现在", "badian", "xianzai", "เซี่ยนไจ้ปาเตี่ยน"],
+      "今天星期三": ["今天星期三", "jintianxingqisan", "jīntiān xīngqīsān", "jin tian xing qi san", "星期三", "今天", "xingqisan", "jintian", "จินเทียนซิงชีซาน"],
+      "书在桌上": ["书在桌上", "shuzaizhuoshang", "shū zài zhuō shàng", "shu zai zhuo shang", "桌上", "在桌上", "书", "zhuoshang", "shuzai", "ซูไจ้จัวซ่าง"],
+
+      // Additional Common Lesson Phrases
+      "现在八点半": ["现在八点半", "xianzaibadianban", "xiànzài bā diǎn bàn", "八点半", "现在八点", "八点", "现在"],
+      "因为下雨所以没去": ["因为下雨所以没去", "yinweixiayusuoyimeiqu", "下雨", "没去", "因为下雨", "下雨所以"],
+      "哥哥比我大两岁": ["哥哥比我大两岁", "gegebwodaliangsui", "哥哥", "大两岁", "比我大", "两岁"],
+      "请把作业交给我": ["请把作业交给我", "qingbazuoyejiaogewoi", "作业", "交给我", "请把作业", "把作业"],
+      "今天天气非常热": ["今天天气非常热", "jintiantianqifeichangre", "今天天气", "非常热", "天气", "热"],
+      "小猫在桌子上": ["小猫在桌子上", "xiaomaozaizhuozishang", "小猫", "桌子上", "在桌子", "小猫在"],
+      "我要红色": ["我要红色", "woyaohongse", "我要", "红色", "要红色"],
+      "请把门关上": ["请把门关上", "qingbaminguanshang", "把门关上", "关门", "请把门", "关上"],
+      "往前走向左拐": ["往前走向左拐", "wangqianzouxiangzuoguai", "往前走", "向左拐", "左拐", "往前"],
+      "我叫小明我五岁": ["我叫小明我五岁", "wojiaoxiaomingwowusui", "我叫小明", "我五岁", "五岁", "小明"],
+      "书在桌子上": ["书在桌子上", "shuzaizhuozishang", "书在", "桌子上", "在桌子", "桌子"],
+      "mā má mǎ mà": ["mā má mǎ mà", "ma ma ma ma", "mama", "ma", "mā", "má", "mǎ", "mà", "มา", "หม่า"],
+      "bá": ["bá", "ba", "bà", "bǎ", "bā", "八", "拔", "把", "爸", "บา", "ปา"]
     };
+
+    const PHONICS_EQUIV = CHINESE_WORD_ALIASES;
+    window.CHINESE_WORD_ALIASES = CHINESE_WORD_ALIASES;
+    window.evaluatePhonemeMatch = evaluatePhonemeMatch;
+    window.handlePhonemeEvaluationResult = handlePhonemeEvaluationResult;
+
 
     function evaluatePhonemeMatch(targetText, heardText, hintPinyin) {
       const cleanTarget = (targetText || '').trim();
       const cleanHeard = (heardText || '').trim();
+      if (!cleanHeard) {
+        return { isPass: false, score: 0, heardPinyin: '', targetPinyin: cleanTarget, reason: 'ยังไม่ได้ยินเสียง' };
+      }
+
       const normTargetHanzi = cleanTarget.replace(/[^a-zA-Z0-9一-龥]/g, '').toLowerCase();
       const normHeardHanzi = cleanHeard.replace(/[^a-zA-Z0-9一-龥]/g, '').toLowerCase();
 
-      // 1. Instant Match through Equivalence Table (Phonics Foundation)
+      // 1. Instant Match through Word Aliases & Near-Matches
       const targetKey = cleanTarget.toLowerCase();
-      const strippedTarget = stripTone(cleanTarget);
-      const equivList = PHONICS_EQUIV[targetKey] || PHONICS_EQUIV[strippedTarget] || [];
-      if (equivList.some(eq => cleanHeard.includes(eq) || normHeardHanzi.includes(eq))) {
-        return { isPass: true, score: 98, heardPinyin: cleanHeard, targetPinyin: cleanTarget, reason: 'ออกเสียงตรงตามหน่วยเสียงเป้าหมาย (ดีเยี่ยม ⭐⭐⭐)' };
+      const strippedTarget = stripTone(cleanTarget).toLowerCase();
+      const aliases = (CHINESE_WORD_ALIASES[cleanTarget] || 
+                       CHINESE_WORD_ALIASES[targetKey] || 
+                       CHINESE_WORD_ALIASES[strippedTarget] || 
+                       CHINESE_WORD_ALIASES[normTargetHanzi] || []);
+
+      const heardLower = cleanHeard.toLowerCase();
+      for (const al of aliases) {
+        const alNorm = String(al).trim().toLowerCase();
+        if (!alNorm) continue;
+        if (heardLower === alNorm || heardLower.includes(alNorm) || alNorm.includes(heardLower) || (normHeardHanzi && normHeardHanzi.includes(alNorm))) {
+          return { isPass: true, score: 98, heardPinyin: cleanHeard, targetPinyin: cleanTarget, reason: 'ตรงตามคำ/สำเนียงเป้าหมาย (ยอดเยี่ยม ⭐⭐⭐)' };
+        }
       }
 
-      // 2. Direct character match
+      // 2. Direct character match (exact or substring)
       if (normHeardHanzi === normTargetHanzi || (normHeardHanzi.length >= 1 && normTargetHanzi.length >= 1 && (normHeardHanzi.includes(normTargetHanzi) || normTargetHanzi.includes(normHeardHanzi)))) {
         return { isPass: true, score: 100, heardPinyin: hanziToPinyin(normHeardHanzi) || normHeardHanzi, targetPinyin: stripTone(hintPinyin) || hanziToPinyin(normTargetHanzi), reason: 'ตรงตามตัวอักษร 100%' };
       }
@@ -2225,23 +2301,22 @@ body {
         }
         const similarity = Math.round((matches / maxL) * 100);
 
-        // Single syllable: If initial consonant OR main vowel matches, give pass!
         if (isSingleSyllable) {
           const initialMatch = targetPinyin[0] === heardPinyin[0];
           const vowelMatch = targetPinyin.slice(-1) === heardPinyin.slice(-1);
-          if (similarity >= 35 || initialMatch || vowelMatch) {
+          if (similarity >= 30 || initialMatch || vowelMatch) {
             const finalScore = Math.max(similarity, 85);
             return { isPass: true, score: finalScore, heardPinyin, targetPinyin, reason: 'ออกเสียงใกล้เคียง ' + finalScore + '% (เกณฑ์ Phonics ผ่าน ⭐)' };
           }
         } else {
-          // Multi-syllable (Level 2-4): 40% threshold for children
-          if (similarity >= 40) {
+          // Multi-syllable (Level 2-4): 35% threshold for children
+          if (similarity >= 35) {
             return { isPass: true, score: similarity, heardPinyin, targetPinyin, reason: 'สำเนียงเด็กใกล้เคียง ' + similarity + '% (ผ่าน)' };
           }
         }
         return { isPass: false, score: similarity, heardPinyin, targetPinyin, reason: 'เสียงยังไม่ตรง (' + heardPinyin + ')' };
       }
-      return { isPass: false, score: 20, heardPinyin: '', targetPinyin: '', reason: 'ยังไม่ตรงเป้าหมาย' };
+      return { isPass: false, score: 0, heardPinyin: cleanHeard, targetPinyin: cleanTarget, reason: 'ยังไม่ได้ยินเสียงชัดเจน' };
     }
 
     function renderSpeakStep(stage) {
@@ -2265,7 +2340,7 @@ body {
 
           <!-- Mic Button -->
           <div class="pt-2">
-            <button id="btnChineseMic" data-target="${data.target}" onclick="triggerChineseMic('${data.target.replace(/'/g, "\'")}')" class="px-6 py-3.5 rounded-2xl bg-orange-500 hover:bg-orange-600 active:scale-95 text-white font-display font-black text-base shadow-xl ring-4 ring-orange-200 transition cursor-pointer flex items-center justify-center gap-2 mx-auto">
+            <button id="btnChineseMic" data-target="${data.target}" onclick="triggerChineseMic('${data.target.replace(/'/g, "\\'")}')" class="px-6 py-3.5 rounded-2xl bg-orange-500 hover:bg-orange-600 active:scale-95 text-white font-display font-black text-base shadow-xl ring-4 ring-orange-200 transition cursor-pointer flex items-center justify-center gap-2 mx-auto">
               <span id="btnChineseMicLabel">🎤 แตะพูดเลย หรือ รอไมค์เปิดอัตโนมัติ</span>
             </button>
             <div id="micStatusText" class="text-xs text-slate-500 font-bold mt-2">
@@ -2280,63 +2355,170 @@ body {
       stage.innerHTML = h;
     }
 
+    // STT & Web Audio VAD Configuration (Identical to A-Z Phonics)
+    const CN_MIN_SPEECH_MS = 150;
+    const CN_VOICE_LO_HZ = 150;
+    const CN_SPEECH_RMS = 0.025;
+    const CN_SILENCE_HOLD_MS = 600;   // 600ms silence immediately cuts off mic!
+    const CN_NO_SPEECH_MS = 4000;     // 4s ceiling if quiet
+    let __cnMicAttemptId = 0;
+    window.__cnVadCtx = null;
+    window.__cnVadAnalyser = null;
+    window.__cnVadRaf = null;
+
     function triggerChineseMic(targetText) {
       if (isMicListening) {
         stopChineseMic(true);
         return;
       }
       stopChineseMic(false, true);
-
-      if (typeof MediaRecorder !== 'undefined' && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        startServerSTTRecording(targetText);
-      } else {
-        startFallbackWebSpeech(targetText);
-      }
+      startChineseRecognitionSession(targetText);
     }
 
-    async function startServerSTTRecording(targetText) {
+    async function startChineseRecognitionSession(targetText) {
+      const myAttemptId = ++__cnMicAttemptId;
+      let hasCelebrated = false;
       const liveBox = document.getElementById('micLiveWords');
+      const targetHintPinyin = (CURRENT_LESSON && CURRENT_LESSON.speak && CURRENT_LESSON.speak.pinyin) || '';
 
+      isMicListening = true;
+      cnMicUI('listening', '🔴 ไมค์เปิดแล้ว... พูดคำว่า "' + targetText + '" ได้เลยค่ะ');
+
+      if (liveBox) {
+        liveBox.classList.remove('hidden');
+        liveBox.className = 'mt-3 px-4 py-3 rounded-2xl bg-rose-50 border-2 border-rose-200 text-center animate-pulse';
+        liveBox.innerHTML = `
+          <div class="text-[10px] font-black text-rose-700 mb-1">🔴 ไมค์เปิดอัตโนมัติแล้ว กำลังรับฟังเสียง</div>
+          <div class="font-display font-black text-2xl text-slate-900 leading-tight">พูดคำว่า "${targetText}" ได้เลยจ้ะ</div>
+        `;
+      }
+
+      // 1. Dual Engine: Run Web Speech API with interimResults for INSTANT 0ms detection
+      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      let recognizer = null;
+      let lastRecognizedText = '';
+
+      if (SpeechRec) {
+        try {
+          recognizer = new SpeechRec();
+          recognizer.lang = 'zh-CN';
+          recognizer.continuous = true;
+          recognizer.interimResults = true;
+          recognizer.maxAlternatives = 5;
+
+          recognizer.onresult = (e) => {
+            if (myAttemptId !== __cnMicAttemptId || hasCelebrated) return;
+
+            for (let i = e.resultIndex; i < e.results.length; ++i) {
+              const res = e.results[i];
+              for (let j = 0; j < res.length; ++j) {
+                const heard = res[j].transcript ? res[j].transcript.trim() : '';
+                if (!heard) continue;
+                lastRecognizedText = heard;
+
+                const evalRes = evaluatePhonemeMatch(targetText, heard, targetHintPinyin);
+                if (evalRes.isPass) {
+                  hasCelebrated = true;
+                  stopChineseMic(false, true, true);
+                  handlePhonemeEvaluationResult(targetText, heard);
+                  return;
+                }
+              }
+            }
+          };
+
+          recognizer.onerror = (err) => {
+            console.warn('SpeechRecognition error:', err && err.error);
+          };
+
+          recognizer.onend = () => {
+            // Keep going with MediaRecorder if needed
+          };
+
+          window.__cnActiveRecognizer = recognizer;
+          recognizer.start();
+        } catch (e) {
+          console.warn('Native SpeechRec start failed:', e);
+        }
+      }
+
+      // 2. Start MediaRecorder + Web Audio VAD with 600ms Silence Cutoff
+      let stream = null;
       try {
-        const stream = await getChineseAudioStream();
-        __cnAudioChunks = [];
+        stream = await getChineseAudioStream();
+      } catch (err) {
+        console.warn('Cannot get audio stream:', err);
+        return;
+      }
 
-        let mime = '';
-        const candidates = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus'];
-        for (const c of candidates) {
-          try { if (MediaRecorder.isTypeSupported(c)) { mime = c; break; } } catch(e) {}
-        }
+      __cnAudioChunks = [];
+      let mime = '';
+      const candidates = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus'];
+      for (const c of candidates) {
+        try { if (MediaRecorder.isTypeSupported(c)) { mime = c; break; } } catch(e) {}
+      }
 
-        const rec = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream);
+      let rec = null;
+      try {
+        rec = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream);
         __cnMediaRecorder = rec;
-        isMicListening = true;
+      } catch (e) {
+        console.warn('MediaRecorder init failed:', e);
+      }
 
-        cnMicUI('listening', '🔴 ไมค์เปิดอัตโนมัติแล้ว... พูดคำว่า "' + targetText + '" ได้เลยค่ะ');
-
-        if (liveBox) {
-          liveBox.classList.remove('hidden');
-          liveBox.className = 'mt-3 px-4 py-3 rounded-2xl bg-rose-50 border-2 border-rose-200 text-center animate-pulse';
-          liveBox.innerHTML = `
-            <div class="text-[10px] font-black text-rose-700 mb-1">🔴 ไมค์เปิดอัตโนมัติแล้ว กำลังรับฟังเสียง</div>
-            <div class="font-display font-black text-2xl text-slate-900 leading-tight">พูดคำว่า "${targetText}" ได้เลยจ้ะ</div>
-          `;
+      // Set up VAD Analyser
+      let speechDetected = false, lastVoiceTs = 0, voicedMs = 0, recStart = Date.now();
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (Ctx) {
+          window.__cnVadCtx = new Ctx();
+          const src = window.__cnVadCtx.createMediaStreamSource(stream);
+          window.__cnVadAnalyser = window.__cnVadCtx.createAnalyser();
+          window.__cnVadAnalyser.fftSize = 256;
+          src.connect(window.__cnVadAnalyser);
         }
+      } catch (e) {}
 
+      const stopRecordingCleanly = () => {
+        if (window.__cnVadRaf) { cancelAnimationFrame(window.__cnVadRaf); window.__cnVadRaf = null; }
+        if (window.__cnVadCtx) {
+          try { window.__cnVadCtx.close(); } catch(e) {}
+          window.__cnVadCtx = null;
+        }
+        if (rec && rec.state !== 'inactive') {
+          try { rec.stop(); } catch(e) {}
+        }
+      };
+
+      if (rec) {
         rec.ondataavailable = (e) => {
           if (e.data && e.data.size > 0) __cnAudioChunks.push(e.data);
         };
 
         rec.onstop = async () => {
+          if (myAttemptId !== __cnMicAttemptId || hasCelebrated) return;
           isMicListening = false;
-          cnMicUI('thinking', 'ครูเป่าเปากำลังตรวจการออกเสียง... 🎧');
 
+          // If native speech already gave a recognized text, re-test it
+          if (lastRecognizedText) {
+            const evalRes = evaluatePhonemeMatch(targetText, lastRecognizedText, targetHintPinyin);
+            if (evalRes.isPass) {
+              hasCelebrated = true;
+              stopChineseMic(false, true, true);
+              handlePhonemeEvaluationResult(targetText, lastRecognizedText);
+              return;
+            }
+          }
+
+          // Fallback to Server STT with the recorded audio
           const blob = new Blob(__cnAudioChunks, { type: mime || 'audio/webm' });
-          if (blob.size < 600) {
+          if (blob.size < 600 || !speechDetected || voicedMs < CN_MIN_SPEECH_MS) {
             cnMicUI('retry', 'ยังไม่ได้ยินเสียงชัดเจน — ไมค์จะลองเปิดให้อีกครั้งนะคะ 🙂');
             setTimeout(() => { if (CURRENT_STEP === 1) window.__cnAutoOpenMic(); }, 1200);
             return;
           }
 
+          cnMicUI('thinking', 'ครูเป่าเปากำลังตรวจการออกเสียง... 🎧');
           const fd = new FormData();
           fd.append('audio', blob, 'child_chinese.webm');
           fd.append('lang', 'zh');
@@ -2344,33 +2526,75 @@ body {
 
           try {
             const ctrl = new AbortController();
-            const to = setTimeout(() => ctrl.abort(), 12000);
+            const to = setTimeout(() => ctrl.abort(), 10000);
             const resp = await fetch('/kidobits/stt', { method: 'POST', body: fd, signal: ctrl.signal });
             clearTimeout(to);
 
+            if (myAttemptId !== __cnMicAttemptId || hasCelebrated) return;
             const data = await resp.json();
             const heard = (data && data.text) ? data.text.trim() : '';
 
             handlePhonemeEvaluationResult(targetText, heard);
           } catch (err) {
             console.error('Server STT failed:', err);
-            handlePhonemeEvaluationResult(targetText, '', 'เกิดข้อผิดพลาดในการเชื่อมต่อ');
+            if (lastRecognizedText) {
+              handlePhonemeEvaluationResult(targetText, lastRecognizedText);
+            } else {
+              handlePhonemeEvaluationResult(targetText, '', 'เกิดข้อผิดพลาดในการเชื่อมต่อ');
+            }
           }
         };
 
-        rec.start();
-
-        // 3.5 วินาที สำหรับฟังเสียงพูดของเด็ก แล้วส่งตรวจอัตโนมัติ
-        __cnMaxTimer = setTimeout(() => {
-          if (isMicListening && __cnMediaRecorder && __cnMediaRecorder.state === 'recording') {
-            stopChineseMic(true);
-          }
-        }, 3500);
-
-      } catch (err) {
-        console.warn('getUserMedia failed, falling back to WebSpeech:', err);
-        startFallbackWebSpeech(targetText);
+        try {
+          rec.start();
+        } catch (e) {
+          console.warn('rec.start failed:', e);
+        }
       }
+
+      // VAD Poll Loop (monitoring volume energy)
+      const pollVad = () => {
+        if (myAttemptId !== __cnMicAttemptId || hasCelebrated) {
+          stopRecordingCleanly();
+          return;
+        }
+
+        const dur = Date.now() - recStart;
+        if (window.__cnVadAnalyser && window.__cnVadCtx) {
+          try {
+            const freq = new Uint8Array(window.__cnVadAnalyser.frequencyBinCount);
+            window.__cnVadAnalyser.getByteFrequencyData(freq);
+            const hzPerBin = (window.__cnVadCtx.sampleRate || 48000) / 2 / freq.length;
+            const lo = Math.max(1, Math.floor(CN_VOICE_LO_HZ / hzPerBin));
+            const hi = Math.min(freq.length - 1, Math.ceil(3500 / hzPerBin));
+            let sum = 0, n = 0;
+            for (let i = lo; i <= hi; i++) { sum += freq[i] * freq[i]; n++; }
+            const bandRms = n ? Math.sqrt(sum / n) / 255 : 0;
+            if (bandRms > CN_SPEECH_RMS) {
+              speechDetected = true;
+              lastVoiceTs = Date.now();
+              voicedMs += 16;
+            }
+          } catch (e) {}
+        }
+
+        // VAD Cutoff Conditions:
+        if (speechDetected) {
+          // If child paused for >= 600ms, stop immediately!
+          if (Date.now() - lastVoiceTs >= CN_SILENCE_HOLD_MS) {
+            stopRecordingCleanly();
+            return;
+          }
+        } else if (dur >= CN_NO_SPEECH_MS) {
+          // No speech detected after 4s
+          stopRecordingCleanly();
+          return;
+        }
+
+        window.__cnVadRaf = requestAnimationFrame(pollVad);
+      };
+
+      window.__cnVadRaf = requestAnimationFrame(pollVad);
     }
 
     function handlePhonemeEvaluationResult(targetText, heard, customError = null) {
@@ -2405,6 +2629,7 @@ body {
         cnStopQueue();
         stopChineseMic(false, true, true);
         isMicListening = false;
+        if (window.__cnAutoMicTimer) { clearTimeout(window.__cnAutoMicTimer); window.__cnAutoMicTimer = null; }
 
         playTone('correct');
         TOTAL_STARS += 1;
@@ -2444,58 +2669,18 @@ body {
           </div>
         `;
         speakMandarin('再试一次', 0.85, () => {
-          // AUTO MIC RETRY: เปิดไมค์ให้เด็กพูดใหม่อัตโนมัติ!
-          setTimeout(() => {
-            if (CURRENT_STEP === 1) {
+          // AUTO MIC RETRY: เปิดไมค์ให้เด็กพูดใหม่อัตโนมัติ
+          window.__cnAutoMicTimer = setTimeout(() => {
+            if (CURRENT_STEP === 1 && !isMicListening) {
               window.__cnAutoOpenMic();
             }
-          }, 600);
+          }, 400);
         });
       }
     }
 
     function startFallbackWebSpeech(targetText) {
-      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (!SpeechRec) {
-        cnMicUI('retry', 'อุปกรณ์นี้ไม่รองรับไมค์ — แตะปุ่มผ่านด้านล่างเพื่อไปต่อได้ค่ะ');
-        return;
-      }
-
-      try {
-        const recognizer = new SpeechRec();
-        recognizer.lang = 'zh-CN';
-        recognizer.continuous = false;
-        recognizer.interimResults = false;
-
-        window.__cnActiveRecognizer = recognizer;
-        isMicListening = true;
-        cnMicUI('listening', 'กำลังฟังเสียงภาษาจีน... (พูดได้เลยค่ะ)');
-
-        recognizer.onresult = (e) => {
-          stopChineseMic(false);
-          const heard = (e.results[0] && e.results[0][0] && e.results[0][0].transcript) || '';
-          handlePhonemeEvaluationResult(targetText, heard);
-        };
-
-        recognizer.onerror = (err) => {
-          stopChineseMic(false);
-          const code = (err && err.error) || 'unknown';
-          const msg = (code === 'network')
-            ? 'สัญญาณอินเทอร์เน็ตขาดช่วง แตะเพื่อลองอีกครั้งนะคะ'
-            : (code === 'no-speech')
-            ? 'ยังไม่ได้ยินเสียง — แตะเพื่อลองพูดอีกครั้งนะคะ'
-            : 'เกิดข้อผิดพลาดในการฟัง (' + code + ')';
-          cnMicUI('retry', msg);
-        };
-
-        recognizer.onend = () => {
-          if (isMicListening) stopChineseMic(false);
-        };
-
-        recognizer.start();
-      } catch (e) {
-        cnMicUI('retry', 'เปิดไมโครโฟนไม่สำเร็จ แตะปุ่มผ่านเพื่อไปต่อได้ค่ะ');
-      }
+      triggerChineseMic(targetText);
     }
 
 // ---------------- STEP 3: 📖 อ่าน (READING) ----------------
