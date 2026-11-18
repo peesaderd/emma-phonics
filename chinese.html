@@ -1281,6 +1281,32 @@ body {
       }
     }
 
+    /* ปุ่ม 🔊 ฟังครูพูดอีกครั้ง — ใช้งานร่วมกันทั้งปุ่มในข้อและปุ่มแถบล่าง */
+    function cnReplayCurrent() {
+      if (!CURRENT_LESSON) return;
+      const L = CURRENT_LESSON;
+      cnCurrentKey = null; // รีเซ็ต dedupe key เพื่อให้กดซ้ำแล้วเล่นทันทีเสมอ
+
+      if (CURRENT_STEP === 0) {
+        cnPlayKey(L.id + '_listen', L.listen.audioWord);
+      } else if (CURRENT_STEP === 1) {
+        stopChineseMic(false, true); // ปิดไมค์ชั่วคราวระหว่างฟังครู
+        cnMicUI('wait', 'กำลังเล่นเสียงครูอ่านนำ... (ไมค์จะเปิดอัตโนมัติเมื่อครูพูดจบ)');
+        cnQueue([
+          { key: L.id + '_speak', text: L.speak.target, gapAfter: CN_GAP_WORD },
+          { key: L.id + '_turn',  text: '现在轮到你了',  gapAfter: CN_GAP_TURN,
+            then: () => {
+              window.__cnAutoOpenMic();
+            }
+          }
+        ]);
+      } else if (CURRENT_STEP === 2) {
+        cnPlayKey(L.id + '_read', L.read.sentence);
+      } else if (CURRENT_STEP === 3 && L.write.char) {
+        cnPlayKey(L.id + '_write', L.write.char);
+      }
+    }
+
     function cnPlayOption(word) { cnPlayKey('opt_' + word, word); }
     function cnPlayWord(word)   { cnPlayKey(CURRENT_LESSON.id + '_word_' + word, word); }
 
