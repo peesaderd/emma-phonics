@@ -1532,7 +1532,7 @@ body {
     // nguyên: เสียงทุกบรรทัดเรนเดอร์ล่วงหน้าด้วย edge-tts zh-CN-XiaoxiaoNeural
     // เก็บที่ /kidobits/audio/cn/<key>.mp3 — เสียงเดียวกันทุกเครื่องทุกเบราว์เซอร์
     const CN_AUDIO_BASE = '/kidobits/audio/cn/';
-    const CN_AUDIO_KEYS = {"K1.01_listen": ["妈妈"], "K1.01_speak": ["你好"], "K1.01_read": ["爸爸 和 妈妈"], "K1.01_write": ["一"], "K1.01_word_爸爸": ["爸爸"], "K1.01_word_和": ["和"], "K1.01_word_妈妈": ["妈妈"], "opt_妈妈": ["妈妈"], "opt_爸爸": ["爸爸"], "opt_姐姐": ["姐姐"], "K2.01_listen": ["红色"], "K2.01_speak": ["我要红色"], "K2.01_read": ["大 眼睛 和 小 嘴巴"], "K2.01_write": ["十"], "K2.01_word_大": ["大"], "K2.01_word_眼睛": ["眼睛"], "K2.01_word_和": ["和"], "K2.01_word_小": ["小"], "K2.01_word_嘴巴": ["嘴巴"], "opt_红色": ["红色"], "opt_黄色": ["黄色"], "opt_蓝色": ["蓝色"], "K3.01_listen": ["苹果"], "K3.01_speak": ["我叫小明我五岁"], "K3.01_read": ["我 喜欢 吃 苹果"], "K3.01_write": ["人"], "K3.01_word_我": ["我"], "K3.01_word_喜欢": ["喜欢"], "K3.01_word_吃": ["吃"], "K3.01_word_苹果": ["苹果"], "opt_苹果": ["苹果"], "opt_香蕉": ["香蕉"], "opt_西瓜": ["西瓜"], "P1.01_listen": ["bá", "bá"], "P1.01_speak": ["mā má mǎ mà", "mā má mǎ mà"], "P1.01_read": ["我有 三个 苹果"], "P1.01_write": ["八"], "P1.01_word_我": ["我"], "P1.01_word_有": ["有"], "P1.01_word_三个": ["三个"], "P1.01_word_苹果": ["苹果"], "opt_bā": ["bā"], "opt_bá": ["bá"], "opt_bà": ["bà"], "P2.01_listen": ["小猫在桌子上"], "P2.01_speak": ["书在桌子上"], "P2.01_read": ["他 是 我的 好 朋友"], "P2.01_write": ["口"], "P2.01_word_他": ["他"], "P2.01_word_是": ["是"], "P2.01_word_我的": ["我的"], "P2.01_word_好": ["好"], "P2.01_word_朋友": ["朋友"], "opt_小猫在桌子上": ["小猫在桌子上"], "opt_小猫在桌子下": ["小猫在桌子下"], "opt_小猫在盒子里": ["小猫在盒子里"], "P3.01_listen": ["现在八点半"], "P3.01_speak": ["今天星期三"], "P3.01_read": ["我 早上 七点 起床"], "P3.01_word_我": ["我"], "P3.01_word_早上": ["早上"], "P3.01_word_七点": ["七点"], "P3.01_word_起床": ["起床"], "opt_八点半": ["八点半"], "opt_七点": ["七点"], "opt_九点半": ["九点半"], "P4.01_listen": ["往前走，向左拐"], "P4.01_speak": ["今天天气非常热"], "P4.01_read": ["从 我家 到 学校 不太远"], "P4.01_word_从": ["从"], "P4.01_word_我家": ["我家"], "P4.01_word_到": ["到"], "P4.01_word_学校": ["学校"], "P4.01_word_不太远": ["不太远"], "opt_往前走向左拐": ["往前走向左拐"], "opt_往前走向右拐": ["往前走向右拐"], "opt_往后走": ["往后走"], "P5.01_listen": ["因为下雨，所以我们没去公园。"], "P5.01_speak": ["哥哥比我大两岁"], "P5.01_read": ["春节 的 时候 我们 吃 饺子"], "P5.01_word_春节": ["春节"], "P5.01_word_的时候": ["的时候"], "P5.01_word_我们": ["我们"], "P5.01_word_吃": ["吃"], "P5.01_word_饺子": ["饺子"], "opt_ฝนตกเลยไม่ได้ไป": ["因为下雨所以没去"], "opt_แดดออกเลยไปสวน": ["因为天晴所以去公园"], "opt_ไปซื้อร่ม": ["去买雨伞"], "P6.01_listen": ["请把门关上。"], "P6.01_speak": ["请把作业交给我"], "P6.01_read": ["学习 汉语 虽然 难 但是 很有趣"], "P6.01_word_学习": ["学习"], "P6.01_word_汉语": ["汉语"], "P6.01_word_虽然": ["虽然"], "P6.01_word_难": ["难"], "P6.01_word_但是": ["但是"], "P6.01_word_很有趣": ["很有趣"], "opt_ปิดประตู": ["请把门关上"], "opt_เปิดหน้าต่าง": ["请把窗户打开"], "opt_ส่งการบ้าน": ["把作业交给我"], "praise_7494": ["太棒了！回答正确！"], "praise_83273": ["写得真漂亮！"], "praise_19478": ["很好！发音很清楚！"], "praise_3692": ["真棒！读得很好！"], "praise_84818": ["恭喜你！完成全部课程！太棒了！"], "praise_72880": ["太棒了！完全正确！"], "praise_54675": ["再听一次"], "praise_34783": ["再试一次"], "K1.01_turn": ["现在轮到你了。请说你好。"], "K2.01_turn": ["现在轮到你了。请说我要红色。"], "K3.01_turn": ["现在轮到你了。请说我叫小明我五岁。"], "P1.01_turn": ["现在轮到你了。请说mā má mǎ mà。"], "P2.01_turn": ["现在轮到你了。请说书在桌子上。"], "P3.01_turn": ["现在轮到你了。请说今天星期三。"], "P4.01_turn": ["现在轮到你了。请说今天天气非常热。"], "P5.01_turn": ["现在轮到你了。请说哥哥比我大两岁。"], "P6.01_turn": ["现在轮到你了。请说请把作业交给我。"], "PH1.01_listen": ["mā"], "PH1.01_speak": ["mā"], "PH1.01_turn": ["现在轮到你了。请说mā。"], "PH1.01_read": ["mā 妈"], "PH1.01_write": ["一"], "opt_mā": ["mā"], "opt_má": ["má"], "opt_mà": ["mà"], "PH1.02_listen": ["一"], "PH1.02_speak": ["一"], "PH1.02_turn": ["现在轮到你了。请说一。"], "PH1.02_read": ["一个 苹果"], "PH1.02_write": ["一"], "opt_一": ["一"], "opt_二": ["二"], "opt_三": ["三"], "PH1.03_listen": ["大"], "PH1.03_speak": ["大"], "PH1.03_turn": ["现在轮到你了。请说大。"], "PH1.03_read": ["大 眼睛"], "PH1.03_write": ["大"], "opt_大": ["大"], "opt_小": ["小"], "opt_多": ["多"], "PH1.04_listen": ["口"], "PH1.04_speak": ["口"], "PH1.04_turn": ["现在轮到你了。请说口。"], "PH1.04_read": ["大 口"], "PH1.04_write": ["口"], "opt_口": ["口"], "opt_目": ["目"], "opt_手": ["手"], "PH1.05_listen": ["水"], "PH1.05_speak": ["水"], "PH1.05_turn": ["现在轮到你了。请说水。"], "PH1.05_read": ["喝 水"], "PH1.05_write": ["水"], "opt_水": ["水"], "opt_火": ["火"], "opt_木": ["木"], "PH1.06_listen": ["人"], "PH1.06_speak": ["人"], "PH1.06_turn": ["现在轮到你了。请说人。"], "PH1.06_read": ["三 个人"], "PH1.06_write": ["人"], "opt_人": ["人"], "opt_天": ["天"], "PH2.01_listen": ["你好"], "PH2.01_speak": ["你好"], "PH2.01_turn": ["现在轮到你了。请说你好。"], "PH2.01_read": ["你好 朋友"], "PH2.01_write": ["你"], "opt_你好": ["你好"], "opt_再见": ["再见"], "PH2.02_listen": ["谢谢"], "PH2.02_speak": ["谢谢"], "PH2.02_turn": ["现在轮到你了。请说谢谢。"], "PH2.02_read": ["谢谢 老师"], "PH2.02_write": ["好"], "opt_谢谢": ["谢谢"], "opt_不客气": ["不客气"], "PH2.03_listen": ["妈妈"], "PH2.03_speak": ["妈妈"], "PH2.03_turn": ["现在轮到你了。请说妈妈。"], "PH2.03_read": ["爸爸 和 妈妈"], "PH2.03_write": ["十"], "PH2.04_listen": ["红色"], "PH2.04_speak": ["红色"], "PH2.04_turn": ["现在轮到你了。请说红色。"], "PH2.04_read": ["红色的 苹果"], "PH2.04_write": ["八"], "PH2.05_listen": ["苹果"], "PH2.05_speak": ["苹果"], "PH2.05_turn": ["现在轮到你了。请说苹果。"], "PH2.05_read": ["吃 苹果"], "PH2.05_write": ["口"], "PH2.06_listen": ["喝水"], "PH2.06_speak": ["喝水"], "PH2.06_turn": ["现在轮到你了。请说喝水。"], "PH2.06_read": ["我 喝水"], "PH2.06_write": ["水"], "opt_喝水": ["喝水"], "opt_吃饭": ["吃饭"], "PH3.01_listen": ["早上好"], "PH3.01_speak": ["早上好"], "PH3.01_turn": ["现在轮到你了。请说早上好。"], "PH3.01_read": ["老师 早上好"], "opt_早上好": ["早上好"], "opt_晚上好": ["晚上好"], "opt_下午好": ["下午好"], "PH3.02_listen": ["我要水"], "PH3.02_speak": ["我要水"], "PH3.02_turn": ["现在轮到你了。请说我要水。"], "PH3.02_read": ["妈妈 我要水"], "opt_我要水": ["我要水"], "opt_我要苹果": ["我要苹果"], "opt_我要饭": ["我要饭"], "PH3.03_listen": ["这是书"], "PH3.03_speak": ["这是书"], "PH3.03_turn": ["现在轮到你了。请说这是书。"], "PH3.03_read": ["这是 我的 书"], "opt_这是书": ["这是书"], "opt_这是笔": ["这是笔"], "opt_这是包": ["这是包"], "PH3.04_listen": ["我喜欢"], "PH3.04_speak": ["我喜欢"], "PH3.04_turn": ["现在轮到你了。请说我喜欢。"], "PH3.04_read": ["我喜欢 红色"], "opt_我喜欢": ["我喜欢"], "opt_我不喜欢": ["我不喜欢"], "PH3.05_listen": ["大苹果"], "PH3.05_speak": ["大苹果"], "PH3.05_turn": ["现在轮到你了。请说大苹果。"], "PH3.05_read": ["红色的 大苹果"], "opt_大苹果": ["大苹果"], "opt_小苹果": ["小苹果"], "PH4.01_listen": ["我叫小明"], "PH4.01_speak": ["我叫小明"], "PH4.01_turn": ["现在轮到你了。请说我叫小明。"], "PH4.01_read": ["你好 我叫小明"], "opt_我叫小明": ["我叫小明"], "opt_我叫小红": ["我叫小红"], "opt_我叫小华": ["我叫小华"], "PH4.02_listen": ["现在八点"], "PH4.02_speak": ["现在八点"], "PH4.02_turn": ["现在轮到你了。请说现在八点。"], "PH4.02_read": ["现在 八点 起床"], "opt_现在八点": ["现在八点"], "opt_现在七点": ["现在七点"], "opt_现在九点": ["现在九点"], "PH4.03_listen": ["今天星期三"], "PH4.03_speak": ["今天星期三"], "PH4.03_turn": ["现在轮到你了。请说今天星期三。"], "PH4.03_read": ["今天 星期三 上学"], "opt_今天星期三": ["今天星期三"], "opt_今天星期一": ["今天星期一"], "opt_今天星期五": ["今天星期五"], "PH4.04_listen": ["书在桌上"], "PH4.04_speak": ["书在桌上"], "PH4.04_turn": ["现在轮到你了。请说书在桌上。"], "PH4.04_read": ["我的 书 在 桌上"], "opt_书在桌上": ["书在桌上"], "opt_书在桌下": ["书在桌下"], "opt_书在包里": ["书在包里"]};
+    const CN_AUDIO_KEYS = {"PH1.01_listen": ["mā"], "PH1.01_speak": ["mā"], "PH1.01_turn": ["现在轮到你了", "现在轮到你了。"], "PH1.01_read": ["mā 妈"], "PH1.02_listen": ["一"], "PH1.02_speak": ["一"], "PH1.02_turn": ["现在轮到你了", "现在轮到你了。"], "PH1.02_read": ["一个 苹果"], "PH1.03_listen": ["大"], "PH1.03_speak": ["大"], "PH1.03_turn": ["现在轮到你了", "现在轮到你了。"], "PH1.03_read": ["大 眼睛"], "PH1.04_listen": ["口"], "PH1.04_speak": ["口"], "PH1.04_turn": ["现在轮到你了", "现在轮到你了。"], "PH1.04_read": ["大 口"], "PH1.05_listen": ["水"], "PH1.05_speak": ["水"], "PH1.05_turn": ["现在轮到你了", "现在轮到你了。"], "PH1.05_read": ["喝 水"], "PH1.06_listen": ["人"], "PH1.06_speak": ["人"], "PH1.06_turn": ["现在轮到你了", "现在轮到你了。"], "PH1.06_read": ["三 个人"], "PH2.01_listen": ["你好"], "PH2.01_speak": ["你好"], "PH2.01_turn": ["现在轮到你了", "现在轮到你了。"], "PH2.01_read": ["你好 朋友"], "PH2.02_listen": ["谢谢"], "PH2.02_speak": ["谢谢"], "PH2.02_turn": ["现在轮到你了", "现在轮到你了。"], "PH2.02_read": ["谢谢 老师"], "PH2.03_listen": ["妈妈"], "PH2.03_speak": ["妈妈"], "PH2.03_turn": ["现在轮到你了", "现在轮到你了。"], "PH2.03_read": ["爸爸 和 妈妈"], "PH2.04_listen": ["红色"], "PH2.04_speak": ["红色"], "PH2.04_turn": ["现在轮到你了", "现在轮到你了。"], "PH2.04_read": ["红色的 苹果"], "PH2.05_listen": ["苹果"], "PH2.05_speak": ["苹果"], "PH2.05_turn": ["现在轮到你了", "现在轮到你了。"], "PH2.05_read": ["吃 苹果"], "PH2.06_listen": ["喝水"], "PH2.06_speak": ["喝水"], "PH2.06_turn": ["现在轮到你了", "现在轮到你了。"], "PH2.06_read": ["我 喝水"], "PH3.01_listen": ["早上好"], "PH3.01_speak": ["早上好"], "PH3.01_turn": ["现在轮到你了", "现在轮到你了。"], "PH3.01_read": ["老师 早上好"], "PH3.02_listen": ["我要水"], "PH3.02_speak": ["我要水"], "PH3.02_turn": ["现在轮到你了", "现在轮到你了。"], "PH3.02_read": ["妈妈 我要水"], "PH3.03_listen": ["这是书"], "PH3.03_speak": ["这是书"], "PH3.03_turn": ["现在轮到你了", "现在轮到你了。"], "PH3.03_read": ["这是 我的 书"], "PH3.04_listen": ["我喜欢"], "PH3.04_speak": ["我喜欢"], "PH3.04_turn": ["现在轮到你了", "现在轮到你了。"], "PH3.04_read": ["我喜欢 红色"], "PH3.05_listen": ["大苹果"], "PH3.05_speak": ["大苹果"], "PH3.05_turn": ["现在轮到你了", "现在轮到你了。"], "PH3.05_read": ["红色的 大苹果"], "PH4.01_listen": ["我叫小明"], "PH4.01_speak": ["我叫小明"], "PH4.01_turn": ["现在轮到你了", "现在轮到你了。"], "PH4.01_read": ["你好 我叫小明"], "PH4.02_listen": ["现在八点"], "PH4.02_speak": ["现在八点"], "PH4.02_turn": ["现在轮到你了", "现在轮到你了。"], "PH4.02_read": ["现在 八点 起床"], "PH4.03_listen": ["今天星期三"], "PH4.03_speak": ["今天星期三"], "PH4.03_turn": ["现在轮到你了", "现在轮到你了。"], "PH4.03_read": ["今天 星期三 上学"], "PH4.04_listen": ["书在桌上"], "PH4.04_speak": ["书在桌上"], "PH4.04_turn": ["现在轮到你了", "现在轮到你了。"], "PH4.04_read": ["我的 书 在 桌上"], "opt_mā": ["mā"], "opt_má": ["má"], "opt_mà": ["mà"], "opt_一": ["一"], "opt_二": ["二"], "opt_三": ["三"], "opt_大": ["大"], "opt_小": ["小"], "opt_多": ["多"], "opt_口": ["口"], "opt_目": ["目"], "opt_手": ["手"], "opt_水": ["水"], "opt_火": ["火"], "opt_土": ["土"], "opt_山": ["山"], "opt_石": ["石"], "opt_田": ["田"], "opt_你好": ["你好"], "opt_再见": ["再见"], "opt_谢谢": ["谢谢"], "opt_爸爸": ["爸爸"], "opt_妈妈": ["妈妈"], "opt_朋友": ["朋友"], "opt_吃": ["吃"], "opt_喝": ["喝"], "opt_喜欢": ["喜欢"], "opt_苹果": ["苹果"], "opt_香蕉": ["香蕉"], "opt_西瓜": ["西瓜"], "opt_大狗": ["大狗"], "opt_小猫": ["小猫"], "opt_小鸟": ["小鸟"], "opt_早上好": ["早上好"], "opt_晚安": ["晚安"], "opt_七点": ["七点"], "opt_起床": ["起床"], "opt_红色": ["红色"], "opt_黄色": ["黄色"], "opt_蓝色": ["蓝色"]};
 
     const CN_VOICE = { voice: 'edge-tts zh-CN-XiaoxiaoNeural', reviewed: false }; // TTS stopgap ไม่ใช่เสียงครูจริงที่ตรวจแล้ว
 
@@ -1618,7 +1618,7 @@ body {
       audio.play().then(() => { window.__cnLog = window.__cnLog || []; window.__cnLog.push({ key, via: 'mp3' }); })
         .catch(() => { playPaused = true; finish('blocked'); });
       // กันค้าง: ยาวเกิน 9 วิ ถือว่าจบ
-      setTimeout(() => { if (!finished) finish('timeout'); }, 9000);
+      setTimeout(() => { if (!finished) finish('timeout'); }, 1500);
       return audio;
     }
 
@@ -1874,7 +1874,7 @@ body {
 
       list.forEach((it, idx) => {
         const lessonIdx = idx + 1;
-        const isUnlocked = window.KidobitsLock ? KidobitsLock.isUnlocked('chinese', lessonIdx) : (lessonIdx === 1);
+        const isUnlocked = true; // All Phonics micro-steps open for exploratory practice
 
         if (!isUnlocked) {
           h += `
@@ -1954,16 +1954,10 @@ body {
       }
       if (!found) return;
 
+      // Direct open in Phonics Arena (Practice mode)
       const lessonNum = fIdx + 1;
-      const isDirectUrl = new URLSearchParams(window.location.search).has('id') || 
-                          new URLSearchParams(window.location.search).has('lesson') || 
-                          new URLSearchParams(window.location.search).has('les');
-      if (isDirectUrl && window.KidobitsLock) {
-        KidobitsLock.unlockTo('chinese', lessonNum);
-      }
-      if (lessonNum > 1 && window.KidobitsLock && !KidobitsLock.isUnlocked('chinese', lessonNum)) {
-        if (window.KidobitsLock) KidobitsLock.shakeAndNotify(null, found.title);
-        return;
+      if (window.KidobitsLock) {
+        try { KidobitsLock.unlockTo('chinese_phonics', lessonNum); } catch(e) {}
       }
 
       CURRENT_LESSON = found;
@@ -2221,8 +2215,8 @@ body {
 
           <!-- Mic Button -->
           <div class="pt-2">
-            <button id="btnChineseMic" onclick="triggerChineseMic('${data.target.replace(/'/g, "\'")}')" class="px-6 py-3.5 rounded-2xl bg-slate-400 text-white font-display font-black text-base shadow-xl ring-4 ring-slate-300 transition cursor-pointer flex items-center justify-center gap-2 mx-auto">
-              <span>⏳ รอครูพูดจบ แล้วไมค์จะเปิดเองอัตโนมัติ...</span>
+            <button id="btnChineseMic" data-target="${data.target}" onclick="triggerChineseMic('${data.target.replace(/'/g, "\'")}')" class="px-6 py-3.5 rounded-2xl bg-orange-500 hover:bg-orange-600 active:scale-95 text-white font-display font-black text-base shadow-xl ring-4 ring-orange-200 transition cursor-pointer flex items-center justify-center gap-2 mx-auto">
+              <span id="btnChineseMicLabel">🎤 แตะพูดเลย หรือ รอไมค์เปิดอัตโนมัติ</span>
             </button>
             <div id="micStatusText" class="text-xs text-slate-500 font-bold mt-2">
               ไม่ต้องกดอะไรนะคะ — ไมค์จะเปิดอัตโนมัติเมื่อครูพูดจบ
@@ -2746,7 +2740,7 @@ body {
     function goToNextChineseLesson(nextId) {
       if (cnAutoNextTimer) clearInterval(cnAutoNextTimer);
       if (nextId) {
-        window.location.href = `/chinese.html?id=${nextId}`;
+        openLesson(nextId);
       } else {
         closeLesson();
       }
@@ -2759,10 +2753,11 @@ body {
       }
 
       // Mark completed & unlock next lesson in KidobitsLock
-      const allLessons = window.LESSONS || [
-        ...(CHINESE_DATA.early || []),
-        ...(CHINESE_DATA.lower || []),
-        ...(CHINESE_DATA.upper || [])
+      const allLessons = [
+        ...(CHINESE_DATA.level1 || []),
+        ...(CHINESE_DATA.level2 || []),
+        ...(CHINESE_DATA.level3 || []),
+        ...(CHINESE_DATA.level4 || [])
       ];
       const curIdx = allLessons.findIndex(l => l.id === CURRENT_LESSON.id);
       const nextLesson = (curIdx >= 0 && curIdx < allLessons.length - 1) ? allLessons[curIdx + 1] : null;

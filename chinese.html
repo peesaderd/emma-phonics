@@ -1413,9 +1413,9 @@ body {
       if (isDirectUrl && window.KidobitsLock) {
         KidobitsLock.unlockTo('chinese', lessonNum);
       }
-      if (lessonNum > 1 && window.KidobitsLock && !KidobitsLock.isUnlocked('chinese', lessonNum)) {
-        if (window.KidobitsLock) KidobitsLock.shakeAndNotify(null, found.title);
-        return;
+      // Unlock card upon click so students can practice
+      if (window.KidobitsLock) {
+        try { KidobitsLock.unlockTo('chinese', lessonNum); } catch(e) {}
       }
 
       CURRENT_LESSON = found;
