@@ -507,7 +507,7 @@ body {
             answer: '妈妈'
           },
           speak: {
-            prompt: 'แตะไมค์แล้วอ่านออกเสียงทักทายตามครู',
+            prompt: 'ฟังครูอ่านนำ แล้วอ่านออกเสียงทักทายตามครู',
             target: '你好',
             pinyin: 'Nǐ hǎo',
             th: 'สวัสดี',
@@ -555,7 +555,7 @@ body {
             answer: '红色'
           },
           speak: {
-            prompt: 'แตะไมค์แล้วพูดบอกความต้องการตามครู',
+            prompt: 'ฟังครูอ่านนำ แล้วพูดบอกความต้องการตามครู',
             target: '我要红色',
             pinyin: 'Wǒ yào hóngsè',
             th: 'หนูเอาสีแดง',
@@ -605,7 +605,7 @@ body {
             answer: '苹果'
           },
           speak: {
-            prompt: 'แตะไมค์แล้วแนะนำชื่อและอายุตามครู',
+            prompt: 'ฟังครูอ่านนำ แล้วแนะนำชื่อและอายุตามครู',
             target: '我叫小明我五岁',
             pinyin: 'Wǒ jiào Xiǎomíng, wǒ wǔ suì',
             th: 'ฉันชื่อเสี่ยวหมิง ฉันอายุ 5 ขวบ',
@@ -656,7 +656,7 @@ body {
             answer: 'bá'
           },
           speak: {
-            prompt: 'แตะไมค์แล้วออกเสียงวรรณยุกต์ตามครู',
+            prompt: 'ฟังครูอ่านนำ แล้วออกเสียงวรรณยุกต์ตามครู',
             target: 'mā má mǎ mà',
             pinyin: 'mā má mǎ mà',
             th: 'มา ม๋า หม่า ม่า (ผัน 4 เสียง)',
@@ -705,7 +705,7 @@ body {
             answer: '小猫在桌子上'
           },
           speak: {
-            prompt: 'แตะไมค์แล้วพูดบอกสิ่งของบนโต๊ะตามครู',
+            prompt: 'ฟังครูอ่านนำ แล้วพูดบอกสิ่งของบนโต๊ะตามครู',
             target: '书在桌子上',
             pinyin: 'Shū zài zhuōzi shàng',
             th: 'หนังสืออยู่บนโต๊ะ',
@@ -755,7 +755,7 @@ body {
             answer: '现在八点半'
           },
           speak: {
-            prompt: 'แตะไมค์แล้วบอกวันในสัปดาห์ตามครู',
+            prompt: 'ฟังครูอ่านนำ แล้วบอกวันในสัปดาห์ตามครู',
             target: '今天星期三',
             pinyin: 'Jīntiān xīngqīsān',
             th: 'วันนี้วันพุธ',
@@ -804,7 +804,7 @@ body {
             answer: '往前走向左拐'
           },
           speak: {
-            prompt: 'แตะไมค์แล้วบรรยายสภาพอากาศตามครู',
+            prompt: 'ฟังครูอ่านนำ แล้วบรรยายสภาพอากาศตามครู',
             target: '今天天气非常热',
             pinyin: 'Jīntiān tiānqì fēicháng rè',
             th: 'วันนี้สภาพอากาศร้อนเป็นอย่างยิ่ง',
@@ -852,7 +852,7 @@ body {
             answer: 'ฝนตกเลยไม่ได้ไป'
           },
           speak: {
-            prompt: 'แตะไมค์แล้วพูดประโยคเปรียบเทียบตามครู',
+            prompt: 'ฟังครูอ่านนำ แล้วพูดประโยคเปรียบเทียบตามครู',
             target: '哥哥比我大两岁',
             pinyin: 'Gēge bǐ wǒ dà liǎng suì',
             th: 'พี่ชายโตกว่าฉันสองปี',
@@ -900,7 +900,7 @@ body {
             answer: 'ปิดประตู'
           },
           speak: {
-            prompt: 'แตะไมค์แล้วพูดประโยคโครงสร้าง 把 ตามครู',
+            prompt: 'ฟังครูอ่านนำ แล้วพูดประโยคโครงสร้าง 把 ตามครู',
             target: '请把作业交给我',
             pinyin: 'Qǐng bǎ zuòyè jiāo gěi wǒ',
             th: 'กรุณาส่งการบ้านมาให้ครู',
@@ -1175,7 +1175,7 @@ body {
       }
     }, { once: true });
 
-    function stopChineseMic(shouldProcess = false) {
+    function stopChineseMic(shouldProcess = false, silent = false) {
       if (__cnMaxTimer) { clearTimeout(__cnMaxTimer); __cnMaxTimer = null; }
       if (window.__cnSilenceTimer) { clearTimeout(window.__cnSilenceTimer); window.__cnSilenceTimer = null; }
 
@@ -1188,11 +1188,11 @@ body {
             __cnMediaRecorder.stop();
           } catch(e) {}
           isMicListening = false;
-          cnMicUI('retry', '');
+          if (!silent) cnMicUI('retry', '');
         }
       } else {
         isMicListening = false;
-        cnMicUI('retry', '');
+        if (!silent) cnMicUI('retry', '');
       }
 
       if (window.__cnActiveRecognizer) {
@@ -1216,10 +1216,10 @@ body {
           btn.innerHTML = '<span>🎧 ครูเป่าเปากำลังตรวจเสียง...</span>';
         } else if (state === 'retry') {
           btn.className = "px-6 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-display font-black text-sm shadow-lg shadow-amber-500/30 transition cursor-pointer flex items-center justify-center gap-2 mx-auto";
-          btn.innerHTML = '<span>🔁 แตะไมค์เพื่อลองพูดอีกครั้ง</span>';
+          btn.innerHTML = '<span>🔁 แตะเพื่อลองพูดอีกครั้ง</span>';
         } else {
           btn.className = "px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-display font-black text-sm shadow-lg transition cursor-pointer flex items-center justify-center gap-2 mx-auto";
-          btn.innerHTML = '<span>🎙️ ไมค์พร้อมรับฟัง</span>';
+          btn.innerHTML = '<span>🔴 ระบบพร้อมรับฟังเสียง</span>';
         }
       }
       if (st && message) {
@@ -1479,7 +1479,7 @@ body {
           <div class="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-900 text-xs font-black">
             🎧 ขั้นที่ 1 · ฝึกทักษะการฟัง (Listening)
           </div>
-          <p class="text-sm font-bold text-slate-700">${data.prompt}</p>
+          <p class="text-sm font-bold text-slate-700">${(data.prompt || '').replace(/แตะไมค์แล้ว/g, 'ฟังครูอ่านนำ แล้ว')}</p>
 
           <!-- Audio Play Button -->
           <div class="pt-2">
@@ -1619,7 +1619,7 @@ body {
           <div class="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-xs font-black">
             🗣️ ขั้นที่ 2 · ฝึกทักษะการพูด (Auto Mic + Phoneme Lab)
           </div>
-          <p class="text-sm font-bold text-slate-700">${data.prompt}</p>
+          <p class="text-sm font-bold text-slate-700">${(data.prompt || '').replace(/แตะไมค์แล้ว/g, 'ฟังครูอ่านนำ แล้ว')}</p>
 
           <!-- Target Card -->
           <div class="p-6 rounded-3xl bg-white border-2 border-emerald-200 text-center shadow-sm max-w-sm mx-auto">
@@ -1653,7 +1653,7 @@ body {
         stopChineseMic(true);
         return;
       }
-      stopChineseMic(false);
+      stopChineseMic(false, true);
 
       if (typeof MediaRecorder !== 'undefined' && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         startServerSTTRecording(targetText);
@@ -1679,7 +1679,7 @@ body {
         __cnMediaRecorder = rec;
         isMicListening = true;
 
-        cnMicUI('listening', '🎙️ ไมค์เปิดอัตโนมัติแล้ว... พูดคำว่า "' + targetText + '" ได้เลยค่ะ');
+        cnMicUI('listening', '🔴 ไมค์เปิดอัตโนมัติแล้ว... พูดคำว่า "' + targetText + '" ได้เลยค่ะ');
 
         if (liveBox) {
           liveBox.classList.remove('hidden');
@@ -1842,9 +1842,9 @@ body {
           stopChineseMic(false);
           const code = (err && err.error) || 'unknown';
           const msg = (code === 'network')
-            ? 'สัญญาณอินเทอร์เน็ตขาดช่วง แตะไมค์อีกครั้งนะคะ'
+            ? 'สัญญาณอินเทอร์เน็ตขาดช่วง แตะเพื่อลองอีกครั้งนะคะ'
             : (code === 'no-speech')
-            ? 'ยังไม่ได้ยินเสียง — แตะไมค์แล้วพูดดัง ๆ ใกล้ไมค์อีกครั้งนะคะ'
+            ? 'ยังไม่ได้ยินเสียง — แตะเพื่อลองพูดอีกครั้งนะคะ'
             : 'เกิดข้อผิดพลาดในการฟัง (' + code + ')';
           cnMicUI('retry', msg);
         };
@@ -1867,7 +1867,7 @@ body {
           <div class="inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-black">
             📖 ขั้นที่ 3 · ฝึกทักษะการอ่าน (Reading & Pinyin Toggle)
           </div>
-          <p class="text-sm font-bold text-slate-700">${data.prompt}</p>
+          <p class="text-sm font-bold text-slate-700">${(data.prompt || '').replace(/แตะไมค์แล้ว/g, 'ฟังครูอ่านนำ แล้ว')}</p>
 
           <!-- Toggle Pinyin Control -->
           <div class="flex items-center justify-center gap-2 pt-1">
@@ -1962,7 +1962,7 @@ body {
           <div class="inline-block px-3 py-1 rounded-full bg-rose-100 text-rose-900 text-xs font-black">
             ✍️ ขั้นที่ 4 · ฝึกทักษะการเขียน (Writing & Mechanics)
           </div>
-          <p class="text-sm font-bold text-slate-700">${data.prompt}</p>
+          <p class="text-sm font-bold text-slate-700">${(data.prompt || '').replace(/แตะไมค์แล้ว/g, 'ฟังครูอ่านนำ แล้ว')}</p>
       `;
 
       if (data.type === 'stroke') {
