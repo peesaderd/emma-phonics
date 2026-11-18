@@ -2133,7 +2133,10 @@ body {
       '哥': 'ge', '比': 'bi', '大': 'da', '两': 'liang', '姐': 'jie', '弟': 'di', '妹': 'mei',
       '请': 'qing', '关': 'guan', '开': 'kai', '作': 'zuo', '业': 'ye', '交': 'jiao', '给': 'gei',
       '苹': 'ping', '果': 'guo', '香': 'xiang', '蕉': 'jiao', '西': 'xi', '瓜': 'gua',
-      '猫': 'mao', '狗': 'gou', '鳥': 'niao', '鸟': 'niao'
+      '猫': 'mao', '狗': 'gou', '鳥': 'niao', '鸟': 'niao',
+      '口': 'kou', '水': 'shui', '火': 'huo', '土': 'tu', '山': 'shan', '石': 'shi', '田': 'tian',
+      '目': 'mu', '手': 'shou', '多': 'duo', '少': 'shao', '日': 'ri', '月': 'yue', '人': 'ren', '木': 'mu',
+      '头': 'tou', '耳': 'er', '足': 'zu', '朵': 'duo', '白': 'bai', '黑': 'hei', '绿': 'lv', '蓝': 'lan'
     };
 
     function stripTone(str) {
@@ -2157,28 +2160,63 @@ body {
       return out;
     }
 
+    // Kid-Friendly Phoneme Evaluator (Highly tolerant for single syllables & children)
+    const PHONICS_EQUIV = {
+      'ma': ['妈', '吗', '麻', '马', '骂', '嘛', 'ma', 'ba', 'na', 'a', 'mo', 'me', 'm'],
+      'mā': ['妈', '吗', '麻', '马', '骂', '嘛', 'ma', 'ba', 'na', 'a', 'mo', 'me', 'm'],
+      'yi': ['一', '壹', '依', '衣', '医', 'yi', 'i', 'e', 'ye', 'ya', '1'],
+      'yī': ['一', '壹', '依', '衣', '医', 'yi', 'i', 'e', 'ye', 'ya', '1'],
+      'da': ['大', '达', '答', '打', '带', 'da', 'ta', 'ba', 'a', 'ga'],
+      'dà': ['大', '达', '答', '打', '带', 'da', 'ta', 'ba', 'a', 'ga'],
+      'kou': ['口', '扣', '蔻', '寇', 'kou', 'ko', 'ou', 'ho', 'co'],
+      'kǒu': ['口', '扣', '蔻', '寇', 'kou', 'ko', 'ou', 'ho', 'co'],
+      'shui': ['水', '睡', '谁', '说', 'shui', 'sui', 'hui', 'shei'],
+      'shuǐ': ['水', '睡', '谁', '说', 'shui', 'sui', 'hui', 'shei'],
+      'huo': ['火', '活', '伙', '或', 'huo', 'ho', 'fo', 'wo'],
+      'huǒ': ['火', '活', '伙', '或', 'huo', 'ho', 'fo', 'wo'],
+      'tu': ['土', '吐', '图', '兔', 'tu', 'to', 'du', 'u'],
+      'tǔ': ['土', '吐', '图', '兔', 'tu', 'to', 'du', 'u'],
+      'shan': ['山', '闪', '扇', '善', 'shan', 'san', 'an', 'tan'],
+      'shān': ['山', '闪', '扇', '善', 'shan', 'san', 'an', 'tan'],
+      'shi': ['石', '十', '时', '事', '市', 'shi', 'si', 'chi', 'ci'],
+      'shí': ['石', '十', '时', '事', '市', 'shi', 'si', 'chi', 'ci'],
+      'tian': ['田', '天', '甜', '填', 'tian', 'tan', 'dian', 'ian'],
+      'tián': ['田', '天', '甜', '填', 'tian', 'tan', 'dian', 'ian']
+    };
+
     function evaluatePhonemeMatch(targetText, heardText, hintPinyin) {
       const cleanTarget = (targetText || '').trim();
       const cleanHeard = (heardText || '').trim();
       const normTargetHanzi = cleanTarget.replace(/[^a-zA-Z0-9一-龥]/g, '').toLowerCase();
       const normHeardHanzi = cleanHeard.replace(/[^a-zA-Z0-9一-龥]/g, '').toLowerCase();
 
-      // 1. Direct character match
-      if (normHeardHanzi === normTargetHanzi || (normHeardHanzi.length >= 2 && normHeardHanzi.includes(normTargetHanzi)) || (normTargetHanzi.length >= 2 && normTargetHanzi.includes(normHeardHanzi))) {
-        return { isPass: true, score: 100, heardPinyin: hanziToPinyin(normHeardHanzi), targetPinyin: stripTone(hintPinyin) || hanziToPinyin(normTargetHanzi), reason: 'ตรงตามตัวอักษร 100%' };
+      // 1. Instant Match through Equivalence Table (Phonics Foundation)
+      const targetKey = cleanTarget.toLowerCase();
+      const strippedTarget = stripTone(cleanTarget);
+      const equivList = PHONICS_EQUIV[targetKey] || PHONICS_EQUIV[strippedTarget] || [];
+      if (equivList.some(eq => cleanHeard.includes(eq) || normHeardHanzi.includes(eq))) {
+        return { isPass: true, score: 98, heardPinyin: cleanHeard, targetPinyin: cleanTarget, reason: 'ออกเสียงตรงตามหน่วยเสียงเป้าหมาย (ดีเยี่ยม ⭐⭐⭐)' };
       }
 
-      // 2. Pinyin / Phoneme conversion
-      const targetPinyin = stripTone(hintPinyin) || hanziToPinyin(normTargetHanzi);
-      const heardPinyin = hanziToPinyin(normHeardHanzi) || stripTone(normHeardHanzi);
+      // 2. Direct character match
+      if (normHeardHanzi === normTargetHanzi || (normHeardHanzi.length >= 1 && normTargetHanzi.length >= 1 && (normHeardHanzi.includes(normTargetHanzi) || normTargetHanzi.includes(normHeardHanzi)))) {
+        return { isPass: true, score: 100, heardPinyin: hanziToPinyin(normHeardHanzi) || normHeardHanzi, targetPinyin: stripTone(hintPinyin) || hanziToPinyin(normTargetHanzi), reason: 'ตรงตามตัวอักษร 100%' };
+      }
+
+      // 3. Pinyin / Phoneme conversion
+      const targetPinyin = stripTone(hintPinyin) || stripTone(cleanTarget) || hanziToPinyin(normTargetHanzi);
+      const heardPinyin = hanziToPinyin(normHeardHanzi) || stripTone(normHeardHanzi) || normHeardHanzi;
 
       if (targetPinyin && heardPinyin) {
         if (heardPinyin === targetPinyin) {
           return { isPass: true, score: 98, heardPinyin, targetPinyin, reason: 'หน่วยเสียงพินอินตรงกัน (' + heardPinyin + ')' };
         }
-        if (heardPinyin.includes(targetPinyin) || (targetPinyin.length >= 3 && targetPinyin.includes(heardPinyin))) {
-          return { isPass: true, score: 88, heardPinyin, targetPinyin, reason: 'สำเนียงครอบคลุมคำเป้าหมาย (' + heardPinyin + ')' };
+        if (heardPinyin.includes(targetPinyin) || targetPinyin.includes(heardPinyin)) {
+          return { isPass: true, score: 90, heardPinyin, targetPinyin, reason: 'สำเนียงครอบคลุมคำเป้าหมาย (' + heardPinyin + ')' };
         }
+
+        // For single syllables (1-4 characters): High Tolerance
+        const isSingleSyllable = targetPinyin.length <= 4;
         let matches = 0;
         const minL = Math.min(targetPinyin.length, heardPinyin.length);
         const maxL = Math.max(targetPinyin.length, heardPinyin.length);
@@ -2186,8 +2224,20 @@ body {
           if (targetPinyin[i] === heardPinyin[i]) matches++;
         }
         const similarity = Math.round((matches / maxL) * 100);
-        if (similarity >= 55) {
-          return { isPass: true, score: similarity, heardPinyin, targetPinyin, reason: 'หน่วยเสียงใกล้เคียง ' + similarity + '% (เกณฑ์เด็กผ่าน)' };
+
+        // Single syllable: If initial consonant OR main vowel matches, give pass!
+        if (isSingleSyllable) {
+          const initialMatch = targetPinyin[0] === heardPinyin[0];
+          const vowelMatch = targetPinyin.slice(-1) === heardPinyin.slice(-1);
+          if (similarity >= 35 || initialMatch || vowelMatch) {
+            const finalScore = Math.max(similarity, 85);
+            return { isPass: true, score: finalScore, heardPinyin, targetPinyin, reason: 'ออกเสียงใกล้เคียง ' + finalScore + '% (เกณฑ์ Phonics ผ่าน ⭐)' };
+          }
+        } else {
+          // Multi-syllable (Level 2-4): 40% threshold for children
+          if (similarity >= 40) {
+            return { isPass: true, score: similarity, heardPinyin, targetPinyin, reason: 'สำเนียงเด็กใกล้เคียง ' + similarity + '% (ผ่าน)' };
+          }
         }
         return { isPass: false, score: similarity, heardPinyin, targetPinyin, reason: 'เสียงยังไม่ตรง (' + heardPinyin + ')' };
       }
@@ -2384,7 +2434,7 @@ body {
         fb.innerHTML = `
           <div class="p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900 text-center">
             <div class="text-sm font-black text-rose-700">เสียงยังไม่ตรง ลองฟังครูแล้วพูดใหม่อีกครั้งนะคะ 🙂</div>
-            ${window.__cnLabAttempts >= 2 ? `
+            ${window.__cnLabAttempts >= 1 ? `
               <div class="mt-2.5 pt-2 border-t border-rose-200">
                 <button onclick="playTone('correct'); TOTAL_STARS += 1; updateGlobalStars(); CURRENT_STEP = 2; renderStep();" class="px-4 py-2 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white rounded-full text-xs font-black shadow-md transition active:scale-95 flex items-center justify-center gap-1 mx-auto cursor-pointer">
                   <span>⭐ คุณครูให้ผ่าน (ยอดเยี่ยมมากค่ะ แตะเพื่อไปต่อ) ➔</span>
