@@ -1152,23 +1152,53 @@ body {
     };
 
     /* สถานะปุ่มไมค์ 3 แบบ — ใช้ร่วมกันทุกจุด */
-        /* ================= ฟังก์ชันปิดไมค์แบบปลอดภัย ครอบคลุมทุกสภาวะ ================= */
+        /* ================= PHONEME LAB: AUDIO & AUTO MIC CONTROLLER ================= */
+    let __cnMicStream = null;
+    let __cnMediaRecorder = null;
+    let __cnAudioChunks = [];
+    let __cnMaxTimer = null;
     window.__cnActiveRecognizer = null;
     window.__cnSilenceTimer = null;
 
-    function stopChineseMic() {
-      if (window.__cnSilenceTimer) {
-        clearTimeout(window.__cnSilenceTimer);
-        window.__cnSilenceTimer = null;
+    async function getChineseAudioStream() {
+      if (__cnMicStream && __cnMicStream.active) return __cnMicStream;
+      __cnMicStream = await navigator.mediaDevices.getUserMedia({
+        audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true }
+      });
+      return __cnMicStream;
+    }
+
+    // Pre-warm audio on user touch/click
+    document.addEventListener('pointerdown', () => {
+      if (!__cnMicStream && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        getChineseAudioStream().catch(() => {});
       }
+    }, { once: true });
+
+    function stopChineseMic(shouldProcess = false) {
+      if (__cnMaxTimer) { clearTimeout(__cnMaxTimer); __cnMaxTimer = null; }
+      if (window.__cnSilenceTimer) { clearTimeout(window.__cnSilenceTimer); window.__cnSilenceTimer = null; }
+
+      if (__cnMediaRecorder && __cnMediaRecorder.state === 'recording') {
+        if (shouldProcess) {
+          try { __cnMediaRecorder.stop(); } catch(e) {}
+        } else {
+          try {
+            __cnMediaRecorder.onstop = null;
+            __cnMediaRecorder.stop();
+          } catch(e) {}
+          isMicListening = false;
+          cnMicUI('retry', '');
+        }
+      } else {
+        isMicListening = false;
+        cnMicUI('retry', '');
+      }
+
       if (window.__cnActiveRecognizer) {
-        try {
-          window.__cnActiveRecognizer.abort();
-        } catch(e) {}
+        try { window.__cnActiveRecognizer.abort(); } catch(e) {}
         window.__cnActiveRecognizer = null;
       }
-      isMicListening = false;
-      cnMicUI('retry', '');
     }
 
     function cnMicUI(state, message) {
@@ -1177,28 +1207,40 @@ body {
       if (btn) {
         if (state === 'wait') {
           btn.className = "px-6 py-3.5 rounded-2xl bg-slate-400 text-white font-display font-black text-sm shadow-lg shadow-slate-400/30 transition cursor-pointer flex items-center justify-center gap-2 mx-auto";
-          btn.innerHTML = '<span>⏳ รอครูพูดจบ แล้วไมค์จะเปิดเอง...</span>';
+          btn.innerHTML = '<span>⏳ รอครูพูดจบ แล้วไมค์จะเปิดเองอัตโนมัติ...</span>';
         } else if (state === 'listening') {
-          btn.className = "px-6 py-3.5 rounded-2xl bg-rose-600 text-white font-display font-black text-sm shadow-lg shadow-rose-600/30 mic-active transition cursor-pointer flex items-center justify-center gap-2 mx-auto";
-          btn.innerHTML = '<span>🔴 กำลังฟัง... พูดได้เลยค่ะ</span>';
+          btn.className = "px-6 py-3.5 rounded-2xl bg-rose-600 text-white font-display font-black text-base shadow-xl ring-4 ring-rose-300 animate-pulse transition cursor-pointer flex items-center justify-center gap-2 mx-auto";
+          btn.innerHTML = '<span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-white animate-ping"></span>🔴 ไมค์เปิดแล้ว พูดได้เลยค่ะ... (แตะเมื่อพูดจบ)</span>';
+        } else if (state === 'thinking') {
+          btn.className = "px-6 py-3.5 rounded-2xl bg-indigo-600 text-white font-display font-black text-sm shadow-lg transition flex items-center justify-center gap-2 mx-auto";
+          btn.innerHTML = '<span>🎧 ครูเป่าเปากำลังตรวจเสียง...</span>';
         } else if (state === 'retry') {
-          btn.className = "px-6 py-3.5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-display font-black text-sm shadow-lg shadow-amber-500/30 transition cursor-pointer flex items-center justify-center gap-2 mx-auto";
-          btn.innerHTML = '<span>🔁 แตะเพื่อลองฟังอีกครั้ง</span>';
+          btn.className = "px-6 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-display font-black text-sm shadow-lg shadow-amber-500/30 transition cursor-pointer flex items-center justify-center gap-2 mx-auto";
+          btn.innerHTML = '<span>🔁 แตะไมค์เพื่อลองพูดอีกครั้ง</span>';
         } else {
-          btn.className = "px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-display font-black text-sm shadow-lg shadow-emerald-600/30 transition cursor-pointer flex items-center justify-center gap-2 mx-auto";
-          btn.innerHTML = '<span>🎙️ แตะไมค์เพื่อพูด</span>';
+          btn.className = "px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-display font-black text-sm shadow-lg transition cursor-pointer flex items-center justify-center gap-2 mx-auto";
+          btn.innerHTML = '<span>🎙️ ไมค์พร้อมรับฟัง</span>';
         }
       }
-      if (st && message) { st.className = 'text-xs font-bold text-slate-500 mt-2'; st.textContent = message; }
+      if (st && message) {
+        st.className = 'text-xs font-bold text-slate-500 mt-2';
+        st.textContent = message;
+      }
     }
 
-    /* ครูพูดนำเฉพาะขั้น — เรียกจาก router เท่านั้น */
+    /* AUTO MIC OPENER */
+    window.__cnAutoOpenMic = function () {
+      if (!CURRENT_LESSON || CURRENT_STEP !== 1) return;
+      const target = CURRENT_LESSON.speak.target;
+      triggerChineseMic(target);
+    };
+
+    /* ครูพูดนำเฉพาะขั้น -> ตามด้วย AUTO MIC */
     let cnTutorDone = {};
     let cnTutorToken = null;
     function cnTutorStep() {
       if (!CURRENT_LESSON) return;
       const key = CURRENT_LESSON.id + '|' + CURRENT_STEP;
-      /* ถ้า token เดิมยังทำงานอยู่ (หรือเพิ่งจบไม่ถึง 1.5 วิ) → ไม่สั่งใหม่ */
       if (cnTutorToken && cnTutorToken.key === key && (Date.now() - cnTutorToken.at) < 1500) return;
       if (cnTutorDone[key]) return;
       cnTutorDone[key] = true;
@@ -1207,11 +1249,15 @@ body {
       if (CURRENT_STEP === 0) {
         cnPlayKey(L.id + '_listen', L.listen.audioWord);
       } else if (CURRENT_STEP === 1) {
-        /* ครูอ่านนำ -> เว้น -> บอกตาหนู -> เว้น -> เปิดไมค์เอง (เด็กไม่ต้องกด) */
+        /* ครูอ่านนำ -> เว้น -> บอกตาหนู -> เว้น -> เปิดไมค์อัตโนมัติ (AUTO MIC) */
+        cnMicUI('wait', 'ไม่ต้องกดอะไรนะคะ — ไมค์จะเปิดอัตโนมัติเมื่อครูพูดจบ');
         cnQueue([
           { key: L.id + '_speak', text: L.speak.target, gapAfter: CN_GAP_WORD },
           { key: L.id + '_turn',  text: '现在轮到你了',  gapAfter: CN_GAP_TURN,
-            then: () => { window.__cnAutoOpenMic(); } }
+            then: () => {
+              window.__cnAutoOpenMic();
+            }
+          }
         ]);
         if (window.__cnTurnAuto) window.__cnTurnAuto[L.id] = false;
       } else if (CURRENT_STEP === 2) {
@@ -1219,16 +1265,6 @@ body {
       } else if (CURRENT_STEP === 3 && L.write.char) {
         cnPlayKey(L.id + '_write', L.write.char);
       }
-    }
-
-    /* ปุ่ม 🔊 ฟังครูพูดอีกครั้ง */
-    function cnReplayCurrent() {
-      if (!CURRENT_LESSON) return;
-      const L = CURRENT_LESSON;
-      if (CURRENT_STEP === 0)      cnPlayKey(L.id + '_listen', L.listen.audioWord);
-      else if (CURRENT_STEP === 1) cnPlayKey(L.id + '_speak',  L.speak.target);
-      else if (CURRENT_STEP === 2) cnPlayKey(L.id + '_read',   L.read.sentence);
-      else if (CURRENT_STEP === 3 && L.write.char) cnPlayKey(L.id + '_write', L.write.char);
     }
 
     function cnPlayOption(word) { cnPlayKey('opt_' + word, word); }
@@ -1500,13 +1536,88 @@ body {
       }
     }
 
-    // ---------------- STEP 2: 🗣️ พูด (SPEAKING) ----------------
+    // ---------------- STEP 2: 🗣️ พูด (SPEAKING - AUTO MIC & PHONEME LAB) ----------------
+    const HANZI_PINYIN_MAP = {
+      '你': 'ni', '好': 'hao', '您': 'nin', '泥': 'ni', '拟': 'ni', '呢': 'ne', '号': 'hao', '嚎': 'hao',
+      '我': 'wo', '要': 'yao', '握': 'wo', '窝': 'wo', '药': 'yao', '咬': 'yao', '耀': 'yao',
+      '红': 'hong', '色': 'se', '洪': 'hong', '宏': 'hong', '涩': 'se',
+      '叫': 'jiao', '小': 'xiao', '明': 'ming', '名': 'ming', '鸣': 'ming',
+      '五': 'wu', '岁': 'sui', '午': 'wu', '武': 'wu', '碎': 'sui',
+      '妈': 'ma', '麻': 'ma', '马': 'ma', '骂': 'ma', '吗': 'ma', '嘛': 'ma',
+      '爸': 'ba', '八': 'ba', '把': 'ba', '坝': 'ba', '拔': 'ba', '粑': 'ba',
+      '书': 'shu', '在': 'zai', '桌': 'zhuo', '子': 'zi', '上': 'shang', '下': 'xia', '里': 'li',
+      '今': 'jin', '天': 'tian', '星': 'xing', '期': 'qi', '三': 'san', '一': 'yi', '二': 'er', '四': 'si',
+      '气': 'qi', '非': 'fei', '常': 'chang', '热': 're', '冷': 'leng',
+      '哥': 'ge', '比': 'bi', '大': 'da', '两': 'liang', '姐': 'jie', '弟': 'di', '妹': 'mei',
+      '请': 'qing', '关': 'guan', '开': 'kai', '作': 'zuo', '业': 'ye', '交': 'jiao', '给': 'gei',
+      '苹': 'ping', '果': 'guo', '香': 'xiang', '蕉': 'jiao', '西': 'xi', '瓜': 'gua',
+      '猫': 'mao', '狗': 'gou', '鳥': 'niao', '鸟': 'niao'
+    };
+
+    function stripTone(str) {
+      if (!str) return '';
+      return str.normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, '');
+    }
+
+    function hanziToPinyin(text) {
+      if (!text) return '';
+      let out = '';
+      for (const ch of text) {
+        if (HANZI_PINYIN_MAP[ch]) {
+          out += HANZI_PINYIN_MAP[ch];
+        } else if (/[a-zA-Z0-9]/.test(ch)) {
+          out += ch.toLowerCase();
+        }
+      }
+      return out;
+    }
+
+    function evaluatePhonemeMatch(targetText, heardText, hintPinyin) {
+      const cleanTarget = (targetText || '').trim();
+      const cleanHeard = (heardText || '').trim();
+      const normTargetHanzi = cleanTarget.replace(/[^a-zA-Z0-9一-龥]/g, '').toLowerCase();
+      const normHeardHanzi = cleanHeard.replace(/[^a-zA-Z0-9一-龥]/g, '').toLowerCase();
+
+      // 1. Direct character match
+      if (normHeardHanzi === normTargetHanzi || (normHeardHanzi.length >= 2 && normHeardHanzi.includes(normTargetHanzi)) || (normTargetHanzi.length >= 2 && normTargetHanzi.includes(normHeardHanzi))) {
+        return { isPass: true, score: 100, heardPinyin: hanziToPinyin(normHeardHanzi), targetPinyin: stripTone(hintPinyin) || hanziToPinyin(normTargetHanzi), reason: 'ตรงตามตัวอักษร 100%' };
+      }
+
+      // 2. Pinyin / Phoneme conversion
+      const targetPinyin = stripTone(hintPinyin) || hanziToPinyin(normTargetHanzi);
+      const heardPinyin = hanziToPinyin(normHeardHanzi) || stripTone(normHeardHanzi);
+
+      if (targetPinyin && heardPinyin) {
+        if (heardPinyin === targetPinyin) {
+          return { isPass: true, score: 98, heardPinyin, targetPinyin, reason: 'หน่วยเสียงพินอินตรงกัน (' + heardPinyin + ')' };
+        }
+        if (heardPinyin.includes(targetPinyin) || (targetPinyin.length >= 3 && targetPinyin.includes(heardPinyin))) {
+          return { isPass: true, score: 88, heardPinyin, targetPinyin, reason: 'สำเนียงครอบคลุมคำเป้าหมาย (' + heardPinyin + ')' };
+        }
+        let matches = 0;
+        const minL = Math.min(targetPinyin.length, heardPinyin.length);
+        const maxL = Math.max(targetPinyin.length, heardPinyin.length);
+        for (let i = 0; i < minL; i++) {
+          if (targetPinyin[i] === heardPinyin[i]) matches++;
+        }
+        const similarity = Math.round((matches / maxL) * 100);
+        if (similarity >= 55) {
+          return { isPass: true, score: similarity, heardPinyin, targetPinyin, reason: 'หน่วยเสียงใกล้เคียง ' + similarity + '% (เกณฑ์เด็กผ่าน)' };
+        }
+        return { isPass: false, score: similarity, heardPinyin, targetPinyin, reason: 'เสียงยังไม่ตรง (' + heardPinyin + ')' };
+      }
+      return { isPass: false, score: 20, heardPinyin: '', targetPinyin: '', reason: 'ยังไม่ตรงเป้าหมาย' };
+    }
+
     function renderSpeakStep(stage) {
       const data = CURRENT_LESSON.speak;
       let h = `
         <div class="text-center space-y-4">
           <div class="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-xs font-black">
-            🗣️ ขั้นที่ 2 · ฝึกทักษะการพูด (Speaking & Pronunciation)
+            🗣️ ขั้นที่ 2 · ฝึกทักษะการพูด (Auto Mic + Phoneme Lab)
           </div>
           <p class="text-sm font-bold text-slate-700">${data.prompt}</p>
 
@@ -1522,217 +1633,233 @@ body {
 
           <!-- Mic Button -->
           <div class="pt-2">
-            <button id="btnChineseMic" data-target="${data.target.replace(/"/g,'&quot;')}" class="px-6 py-3.5 rounded-2xl bg-slate-400 text-white font-display font-black text-sm shadow-lg shadow-slate-400/30 active:scale-95 transition cursor-pointer flex items-center justify-center gap-2 mx-auto">
-              <span>⏳ รอครูพูดจบ แล้วไมค์จะเปิดเอง...</span>
+            <button id="btnChineseMic" onclick="triggerChineseMic('${data.target.replace(/'/g, "\'")}')" class="px-6 py-3.5 rounded-2xl bg-slate-400 text-white font-display font-black text-base shadow-xl ring-4 ring-slate-300 transition cursor-pointer flex items-center justify-center gap-2 mx-auto">
+              <span>⏳ รอครูพูดจบ แล้วไมค์จะเปิดเองอัตโนมัติ...</span>
             </button>
-            <div id="micStatusText" class="text-xs text-slate-400 font-bold mt-2">
-              ไม่ต้องกดอะไรนะคะ — ไมค์จะเปิดเองเมื่อครูพูดจบ
+            <div id="micStatusText" class="text-xs text-slate-500 font-bold mt-2">
+              ไม่ต้องกดอะไรนะคะ — ไมค์จะเปิดอัตโนมัติเมื่อครูพูดจบ
             </div>
             <div id="micLiveWords" class="hidden max-w-sm mx-auto"></div>
           </div>
 
-          <div id="stepFeedback" class="h-6 text-xs font-bold text-emerald-600 flex items-center justify-center"></div>
+          <div id="stepFeedback" class="min-h-12 text-xs font-bold text-emerald-600 flex items-center justify-center"></div>
         </div>
       `;
       stage.innerHTML = h;
-      /* เอาออก: ขั้นพูดมีคิว "ครูพูด -> เว้น -> ตาหนู -> เปิดไมค์" ใน cnTutorStep */
-
-      /* ปุ่มไมค์: ผูกด้วย JS เพื่อรู้ว่าเป็นการกดของเด็กจริง (ไม่ใช่ auto)
-         - กดเองระหว่างคิว → ครูหยุดพูด แล้วเปิดไมค์ทันที
-         - เรียกจาก cnTutorStep (auto) → ไม่หยุดคิว ไม่นับเป็นการกด */
-      const micBtn0 = document.getElementById('btnChineseMic');
-      if (micBtn0) {
-        micBtn0.onclick = () => {
-          if (window.__cnAutoMic === true) { return; }   /* กัน click() จาก auto */
-          window.__micManual = (window.__micManual || 0) + 1;
-          cnStopQueue();
-
-          // Condition 3: แตะไมค์ซ้ำขณะฟังอยู่ ให้ปิดไมค์ทันที
-          if (isMicListening && window.__cnActiveRecognizer) {
-            stopChineseMic();
-            const sa = document.getElementById('micStatusText');
-            if (sa) {
-              sa.className = 'text-xs font-bold text-slate-500 mt-2';
-              sa.textContent = 'ปิดไมค์เรียบร้อยค่ะ — แตะไมค์อีกครั้งเมื่อพร้อมพูดนะคะ';
-            }
-            return;
-          }
-
-          triggerChineseMic(micBtn0.getAttribute('data-target'));
-        };
-      }
     }
 
     function triggerChineseMic(targetText) {
-      const btn = document.getElementById('btnChineseMic');
-      const st = document.getElementById('micStatusText');
-      const fb = document.getElementById('stepFeedback');
-
-      // ปิดไมค์เดิมก่อนเสมอ เพื่อไม่ให้มี Stream ค้าง
-      stopChineseMic();
-
-      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (!SpeechRec) {
-        st.textContent = 'เบราว์เซอร์นี้ไม่รองรับการฟังเสียง (ลอง Chrome / Safari รุ่นใหม่) หรือแตะปุ่มผ่านด้านล่างค่ะ';
+      if (isMicListening) {
+        stopChineseMic(true);
         return;
       }
-      /* ขอสิทธิ์ไมค์ก่อน — ถ้าถูกปฏิเสธ SpeechRecognition จะ start() แล้ว "เงียบ" ไม่แจ้งอะไร */
-      const askMic = async () => {
-        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return true;
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          stream.getTracks().forEach(t => t.stop());
-          return true;
-        } catch (e) {
-          stopChineseMic();
-          const sa = document.getElementById('micStatusText');
-          if (sa) {
-            sa.className = 'text-xs font-bold text-rose-600';
-            sa.textContent = (e && e.name === 'NotAllowedError')
-              ? 'ยังไม่ได้อนุญาตไมโครโฟน — กดไอคอน 🔒/🎙️ ข้างช่องที่อยู่ แล้วเลือก "อนุญาต" ค่ะ'
-              : 'เปิดไมโครโฟนไม่สำเร็จ: ' + ((e && e.name) || 'unknown') + ' — ตรวจว่าอุปกรณ์มีไมค์และอนุญาตแล้วหรือยังค่ะ';
-          }
-          window.__cnLog = window.__cnLog || [];
-          window.__cnLog.push({ key: 'mic', via: 'gum-fail:' + ((e && e.name) || 'unknown') });
-          return false;
+      stopChineseMic(false);
+
+      if (typeof MediaRecorder !== 'undefined' && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        startServerSTTRecording(targetText);
+      } else {
+        startFallbackWebSpeech(targetText);
+      }
+    }
+
+    async function startServerSTTRecording(targetText) {
+      const liveBox = document.getElementById('micLiveWords');
+
+      try {
+        const stream = await getChineseAudioStream();
+        __cnAudioChunks = [];
+
+        let mime = '';
+        const candidates = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus'];
+        for (const c of candidates) {
+          try { if (MediaRecorder.isTypeSupported(c)) { mime = c; break; } } catch(e) {}
         }
-      };
+
+        const rec = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream);
+        __cnMediaRecorder = rec;
+        isMicListening = true;
+
+        cnMicUI('listening', '🎙️ ไมค์เปิดอัตโนมัติแล้ว... พูดคำว่า "' + targetText + '" ได้เลยค่ะ');
+
+        if (liveBox) {
+          liveBox.classList.remove('hidden');
+          liveBox.className = 'mt-3 px-4 py-3 rounded-2xl bg-rose-50 border-2 border-rose-200 text-center animate-pulse';
+          liveBox.innerHTML = `
+            <div class="text-[10px] font-black text-rose-700 mb-1">🔴 ไมค์เปิดอัตโนมัติแล้ว กำลังรับฟังเสียง</div>
+            <div class="font-display font-black text-2xl text-slate-900 leading-tight">พูดคำว่า "${targetText}" ได้เลยจ้ะ</div>
+          `;
+        }
+
+        rec.ondataavailable = (e) => {
+          if (e.data && e.data.size > 0) __cnAudioChunks.push(e.data);
+        };
+
+        rec.onstop = async () => {
+          isMicListening = false;
+          cnMicUI('thinking', 'ครูเป่าเปากำลังตรวจการออกเสียง... 🎧');
+
+          const blob = new Blob(__cnAudioChunks, { type: mime || 'audio/webm' });
+          if (blob.size < 600) {
+            cnMicUI('retry', 'ยังไม่ได้ยินเสียงชัดเจน — ไมค์จะลองเปิดให้อีกครั้งนะคะ 🙂');
+            setTimeout(() => { if (CURRENT_STEP === 1) window.__cnAutoOpenMic(); }, 1200);
+            return;
+          }
+
+          const fd = new FormData();
+          fd.append('audio', blob, 'child_chinese.webm');
+          fd.append('lang', 'zh');
+          fd.append('hint', targetText);
+
+          try {
+            const ctrl = new AbortController();
+            const to = setTimeout(() => ctrl.abort(), 12000);
+            const resp = await fetch('/kidobits/stt', { method: 'POST', body: fd, signal: ctrl.signal });
+            clearTimeout(to);
+
+            const data = await resp.json();
+            const heard = (data && data.text) ? data.text.trim() : '';
+
+            handlePhonemeEvaluationResult(targetText, heard);
+          } catch (err) {
+            console.error('Server STT failed:', err);
+            handlePhonemeEvaluationResult(targetText, '', 'เกิดข้อผิดพลาดในการเชื่อมต่อ');
+          }
+        };
+
+        rec.start();
+
+        // 3.5 วินาที สำหรับฟังเสียงพูดของเด็ก แล้วส่งตรวจอัตโนมัติ
+        __cnMaxTimer = setTimeout(() => {
+          if (isMicListening && __cnMediaRecorder && __cnMediaRecorder.state === 'recording') {
+            stopChineseMic(true);
+          }
+        }, 3500);
+
+      } catch (err) {
+        console.warn('getUserMedia failed, falling back to WebSpeech:', err);
+        startFallbackWebSpeech(targetText);
+      }
+    }
+
+    function handlePhonemeEvaluationResult(targetText, heard, customError = null) {
+      const fb = document.getElementById('stepFeedback');
+      const liveBox = document.getElementById('micLiveWords');
+      window.__cnLabAttempts = (window.__cnLabAttempts || 0) + 1;
+
+      if (customError) {
+        cnMicUI('retry', customError);
+        return;
+      }
+
+      const targetHintPinyin = (CURRENT_LESSON && CURRENT_LESSON.speak && CURRENT_LESSON.speak.pinyin) || '';
+      const evalRes = evaluatePhonemeMatch(targetText, heard, targetHintPinyin);
+
+      if (liveBox) {
+        liveBox.classList.remove('hidden');
+        liveBox.className = evalRes.isPass
+          ? 'mt-3 px-4 py-3 rounded-2xl bg-emerald-50 border-2 border-emerald-200 text-center animate-pop'
+          : 'mt-3 px-4 py-3 rounded-2xl bg-rose-50 border-2 border-rose-200 text-center';
+        liveBox.innerHTML = `
+          <div class="text-[10px] font-black ${evalRes.isPass ? 'text-emerald-700' : 'text-rose-700'} mb-1">
+            ${evalRes.isPass ? '✅ ออกเสียงตรงตามเกณฑ์' : '❌ ที่ได้ยินยังไม่ตรง'}
+          </div>
+          <div class="font-display font-black text-2xl text-slate-900 leading-tight">"${heard || '(เงียบ)'}"</div>
+          <div class="text-[11px] text-slate-500 mt-1">พินอินที่ได้ยิน: <b>${evalRes.heardPinyin || '-'}</b> | เป้าหมาย: <b>${evalRes.targetPinyin || '-'}</b></div>
+        `;
+      }
+
+      if (evalRes.isPass) {
+        playTone('correct');
+        TOTAL_STARS += 1;
+        updateGlobalStars();
+        window.__cnLabAttempts = 0;
+        cnMicUI('listening', 'ยอดเยี่ยมมากค่ะ! 🎉');
+
+        fb.innerHTML = `
+          <div class="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-center animate-pop">
+            <div class="text-base font-black">🎉 ยอดเยี่ยมมากค่ะ! [ความตรงกัน ${evalRes.score}%] ⭐⭐⭐</div>
+            <div class="text-xs font-bold text-emerald-700 mt-0.5">${evalRes.reason}</div>
+          </div>
+        `;
+
+        speakMandarin('很好！发音很清楚！', 0.9, () => {
+          setTimeout(() => {
+            CURRENT_STEP = 2;
+            renderStep();
+          }, 600);
+        });
+      } else {
+        playTone('wrong');
+        cnMicUI('retry', 'เสียงยังไม่ตรง ลองฟังครูอีกครั้งนะคะ');
+
+        fb.innerHTML = `
+          <div class="p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900 text-center">
+            <div class="text-sm font-black text-rose-700">เสียงยังไม่ตรง ลองฟังครูแล้วพูดใหม่อีกครั้งนะคะ 🙂</div>
+            ${window.__cnLabAttempts >= 2 ? `
+              <div class="mt-2.5 pt-2 border-t border-rose-200">
+                <button onclick="playTone('correct'); TOTAL_STARS += 1; updateGlobalStars(); CURRENT_STEP = 2; renderStep();" class="px-4 py-2 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white rounded-full text-xs font-black shadow-md transition active:scale-95 flex items-center justify-center gap-1 mx-auto cursor-pointer">
+                  <span>⭐ คุณครูให้ผ่าน (ยอดเยี่ยมมากค่ะ แตะเพื่อไปต่อ) ➔</span>
+                </button>
+              </div>
+            ` : ''}
+          </div>
+        `;
+        speakMandarin('再试一次', 0.85, () => {
+          // AUTO MIC RETRY: เปิดไมค์ให้เด็กพูดใหม่อัตโนมัติ!
+          setTimeout(() => {
+            if (CURRENT_STEP === 1) {
+              window.__cnAutoOpenMic();
+            }
+          }, 600);
+        });
+      }
+    }
+
+    function startFallbackWebSpeech(targetText) {
+      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRec) {
+        cnMicUI('retry', 'อุปกรณ์นี้ไม่รองรับไมค์ — แตะปุ่มผ่านด้านล่างเพื่อไปต่อได้ค่ะ');
+        return;
+      }
 
       try {
         const recognizer = new SpeechRec();
         recognizer.lang = 'zh-CN';
         recognizer.continuous = false;
-        recognizer.interimResults = true;   /* ให้เห็นคำที่กำลังพูดทีละคำ */
+        recognizer.interimResults = false;
 
         window.__cnActiveRecognizer = recognizer;
         isMicListening = true;
+        cnMicUI('listening', 'กำลังฟังเสียงภาษาจีน... (พูดได้เลยค่ะ)');
 
-        cnMicUI('listening', 'กำลังรับฟังเสียงภาษาจีน... 🎙️ (แตะไมค์อีกครั้งเพื่อหยุด)');
-
-        /* เงื่อนไขที่ 2: Silence Timeout (6 วินาที) ถ้าไม่ได้ยินเสียง ให้ปิดไมค์อัตโนมัติ */
-        if (window.__cnSilenceTimer) clearTimeout(window.__cnSilenceTimer);
-        window.__cnSilenceTimer = setTimeout(() => {
-          if (isMicListening) {
-            stopChineseMic();
-            const sa = document.getElementById('micStatusText');
-            if (sa) {
-              sa.className = 'text-xs font-bold text-slate-500 mt-2';
-              sa.textContent = 'ยังไม่ได้ยินเสียง — แตะไมค์ลองใหม่อีกครั้งนะคะ 🙂';
-            }
-          }
-        }, 6000);
-
-        /* กล่องคำพูดสด — เห็นข้อความโตขึ้นระหว่างพูด */
-        const liveBox = () => document.getElementById('micLiveWords');
-        const setLive = (text, final) => {
-          const box = liveBox();
-          if (!box) return;
-          if (!text) { box.classList.add('hidden'); box.innerHTML = ''; return; }
-          box.classList.remove('hidden');
-          box.className = final
-            ? 'mt-3 px-4 py-3 rounded-2xl bg-emerald-50 border-2 border-emerald-200 text-center'
-            : 'mt-3 px-4 py-3 rounded-2xl bg-sky-50 border-2 border-sky-200 text-center';
-          box.innerHTML = `
-            <div class="text-[10px] font-black ${final ? 'text-emerald-700' : 'text-sky-700'} mb-1">
-              ${final ? '✅ หนูพูดว่า' : '🎧 กำลังได้ยิน...'}
-            </div>
-            <div class="font-display font-black text-2xl text-slate-900 leading-tight">${text}</div>
-          `;
-        };
-
-        /* แสดงระหว่างพูด (interim) */
         recognizer.onresult = (e) => {
-          let interim = '';
-          let finalText = '';
-          for (let i = e.resultIndex; i < e.results.length; i++) {
-            const r = e.results[i];
-            if (r.isFinal) finalText += r[0].transcript;
-            else interim += r[0].transcript;
-          }
-          if (interim) setLive(interim.trim(), false);
-          if (!finalText) return;
-          const heard = finalText.trim();
-          setLive(heard, true);
-
-          // เงื่อนไขที่ 1: ประมวลผลเสร็จแล้ว ปิดไมค์ทันที!
-          stopChineseMic();
-
-          const st2 = document.getElementById('micStatusText');
-          if (st2) {
-            st2.className = 'text-xs font-bold text-slate-500 mt-2';
-            st2.innerHTML = `เทียบกับคำเป้าหมาย: <b class="text-slate-800">${targetText}</b>`;
-          }
-          window.__cnLog = window.__cnLog || [];
-          window.__cnLog.push({ key: 'mic', via: 'result:' + heard });
-          // Clean comparison
-          const cleanTarget = targetText.replace(/[^a-zA-Z0-9一-龥]/g, '').toLowerCase();
-          const cleanHeard = heard.replace(/[^a-zA-Z0-9一-龥]/g, '').toLowerCase();
-
-          if (cleanHeard === cleanTarget || cleanHeard.includes(cleanTarget) || cleanTarget.includes(cleanHeard)) {
-            playTone('correct');
-            TOTAL_STARS += 1;
-            updateGlobalStars();
-            fb.innerHTML = `🎉 ออกเสียงได้ยอดเยี่ยมมากค่ะ! ⭐⭐⭐`;
-            speakMandarin('很好！发音很清楚！', 0.9, () => {
-              setTimeout(() => {
-                CURRENT_STEP = 2;
-                renderStep();
-              }, 450);
-            });
-          } else {
-            playTone('wrong');
-            fb.innerHTML = `ลองอ่านใหม่อีกครั้งนะคะ 🙂`;
-            speakMandarin('再试一次', 0.85);
-          }
+          stopChineseMic(false);
+          const heard = (e.results[0] && e.results[0][0] && e.results[0][0].transcript) || '';
+          handlePhonemeEvaluationResult(targetText, heard);
         };
 
         recognizer.onerror = (err) => {
+          stopChineseMic(false);
           const code = (err && err.error) || 'unknown';
-          // ปิดไมค์ทันทีเมื่อเกิด error (ไม่เปิดวนซ้ำ)
-          stopChineseMic();
-
-          const stx = document.getElementById('micStatusText');
-          const msg = {
-            'not-allowed': 'ยังไม่ได้อนุญาตไมโครโฟน — กดไอคอน 🔒 ข้างช่องที่อยู่ แล้วอนุญาตค่ะ',
-            'service-not-allowed': 'เบราว์เซอร์/ระบบบล็อกบริการฟังเสียง (ต้องใช้ https + Chrome/Safari)',
-            'audio-capture': 'ไม่พบไมโครโฟนในเครื่องนี้ค่ะ',
-            'no-speech': 'ไม่ได้ยินเสียง — แตะไมค์แล้วพูดดัง ๆ ใกล้ไมค์อีกครั้งนะคะ',
-            'network': 'ต่อเซิร์ฟเวอร์ฟังเสียงไม่ได้ (ตรวจอินเทอร์เน็ต)'
-          }[code] || ('ฟังเสียงไม่สำเร็จ (' + code + ')');
-          if (stx) { stx.className = 'text-xs font-bold text-slate-500 mt-2'; stx.textContent = msg; }
-          window.__cnLog = window.__cnLog || [];
-          window.__cnLog.push({ key: 'mic', via: 'error:' + code });
+          const msg = (code === 'network')
+            ? 'สัญญาณอินเทอร์เน็ตขาดช่วง แตะไมค์อีกครั้งนะคะ'
+            : (code === 'no-speech')
+            ? 'ยังไม่ได้ยินเสียง — แตะไมค์แล้วพูดดัง ๆ ใกล้ไมค์อีกครั้งนะคะ'
+            : 'เกิดข้อผิดพลาดในการฟัง (' + code + ')';
+          cnMicUI('retry', msg);
         };
 
         recognizer.onend = () => {
-          stopChineseMic();
+          if (isMicListening) stopChineseMic(false);
         };
 
-        /* ขอสิทธิ์ก่อน แล้วค่อยเริ่มฟังจริง */
-        askMic().then((ok) => {
-          if (!ok) return;
-          try {
-            recognizer.start();
-            window.__cnLog = window.__cnLog || [];
-            window.__cnLog.push({ key: 'mic', via: 'started' });
-          }
-          catch (e) {
-            stopChineseMic();
-            const sx = document.getElementById('micStatusText');
-            if (sx) {
-              sx.className = 'text-xs font-bold text-rose-600';
-              sx.textContent = 'เริ่มฟังไม่สำเร็จ (' + ((e && e.name) || 'error') + ') — ระบบถอดเสียงอาจถูกบล็อก ลองใหม่หรือใช้ปุ่มผ่านขั้นด้านล่างค่ะ';
-            }
-            window.__cnLog = window.__cnLog || [];
-            window.__cnLog.push({ key: 'mic', via: 'start-threw:' + ((e && e.name) || 'error') });
-          }
-        });
-      } catch(e) {
-        stopChineseMic();
+        recognizer.start();
+      } catch (e) {
+        cnMicUI('retry', 'เปิดไมโครโฟนไม่สำเร็จ แตะปุ่มผ่านเพื่อไปต่อได้ค่ะ');
       }
     }
 
-    // ---------------- STEP 3: 📖 อ่าน (READING) ----------------
+// ---------------- STEP 3: 📖 อ่าน (READING) ----------------
     function renderReadStep(stage) {
       const data = CURRENT_LESSON.read;
       let h = `

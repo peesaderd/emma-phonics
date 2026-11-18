@@ -1,0 +1,2289 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#FFFFFF">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Kidobits Chinese 4-Skills Arena · แบบฝึกหัดภาษาจีน 4 ทักษะ (อ.1 - ป.6)</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Noto+Sans+Thai:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        display: ['Plus Jakarta Sans', 'Noto Sans Thai', 'sans-serif'],
+        thai: ['Noto Sans Thai', 'sans-serif'],
+        zh: ['"WenQuanYi Zen Hei"', '"Noto Sans CJK SC"', '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif']
+      },
+      colors: {
+        panda: {
+          50: '#FDF8F6',
+          100: '#F2E8E5',
+          200: '#EADDD7',
+          500: '#C2410C',
+          800: '#7C2D12',
+          900: '#431407'
+        }
+      }
+    }
+  }
+}
+</script>
+<style>
+* { -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: 'Noto Sans Thai', 'Plus Jakarta Sans', sans-serif;
+  overscroll-behavior-y: none;
+  background-color: #FFFDF9;
+}
+.zh-font {
+  font-family: 'WenQuanYi Zen Hei', 'Noto Sans CJK SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+/* Grid for Tianzi Ge Canvas (田字格) */
+.tianzi-bg {
+  background-image: 
+    linear-gradient(to right, rgba(239, 68, 68, 0.25) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(239, 68, 68, 0.25) 1px, transparent 1px),
+    radial-gradient(circle, rgba(239, 68, 68, 0.15) 1px, transparent 1px);
+  background-size: 50% 50%, 50% 50%, 25% 25%;
+  background-position: center center;
+}
+.tab-active {
+  background: linear-gradient(135deg, #EA580C, #C2410C);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(194, 65, 12, 0.35);
+}
+.tab-inactive {
+  background: #FFFFFF;
+  color: #4B5563;
+  border: 1px solid #E5E7EB;
+}
+.badge-yct {
+  background: #FEF3C7;
+  color: #92400E;
+  border: 1px solid #FDE68A;
+}
+/* Pulse animation for active mic */
+@keyframes micGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  50% { box-shadow: 0 0 0 14px rgba(239, 68, 68, 0); }
+}
+.mic-active {
+  animation: micGlow 1.5s infinite ease-in-out;
+}
+</style>
+  <style id="hideOldChineseLobbyStyle">
+    /* Direct lesson mode inside Chinese 4-Skills Arena */
+    html.direct-lesson-mode body {
+      background-color: #F8F9FD !important;
+      overflow: hidden !important;
+    }
+    html.direct-lesson-mode > body > header,
+    html.direct-lesson-mode > body > main,
+    html.direct-lesson-mode > body > footer {
+      display: none !important;
+    }
+    html.direct-lesson-mode #playerModal {
+      display: flex !important;
+      background-color: #F8F9FD !important;
+      backdrop-filter: none !important;
+      padding: 0 !important;
+      position: fixed !important;
+      inset: 0 !important;
+      z-index: 9999 !important;
+    }
+    html.direct-lesson-mode #playerModal > div {
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      max-height: 100vh !important;
+      height: 100% !important;
+      max-width: 430px !important;
+      width: 100% !important;
+      padding-top: env(safe-area-inset-top, 8px) !important;
+      padding-bottom: 96px !important;
+      background: #FFFFFF !important;
+      overflow-y: auto !important;
+    }
+  </style>
+  <script>
+    (function() {
+      const q = window.location.search;
+      if (q.includes('lesson=') || q.includes('id=') || q.includes('les=')) {
+        document.documentElement.classList.add('direct-lesson-mode');
+      }
+    })();
+  </script>
+  <script src="/theme/js/kidobits-resume.js"></script>
+  <script src="/js/kidobits_wallet.js"></script>
+  <script src="/js/kidobits_auth.js"></script>
+  <script src="/theme/js/kidobits_curriculum_lock.js"></script>
+  <style id="pwa-safe-area-fix">
+    :root {
+      --sat: env(safe-area-inset-top, 0px);
+      --sab: env(safe-area-inset-bottom, 0px);
+    }
+    html {
+      background-color: #FFFFFF !important;
+    }
+    body {
+      background-color: #FFFFFF !important;
+    }
+    /* Safe Top for mobile frames and top sections */
+    .pt-7, [class*="pt-7"] {
+      padding-top: max(24px, calc(12px + env(safe-area-inset-top, 0px))) !important;
+    }
+    .pt-4, [class*="pt-4"] {
+      padding-top: max(16px, calc(10px + env(safe-area-inset-top, 0px))) !important;
+    }
+    /* Safe Bottom for floating navigation */
+    nav.fixed[class*="bottom-"] {
+      bottom: max(12px, calc(10px + env(safe-area-inset-bottom, 0px))) !important;
+    }
+    /* Safe Bottom padding for scrollable body/containers */
+    .pb-24, [class*="pb-24"] {
+      padding-bottom: max(96px, calc(88px + env(safe-area-inset-bottom, 0px))) !important;
+    }
+    .pb-28, [class*="pb-28"] {
+      padding-bottom: max(112px, calc(100px + env(safe-area-inset-bottom, 0px))) !important;
+    }
+  </style>
+
+  <!-- Kidobits Chinese Landscape Responsive Mode -->
+  <style id="kidobits-chinese-landscape">
+    @media (orientation: landscape) {
+      /* 1. Hide floating bottom navigation to prevent blocking player controls */
+      #playerModal nav.fixed,
+      nav.fixed,
+      html.direct-lesson-mode nav.fixed,
+      body.in-game nav.fixed {
+        display: none !important;
+      }
+
+      /* 2. Expand Player Modal to wide landscape canvas */
+      html.direct-lesson-mode #playerModal {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 !important;
+      }
+
+      html.direct-lesson-mode #playerModal > div,
+      #playerModal > div {
+        max-width: 960px !important;
+        width: 100% !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 6px 16px !important;
+        padding-top: max(6px, env(safe-area-inset-top, 0px)) !important;
+        padding-bottom: max(10px, env(safe-area-inset-bottom, 0px)) !important;
+        padding-left: max(16px, calc(10px + env(safe-area-inset-left, 0px))) !important;
+        padding-right: max(16px, calc(10px + env(safe-area-inset-right, 0px))) !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+
+      /* 3. Compact Header & Step Bar in Landscape */
+      #playerModal header {
+        padding-top: 4px !important;
+        padding-bottom: 4px !important;
+        margin-bottom: 2px !important;
+      }
+      #playerModal > div > div.bg-gradient-to-r {
+        padding-top: 4px !important;
+        padding-bottom: 4px !important;
+        margin-bottom: 2px !important;
+      }
+      #playerModal .bg-orange-50 {
+        padding-top: 4px !important;
+        padding-bottom: 4px !important;
+      }
+
+      /* 4. Streamlined Stage Body */
+      #playerStage {
+        min-height: auto !important;
+        padding: 8px 12px !important;
+        flex: 1 1 auto !important;
+        overflow-y: auto !important;
+      }
+
+      /* 5. Short landscape screens (phones with height <= 480px) */
+      @media (max-height: 480px) {
+        #btnListenReplay {
+          width: 50px !important;
+          height: 50px !important;
+          font-size: 1.4rem !important;
+        }
+        .tianzi-bg {
+          width: 160px !important;
+          height: 160px !important;
+        }
+        .tianzi-bg canvas {
+          width: 160px !important;
+          height: 160px !important;
+        }
+        .tianzi-bg > div {
+          font-size: 3.5rem !important;
+        }
+        #playerStage > div.space-y-4 {
+          margin-top: 0 !important;
+        }
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-800 flex flex-col justify-between selection:bg-orange-200">
+  <!-- ================= PHONEME LAB BANNER ================= -->
+  <div class="bg-gradient-to-r from-purple-700 via-indigo-600 to-blue-600 text-white px-4 py-2 text-center text-xs font-bold flex flex-wrap items-center justify-center gap-2 shadow-md z-50">
+    <span class="inline-flex items-center gap-1.5 bg-white/20 px-2 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider">
+      🧪 Phoneme Lab Mode (Auto Mic)
+    </span>
+    <span>ห้องทดลองประเมินเสียงพูดภาษาจีน (ไมค์เปิดอัตโนมัติ + เทียบด้วย Pinyin & หน่วยเสียง)</span>
+    <a href="/chinese.html" class="bg-white text-indigo-900 hover:bg-slate-100 px-3 py-0.5 rounded-full text-xs font-black shadow-xs transition ml-2">
+      สลับไปหน้าเดิม ➔
+    </a>
+  </div>
+
+
+  <!-- TOP HEADER / NAV -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-orange-100 shadow-sm">
+    <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <a href="/" class="w-10 h-10 rounded-2xl bg-orange-50 border border-orange-200 flex items-center justify-center text-xl shadow-sm hover:bg-orange-100 transition active:scale-95" title="กลับหน้าหลัก">
+          🐼
+        </a>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="font-display font-black text-slate-900 text-base sm:text-lg tracking-tight">Kidobits Chinese</span>
+            <span class="px-2 py-0.5 rounded-full bg-red-100 text-red-700 text-[10px] font-bold">4-Skills Arena</span>
+          </div>
+          <p class="text-[11px] text-slate-500 font-medium">แบบฝึกหัดภาษาจีน 4 ทักษะ (ฟัง · พูด · อ่าน · เขียน) อ.1 - ป.6</p>
+        </div>
+      </div>
+
+      <!-- Action items -->
+      <div class="flex items-center gap-2">
+        <a href="/Kidobits_Chinese_Curriculum_K_to_P6.pdf" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-800 text-xs font-bold border border-orange-200 transition">
+          <span>📄 แผนหลักสูตร PDF</span>
+        </a>
+        <div class="flex items-center gap-1 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-bold">
+          <span>⭐</span>
+          <span id="globalStars">0</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN HUB CONTENT -->
+  <main class="max-w-5xl mx-auto px-4 py-6 w-full flex-1">
+
+    <!-- WELCOME BANNER -->
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-red-600 via-orange-600 to-amber-600 p-6 sm:p-8 text-white shadow-lg mb-8">
+      <div class="relative z-10 max-w-xl">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-bold mb-3 border border-white/20">
+          <span>🇨🇳 ตามหลักสูตรกระทรวงศึกษาธิการไทย & YCT สากล</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-display font-black leading-tight mb-2">
+          ฝึกภาษาจีนครบ 4 ทักษะ<br class="hidden sm:inline"> (ฟัง · พูด · อ่าน · เขียน)
+        </h1>
+        <p class="text-sm text-orange-100 font-medium leading-relaxed mb-4">
+          บทเรียนอินเทอร์แอคทีฟพร้อมครูแพนด้าเป่าเปา มีเสียงอ่านเจ้าของภาษา ระบบตรวจไมค์วัดการออกเสียง กระดานลากเส้นขีดอักษรจีน และโหมดเปิด/ปิดพินอิน
+        </p>
+        <div class="flex flex-wrap items-center gap-2 text-xs font-bold">
+          <span class="px-2.5 py-1 rounded-lg bg-black/20">🎧 ฟังแม่นยำ</span>
+          <span class="px-2.5 py-1 rounded-lg bg-black/20">🗣️ พูดชัดเจน</span>
+          <span class="px-2.5 py-1 rounded-lg bg-black/20">📖 อ่านคล่องแคล่ว</span>
+          <span class="px-2.5 py-1 rounded-lg bg-black/20">✍️ เขียนถูกลำดับขีด</span>
+        </div>
+      </div>
+      <!-- Decorative Panda Character -->
+      <div class="absolute -right-4 -bottom-6 text-8xl sm:text-9xl opacity-90 select-none pointer-events-none drop-shadow-md">
+        🐼
+      </div>
+    </div>
+
+    <!-- LEVEL SEGMENT TABS -->
+    <div class="flex items-center justify-center gap-2 sm:gap-3 mb-6 p-1.5 bg-slate-100 rounded-2xl max-w-md mx-auto">
+      <button onclick="switchStageTab('early')" id="tabEarly" class="flex-1 py-2.5 px-3 rounded-xl font-display font-black text-xs sm:text-sm transition-all tab-active text-center">
+        ปฐมวัย (อ.1 - อ.3)
+      </button>
+      <button onclick="switchStageTab('lower')" id="tabLower" class="flex-1 py-2.5 px-3 rounded-xl font-display font-black text-xs sm:text-sm transition-all tab-inactive text-center">
+        ประถมต้น (ป.1 - ป.3)
+      </button>
+      <button onclick="switchStageTab('upper')" id="tabUpper" class="flex-1 py-2.5 px-3 rounded-xl font-display font-black text-xs sm:text-sm transition-all tab-inactive text-center">
+        ประถมปลาย (ป.4 - ป.6)
+      </button>
+    </div>
+
+    <!-- LESSON CARDS CONTAINER -->
+    <div id="lessonsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-10">
+      <!-- Injected by JavaScript based on active tab -->
+    </div>
+
+  </main>
+
+  <!-- ================= 4-SKILLS INTERACTIVE MODAL PLAYER ================= -->
+  <div id="playerModal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-2xl w-full shadow-2xl border-4 border-orange-200 overflow-hidden flex flex-col max-h-[92vh] animate-pop">
+      
+      <!-- Top Bar: Standard Kidobits Header with Back & Stats Chips -->
+      <header class="px-4 py-2.5 bg-white border-b border-slate-100 flex items-center justify-between gap-2 shrink-0">
+        <button onclick="closeLesson()" class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700 transition" title="ย้อนกลับ">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5"></path>
+            <path d="M12 19l-7-7 7-7"></path>
+          </svg>
+          <span>กลับ</span>
+        </button>
+
+        <div class="flex items-center gap-1.5">
+          <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-50 border border-red-100 text-[11px] font-black text-red-600 shadow-2xs">
+            <span>🔥</span>
+            <span>7</span>
+          </div>
+          <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-100 text-[11px] font-black text-amber-600 shadow-2xs">
+            <span>⭐</span>
+            <span>28</span>
+          </div>
+          <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-[11px] font-black text-emerald-600 shadow-2xs">
+            <span>🪙</span>
+            <span>240</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Lesson Banner Info -->
+      <div class="px-4 py-1.5 bg-gradient-to-r from-purple-700 to-indigo-700 text-white text-[11px] font-black flex items-center justify-between shrink-0">
+        <span class="flex items-center gap-1.5">🧪 <span>Phoneme Lab Active: Auto Mic + Local Server STT</span></span>
+        <span class="bg-white/20 px-2 py-0.5 rounded-full text-[10px]">Auto Mic Engine</span>
+      </div>
+      <div class="px-4 py-3 bg-gradient-to-r from-red-500 via-orange-500 to-amber-500 text-white flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <span class="text-2xl shrink-0">🐼</span>
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5">
+              <span id="modalLessonId" class="text-[10px] font-black bg-white/20 px-2 py-0.5 rounded-full shrink-0">K1.01</span>
+              <h3 id="modalLessonTitle" class="text-xs sm:text-sm font-black truncate font-chinese">你好与家人</h3>
+            </div>
+            <p id="modalLessonGoal" class="text-[10px] text-red-100 truncate mt-0.5">เป้าหมาย: ทักทายและเรียกคนในครอบครัว</p>
+          </div>
+        </div>
+        <button onclick="closeLesson()" class="w-7 h-7 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white text-xs font-bold transition shrink-0 ml-2" title="ปิด">
+          ✕
+        </button>
+      </div>
+
+      <!-- 4-SKILLS STEP BAR -->
+      <div class="px-5 py-2.5 bg-orange-50 border-b border-orange-100 flex items-center justify-between text-xs font-bold">
+        <div class="flex items-center gap-1.5 sm:gap-2">
+          <div id="stepPill0" class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-orange-500 text-white shadow-sm">
+            <span>🎧 1. ฟัง</span>
+          </div>
+          <div id="stepPill1" class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-200 text-slate-600">
+            <span>🗣️ 2. พูด</span>
+          </div>
+          <div id="stepPill2" class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-200 text-slate-600">
+            <span>📖 3. อ่าน</span>
+          </div>
+          <div id="stepPill3" class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-200 text-slate-600">
+            <span>✍️ 4. เขียน</span>
+          </div>
+        </div>
+        <div class="text-[11px] text-orange-800 font-extrabold" id="stepCounterText">
+          ข้อ 1 / 4
+        </div>
+      </div>
+
+      <!-- INTERACTIVE STAGE BODY (DYNAMIC PER SKILL) -->
+      <div id="playerStage" class="p-5 sm:p-6 overflow-y-auto flex-1 flex flex-col justify-center min-h-[360px] bg-[#FFFDF9]">
+        <!-- Injected dynamically by player logic -->
+      </div>
+
+      <!-- PLAYER FOOTER -->
+      <div class="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-slate-500">
+        <button onclick="replayTeacherVoice()" class="flex items-center gap-1 text-orange-700 hover:text-orange-900 transition">
+          <span>🔊 ฟังเสียงครูอีกครั้ง</span>
+        </button>
+        <button id="btnSkipManual" onclick="handleManualPass()" class="text-slate-400 hover:text-slate-600 transition text-[11px]">
+          ข้ามข้อนี้ ›
+        </button>
+      </div>
+
+    
+  <!-- Floating Bottom Navigation inside Chinese Player Modal -->
+  <nav class="fixed bottom-3 left-3 right-3 max-w-[430px] mx-auto bg-white shadow-[0_10px_30px_rgba(60,30,90,.18)] rounded-full px-2 py-2 flex justify-between border border-[#F3EDF8] z-[10000]" aria-label="Main navigation">
+    <button onclick="window.location.href='/theme/theme_home.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Home">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+          <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Home</span>
+    </button>
+    <button onclick="window.location.href='/theme/theme_phonics_map.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Phonics">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 7v14"></path>
+          <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Phonics</span>
+    </button>
+    <button onclick="window.location.href='/theme/theme_math_lobby.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Math">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+          <line x1="8" x2="16" y1="6" y2="6"></line>
+          <line x1="16" x2="16" y1="14" y2="18"></line>
+          <path d="M16 10h.01"></path>
+          <path d="M12 10h.01"></path>
+          <path d="M8 10h.01"></path>
+          <path d="M12 14h.01"></path>
+          <path d="M8 14h.01"></path>
+          <path d="M12 18h.01"></path>
+          <path d="M8 18h.01"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Math</span>
+    </button>
+    <button onclick="closeLesson()" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Chinese">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition bg-[#E53935] text-white shadow-md shadow-red-500/25">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+          <path d="M2 12h20"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-black text-[#E53935]">Chinese</span>
+    </button>
+    <button onclick="window.location.href='/theme/theme_games.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Games">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="6" x2="10" y1="11" y2="11"></line>
+          <line x1="8" x2="8" y1="9" y2="13"></line>
+          <line x1="15" x2="15.01" y1="12" y2="12"></line>
+          <line x1="18" x2="18.01" y1="10" y2="10"></line>
+          <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Games</span>
+    </button>
+    <button onclick="window.location.href='/theme/theme_profile.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Profile">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Profile</span>
+    </button>
+  </nav>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-100 py-6 text-center text-xs text-slate-400">
+    <div class="max-w-5xl mx-auto px-4 space-y-1">
+      <p class="font-bold text-slate-600">Kidobits Chinese Language Platform · 4-Skills Interactive Edition</p>
+      <p>ออกแบบตามมาตรฐานหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน พ.ศ. 2551 & มาตรฐาน Youth Chinese Test (YCT)</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT ENGINE -->
+  <script>
+    // ================= LESSONS DATABASE (K1 - P6) =================
+    const CHINESE_DATA = {
+      early: [
+        {
+          id: 'K1.01',
+          level: 'K1 (อ.1)',
+          title: '你好与家人 (สวัสดีและครอบครัว)',
+          goal_th: 'ฝึกทักทายและเรียกคนในครอบครัว',
+          yct: 'Pre-YCT',
+          icon: '👨‍👩‍👧',
+          // 4-Skills content
+          listen: {
+            prompt: 'ฟังเสียงครูแล้วเลือกว่าครูพูดถึงใคร',
+            target: '妈妈',
+            pinyin: 'māma',
+            audioWord: '妈妈',
+            options: [
+              { word: '妈妈', pinyin: 'māma', th: 'คุณแม่', icon: '👩' },
+              { word: '爸爸', pinyin: 'bàba', th: 'คุณพ่อ', icon: '👨' },
+              { word: '姐姐', pinyin: 'jiějie', th: 'พี่สาว', icon: '👧' }
+            ],
+            answer: '妈妈'
+          },
+          speak: {
+            prompt: 'แตะไมค์แล้วอ่านออกเสียงทักทายตามครู',
+            target: '你好',
+            pinyin: 'Nǐ hǎo',
+            th: 'สวัสดี',
+            hint: 'หนูพูดคำว่า "หนีห่าว" นะคะ'
+          },
+          read: {
+            prompt: 'แตะที่ละคำเพื่อฟังเสียง แล้วจับคู่ความหมาย',
+            sentence: '爸爸 和 妈妈',
+            pinyin: 'Bàba hé māma',
+            th: 'คุณพ่อและคุณแม่',
+            words: [
+              { zh: '爸爸', py: 'bàba', th: 'คุณพ่อ' },
+              { zh: '和', py: 'hé', th: 'และ' },
+              { zh: '妈妈', py: 'māma', th: 'คุณแม่' }
+            ],
+            question: 'คำว่า "妈妈" แปลว่าอะไรคะ?',
+            options: ['คุณพ่อ', 'คุณแม่', 'คุณครู'],
+            answer: 'คุณแม่'
+          },
+          write: {
+            type: 'stroke',
+            char: '一',
+            pinyin: 'yī',
+            th: 'หนึ่ง (เส้นขวาง 横 Héng)',
+            prompt: 'ใช้นิ้วลากเส้นขวาง "横 (Héng)" จากซ้ายไปขวาในตารางสี่เหลี่ยม'
+          }
+        },
+        {
+          id: 'K2.01',
+          level: 'K2 (อ.2)',
+          title: '身体与颜色 (ร่างกายและสีสัน)',
+          goal_th: 'บอกอวัยวะและสีสันรอบตัว',
+          yct: 'Pre-YCT',
+          icon: '🎨',
+          listen: {
+            prompt: 'ฟังเสียงครูแล้วเลือกว่าคือสีอะไร',
+            target: '红色',
+            pinyin: 'hóngsè',
+            audioWord: '红色',
+            options: [
+              { word: '红色', pinyin: 'hóngsè', th: 'สีแดง', icon: '🔴' },
+              { word: '黄色', pinyin: 'huángsè', th: 'สีเหลือง', icon: '🟡' },
+              { word: '蓝色', pinyin: 'lánsè', th: 'สีน้ำเงิน', icon: '🔵' }
+            ],
+            answer: '红色'
+          },
+          speak: {
+            prompt: 'แตะไมค์แล้วพูดบอกความต้องการตามครู',
+            target: '我要红色',
+            pinyin: 'Wǒ yào hóngsè',
+            th: 'หนูเอาสีแดง',
+            hint: 'พูดว่า "หว่อ เย่า หง เซ่อ"'
+          },
+          read: {
+            prompt: 'อักษรภาพโบราณ: สังเกตและแตะฟังเสียง',
+            sentence: '大 眼睛 和 小 嘴巴',
+            pinyin: 'Dà yǎnjing hé xiǎo zuǐba',
+            th: 'ตาโตและปากเล็ก',
+            words: [
+              { zh: '大', py: 'dà', th: 'ใหญ่' },
+              { zh: '眼睛', py: 'yǎnjing', th: 'ดวงตา' },
+              { zh: '和', py: 'hé', th: 'และ' },
+              { zh: '小', py: 'xiǎo', th: 'เล็ก' },
+              { zh: '嘴巴', py: 'zuǐba', th: 'ปาก' }
+            ],
+            question: 'คำว่า "大" ตรงข้ามกับคำว่าอะไร?',
+            options: ['小 (เล็ก)', '红 (แดง)', '手 (มือ)'],
+            answer: '小 (เล็ก)'
+          },
+          write: {
+            type: 'stroke',
+            char: '十',
+            pinyin: 'shí',
+            th: 'สิบ (ขวางก่อน ตั้งตาม: 横แล้ว竖)',
+            prompt: 'ลากเส้นขวาง 横 ก่อน แล้วลากเส้นตั้ง 竖 ตัดลงมา'
+          }
+        },
+        {
+          id: 'K3.01',
+          level: 'K3 (อ.3)',
+          title: '水果与自我介绍 (ผลไม้และแนะนำตัว)',
+          goal_th: 'บอกผลไม้ที่ชอบและแนะนำอายุตนเอง',
+          yct: 'Pre-YCT / YCT 1 Prep',
+          icon: '🍎',
+          listen: {
+            prompt: 'ฟังเสียงผลไม้แล้วแตะการ์ดให้ถูกต้อง',
+            target: '苹果',
+            pinyin: 'píngguǒ',
+            audioWord: '苹果',
+            options: [
+              { word: '苹果', pinyin: 'píngguǒ', th: 'แอปเปิ้ล', icon: '🍎' },
+              { word: '香蕉', pinyin: 'xiāngjiāo', th: 'กล้วย', icon: '🍌' },
+              { word: '西瓜', pinyin: 'xīguā', th: 'แตงโม', icon: '🍉' }
+            ],
+            answer: '苹果'
+          },
+          speak: {
+            prompt: 'แตะไมค์แล้วแนะนำชื่อและอายุตามครู',
+            target: '我叫小明我五岁',
+            pinyin: 'Wǒ jiào Xiǎomíng, wǒ wǔ suì',
+            th: 'ฉันชื่อเสี่ยวหมิง ฉันอายุ 5 ขวบ',
+            hint: 'พูดแนะนำตัวเองตามครูนะคะ'
+          },
+          read: {
+            prompt: 'อ่านประโยคบอกความชอบ (กดเปิด/ปิดพินอินได้)',
+            sentence: '我 喜欢 吃 苹果',
+            pinyin: 'Wǒ xǐhuan chī píngguǒ',
+            th: 'ฉันชอบกินแอปเปิ้ล',
+            words: [
+              { zh: '我', py: 'wǒ', th: 'ฉัน' },
+              { zh: '喜欢', py: 'xǐhuan', th: 'ชอบ' },
+              { zh: '吃', py: 'chī', th: 'กิน' },
+              { zh: '苹果', py: 'píngguǒ', th: 'แอปเปิ้ล' }
+            ],
+            question: 'ประโยคนี้แปลว่าอะไรคะ?',
+            options: ['ฉันชอบกินแอปเปิ้ล', 'ฉันไม่ชอบกินแอปเปิ้ล', 'แอปเปิ้ลอร่อยมาก'],
+            answer: 'ฉันชอบกินแอปเปิ้ล'
+          },
+          write: {
+            type: 'stroke',
+            char: '人',
+            pinyin: 'rén',
+            th: 'คน (撇 ปัดซ้ายก่อน 捺 ปัดขวา)',
+            prompt: 'ลากเส้นปัดซ้าย 撇 แล้วต่อด้วยเส้นปัดขวา 捺'
+          }
+        }
+      ],
+      lower: [
+        {
+          id: 'P1.01',
+          level: 'P1 (ประถม 1)',
+          title: '拼音声母与数字 (พยัญชนะพินอินและตัวเลข)',
+          goal_th: 'แม่นยำพยัญชนะ b, p, m, f และ 4 วรรณยุกต์',
+          yct: 'YCT Level 1',
+          icon: '🔢',
+          listen: {
+            prompt: 'ฟังเสียงวรรณยุกต์แล้วทายว่าคือเสียงวรรณยุกต์ใด',
+            target: 'bá',
+            pinyin: 'bá',
+            audioWord: 'bá',
+            options: [
+              { word: 'bā', pinyin: 'เสียงที่ 1 (สามัญ)', th: 'เสียงเรียบสูง', icon: '1️⃣' },
+              { word: 'bá', pinyin: 'เสียงที่ 2 (จัตวา)', th: 'เสียงขึ้นสูง', icon: '2️⃣' },
+              { word: 'bà', pinyin: 'เสียงที่ 4 (โท)', th: 'เสียงตกกระแทก', icon: '4️⃣' }
+            ],
+            answer: 'bá'
+          },
+          speak: {
+            prompt: 'แตะไมค์แล้วออกเสียงวรรณยุกต์ตามครู',
+            target: 'mā má mǎ mà',
+            pinyin: 'mā má mǎ mà',
+            th: 'มา ม๋า หม่า ม่า (ผัน 4 เสียง)',
+            hint: 'ออกเสียง 4 ระดับเสียงตามครู'
+          },
+          read: {
+            prompt: 'อ่านตัวเลขจีนแล้วจับคู่',
+            sentence: '我有 三个 苹果',
+            pinyin: 'Wǒ yǒu sān gè píngguǒ',
+            th: 'ฉันมีแอปเปิ้ล 3 ผล',
+            words: [
+              { zh: '我', py: 'wǒ', th: 'ฉัน' },
+              { zh: '有', py: 'yǒu', th: 'มี' },
+              { zh: '三个', py: 'sān gè', th: 'สามผล' },
+              { zh: '苹果', py: 'píngguǒ', th: 'แอปเปิ้ล' }
+            ],
+            question: 'ในประโยคมีแอปเปิ้ลกี่ผลคะ?',
+            options: ['3 ผล', '5 ผล', '8 ผล'],
+            answer: '3 ผล'
+          },
+          write: {
+            type: 'stroke',
+            char: '八',
+            pinyin: 'bā',
+            th: 'แปด (ซ้ายสั้น ขวายาว)',
+            prompt: 'คัดคำว่า 八 (bā) ในช่องตาราง 田字格'
+          }
+        },
+        {
+          id: 'P2.01',
+          level: 'P2 (ประถม 2)',
+          title: '爱好与位置 (สิ่งที่ชอบและตำแหน่ง)',
+          goal_th: 'สนทนาบอกตำแหน่งสิ่งของและสัตว์เลี้ยง',
+          yct: 'YCT Level 1+',
+          icon: '🐱',
+          listen: {
+            prompt: 'ฟังเสียงประโยคบอกตำแหน่งแล้วเลือกภาพ',
+            target: '小猫在桌子上',
+            pinyin: 'Xiǎomāo zài zhuōzi shàng',
+            audioWord: '小猫在桌子上',
+            options: [
+              { word: '小猫在桌子上', pinyin: 'บนโต๊ะ', th: 'แมวอยู่บนโต๊ะ', icon: '🐱🔝' },
+              { word: '小猫在桌子下', pinyin: 'ใต้โต๊ะ', th: 'แมวอยู่ใต้โต๊ะ', icon: '🐱🔻' },
+              { word: '小猫在盒子里', pinyin: 'ในกล่อง', th: 'แมวอยู่ในกล่อง', icon: '🐱📦' }
+            ],
+            answer: '小猫在桌子上'
+          },
+          speak: {
+            prompt: 'แตะไมค์แล้วพูดบอกสิ่งของบนโต๊ะตามครู',
+            target: '书在桌子上',
+            pinyin: 'Shū zài zhuōzi shàng',
+            th: 'หนังสืออยู่บนโต๊ะ',
+            hint: 'พูดว่า "ซู จ้าย จัว จึ ซ่าง"'
+          },
+          read: {
+            prompt: 'สังเกตหมวดนำอักษรจีน (部首)',
+            sentence: '他 是 我的 好 朋友',
+            pinyin: 'Tā shì wǒ de hǎo péngyou',
+            th: 'เขาเป็นเพื่อนที่ดีของฉัน',
+            words: [
+              { zh: '他', py: 'tā', th: 'เขา (หมวด 亻 คน)' },
+              { zh: '是', py: 'shì', th: 'เป็น/คือ' },
+              { zh: '我的', py: 'wǒ de', th: 'ของฉัน' },
+              { zh: '好', py: 'hǎo', th: 'ดี' },
+              { zh: '朋友', py: 'péngyou', th: 'เพื่อน' }
+            ],
+            question: 'คำว่า "他" มีหมวดนำอักษรจีน (部首) ใด?',
+            options: ['亻(หมวดคน)', '氵(หมวดน้ำ)', '口 (หมวดปาก)'],
+            answer: '亻(หมวดคน)'
+          },
+          write: {
+            type: 'stroke',
+            char: '口',
+            pinyin: 'kǒu',
+            th: 'ปาก (ตั้ง ปิดมุม แล้วปิดฐาน)',
+            prompt: 'ลากเส้นตั้ง ซ้าย -> หักมุมบนขวา -> ขีดปิดล่าง'
+          }
+        },
+        {
+          id: 'P3.01',
+          level: 'P3 (ประถม 3)',
+          title: '时间与日常 (เวลาและกิจวัตร)',
+          goal_th: 'บอกเวลา วันในสัปดาห์ และกิจวัตรประจำวัน',
+          yct: 'YCT Level 2',
+          icon: '⏰',
+          listen: {
+            prompt: 'ฟังเวลาแล้วเลือกว่าคือเวลากี่โมง',
+            target: '现在八点半',
+            pinyin: 'Xiànzài bā diǎn bàn',
+            audioWord: '现在八点半',
+            options: [
+              { word: '八点半', pinyin: '8:30', th: 'แปดโมงครึ่ง (8:30)', icon: '🕗' },
+              { word: '七点', pinyin: '7:00', th: 'เจ็ดโมงตรง (7:00)', icon: '🕖' },
+              { word: '九点半', pinyin: '9:30', th: 'เก้าโมงครึ่ง (9:30)', icon: '🕤' }
+            ],
+            answer: '现在八点半'
+          },
+          speak: {
+            prompt: 'แตะไมค์แล้วบอกวันในสัปดาห์ตามครู',
+            target: '今天星期三',
+            pinyin: 'Jīntiān xīngqīsān',
+            th: 'วันนี้วันพุธ',
+            hint: 'พูดว่า "จินเทียน ซิงชีซาน"'
+          },
+          read: {
+            prompt: 'อ่านตารางกิจวัตร (ลองปิดพินอินเพื่อท้าทาย)',
+            sentence: '我 早上 七点 起床',
+            pinyin: 'Wǒ zǎoshang qī diǎn qǐchuáng',
+            th: 'ฉันตื่นนอนตอนเช้า 7 โมง',
+            words: [
+              { zh: '我', py: 'wǒ', th: 'ฉัน' },
+              { zh: '早上', py: 'zǎoshang', th: 'ตอนเช้า' },
+              { zh: '七点', py: 'qī diǎn', th: '7 นาฬิกา' },
+              { zh: '起床', py: 'qǐchuáng', th: 'ตื่นนอน' }
+            ],
+            question: 'คำว่า "起床 (qǐchuáng)" หมายถึงกิจกรรมใด?',
+            options: ['ตื่นนอน', 'กินข้าว', 'ไปโรงเรียน'],
+            answer: 'ตื่นนอน'
+          },
+          write: {
+            type: 'sentence',
+            targetArr: ['今天', '是', '星期三'],
+            prompt: 'แตะเรียงชิปคำศัพท์ให้เป็นประโยคที่ถูกต้อง: "วันนี้คือวันพุธ"'
+          }
+        }
+      ],
+      upper: [
+        {
+          id: 'P4.01',
+          level: 'P4 (ประถม 4)',
+          title: '天气与方向 (สภาพอากาศและทิศทาง)',
+          goal_th: 'บอกทิศทางและสภาพอากาศด้วยคำคุณศัพท์',
+          yct: 'YCT Level 3 Prep',
+          icon: '🧭',
+          listen: {
+            prompt: 'ฟังคำแนะนำเส้นทางแล้วเลือกว่าต้องเดินอย่างไร',
+            target: '往前走向左拐',
+            pinyin: 'Wǎng qián zǒu, xiàng zuǒ guǎi',
+            audioWord: '往前走，向左拐',
+            options: [
+              { word: '往前走向左拐', pinyin: 'ตรงไปเลี้ยวซ้าย', th: 'ตรงไป เลี้ยวซ้าย', icon: '⬆️⬅️' },
+              { word: '往前走向右拐', pinyin: 'ตรงไปเลี้ยวขวา', th: 'ตรงไป เลี้ยวขวา', icon: '⬆️➡️' },
+              { word: '往后走', pinyin: 'เดินย้อนกลับ', th: 'เดินถอยหลัง', icon: '⬇️' }
+            ],
+            answer: '往前走向左拐'
+          },
+          speak: {
+            prompt: 'แตะไมค์แล้วบรรยายสภาพอากาศตามครู',
+            target: '今天天气非常热',
+            pinyin: 'Jīntiān tiānqì fēicháng rè',
+            th: 'วันนี้สภาพอากาศร้อนเป็นอย่างยิ่ง',
+            hint: 'พูดว่า "จินเทียน เทียนชี่ เฟยฉาง เย่อ"'
+          },
+          read: {
+            prompt: 'อ่านจับใจความและตอบคำถาม (อักษรจีนล้วน)',
+            sentence: '从 我家 到 学校 不太远',
+            pinyin: 'Cóng wǒ jiā dào xuéxiào bù tài yuǎn',
+            th: 'จากบ้านฉันถึงโรงเรียนไม่ไกลมาก',
+            words: [
+              { zh: '从', py: 'cóng', th: 'จาก' },
+              { zh: '我家', py: 'wǒ jiā', th: 'บ้านฉัน' },
+              { zh: '到', py: 'dào', th: 'ถึง' },
+              { zh: '学校', py: 'xuéxiào', th: 'โรงเรียน' },
+              { zh: '不太远', py: 'bù tài yuǎn', th: 'ไม่ค่อยไกล' }
+            ],
+            question: 'ระยะทางจากบ้านไปโรงเรียนเป็นอย่างไร?',
+            options: ['ไม่ไกลมาก', 'ไกลมาก', 'ต้องนั่งเครื่องบิน'],
+            answer: 'ไม่ไกลมาก'
+          },
+          write: {
+            type: 'sentence',
+            targetArr: ['今天', '天气', '非常', '热'],
+            prompt: 'เรียงชิปประโยค: "วันนี้สภาพอากาศร้อนมาก"'
+          }
+        },
+        {
+          id: 'P5.01',
+          level: 'P5 (ประถม 5)',
+          title: '因果与节日 (ประโยคความรวมและเทศกาล)',
+          goal_th: 'ใช้คำเชื่อม เพราะว่า...ดังนั้น... (因为...所以...)',
+          yct: 'YCT Level 3',
+          icon: '🏮',
+          listen: {
+            prompt: 'ฟังประโยคเหตุผลแล้วเลือกใจความสำคัญ',
+            target: '因为下雨所以没去',
+            pinyin: 'Yīnwèi xiàyǔ, suǒyǐ méi qù',
+            audioWord: '因为下雨，所以我们没去公园。',
+            options: [
+              { word: 'ฝนตกเลยไม่ได้ไป', pinyin: 'ฝนตก', th: 'เพราะฝนตก จึงไม่ได้ไปสวนสาธารณะ', icon: '🌧️' },
+              { word: 'แดดออกเลยไปสวน', pinyin: 'แดดออก', th: 'แดดออก จึงไปสวนสาธารณะ', icon: '☀️' },
+              { word: 'ไปซื้อร่ม', pinyin: 'ซื้อร่ม', th: 'ไปซื้อร่มที่ร้านค้า', icon: '🌂' }
+            ],
+            answer: 'ฝนตกเลยไม่ได้ไป'
+          },
+          speak: {
+            prompt: 'แตะไมค์แล้วพูดประโยคเปรียบเทียบตามครู',
+            target: '哥哥比我大两岁',
+            pinyin: 'Gēge bǐ wǒ dà liǎng suì',
+            th: 'พี่ชายโตกว่าฉันสองปี',
+            hint: 'พูดว่า "เกอเกอะ ปี่ หว่อ ต้า เหลี่ยง ซุ่ย"'
+          },
+          read: {
+            prompt: 'อ่านเรื่องเทศกาลตรุษจีน (วันขึ้นปีใหม่จีน)',
+            sentence: '春节 的 时候 我们 吃 饺子',
+            pinyin: 'Chūnjié de shíhou wǒmen chī jiǎozi',
+            th: 'ช่วงเทศกาลตรุษจีนพวกเรากินเกี๊ยว',
+            words: [
+              { zh: '春节', py: 'chūnjié', th: 'เทศกาลตรุษจีน' },
+              { zh: '的时候', py: 'de shíhou', th: 'ตอน/ช่วงเวลา' },
+              { zh: '我们', py: 'wǒmen', th: 'พวกเรา' },
+              { zh: '吃', py: 'chī', th: 'กิน' },
+              { zh: '饺子', py: 'jiǎozi', th: 'เกี๊ยวต้ม' }
+            ],
+            question: 'ช่วงตรุษจีนตามประเพณีจีนนิยมกินอาหารใด?',
+            options: ['饺子 (เกี๊ยวต้ม)', '西瓜 (แตงโม)', '面包 (ขนมปัง)'],
+            answer: '饺子 (เกี๊ยวต้ม)'
+          },
+          write: {
+            type: 'sentence',
+            targetArr: ['因为', '下雨', '所以', '没去'],
+            prompt: 'เรียงประโยคความรวม: "เพราะว่าฝนตก ดังนั้นจึงไม่ได้ไป"'
+          }
+        },
+        {
+          id: 'P6.01',
+          level: 'P6 (ประถม 6)',
+          title: '把字句挑战 (ประโยคโครงสร้าง 把 - YCT 4)',
+          goal_th: 'ใช้ประโยคจัดการ 把 เพื่อสั่งการและสื่อสารขั้นสูง',
+          yct: 'YCT Level 4 / HSK 2-3',
+          icon: '🎓',
+          listen: {
+            prompt: 'ฟังประโยคโครงสร้าง 把 แล้วเลือกว่าให้ทำสิ่งใด',
+            target: '请把门关上',
+            pinyin: 'Qǐng bǎ mén guān shàng',
+            audioWord: '请把门关上。',
+            options: [
+              { word: 'ปิดประตู', pinyin: 'ปิดประตู', th: 'กรุณาปิดประตู', icon: '🚪' },
+              { word: 'เปิดหน้าต่าง', pinyin: 'เปิดหน้าต่าง', th: 'กรุณาเปิดหน้าต่าง', icon: '🪟' },
+              { word: 'ส่งการบ้าน', pinyin: 'ส่งการบ้าน', th: 'กรุณาส่งการบ้าน', icon: '📚' }
+            ],
+            answer: 'ปิดประตู'
+          },
+          speak: {
+            prompt: 'แตะไมค์แล้วพูดประโยคโครงสร้าง 把 ตามครู',
+            target: '请把作业交给我',
+            pinyin: 'Qǐng bǎ zuòyè jiāo gěi wǒ',
+            th: 'กรุณาส่งการบ้านมาให้ครู',
+            hint: 'พูดว่า "ฉิ่ง ป่า จั้วเย่ เจียว เก่ย หว่อ"'
+          },
+          read: {
+            prompt: 'อ่านบทความเพื่อเตรียมสอบวัดระดับ (อักษรจีนล้วน)',
+            sentence: '学习 汉语 虽然 难 但是 很有趣',
+            pinyin: 'Xuéxí hànyǔ suīrán nán dànshì hěn yǒuqù',
+            th: 'การเรียนภาษาจีนแม้จะยากแต่ก็น่าสนใจมาก',
+            words: [
+              { zh: '学习', py: 'xuéxí', th: 'การเรียน' },
+              { zh: '汉语', py: 'hànyǔ', th: 'ภาษาจีน' },
+              { zh: '虽然', py: 'suīrán', th: 'แม้ว่า' },
+              { zh: '难', py: 'nán', th: 'ยาก' },
+              { zh: '但是', py: 'dànshì', th: 'แต่ว่า' },
+              { zh: '很有趣', py: 'hěn yǒuqù', th: 'น่าสนใจมาก' }
+            ],
+            question: 'ผู้เขียนมีความคิดเห็นอย่างไรต่อการเรียนภาษาจีน?',
+            options: ['แม้จะยากแต่ก็น่าสนุก', 'ง่ายเกินไป', 'ไม่ชอบภาษาจีน'],
+            answer: 'แม้จะยากแต่ก็น่าสนุก'
+          },
+          write: {
+            type: 'sentence',
+            targetArr: ['请', '把', '门', '关上'],
+            prompt: 'เรียงประโยคโครงสร้าง 把: "กรุณาจัดการปิดประตู"'
+          }
+        }
+      ]
+    };
+
+        // Flattened all lessons for progression and navigation
+    const LESSONS = [
+      ...(CHINESE_DATA.early || []),
+      ...(CHINESE_DATA.lower || []),
+      ...(CHINESE_DATA.upper || [])
+    ];
+    window.LESSONS = LESSONS;
+
+    // ================= APPLICATION STATE =================
+    let CURRENT_STAGE = 'early';
+    let CURRENT_LESSON = null;
+    let CURRENT_STEP = 0; // 0: Listen, 1: Speak, 2: Read, 3: Write, 4: Summary
+    let TOTAL_STARS = 0;
+    let isPinyinVisible = true;
+    let isMicListening = false;
+
+    // Web Audio Sound Synthesizer (Chimes & Tones)
+    function playTone(type) {
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return;
+        const ctx = new Ctx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        if (type === 'correct') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+          osc.frequency.exponentialRampToValueAtTime(659.25, ctx.currentTime + 0.1); // E5
+          osc.frequency.exponentialRampToValueAtTime(783.99, ctx.currentTime + 0.2); // G5
+          gain.gain.setValueAtTime(0.25, ctx.currentTime);
+          gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.4);
+          osc.start(); osc.stop(ctx.currentTime + 0.4);
+        } else if (type === 'wrong') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, ctx.currentTime);
+          osc.frequency.linearRampToValueAtTime(160, ctx.currentTime + 0.25);
+          gain.gain.setValueAtTime(0.2, ctx.currentTime);
+          gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.25);
+          osc.start(); osc.stop(ctx.currentTime + 0.25);
+        } else if (type === 'pop') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(400, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.08);
+          gain.gain.setValueAtTime(0.15, ctx.currentTime);
+          gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.08);
+          osc.start(); osc.stop(ctx.currentTime + 0.08);
+        }
+      } catch(e) {}
+    }
+
+    // Native Speech Synthesis (Mandarin Chinese zh-CN)
+    // ================= ระบบเสียงครูแพนด้า (neural MP3 เหมือน Emma) =================
+    // nguyên: เสียงทุกบรรทัดเรนเดอร์ล่วงหน้าด้วย edge-tts zh-CN-XiaoxiaoNeural
+    // เก็บที่ /kidobits/audio/cn/<key>.mp3 — เสียงเดียวกันทุกเครื่องทุกเบราว์เซอร์
+    const CN_AUDIO_BASE = '/kidobits/audio/cn/';
+    const CN_AUDIO_KEYS = {"K1.01_listen": ["妈妈"], "K1.01_speak": ["你好"], "K1.01_read": ["爸爸 和 妈妈"], "K1.01_write": ["一"], "K1.01_word_爸爸": ["爸爸"], "K1.01_word_和": ["和"], "K1.01_word_妈妈": ["妈妈"], "opt_妈妈": ["妈妈"], "opt_爸爸": ["爸爸"], "opt_姐姐": ["姐姐"], "K2.01_listen": ["红色"], "K2.01_speak": ["我要红色"], "K2.01_read": ["大 眼睛 和 小 嘴巴"], "K2.01_write": ["十"], "K2.01_word_大": ["大"], "K2.01_word_眼睛": ["眼睛"], "K2.01_word_和": ["和"], "K2.01_word_小": ["小"], "K2.01_word_嘴巴": ["嘴巴"], "opt_红色": ["红色"], "opt_黄色": ["黄色"], "opt_蓝色": ["蓝色"], "K3.01_listen": ["苹果"], "K3.01_speak": ["我叫小明我五岁"], "K3.01_read": ["我 喜欢 吃 苹果"], "K3.01_write": ["人"], "K3.01_word_我": ["我"], "K3.01_word_喜欢": ["喜欢"], "K3.01_word_吃": ["吃"], "K3.01_word_苹果": ["苹果"], "opt_苹果": ["苹果"], "opt_香蕉": ["香蕉"], "opt_西瓜": ["西瓜"], "P1.01_listen": ["bá", "bá"], "P1.01_speak": ["mā má mǎ mà", "mā má mǎ mà"], "P1.01_read": ["我有 三个 苹果"], "P1.01_write": ["八"], "P1.01_word_我": ["我"], "P1.01_word_有": ["有"], "P1.01_word_三个": ["三个"], "P1.01_word_苹果": ["苹果"], "opt_bā": ["bā"], "opt_bá": ["bá"], "opt_bà": ["bà"], "P2.01_listen": ["小猫在桌子上"], "P2.01_speak": ["书在桌子上"], "P2.01_read": ["他 是 我的 好 朋友"], "P2.01_write": ["口"], "P2.01_word_他": ["他"], "P2.01_word_是": ["是"], "P2.01_word_我的": ["我的"], "P2.01_word_好": ["好"], "P2.01_word_朋友": ["朋友"], "opt_小猫在桌子上": ["小猫在桌子上"], "opt_小猫在桌子下": ["小猫在桌子下"], "opt_小猫在盒子里": ["小猫在盒子里"], "P3.01_listen": ["现在八点半"], "P3.01_speak": ["今天星期三"], "P3.01_read": ["我 早上 七点 起床"], "P3.01_word_我": ["我"], "P3.01_word_早上": ["早上"], "P3.01_word_七点": ["七点"], "P3.01_word_起床": ["起床"], "opt_八点半": ["八点半"], "opt_七点": ["七点"], "opt_九点半": ["九点半"], "P4.01_listen": ["往前走，向左拐"], "P4.01_speak": ["今天天气非常热"], "P4.01_read": ["从 我家 到 学校 不太远"], "P4.01_word_从": ["从"], "P4.01_word_我家": ["我家"], "P4.01_word_到": ["到"], "P4.01_word_学校": ["学校"], "P4.01_word_不太远": ["不太远"], "opt_往前走向左拐": ["往前走向左拐"], "opt_往前走向右拐": ["往前走向右拐"], "opt_往后走": ["往后走"], "P5.01_listen": ["因为下雨，所以我们没去公园。"], "P5.01_speak": ["哥哥比我大两岁"], "P5.01_read": ["春节 的 时候 我们 吃 饺子"], "P5.01_word_春节": ["春节"], "P5.01_word_的时候": ["的时候"], "P5.01_word_我们": ["我们"], "P5.01_word_吃": ["吃"], "P5.01_word_饺子": ["饺子"], "opt_ฝนตกเลยไม่ได้ไป": ["因为下雨所以没去"], "opt_แดดออกเลยไปสวน": ["因为天晴所以去公园"], "opt_ไปซื้อร่ม": ["去买雨伞"], "P6.01_listen": ["请把门关上。"], "P6.01_speak": ["请把作业交给我"], "P6.01_read": ["学习 汉语 虽然 难 但是 很有趣"], "P6.01_word_学习": ["学习"], "P6.01_word_汉语": ["汉语"], "P6.01_word_虽然": ["虽然"], "P6.01_word_难": ["难"], "P6.01_word_但是": ["但是"], "P6.01_word_很有趣": ["很有趣"], "opt_ปิดประตู": ["请把门关上"], "opt_เปิดหน้าต่าง": ["请把窗户打开"], "opt_ส่งการบ้าน": ["把作业交给我"], "praise_7494": ["太棒了！回答正确！"], "praise_83273": ["写得真漂亮！"], "praise_19478": ["很好！发音很清楚！"], "praise_3692": ["真棒！读得很好！"], "praise_84818": ["恭喜你！完成全部课程！太棒了！"], "praise_72880": ["太棒了！完全正确！"], "praise_54675": ["再听一次"], "praise_34783": ["再试一次"], "K1.01_turn": ["现在轮到你了。请说你好。"], "K2.01_turn": ["现在轮到你了。请说我要红色。"], "K3.01_turn": ["现在轮到你了。请说我叫小明我五岁。"], "P1.01_turn": ["现在轮到你了。请说mā má mǎ mà。"], "P2.01_turn": ["现在轮到你了。请说书在桌子上。"], "P3.01_turn": ["现在轮到你了。请说今天星期三。"], "P4.01_turn": ["现在轮到你了。请说今天天气非常热。"], "P5.01_turn": ["现在轮到你了。请说哥哥比我大两岁。"], "P6.01_turn": ["现在轮到你了。请说请把作业交给我。"]};
+
+    const CN_VOICE = { voice: 'edge-tts zh-CN-XiaoxiaoNeural', reviewed: false }; // TTS stopgap ไม่ใช่เสียงครูจริงที่ตรวจแล้ว
+
+    let cnAudioElem = null;
+    let cnSaySeq = 0;
+    let cnUnlocked = false;
+
+    /* ปล่อยเสียงแรกต้องมี gesture — จำว่าเคยแตะแล้วหรือยัง */
+    function cnUnlock() {
+      cnUnlocked = true;
+    }
+    ['touchstart','click','keydown'].forEach(ev =>
+      document.addEventListener(ev, cnUnlock, { once: true, passive: true })
+    );
+
+    /* fallback: ถ้าไฟล์เสียงหาย ให้ Web Speech อ่านแทน ไม่ปล่อยเงียบ */
+    function cnWebSpeak(text, rate, callback) {
+      if (!('speechSynthesis' in window)) {
+        if (callback) setTimeout(callback, 900);
+        return;
+      }
+      try {
+        window.speechSynthesis.cancel();
+        const ut = new SpeechSynthesisUtterance(text);
+        ut.lang = 'zh-CN';
+        ut.rate = rate || 0.82;
+        ut.pitch = 1.05;
+        if (callback) { ut.onend = callback; ut.onerror = callback; }
+        window.speechSynthesis.speak(ut);
+      } catch (e) {
+        if (callback) setTimeout(callback, 900);
+      }
+    }
+
+    /* เปิดไฟล์เสียงของบรรทัดหนึ่ง — callback ทำงานเมื่อจบหรือพัง (ไม่ค้าง) */
+    /* ไฟล์ที่กำลังเล่นอยู่ — กันการสั่งซ้ำไฟล์เดียวกัน (ต้นตอเสียงซ้ำ) */
+    let cnCurrentKey = null;
+    let cnPlayStarted = {};
+    function cnPlayKey(key, text, rate, callback) {
+      if (!key) { cnWebSpeak(text, rate, callback); return null; }
+      const tk = key + '|' + Math.round((rate || 0.82) * 100);
+      /* ถ้าไฟล์นี้เพิ่งเริ่มเล่นภายใน 2 วิ และยังไม่จบ → ใช้ตัวเดิม ไม่สร้างใหม่ */
+      const now = Date.now();
+      if (cnCurrentKey === tk && cnAudioElem && !cnAudioElem.paused && (now - (cnPlayStarted[tk] || 0)) < 2000) {
+        window.__cnLog = window.__cnLog || [];
+        window.__cnLog.push({ key, via: 'dedupe-ignored' });
+        if (callback) cnAudioElem.addEventListener('ended', callback, { once: true });
+        return cnAudioElem;
+      }
+      const my = ++cnSaySeq;
+      if (cnAudioElem) {
+        const dying = cnAudioElem;
+        /* ถอด listener ก่อนทิ้ง เพื่อไม่ให้ error ของตัวเก่าไปกระตุ้น fallback ของตัวใหม่ */
+        dying.onended = null; dying.onerror = null; dying.onpause = null;
+        try { dying.pause(); dying.src = ''; } catch(e){}
+        cnAudioElem = null;
+      }
+      cnCurrentKey = tk;
+      cnPlayStarted[tk] = now;
+
+      const audio = new Audio(CN_AUDIO_BASE + encodeURIComponent(key) + '.mp3');
+      cnAudioElem = audio;
+      let finished = false;
+      const finish = (via) => {
+        if (finished || my !== cnSaySeq) return;
+        finished = true;
+        cnAudioElem = null;
+        window.__cnLog = window.__cnLog || [];
+        window.__cnLog.push({ key, via });
+        if (callback) callback();
+      };
+      audio.addEventListener('ended', () => finish('mp3'));
+      /* ถอยไป Web Speech เฉพาะเมื่อ "ไฟล์หายจริง" (network/404/decode)
+         ไม่ถอยเพราะ autoplay ถูกบล็อก — ปล่อยให้ผู้ใช้แตะปุ่ม 🔊 แทน */
+      let playPaused = false;
+      audio.addEventListener('error', () => {
+        if (my !== cnSaySeq) return;           /* ถูกแทนที่แล้ว ไม่ใช่ของเรา */
+        if (audio !== cnAudioElem) return;
+        window.__cnLog = window.__cnLog || [];
+        window.__cnLog.push({ key, via: 'mp3-missing', text: text || '' });
+        if (text) cnWebSpeak(text, rate, () => finish('fallback')); else finish('dead');
+      });
+      audio.play().then(() => { window.__cnLog = window.__cnLog || []; window.__cnLog.push({ key, via: 'mp3' }); })
+        .catch(() => { playPaused = true; finish('blocked'); });
+      // กันค้าง: ยาวเกิน 9 วิ ถือว่าจบ
+      setTimeout(() => { if (!finished) finish('timeout'); }, 9000);
+      return audio;
+    }
+
+    /* API เดิมที่ทุกขั้นเรียกอยู่ — คงชื่อไว้ให้โค้ดเดิมทำงานได้ */
+    function speakMandarin(text, rate = 0.82, callback) {
+      if (!text) { if (callback) callback(); return; }
+      const k = cnKeyForText(text);
+      if (!k) {
+        /* ไม่มีไฟล์ prerecorded สำหรับข้อความนี้ → ไม่เดาเสียงด้วย Web Speech
+           (เดิมทำให้ได้ยินเสียงหุ่นยนต์ซ้ำทับไฟล์จริง) */
+        window.__cnLog = window.__cnLog || [];
+        window.__cnLog.push({ key: null, via: 'skip-nokey', text: String(text).slice(0, 30) });
+        if (callback) setTimeout(callback, 200);
+        return;
+      }
+      cnPlayKey(k, text, rate, callback);
+    }
+
+    /* แปลงข้อความ -> ชื่อไฟล์เสียง (มาจากรายการที่เรนเดอร์ไว้แล้ว) */
+    let CN_LINE_INDEX = null;
+    function cnKeyForText(text) {
+      if (!text) return null;
+      if (!CN_LINE_INDEX) {
+        CN_LINE_INDEX = {};
+        for (const k in CN_AUDIO_KEYS) CN_AUDIO_KEYS[k].forEach(t => { CN_LINE_INDEX[t] = k; });
+      }
+      const t = String(text).trim();
+      return CN_LINE_INDEX[t] || null;
+    }
+
+    /* ================= คิวเสียงแบบ "ตาหนูแล้ว" (เว้นให้เด็ก) =================
+       ลำดับ:  ครูพูดคำ  →  เว้น CN_GAP_WORD ms  →  "现在轮到你了"  →  เว้น CN_GAP_TURN ms  →  เปิดไมค์
+       ไม่มีท่อนไหนต่อติดกันเอง ไม่มีการเลื่อนขั้นอัตโนมัติ */
+    const CN_GAP_WORD = 800;    // เงียบหลังครูพูดคำ ให้เด็กทบทวนในใจ
+    const CN_GAP_TURN = 700;    // เงียบหลังบอกตาหนู ก่อนเปิดไมค์
+    let cnQueueSeq = 0;
+    let cnQueueTimers = [];
+    function cnStopQueue() {
+      cnQueueSeq++;
+      cnQueueTimers.forEach(t => clearTimeout(t));
+      cnQueueTimers = [];
+      if (cnAudioElem) { try { cnAudioElem.pause(); cnAudioElem.src=''; } catch(e){} cnAudioElem = null; }
+      try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch(e) {}
+    }
+    /* รันคิว: [{key,text,rate,gapAfter,then}] */
+    function cnQueue(lines) {
+      cnStopQueue();
+      const my = ++cnQueueSeq;
+      let i = 0;
+      const next = () => {
+        if (my !== cnQueueSeq) return;
+        if (i >= lines.length) return;
+        const step = lines[i++];
+        cnPlayKey(step.key, step.text, step.rate, () => {
+          if (my !== cnQueueSeq) return;
+          const gap = step.gapAfter || 0;
+          const go = () => { if (my === cnQueueSeq) (step.then ? step.then() : next()); };
+          if (gap > 0) cnQueueTimers.push(setTimeout(go, gap)); else go();
+        });
+      };
+      next();
+    }
+
+    /* ================= เปิดไมค์อัตโนมัติ (ไม่ถือเป็นการกดของเด็ก) ================= */
+    window.__cnAutoOpenMic = function () {
+      if (!CURRENT_LESSON || CURRENT_STEP !== 1) return;
+      const btn = document.getElementById('btnChineseMic');
+      if (!btn) return;
+      const target = btn.getAttribute('data-target') || CURRENT_LESSON.speak.target;
+      window.__cnAutoMic = true;
+      window.__micAutoCount = (window.__micAutoCount || 0) + 1;
+      try { triggerChineseMic(target); } finally { window.__cnAutoMic = false; }
+    };
+
+    /* สถานะปุ่มไมค์ 3 แบบ — ใช้ร่วมกันทุกจุด */
+        /* ================= PHONEME LAB: AUDIO & AUTO MIC CONTROLLER ================= */
+    let __cnMicStream = null;
+    let __cnMediaRecorder = null;
+    let __cnAudioChunks = [];
+    let __cnMaxTimer = null;
+    window.__cnActiveRecognizer = null;
+    window.__cnSilenceTimer = null;
+
+    async function getChineseAudioStream() {
+      if (__cnMicStream && __cnMicStream.active) return __cnMicStream;
+      __cnMicStream = await navigator.mediaDevices.getUserMedia({
+        audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true }
+      });
+      return __cnMicStream;
+    }
+
+    // Pre-warm audio on user touch/click
+    document.addEventListener('pointerdown', () => {
+      if (!__cnMicStream && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        getChineseAudioStream().catch(() => {});
+      }
+    }, { once: true });
+
+    function stopChineseMic(shouldProcess = false) {
+      if (__cnMaxTimer) { clearTimeout(__cnMaxTimer); __cnMaxTimer = null; }
+      if (window.__cnSilenceTimer) { clearTimeout(window.__cnSilenceTimer); window.__cnSilenceTimer = null; }
+
+      if (__cnMediaRecorder && __cnMediaRecorder.state === 'recording') {
+        if (shouldProcess) {
+          try { __cnMediaRecorder.stop(); } catch(e) {}
+        } else {
+          try {
+            __cnMediaRecorder.onstop = null;
+            __cnMediaRecorder.stop();
+          } catch(e) {}
+          isMicListening = false;
+          cnMicUI('retry', '');
+        }
+      } else {
+        isMicListening = false;
+        cnMicUI('retry', '');
+      }
+
+      if (window.__cnActiveRecognizer) {
+        try { window.__cnActiveRecognizer.abort(); } catch(e) {}
+        window.__cnActiveRecognizer = null;
+      }
+    }
+
+    function cnMicUI(state, message) {
+      const btn = document.getElementById('btnChineseMic');
+      const st  = document.getElementById('micStatusText');
+      if (btn) {
+        if (state === 'wait') {
+          btn.className = "px-6 py-3.5 rounded-2xl bg-slate-400 text-white font-display font-black text-sm shadow-lg shadow-slate-400/30 transition cursor-pointer flex items-center justify-center gap-2 mx-auto";
+          btn.innerHTML = '<span>⏳ รอครูพูดจบ แล้วไมค์จะเปิดเองอัตโนมัติ...</span>';
+        } else if (state === 'listening') {
+          btn.className = "px-6 py-3.5 rounded-2xl bg-rose-600 text-white font-display font-black text-base shadow-xl ring-4 ring-rose-300 animate-pulse transition cursor-pointer flex items-center justify-center gap-2 mx-auto";
+          btn.innerHTML = '<span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-white animate-ping"></span>🔴 ไมค์เปิดแล้ว พูดได้เลยค่ะ... (แตะเมื่อพูดจบ)</span>';
+        } else if (state === 'thinking') {
+          btn.className = "px-6 py-3.5 rounded-2xl bg-indigo-600 text-white font-display font-black text-sm shadow-lg transition flex items-center justify-center gap-2 mx-auto";
+          btn.innerHTML = '<span>🎧 ครูเป่าเปากำลังตรวจเสียง...</span>';
+        } else if (state === 'retry') {
+          btn.className = "px-6 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-display font-black text-sm shadow-lg shadow-amber-500/30 transition cursor-pointer flex items-center justify-center gap-2 mx-auto";
+          btn.innerHTML = '<span>🔁 แตะไมค์เพื่อลองพูดอีกครั้ง</span>';
+        } else {
+          btn.className = "px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-display font-black text-sm shadow-lg transition cursor-pointer flex items-center justify-center gap-2 mx-auto";
+          btn.innerHTML = '<span>🎙️ ไมค์พร้อมรับฟัง</span>';
+        }
+      }
+      if (st && message) {
+        st.className = 'text-xs font-bold text-slate-500 mt-2';
+        st.textContent = message;
+      }
+    }
+
+    /* AUTO MIC OPENER */
+    window.__cnAutoOpenMic = function () {
+      if (!CURRENT_LESSON || CURRENT_STEP !== 1) return;
+      const target = CURRENT_LESSON.speak.target;
+      triggerChineseMic(target);
+    };
+
+    /* ครูพูดนำเฉพาะขั้น -> ตามด้วย AUTO MIC */
+    let cnTutorDone = {};
+    let cnTutorToken = null;
+    function cnTutorStep() {
+      if (!CURRENT_LESSON) return;
+      const key = CURRENT_LESSON.id + '|' + CURRENT_STEP;
+      if (cnTutorToken && cnTutorToken.key === key && (Date.now() - cnTutorToken.at) < 1500) return;
+      if (cnTutorDone[key]) return;
+      cnTutorDone[key] = true;
+      cnTutorToken = { key, at: Date.now() };
+      const L = CURRENT_LESSON;
+      if (CURRENT_STEP === 0) {
+        cnPlayKey(L.id + '_listen', L.listen.audioWord);
+      } else if (CURRENT_STEP === 1) {
+        /* ครูอ่านนำ -> เว้น -> บอกตาหนู -> เว้น -> เปิดไมค์อัตโนมัติ (AUTO MIC) */
+        cnMicUI('wait', 'ไม่ต้องกดอะไรนะคะ — ไมค์จะเปิดอัตโนมัติเมื่อครูพูดจบ');
+        cnQueue([
+          { key: L.id + '_speak', text: L.speak.target, gapAfter: CN_GAP_WORD },
+          { key: L.id + '_turn',  text: '现在轮到你了',  gapAfter: CN_GAP_TURN,
+            then: () => {
+              window.__cnAutoOpenMic();
+            }
+          }
+        ]);
+        if (window.__cnTurnAuto) window.__cnTurnAuto[L.id] = false;
+      } else if (CURRENT_STEP === 2) {
+        cnPlayKey(L.id + '_read', L.read.sentence);
+      } else if (CURRENT_STEP === 3 && L.write.char) {
+        cnPlayKey(L.id + '_write', L.write.char);
+      }
+    }
+
+    function cnPlayOption(word) { cnPlayKey('opt_' + word, word); }
+    function cnPlayWord(word)   { cnPlayKey(CURRENT_LESSON.id + '_word_' + word, word); }
+
+    // ================= HUB RENDERER =================
+    function switchStageTab(stage) {
+      CURRENT_STAGE = stage;
+      document.getElementById('tabEarly').className = stage === 'early' ? 'flex-1 py-2.5 px-3 rounded-xl font-display font-black text-xs sm:text-sm transition-all tab-active text-center' : 'flex-1 py-2.5 px-3 rounded-xl font-display font-black text-xs sm:text-sm transition-all tab-inactive text-center';
+      document.getElementById('tabLower').className = stage === 'lower' ? 'flex-1 py-2.5 px-3 rounded-xl font-display font-black text-xs sm:text-sm transition-all tab-active text-center' : 'flex-1 py-2.5 px-3 rounded-xl font-display font-black text-xs sm:text-sm transition-all tab-inactive text-center';
+      document.getElementById('tabUpper').className = stage === 'upper' ? 'flex-1 py-2.5 px-3 rounded-xl font-display font-black text-xs sm:text-sm transition-all tab-active text-center' : 'flex-1 py-2.5 px-3 rounded-xl font-display font-black text-xs sm:text-sm transition-all tab-inactive text-center';
+      renderLessonCards();
+    }
+
+    function renderLessonCards() {
+      const grid = document.getElementById('lessonsGrid');
+      const list = CHINESE_DATA[CURRENT_STAGE] || [];
+      let h = '';
+
+      list.forEach((it, idx) => {
+        const lessonIdx = idx + 1;
+        const isUnlocked = window.KidobitsLock ? KidobitsLock.isUnlocked('chinese', lessonIdx) : (lessonIdx === 1);
+
+        if (!isUnlocked) {
+          h += `
+            <div onclick="if(window.KidobitsLock) KidobitsLock.shakeAndNotify(this, '${it.title}')" class="bg-slate-50/80 rounded-3xl p-5 border-2 border-dashed border-slate-200 shadow-xs opacity-60 flex flex-col justify-between cursor-pointer select-none transition">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-3xl text-slate-400">🔒</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-200 text-slate-500">ล็อคอยู่</span>
+                </div>
+                <div class="inline-block px-2 py-0.5 rounded-md bg-slate-100 text-slate-500 text-[10px] font-black mb-1.5">
+                  ${it.level} · ${it.id}
+                </div>
+                <h3 class="font-display font-bold text-slate-500 text-base mb-1">${it.title}</h3>
+                <p class="text-xs text-slate-400 font-medium leading-relaxed mb-4">ผ่านบทเรียนก่อนหน้าเพื่อปลดล็อค</p>
+              </div>
+
+              <div class="w-full py-3 rounded-2xl bg-slate-200 text-slate-400 font-display font-bold text-xs tracking-wide flex items-center justify-center gap-1.5">
+                <span>🔒 ยังไม่ปลดล็อค</span>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        h += `
+          <div class="bg-white rounded-3xl p-5 border-2 border-orange-100 hover:border-orange-300 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-3xl">${it.icon || '🐼'}</span>
+                <span class="badge-yct px-2.5 py-0.5 rounded-full text-[10px] font-black">${it.yct}</span>
+              </div>
+              <div class="inline-block px-2 py-0.5 rounded-md bg-orange-50 text-orange-700 text-[10px] font-black mb-1.5">
+                ${it.level} · ${it.id}
+              </div>
+              <h3 class="font-display font-black text-slate-900 text-base mb-1">${it.title}</h3>
+              <p class="text-xs text-slate-500 font-medium leading-relaxed mb-4">${it.goal_th}</p>
+
+              <!-- 4-Skills Pills -->
+              <div class="grid grid-cols-4 gap-1 text-[10px] font-black text-center mb-5">
+                <div class="p-1 rounded-lg bg-blue-50 text-blue-700 border border-blue-100">🎧 ฟัง</div>
+                <div class="p-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-100">🗣️ พูด</div>
+                <div class="p-1 rounded-lg bg-amber-50 text-amber-700 border border-amber-100">📖 อ่าน</div>
+                <div class="p-1 rounded-lg bg-rose-50 text-rose-700 border border-rose-100">✍️ เขียน</div>
+              </div>
+            </div>
+
+            <button onclick="openLesson('${it.id}')" class="w-full py-3 rounded-2xl bg-orange-600 hover:bg-orange-700 active:scale-95 text-white font-display font-black text-xs tracking-wide shadow-md shadow-orange-600/25 transition cursor-pointer flex items-center justify-center gap-1.5">
+              <span>เริ่มทำแบบฝึกหัด</span>
+              <span>›</span>
+            </button>
+          </div>
+        `;
+      });
+
+      grid.innerHTML = h;
+    }
+
+    // ================= PLAYER MODAL CONTROLLER =================
+    
+    // URL search param launcher
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const lId = params.get('lesson') || params.get('id') || params.get('les');
+      const stepParam = params.get('step');
+      const forcedStep = stepParam !== null ? parseInt(stepParam, 10) : null;
+      if (lId) {
+        openLesson(lId, forcedStep);
+      }
+    });
+
+    function openLesson(lessonId, forcedStep = null) {
+      let found = null;
+      let fIdx = -1;
+      for (const k in CHINESE_DATA) {
+        const idx = CHINESE_DATA[k].findIndex(x => x.id === lessonId);
+        if (idx >= 0) { found = CHINESE_DATA[k][idx]; fIdx = idx; break; }
+      }
+      if (!found) return;
+
+      const lessonNum = fIdx + 1;
+      const isDirectUrl = new URLSearchParams(window.location.search).has('id') || 
+                          new URLSearchParams(window.location.search).has('lesson') || 
+                          new URLSearchParams(window.location.search).has('les');
+      if (isDirectUrl && window.KidobitsLock) {
+        KidobitsLock.unlockTo('chinese', lessonNum);
+      }
+      if (lessonNum > 1 && window.KidobitsLock && !KidobitsLock.isUnlocked('chinese', lessonNum)) {
+        if (window.KidobitsLock) KidobitsLock.shakeAndNotify(null, found.title);
+        return;
+      }
+
+      CURRENT_LESSON = found;
+
+      let stepToOpen = 0;
+      if (typeof forcedStep === 'number' && forcedStep >= 0 && forcedStep < 4) {
+        stepToOpen = forcedStep;
+      } else if (window.KidobitsResume) {
+        const res = KidobitsResume.load('kidobits_chinese_progress', found.id);
+        if (res && typeof res.step === 'number' && res.step > 0 && res.step < 4) {
+          stepToOpen = res.step;
+        }
+      }
+      CURRENT_STEP = stepToOpen;
+      isPinyinVisible = true;
+
+      document.getElementById('modalLessonId').textContent = found.id;
+      document.getElementById('modalLessonTitle').textContent = found.title;
+      document.getElementById('modalLessonGoal').textContent = 'เป้าหมาย: ' + found.goal_th;
+
+      document.getElementById('playerModal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+
+      renderStep();
+    }
+
+    function closeLesson() {
+      stopChineseMic();
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      if (window.location.search.includes('lesson=') || window.location.search.includes('id=') || window.location.search.includes('les=')) {
+        location.href = '/theme/theme_chinese_lobby.html';
+        return;
+      }
+      document.getElementById('playerModal').classList.add('hidden');
+      document.body.style.overflow = '';
+      CURRENT_LESSON = null;
+    }
+
+    function updateStepPills() {
+      for (let i = 0; i < 4; i++) {
+        const pill = document.getElementById('stepPill' + i);
+        if (pill) {
+          if (i < CURRENT_STEP) {
+            pill.className = 'flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500 text-white shadow-sm';
+          } else if (i === CURRENT_STEP) {
+            pill.className = 'flex items-center gap-1 px-2.5 py-1 rounded-full bg-orange-500 text-white shadow-sm';
+          } else {
+            pill.className = 'flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-200 text-slate-600';
+          }
+        }
+      }
+      document.getElementById('stepCounterText').textContent = `ข้อ ${Math.min(CURRENT_STEP + 1, 4)} / 4`;
+    }
+
+    function renderStep() {
+      if (CURRENT_STEP !== 1) {
+        stopChineseMic();
+      }
+      updateStepPills();
+      try {
+        if (window.KidobitsResume && CURRENT_LESSON) {
+          const stepNames = ['ฟังเสียง', 'ฝึกพูด', 'อ่านทำความเข้าใจ', 'ฝึกคัดอักษรจีน'];
+          const sName = stepNames[CURRENT_STEP] || ('ทักษะที่ ' + (CURRENT_STEP + 1));
+          KidobitsResume.save('kidobits_chinese_progress', CURRENT_LESSON.id, {
+            title: CURRENT_LESSON.title || CURRENT_LESSON.id,
+            subtitle: `ทักษะที่ ${CURRENT_STEP + 1}/4 · ${sName}`,
+            step: CURRENT_STEP,
+            index: 0,
+            done: false
+          });
+        }
+      } catch(e) {}
+      const stage = document.getElementById('playerStage');
+      if (CURRENT_STEP === 0) renderListenStep(stage);
+      else if (CURRENT_STEP === 1) renderSpeakStep(stage);
+      else if (CURRENT_STEP === 2) renderReadStep(stage);
+      else if (CURRENT_STEP === 3) renderWriteStep(stage);
+      else renderSummaryStep(stage);
+
+      /* ผูกปุ่มด้วย JS ไม่ฝังข้อความใน onclick — คำจีนมี ' " ทำให้สตริงขาด */
+      document.querySelectorAll('[data-listen-opt]').forEach(btn => {
+        btn.onclick = () => {
+          cnPlayOption(btn.getAttribute('data-listen-opt'));
+          checkListenAnswer(btn.getAttribute('data-listen-opt'));
+        };
+      });
+      document.querySelectorAll('[data-read-word]').forEach(el => {
+        el.onclick = () => cnPlayWord(el.getAttribute('data-read-word'));
+      });
+
+      /* FIX: เดิมไม่มีจุดสั่งให้ครูพูดตอนเข้าขั้น เด็กต้องกด 🔊 เอง
+         ตอนนี้ครูพูดนำอัตโนมัติทุกครั้งที่เข้าขั้นใหม่ (ขั้นละครั้ง) */
+      setTimeout(cnTutorStep, 260);
+    }
+
+    // ---------------- STEP 1: 🎧 ฟัง (LISTENING) ----------------
+    function renderListenStep(stage) {
+      const data = CURRENT_LESSON.listen;
+      let h = `
+        <div class="text-center space-y-4">
+          <div class="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-900 text-xs font-black">
+            🎧 ขั้นที่ 1 · ฝึกทักษะการฟัง (Listening)
+          </div>
+          <p class="text-sm font-bold text-slate-700">${data.prompt}</p>
+
+          <!-- Audio Play Button -->
+          <div class="pt-2">
+            <button id="btnListenReplay" onclick="cnReplayCurrent()" class="w-20 h-20 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-500 hover:from-blue-700 hover:to-indigo-600 text-white text-3xl shadow-lg shadow-blue-500/30 flex items-center justify-center mx-auto active:scale-95 transition cursor-pointer" title="กดเพื่อฟังเสียง">
+              🔊
+            </button>
+            <div class="text-[11px] text-slate-400 font-bold mt-2">แตะลำโพงเพื่อฟังเสียงครู</div>
+          </div>
+
+          <!-- Options Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 max-w-lg mx-auto">
+      `;
+
+      data.options.forEach((opt, idx) => {
+        h += `
+          <button data-listen-opt="${opt.word.replace(/"/g,'&quot;')}" class="p-4 rounded-2xl bg-white hover:bg-orange-50 border-2 border-slate-200 hover:border-orange-400 shadow-sm active:scale-95 transition cursor-pointer text-center group">
+            <div class="text-3xl mb-1">${opt.icon || '📝'}</div>
+            <div class="font-display font-black text-slate-900 text-lg group-hover:text-orange-600">${opt.word}</div>
+            <div class="text-xs text-slate-400 font-bold">${opt.pinyin}</div>
+            <div class="text-xs text-slate-500 font-medium">${opt.th}</div>
+          </button>
+        `;
+      });
+
+      h += `
+          </div>
+          <div id="stepFeedback" class="h-6 text-xs font-bold text-emerald-600 flex items-center justify-center"></div>
+        </div>
+      `;
+      stage.innerHTML = h;
+      /* เอาออก: เสียงครูสั่งจาก router (cnTutorStep) ที่เดียว
+         เดิมบรรทัดนี้ทำให้ครูพูดซ้ำ/ทับคิว */
+    }
+
+    function checkListenAnswer(selected) {
+      const fb = document.getElementById('stepFeedback');
+      if (selected === CURRENT_LESSON.listen.answer) {
+        playTone('correct');
+        TOTAL_STARS += 1;
+        updateGlobalStars();
+        fb.innerHTML = '🎉 ถูกต้องค่ะ! เก่งมาก (太棒了！)';
+        fb.className = 'h-6 text-sm font-bold text-emerald-600 flex items-center justify-center animate-bounce';
+        speakMandarin('太棒了！回答正确！', 0.9, () => {
+          setTimeout(() => {
+            CURRENT_STEP = 1;
+            renderStep();
+          }, 450);
+        });
+      } else {
+        playTone('wrong');
+        fb.innerHTML = 'ยังไม่ถูกต้องนะคะ ลองฟังอีกครั้งนะ 🙂';
+        fb.className = 'h-6 text-xs font-bold text-rose-500 flex items-center justify-center';
+        speakMandarin('再听一次', 0.85);
+      }
+    }
+
+    // ---------------- STEP 2: 🗣️ พูด (SPEAKING - AUTO MIC & PHONEME LAB) ----------------
+    const HANZI_PINYIN_MAP = {
+      '你': 'ni', '好': 'hao', '您': 'nin', '泥': 'ni', '拟': 'ni', '呢': 'ne', '号': 'hao', '嚎': 'hao',
+      '我': 'wo', '要': 'yao', '握': 'wo', '窝': 'wo', '药': 'yao', '咬': 'yao', '耀': 'yao',
+      '红': 'hong', '色': 'se', '洪': 'hong', '宏': 'hong', '涩': 'se',
+      '叫': 'jiao', '小': 'xiao', '明': 'ming', '名': 'ming', '鸣': 'ming',
+      '五': 'wu', '岁': 'sui', '午': 'wu', '武': 'wu', '碎': 'sui',
+      '妈': 'ma', '麻': 'ma', '马': 'ma', '骂': 'ma', '吗': 'ma', '嘛': 'ma',
+      '爸': 'ba', '八': 'ba', '把': 'ba', '坝': 'ba', '拔': 'ba', '粑': 'ba',
+      '书': 'shu', '在': 'zai', '桌': 'zhuo', '子': 'zi', '上': 'shang', '下': 'xia', '里': 'li',
+      '今': 'jin', '天': 'tian', '星': 'xing', '期': 'qi', '三': 'san', '一': 'yi', '二': 'er', '四': 'si',
+      '气': 'qi', '非': 'fei', '常': 'chang', '热': 're', '冷': 'leng',
+      '哥': 'ge', '比': 'bi', '大': 'da', '两': 'liang', '姐': 'jie', '弟': 'di', '妹': 'mei',
+      '请': 'qing', '关': 'guan', '开': 'kai', '作': 'zuo', '业': 'ye', '交': 'jiao', '给': 'gei',
+      '苹': 'ping', '果': 'guo', '香': 'xiang', '蕉': 'jiao', '西': 'xi', '瓜': 'gua',
+      '猫': 'mao', '狗': 'gou', '鳥': 'niao', '鸟': 'niao'
+    };
+
+    function stripTone(str) {
+      if (!str) return '';
+      return str.normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, '');
+    }
+
+    function hanziToPinyin(text) {
+      if (!text) return '';
+      let out = '';
+      for (const ch of text) {
+        if (HANZI_PINYIN_MAP[ch]) {
+          out += HANZI_PINYIN_MAP[ch];
+        } else if (/[a-zA-Z0-9]/.test(ch)) {
+          out += ch.toLowerCase();
+        }
+      }
+      return out;
+    }
+
+    function evaluatePhonemeMatch(targetText, heardText, hintPinyin) {
+      const cleanTarget = (targetText || '').trim();
+      const cleanHeard = (heardText || '').trim();
+      const normTargetHanzi = cleanTarget.replace(/[^a-zA-Z0-9一-龥]/g, '').toLowerCase();
+      const normHeardHanzi = cleanHeard.replace(/[^a-zA-Z0-9一-龥]/g, '').toLowerCase();
+
+      // 1. Direct character match
+      if (normHeardHanzi === normTargetHanzi || (normHeardHanzi.length >= 2 && normHeardHanzi.includes(normTargetHanzi)) || (normTargetHanzi.length >= 2 && normTargetHanzi.includes(normHeardHanzi))) {
+        return { isPass: true, score: 100, heardPinyin: hanziToPinyin(normHeardHanzi), targetPinyin: stripTone(hintPinyin) || hanziToPinyin(normTargetHanzi), reason: 'ตรงตามตัวอักษร 100%' };
+      }
+
+      // 2. Pinyin / Phoneme conversion
+      const targetPinyin = stripTone(hintPinyin) || hanziToPinyin(normTargetHanzi);
+      const heardPinyin = hanziToPinyin(normHeardHanzi) || stripTone(normHeardHanzi);
+
+      if (targetPinyin && heardPinyin) {
+        if (heardPinyin === targetPinyin) {
+          return { isPass: true, score: 98, heardPinyin, targetPinyin, reason: 'หน่วยเสียงพินอินตรงกัน (' + heardPinyin + ')' };
+        }
+        if (heardPinyin.includes(targetPinyin) || (targetPinyin.length >= 3 && targetPinyin.includes(heardPinyin))) {
+          return { isPass: true, score: 88, heardPinyin, targetPinyin, reason: 'สำเนียงครอบคลุมคำเป้าหมาย (' + heardPinyin + ')' };
+        }
+        let matches = 0;
+        const minL = Math.min(targetPinyin.length, heardPinyin.length);
+        const maxL = Math.max(targetPinyin.length, heardPinyin.length);
+        for (let i = 0; i < minL; i++) {
+          if (targetPinyin[i] === heardPinyin[i]) matches++;
+        }
+        const similarity = Math.round((matches / maxL) * 100);
+        if (similarity >= 55) {
+          return { isPass: true, score: similarity, heardPinyin, targetPinyin, reason: 'หน่วยเสียงใกล้เคียง ' + similarity + '% (เกณฑ์เด็กผ่าน)' };
+        }
+        return { isPass: false, score: similarity, heardPinyin, targetPinyin, reason: 'เสียงยังไม่ตรง (' + heardPinyin + ')' };
+      }
+      return { isPass: false, score: 20, heardPinyin: '', targetPinyin: '', reason: 'ยังไม่ตรงเป้าหมาย' };
+    }
+
+    function renderSpeakStep(stage) {
+      const data = CURRENT_LESSON.speak;
+      let h = `
+        <div class="text-center space-y-4">
+          <div class="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-xs font-black">
+            🗣️ ขั้นที่ 2 · ฝึกทักษะการพูด (Auto Mic + Phoneme Lab)
+          </div>
+          <p class="text-sm font-bold text-slate-700">${data.prompt}</p>
+
+          <!-- Target Card -->
+          <div class="p-6 rounded-3xl bg-white border-2 border-emerald-200 text-center shadow-sm max-w-sm mx-auto">
+            <div class="text-xs font-bold text-emerald-600 mb-1">${data.pinyin}</div>
+            <div class="font-display font-black text-3xl sm:text-4xl text-slate-900 leading-tight mb-2">${data.target}</div>
+            <div class="text-xs text-slate-500 font-semibold mb-3">"${data.th}"</div>
+            <button onclick="cnReplayCurrent()" class="px-3.5 py-1.5 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-200 inline-flex items-center gap-1 transition">
+              <span>🔊 ฟังครูอ่านนำ</span>
+            </button>
+          </div>
+
+          <!-- Mic Button -->
+          <div class="pt-2">
+            <button id="btnChineseMic" onclick="triggerChineseMic('${data.target.replace(/'/g, "\'")}')" class="px-6 py-3.5 rounded-2xl bg-slate-400 text-white font-display font-black text-base shadow-xl ring-4 ring-slate-300 transition cursor-pointer flex items-center justify-center gap-2 mx-auto">
+              <span>⏳ รอครูพูดจบ แล้วไมค์จะเปิดเองอัตโนมัติ...</span>
+            </button>
+            <div id="micStatusText" class="text-xs text-slate-500 font-bold mt-2">
+              ไม่ต้องกดอะไรนะคะ — ไมค์จะเปิดอัตโนมัติเมื่อครูพูดจบ
+            </div>
+            <div id="micLiveWords" class="hidden max-w-sm mx-auto"></div>
+          </div>
+
+          <div id="stepFeedback" class="min-h-12 text-xs font-bold text-emerald-600 flex items-center justify-center"></div>
+        </div>
+      `;
+      stage.innerHTML = h;
+    }
+
+    function triggerChineseMic(targetText) {
+      if (isMicListening) {
+        stopChineseMic(true);
+        return;
+      }
+      stopChineseMic(false);
+
+      if (typeof MediaRecorder !== 'undefined' && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        startServerSTTRecording(targetText);
+      } else {
+        startFallbackWebSpeech(targetText);
+      }
+    }
+
+    async function startServerSTTRecording(targetText) {
+      const liveBox = document.getElementById('micLiveWords');
+
+      try {
+        const stream = await getChineseAudioStream();
+        __cnAudioChunks = [];
+
+        let mime = '';
+        const candidates = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus'];
+        for (const c of candidates) {
+          try { if (MediaRecorder.isTypeSupported(c)) { mime = c; break; } } catch(e) {}
+        }
+
+        const rec = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream);
+        __cnMediaRecorder = rec;
+        isMicListening = true;
+
+        cnMicUI('listening', '🎙️ ไมค์เปิดอัตโนมัติแล้ว... พูดคำว่า "' + targetText + '" ได้เลยค่ะ');
+
+        if (liveBox) {
+          liveBox.classList.remove('hidden');
+          liveBox.className = 'mt-3 px-4 py-3 rounded-2xl bg-rose-50 border-2 border-rose-200 text-center animate-pulse';
+          liveBox.innerHTML = `
+            <div class="text-[10px] font-black text-rose-700 mb-1">🔴 ไมค์เปิดอัตโนมัติแล้ว กำลังรับฟังเสียง</div>
+            <div class="font-display font-black text-2xl text-slate-900 leading-tight">พูดคำว่า "${targetText}" ได้เลยจ้ะ</div>
+          `;
+        }
+
+        rec.ondataavailable = (e) => {
+          if (e.data && e.data.size > 0) __cnAudioChunks.push(e.data);
+        };
+
+        rec.onstop = async () => {
+          isMicListening = false;
+          cnMicUI('thinking', 'ครูเป่าเปากำลังตรวจการออกเสียง... 🎧');
+
+          const blob = new Blob(__cnAudioChunks, { type: mime || 'audio/webm' });
+          if (blob.size < 600) {
+            cnMicUI('retry', 'ยังไม่ได้ยินเสียงชัดเจน — ไมค์จะลองเปิดให้อีกครั้งนะคะ 🙂');
+            setTimeout(() => { if (CURRENT_STEP === 1) window.__cnAutoOpenMic(); }, 1200);
+            return;
+          }
+
+          const fd = new FormData();
+          fd.append('audio', blob, 'child_chinese.webm');
+          fd.append('lang', 'zh');
+          fd.append('hint', targetText);
+
+          try {
+            const ctrl = new AbortController();
+            const to = setTimeout(() => ctrl.abort(), 12000);
+            const resp = await fetch('/kidobits/stt', { method: 'POST', body: fd, signal: ctrl.signal });
+            clearTimeout(to);
+
+            const data = await resp.json();
+            const heard = (data && data.text) ? data.text.trim() : '';
+
+            handlePhonemeEvaluationResult(targetText, heard);
+          } catch (err) {
+            console.error('Server STT failed:', err);
+            handlePhonemeEvaluationResult(targetText, '', 'เกิดข้อผิดพลาดในการเชื่อมต่อ');
+          }
+        };
+
+        rec.start();
+
+        // 3.5 วินาที สำหรับฟังเสียงพูดของเด็ก แล้วส่งตรวจอัตโนมัติ
+        __cnMaxTimer = setTimeout(() => {
+          if (isMicListening && __cnMediaRecorder && __cnMediaRecorder.state === 'recording') {
+            stopChineseMic(true);
+          }
+        }, 3500);
+
+      } catch (err) {
+        console.warn('getUserMedia failed, falling back to WebSpeech:', err);
+        startFallbackWebSpeech(targetText);
+      }
+    }
+
+    function handlePhonemeEvaluationResult(targetText, heard, customError = null) {
+      const fb = document.getElementById('stepFeedback');
+      const liveBox = document.getElementById('micLiveWords');
+      window.__cnLabAttempts = (window.__cnLabAttempts || 0) + 1;
+
+      if (customError) {
+        cnMicUI('retry', customError);
+        return;
+      }
+
+      const targetHintPinyin = (CURRENT_LESSON && CURRENT_LESSON.speak && CURRENT_LESSON.speak.pinyin) || '';
+      const evalRes = evaluatePhonemeMatch(targetText, heard, targetHintPinyin);
+
+      if (liveBox) {
+        liveBox.classList.remove('hidden');
+        liveBox.className = evalRes.isPass
+          ? 'mt-3 px-4 py-3 rounded-2xl bg-emerald-50 border-2 border-emerald-200 text-center animate-pop'
+          : 'mt-3 px-4 py-3 rounded-2xl bg-rose-50 border-2 border-rose-200 text-center';
+        liveBox.innerHTML = `
+          <div class="text-[10px] font-black ${evalRes.isPass ? 'text-emerald-700' : 'text-rose-700'} mb-1">
+            ${evalRes.isPass ? '✅ ออกเสียงตรงตามเกณฑ์' : '❌ ที่ได้ยินยังไม่ตรง'}
+          </div>
+          <div class="font-display font-black text-2xl text-slate-900 leading-tight">"${heard || '(เงียบ)'}"</div>
+          <div class="text-[11px] text-slate-500 mt-1">พินอินที่ได้ยิน: <b>${evalRes.heardPinyin || '-'}</b> | เป้าหมาย: <b>${evalRes.targetPinyin || '-'}</b></div>
+        `;
+      }
+
+      if (evalRes.isPass) {
+        playTone('correct');
+        TOTAL_STARS += 1;
+        updateGlobalStars();
+        window.__cnLabAttempts = 0;
+        cnMicUI('listening', 'ยอดเยี่ยมมากค่ะ! 🎉');
+
+        fb.innerHTML = `
+          <div class="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-center animate-pop">
+            <div class="text-base font-black">🎉 ยอดเยี่ยมมากค่ะ! [ความตรงกัน ${evalRes.score}%] ⭐⭐⭐</div>
+            <div class="text-xs font-bold text-emerald-700 mt-0.5">${evalRes.reason}</div>
+          </div>
+        `;
+
+        speakMandarin('很好！发音很清楚！', 0.9, () => {
+          setTimeout(() => {
+            CURRENT_STEP = 2;
+            renderStep();
+          }, 600);
+        });
+      } else {
+        playTone('wrong');
+        cnMicUI('retry', 'เสียงยังไม่ตรง ลองฟังครูอีกครั้งนะคะ');
+
+        fb.innerHTML = `
+          <div class="p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900 text-center">
+            <div class="text-sm font-black text-rose-700">เสียงยังไม่ตรง ลองฟังครูแล้วพูดใหม่อีกครั้งนะคะ 🙂</div>
+            ${window.__cnLabAttempts >= 2 ? `
+              <div class="mt-2.5 pt-2 border-t border-rose-200">
+                <button onclick="playTone('correct'); TOTAL_STARS += 1; updateGlobalStars(); CURRENT_STEP = 2; renderStep();" class="px-4 py-2 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white rounded-full text-xs font-black shadow-md transition active:scale-95 flex items-center justify-center gap-1 mx-auto cursor-pointer">
+                  <span>⭐ คุณครูให้ผ่าน (ยอดเยี่ยมมากค่ะ แตะเพื่อไปต่อ) ➔</span>
+                </button>
+              </div>
+            ` : ''}
+          </div>
+        `;
+        speakMandarin('再试一次', 0.85, () => {
+          // AUTO MIC RETRY: เปิดไมค์ให้เด็กพูดใหม่อัตโนมัติ!
+          setTimeout(() => {
+            if (CURRENT_STEP === 1) {
+              window.__cnAutoOpenMic();
+            }
+          }, 600);
+        });
+      }
+    }
+
+    function startFallbackWebSpeech(targetText) {
+      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRec) {
+        cnMicUI('retry', 'อุปกรณ์นี้ไม่รองรับไมค์ — แตะปุ่มผ่านด้านล่างเพื่อไปต่อได้ค่ะ');
+        return;
+      }
+
+      try {
+        const recognizer = new SpeechRec();
+        recognizer.lang = 'zh-CN';
+        recognizer.continuous = false;
+        recognizer.interimResults = false;
+
+        window.__cnActiveRecognizer = recognizer;
+        isMicListening = true;
+        cnMicUI('listening', 'กำลังฟังเสียงภาษาจีน... (พูดได้เลยค่ะ)');
+
+        recognizer.onresult = (e) => {
+          stopChineseMic(false);
+          const heard = (e.results[0] && e.results[0][0] && e.results[0][0].transcript) || '';
+          handlePhonemeEvaluationResult(targetText, heard);
+        };
+
+        recognizer.onerror = (err) => {
+          stopChineseMic(false);
+          const code = (err && err.error) || 'unknown';
+          const msg = (code === 'network')
+            ? 'สัญญาณอินเทอร์เน็ตขาดช่วง แตะไมค์อีกครั้งนะคะ'
+            : (code === 'no-speech')
+            ? 'ยังไม่ได้ยินเสียง — แตะไมค์แล้วพูดดัง ๆ ใกล้ไมค์อีกครั้งนะคะ'
+            : 'เกิดข้อผิดพลาดในการฟัง (' + code + ')';
+          cnMicUI('retry', msg);
+        };
+
+        recognizer.onend = () => {
+          if (isMicListening) stopChineseMic(false);
+        };
+
+        recognizer.start();
+      } catch (e) {
+        cnMicUI('retry', 'เปิดไมโครโฟนไม่สำเร็จ แตะปุ่มผ่านเพื่อไปต่อได้ค่ะ');
+      }
+    }
+
+// ---------------- STEP 3: 📖 อ่าน (READING) ----------------
+    function renderReadStep(stage) {
+      const data = CURRENT_LESSON.read;
+      let h = `
+        <div class="text-center space-y-4">
+          <div class="inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-black">
+            📖 ขั้นที่ 3 · ฝึกทักษะการอ่าน (Reading & Pinyin Toggle)
+          </div>
+          <p class="text-sm font-bold text-slate-700">${data.prompt}</p>
+
+          <!-- Toggle Pinyin Control -->
+          <div class="flex items-center justify-center gap-2 pt-1">
+            <span class="text-xs font-bold text-slate-500">พินอิน (Pinyin):</span>
+            <button onclick="togglePinyin()" id="btnPinyinToggle" class="px-3 py-1 rounded-full ${isPinyinVisible ? 'bg-amber-500 text-white' : 'bg-slate-200 text-slate-600'} text-xs font-black transition cursor-pointer">
+              ${isPinyinVisible ? '✓ เปิดพินอิน' : '✕ ปิดพินอิน (อักษรจีนล้วน)'}
+            </button>
+          </div>
+
+          <!-- Word Cards (Clickable) -->
+          <div class="p-5 rounded-3xl bg-white border-2 border-amber-200 shadow-sm max-w-md mx-auto">
+            <div class="flex flex-wrap items-center justify-center gap-2.5">
+      `;
+
+      data.words.forEach((w) => {
+        h += `
+          <div data-read-word="${w.zh.replace(/"/g,'&quot;')}" class="p-2.5 rounded-2xl bg-amber-50 hover:bg-amber-100 border border-amber-200 transition cursor-pointer active:scale-95 text-center group" title="แตะเพื่อฟังเสียง">
+            <div class="pinyin-label text-[11px] font-bold text-amber-800 ${isPinyinVisible ? '' : 'hidden'}">${w.py}</div>
+            <div class="font-display font-black text-2xl text-slate-900 group-hover:text-amber-700">${w.zh}</div>
+            <div class="text-[10px] text-slate-500 font-medium">${w.th}</div>
+          </div>
+        `;
+      });
+
+      h += `
+            </div>
+            <div class="text-[11px] text-slate-400 font-bold mt-3">💡 แตะที่คำแต่ละคำ เพื่อฟังครูออกเสียงทีละคำได้ค่ะ</div>
+          </div>
+
+          <!-- Reading Comprehension Question -->
+          <div class="pt-2 max-w-sm mx-auto text-left">
+            <div class="text-xs font-bold text-slate-700 mb-2">คำถามวัดความเข้าใจ: ${data.question}</div>
+            <div class="grid grid-cols-1 gap-2">
+      `;
+
+      data.options.forEach((opt) => {
+        h += `
+          <button onclick="checkReadAnswer('${opt}')" class="p-3 rounded-xl bg-white hover:bg-amber-50 border border-slate-200 hover:border-amber-400 text-left text-xs font-bold text-slate-800 active:scale-95 transition cursor-pointer">
+            ${opt}
+          </button>
+        `;
+      });
+
+      h += `
+            </div>
+          </div>
+
+          <div id="stepFeedback" class="h-6 text-xs font-bold text-emerald-600 flex items-center justify-center"></div>
+        </div>
+      `;
+      stage.innerHTML = h;
+    }
+
+    function togglePinyin() {
+      isPinyinVisible = !isPinyinVisible;
+      const labels = document.querySelectorAll('.pinyin-label');
+      labels.forEach(l => {
+        if (isPinyinVisible) l.classList.remove('hidden');
+        else l.classList.add('hidden');
+      });
+      const btn = document.getElementById('btnPinyinToggle');
+      if (btn) {
+        btn.className = `px-3 py-1 rounded-full ${isPinyinVisible ? 'bg-amber-500 text-white' : 'bg-slate-200 text-slate-600'} text-xs font-black transition cursor-pointer`;
+        btn.textContent = isPinyinVisible ? '✓ เปิดพินอิน' : '✕ ปิดพินอิน (อักษรจีนล้วน)';
+      }
+    }
+
+    function checkReadAnswer(selected) {
+      const fb = document.getElementById('stepFeedback');
+      if (selected === CURRENT_LESSON.read.answer) {
+        playTone('correct');
+        TOTAL_STARS += 1;
+        updateGlobalStars();
+        fb.innerHTML = '🎉 ถูกต้องค่ะ! อ่านเก่งมาก';
+        speakMandarin('真棒！读得很好！', 0.9, () => {
+          setTimeout(() => {
+            CURRENT_STEP = 3;
+            renderStep();
+          }, 450);
+        });
+      } else {
+        playTone('wrong');
+        fb.innerHTML = 'ยังไม่ถูกต้องนะคะ ลองดูใหม่อีกครั้งค่ะ';
+      }
+    }
+
+    // ---------------- STEP 4: ✍️ เขียน (WRITING) ----------------
+    function renderWriteStep(stage) {
+      const data = CURRENT_LESSON.write;
+      let h = `
+        <div class="text-center space-y-4">
+          <div class="inline-block px-3 py-1 rounded-full bg-rose-100 text-rose-900 text-xs font-black">
+            ✍️ ขั้นที่ 4 · ฝึกทักษะการเขียน (Writing & Mechanics)
+          </div>
+          <p class="text-sm font-bold text-slate-700">${data.prompt}</p>
+      `;
+
+      if (data.type === 'stroke') {
+        h += `
+          <!-- Tianzi Ge Canvas -->
+          <div class="relative w-52 h-52 mx-auto rounded-2xl border-4 border-rose-300 tianzi-bg bg-white shadow-inner overflow-hidden flex items-center justify-center">
+            <!-- Shadow Guide -->
+            <div class="absolute inset-0 flex items-center justify-center text-7xl font-zh text-slate-200 select-none pointer-events-none">
+              ${data.char}
+            </div>
+            <canvas id="strokeCanvas" width="208" height="208" class="relative z-10 touch-none cursor-crosshair"></canvas>
+          </div>
+
+          <div class="flex items-center justify-center gap-2 pt-1">
+            <button onclick="clearCanvas()" class="px-3 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">
+              ลบเขียนใหม่ 🔄
+            </button>
+            <button onclick="finishWritingStep()" class="px-4 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-black shadow-md shadow-rose-600/25 transition">
+              ส่งงานเขียน ✔
+            </button>
+          </div>
+          <div class="text-[11px] text-slate-400 font-bold">💡 ใช้นิ้วหรือเมาส์ลากเส้นขีดในช่องตาราง 田字格 ได้เลยค่ะ</div>
+        `;
+      } else {
+        // Sentence Builder
+        window.userBuiltSentence = [];
+        h += `
+          <div class="p-4 rounded-2xl bg-white border-2 border-rose-200 max-w-sm mx-auto min-h-[56px] flex items-center justify-center gap-2 flex-wrap shadow-sm" id="builtSentenceBox">
+            <span class="text-xs text-slate-400 font-bold">แตะชิปคำศัพท์ด้านล่างเพื่อเรียงประโยค</span>
+          </div>
+
+          <div class="flex flex-wrap justify-center gap-2 pt-2 max-w-sm mx-auto" id="chipsPoolBox">
+        `;
+        const shuffled = [...data.targetArr].sort(() => Math.random() - 0.5);
+        shuffled.forEach((w, idx) => {
+          h += `
+            <button onclick="pickSentenceChip('${w}', this)" class="px-3.5 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-900 font-display font-black text-sm active:scale-95 transition cursor-pointer">
+              ${w}
+            </button>
+          `;
+        });
+        h += `
+          </div>
+          <div class="pt-2">
+            <button onclick="resetSentenceChips()" class="px-3 py-1 text-xs font-bold text-slate-400 hover:text-slate-600">
+              เริ่มเรียงใหม่ 🔄
+            </button>
+          </div>
+        `;
+      }
+
+      h += `
+          <div id="stepFeedback" class="h-6 text-xs font-bold text-emerald-600 flex items-center justify-center"></div>
+        </div>
+      `;
+      stage.innerHTML = h;
+
+      if (data.type === 'stroke') {
+        initCanvasDrawing();
+      }
+    }
+
+    let isDrawing = false;
+    let canvasCtx = null;
+    let canvasHasDrawn = false;
+
+    function initCanvasDrawing() {
+      const cvs = document.getElementById('strokeCanvas');
+      if (!cvs) return;
+      canvasCtx = cvs.getContext('2d');
+      canvasCtx.strokeStyle = '#BE123C';
+      canvasCtx.lineWidth = 14;
+      canvasCtx.lineCap = 'round';
+      canvasCtx.lineJoin = 'round';
+      canvasHasDrawn = false;
+
+      const getPos = (e) => {
+        const rect = cvs.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return {
+          x: clientX - rect.left,
+          y: clientY - rect.top
+        };
+      };
+
+      const start = (e) => {
+        isDrawing = true;
+        canvasHasDrawn = true;
+        const pos = getPos(e);
+        canvasCtx.beginPath();
+        canvasCtx.moveTo(pos.x, pos.y);
+      };
+
+      const move = (e) => {
+        if (!isDrawing) return;
+        const pos = getPos(e);
+        canvasCtx.lineTo(pos.x, pos.y);
+        canvasCtx.stroke();
+      };
+
+      const stop = () => { isDrawing = false; };
+
+      cvs.addEventListener('mousedown', start);
+      cvs.addEventListener('mousemove', move);
+      window.addEventListener('mouseup', stop);
+
+      cvs.addEventListener('touchstart', (e) => { e.preventDefault(); start(e); }, { passive: false });
+      cvs.addEventListener('touchmove', (e) => { e.preventDefault(); move(e); }, { passive: false });
+      window.addEventListener('touchend', stop);
+    }
+
+    function clearCanvas() {
+      const cvs = document.getElementById('strokeCanvas');
+      if (cvs && canvasCtx) {
+        canvasCtx.clearRect(0, 0, cvs.width, cvs.height);
+        canvasHasDrawn = false;
+      }
+    }
+
+    function finishWritingStep() {
+      const fb = document.getElementById('stepFeedback');
+      if (!canvasHasDrawn) {
+        fb.innerHTML = 'กรุณาลากเส้นเขียนอักษรจีนก่อนนะคะ 🙂';
+        fb.className = 'h-6 text-xs font-bold text-rose-500 flex items-center justify-center';
+        return;
+      }
+      playTone('correct');
+      TOTAL_STARS += 1;
+      updateGlobalStars();
+      fb.innerHTML = '🎉 ลายมือสวยงาม ลำดับขีดถูกต้องค่ะ!';
+      speakMandarin('写得真漂亮！', 0.9, () => {
+        setTimeout(() => {
+          CURRENT_STEP = 4;
+          renderStep();
+        }, 450);
+      });
+    }
+
+    function pickSentenceChip(word, btnEl) {
+      if (!window.userBuiltSentence) window.userBuiltSentence = [];
+      window.userBuiltSentence.push(word);
+      btnEl.classList.add('opacity-30', 'pointer-events-none');
+
+      const box = document.getElementById('builtSentenceBox');
+      box.innerHTML = window.userBuiltSentence.map(w => `<span class="px-2.5 py-1 rounded-lg bg-orange-100 text-orange-950 font-display font-black text-sm">${w}</span>`).join('');
+
+      const targetStr = CURRENT_LESSON.write.targetArr.join('');
+      const currentStr = window.userBuiltSentence.join('');
+
+      if (window.userBuiltSentence.length === CURRENT_LESSON.write.targetArr.length) {
+        const fb = document.getElementById('stepFeedback');
+        if (currentStr === targetStr) {
+          playTone('correct');
+          TOTAL_STARS += 1;
+          updateGlobalStars();
+          fb.innerHTML = '🎉 เรียงประโยคถูกต้องเป๊ะเลยค่ะ!';
+          speakMandarin('太棒了！完全正确！', 0.9, () => {
+            setTimeout(() => {
+              CURRENT_STEP = 4;
+              renderStep();
+            }, 450);
+          });
+        } else {
+          playTone('wrong');
+          fb.innerHTML = 'ลำดับคำยังไม่ถูกต้อง ลองแตะ "เริ่มเรียงใหม่" นะคะ';
+        }
+      }
+    }
+
+    function resetSentenceChips() {
+      window.userBuiltSentence = [];
+      const box = document.getElementById('builtSentenceBox');
+      box.innerHTML = '<span class="text-xs text-slate-400 font-bold">แตะชิปคำศัพท์ด้านล่างเพื่อเรียงประโยค</span>';
+      const pool = document.getElementById('chipsPoolBox');
+      const btns = pool.querySelectorAll('button');
+      btns.forEach(b => b.classList.remove('opacity-30', 'pointer-events-none'));
+    }
+
+    let cnAutoNextTimer = null;
+    function goToNextChineseLesson(nextId) {
+      if (cnAutoNextTimer) clearInterval(cnAutoNextTimer);
+      if (nextId) {
+        window.location.href = `/chinese.html?id=${nextId}`;
+      } else {
+        closeLesson();
+      }
+    }
+
+    // ---------------- STEP 5: 🏆 สรุปผล (SUMMARY) ----------------
+    function renderSummaryStep(stage) {
+      if (window.KidobitsResume && CURRENT_LESSON) {
+        KidobitsResume.markDone('kidobits_chinese_progress', CURRENT_LESSON.id);
+      }
+
+      // Mark completed & unlock next lesson in KidobitsLock
+      const allLessons = window.LESSONS || [
+        ...(CHINESE_DATA.early || []),
+        ...(CHINESE_DATA.lower || []),
+        ...(CHINESE_DATA.upper || [])
+      ];
+      const curIdx = allLessons.findIndex(l => l.id === CURRENT_LESSON.id);
+      const nextLesson = (curIdx >= 0 && curIdx < allLessons.length - 1) ? allLessons[curIdx + 1] : null;
+      const nextIdx = (curIdx >= 0) ? (curIdx + 2) : 2;
+
+      if (window.KidobitsLock) {
+        KidobitsLock.markCompleted('chinese', CURRENT_LESSON.id, nextIdx);
+      }
+
+      playTone('correct');
+      try {
+        confetti({ particleCount: 70, spread: 80, origin: { y: 0.6 } });
+      } catch(e) {}
+
+      stage.innerHTML = `
+        <div class="text-center space-y-4 py-4">
+          <div class="text-6xl drop-shadow-sm animate-bounce">🏆</div>
+          <h2 class="font-display font-black text-2xl text-slate-900">
+            ยินดีด้วยค่ะคนเก่ง! จบบทเรียนแล้ว!
+          </h2>
+          <p class="text-xs text-slate-500 font-bold">
+            บทเรียน: ${CURRENT_LESSON.title} (${CURRENT_LESSON.level})
+          </p>
+
+          <!-- 4-Skills Mastery Summary Card -->
+          <div class="p-5 rounded-3xl bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-orange-200 max-w-sm mx-auto shadow-sm text-left">
+            <div class="text-xs font-black text-orange-950 mb-3 text-center">สรุปผลการประเมิน 4 ทักษะภาษาจีน</div>
+            <div class="space-y-2 text-xs font-bold">
+              <div class="flex justify-between items-center text-blue-700">
+                <span>🎧 1. การฟัง (Listening)</span>
+                <span>⭐⭐⭐ ผ่าน 100%</span>
+              </div>
+              <div class="flex justify-between items-center text-emerald-700">
+                <span>🗣️ 2. การพูด (Speaking)</span>
+                <span>⭐⭐⭐ ผ่าน 100%</span>
+              </div>
+              <div class="flex justify-between items-center text-amber-700">
+                <span>📖 3. การอ่าน (Reading)</span>
+                <span>⭐⭐⭐ ผ่าน 100%</span>
+              </div>
+              <div class="flex justify-between items-center text-rose-700">
+                <span>✍️ 4. การเขียน (Writing)</span>
+                <span>⭐⭐⭐ ผ่าน 100%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Auto Next & Return Buttons -->
+          <div class="pt-2 max-w-xs mx-auto space-y-2.5">
+            ${nextLesson ? `
+              <button onclick="goToNextChineseLesson('${nextLesson.id}')" 
+                      class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-display font-black text-sm shadow-lg shadow-emerald-500/25 active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer">
+                <span>บทเรียนต่อไป (${nextLesson.id})</span>
+                <span id="cnAutoCount" class="bg-black/30 text-white text-xs px-2 py-0.5 rounded-full font-mono">3s</span>
+                <span>▶</span>
+              </button>
+            ` : ''}
+
+            <button onclick="if(cnAutoNextTimer) clearInterval(cnAutoNextTimer); closeLesson()" 
+                    class="w-full px-6 py-2.5 rounded-2xl ${nextLesson ? 'bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs' : 'bg-orange-600 text-white text-sm shadow-lg'} font-display font-black active:scale-95 transition cursor-pointer">
+              กลับสู่หน้ารวมบทเรียน 🐼
+            </button>
+          </div>
+        </div>
+      `;
+
+      speakMandarin('恭喜你！完成全部课程！太棒了！', 0.9);
+
+      if (nextLesson) {
+        let remain = 3;
+        const countEl = document.getElementById('cnAutoCount');
+        if (cnAutoNextTimer) clearInterval(cnAutoNextTimer);
+        cnAutoNextTimer = setInterval(() => {
+          remain--;
+          if (countEl) countEl.textContent = remain + 's';
+          if (remain <= 0) {
+            clearInterval(cnAutoNextTimer);
+            goToNextChineseLesson(nextLesson.id);
+          }
+        }, 1000);
+      }
+    }
+
+    function handleManualPass() {
+      stopChineseMic();
+      if (CURRENT_STEP < 4) {
+        CURRENT_STEP++;
+        renderStep();
+      } else {
+        closeLesson();
+      }
+    }
+
+    function replayTeacherVoice() {
+      cnReplayCurrent();
+    }
+
+    function updateGlobalStars() {
+      document.getElementById('globalStars').textContent = TOTAL_STARS;
+    }
+
+    // Initialize Hub
+    window.addEventListener('DOMContentLoaded', () => {
+      switchStageTab('early');
+    });
+  </script>
+  <script src="/theme/js/kidobits_dynamic_island.js"></script>
+</body>
+</html>
