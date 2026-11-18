@@ -134,28 +134,27 @@
     <!-- MAIN INTERACTIVE ARENA -->
     <div class="flex-1 flex flex-col items-center justify-center min-h-0 py-1">
 
-      <!-- Compact Character Example & Calligraphy Tile (ตรงช่วงที่ว่างข้างบน) -->
-      <div class="shrink-0 flex items-center justify-between gap-2.5 mb-1.5 px-3 py-1.5 rounded-2xl bg-white border border-orange-200/90 shadow-xs max-w-xs w-full">
-        <div class="flex items-center gap-2.5 min-w-0">
-          <!-- Mini Brush Calligraphy Tile (ตัวอย่างอักษรจีนแบบพู่กัน) -->
-          <div class="w-10 h-10 rounded-xl bg-orange-50/90 border border-orange-200 flex items-center justify-center shrink-0 shadow-xs">
-            <span id="exampleCharTile" class="text-3xl font-brush text-slate-900 leading-none">一</span>
-          </div>
+      <!-- Centered Character Example Showcase (ตรงกลาง ชัดเจน ตัวใหญ่) -->
+      <div class="shrink-0 flex flex-col items-center justify-center text-center mb-1.5 px-4 py-1.5 rounded-2xl bg-white/95 border border-orange-200/90 shadow-xs max-w-xs w-full relative">
+        <!-- Floating Speaker Button in top right -->
+        <button onclick="speakCurrentChar()" class="absolute top-2 right-2.5 w-7 h-7 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-600 border border-orange-200 flex items-center justify-center transition active:scale-90" title="ฟังเสียงอ่าน">
+          <i class="fa-solid fa-volume-high text-[11px]"></i>
+        </button>
 
-          <!-- Character Details & Stroke Info -->
-          <div class="flex-1 min-w-0 text-left">
-            <div class="flex items-center gap-1.5">
-              <span id="examplePinyin" class="text-sm font-black text-orange-600 leading-tight">yī</span>
-              <span class="text-[9.5px] px-1.5 py-0.2 rounded-md bg-orange-100/80 text-orange-800 font-bold" id="exampleStrokeCount">1 ขีด</span>
-            </div>
-            <div class="text-[11px] font-bold text-slate-700 truncate leading-tight mt-0.5" id="exampleMeaning">หนึ่ง (1)</div>
-          </div>
+        <!-- Big Brush Calligraphy Character Centerpiece -->
+        <div class="flex items-center justify-center py-0.5">
+          <span id="exampleCharTile" class="text-6xl sm:text-7xl font-brush text-slate-900 leading-none drop-shadow-xs transition-transform hover:scale-105 select-none">
+            一
+          </span>
         </div>
 
-        <!-- Speaker Button -->
-        <button onclick="speakCurrentChar()" class="w-8 h-8 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-600 border border-orange-200 flex items-center justify-center transition active:scale-95 shrink-0" title="ฟังเสียงอ่าน">
-          <i class="fa-solid fa-volume-high text-xs"></i>
-        </button>
+        <!-- Pinyin, Stroke Count & Thai Meaning Centered Below -->
+        <div class="flex items-center justify-center gap-1.5 mt-1 flex-wrap">
+          <span id="examplePinyin" class="text-base font-black text-orange-600 tracking-wide">yī</span>
+          <span class="text-slate-300 font-bold">•</span>
+          <span id="exampleMeaning" class="text-xs font-bold text-slate-700">หนึ่ง (1)</span>
+          <span id="exampleStrokeCount" class="text-[9.5px] px-1.5 py-0.2 rounded-md bg-orange-100 text-orange-800 font-bold ml-0.5">1 ขีด</span>
+        </div>
       </div>
 
       <!-- Mode Selector Switcher (Compact ~34px) -->
