@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="th" class="min-h-full">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#FFFDF9">
+  <title>Kidobits Chinese Match · มินิเกมจับคู่คำศัพท์ภาษาจีนหรรษา 🐲🐼</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Plus+Jakarta+Sans:wght@600;700;800;900&family=Noto+Sans+Thai:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Plus Jakarta Sans', 'Noto Sans Thai', 'sans-serif'],
+            thai: ['Noto Sans Thai', 'sans-serif'],
+            brush: ['Ma Shan Zheng', 'KaiTi', '楷体', 'STKaiti', 'serif']
+          },
+          colors: {
+            dragon: {
+              50: '#FFF5F5',
+              100: '#FED7D7',
+              500: '#E53E3E',
+              600: '#C53030',
+              700: '#9B2C2C'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { -webkit-tap-highlight-color: transparent; }
+    html, body {
+      min-height: 100%;
+      font-family: 'Noto Sans Thai', 'Plus Jakarta Sans', sans-serif;
+      overscroll-behavior-y: auto;
+      background-color: #FFFDF9;
+    }
+    :root {
+      --sat: env(safe-area-inset-top, 0px);
+      --sab: env(safe-area-inset-bottom, 0px);
+    }
+    nav.fixed[class*="bottom-"] {
+      bottom: max(12px, calc(10px + env(safe-area-inset-bottom, 0px))) !important;
+    }
+    .font-brush {
+      font-family: 'Ma Shan Zheng', 'KaiTi', '楷体', 'STKaiti', serif !important;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* 3D Card Flip Mechanics */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.4s cubic-bezier(0.4, 0.2, 0.2, 1);
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+    .card-flipped {
+      transform: rotateY(180deg);
+    }
+    .card-matched {
+      transform: rotateY(180deg) scale(0.96);
+      opacity: 0.85;
+      pointer-events: none;
+    }
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 1.25rem;
+    }
+    .card-front {
+      background: linear-gradient(135deg, #FF6B6B 0%, #EE5253 100%);
+      box-shadow: 0 4px 12px rgba(238, 82, 83, 0.25);
+    }
+    .card-back {
+      background: #FFFFFF;
+      transform: rotateY(180deg);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      border: 2px solid #FED7D7;
+    }
+    @keyframes bounceGlow {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+    .animate-match {
+      animation: bounceGlow 0.5s ease-out;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-slate-800 select-none bg-[#FFFDF9] pb-28 overscroll-y-auto">
+
+  <!-- 1. STANDARD KIDOBITS TOP BAR -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-rose-100 shadow-xs">
+    <div class="max-w-4xl mx-auto px-3 py-2 flex items-center justify-between gap-2">
+      <!-- Back button -->
+      <button onclick="if (history.length > 1) { history.back(); } else { location.href='/theme/theme_games.html'; }" class="btn-press flex items-center gap-1 px-3 py-1.5 rounded-full bg-white shadow-xs border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-50 transition active:scale-95" title="ย้อนกลับ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5"></path>
+          <path d="M12 19l-7-7 7-7"></path>
+        </svg>
+        <span>กลับ</span>
+      </button>
+
+      <!-- Center Title -->
+      <div class="flex items-center gap-1.5">
+        <span class="text-lg">🐲</span>
+        <div>
+          <span class="text-xs sm:text-sm font-black text-slate-900 tracking-tight">Chinese Match</span>
+          <span class="hidden sm:inline-block px-2 py-0.2 rounded-full bg-red-100 text-red-700 text-[10px] font-bold ml-1">จับคู่คำศัพท์</span>
+        </div>
+      </div>
+
+      <!-- Stats Chips -->
+      <div class="flex items-center gap-1.5">
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-50 border border-red-100 text-[11px] font-black text-red-600 shadow-2xs">
+          <span>🔥</span>
+          <span id="streakChip">7</span>
+        </div>
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-100 text-[11px] font-black text-amber-600 shadow-2xs">
+          <span>⭐</span>
+          <span id="starsChip">0</span>
+        </div>
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-[11px] font-black text-emerald-600 shadow-2xs">
+          <span>🪙</span>
+          <span id="userCoins">240</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. MAIN GAME AREA -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-3 sm:px-4 py-3 flex flex-col justify-start">
+
+    <!-- Category Selector Strip (Horizontal Pill Carousel) -->
+    <div class="w-full mb-2">
+      <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1" id="categoryTabs">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- Difficulty & Game Controls Bar -->
+    <div class="flex items-center justify-between gap-2 mb-3 bg-white p-2 rounded-2xl border border-rose-100 shadow-xs">
+      <!-- Difficulty selector -->
+      <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
+        <button onclick="setDifficulty('easy')" id="btnDiffEasy" class="px-2.5 py-1 rounded-lg text-xs font-black transition active:scale-95 bg-white text-red-600 shadow-xs">
+          4 คู่ (ง่าย)
+        </button>
+        <button onclick="setDifficulty('medium')" id="btnDiffMedium" class="px-2.5 py-1 rounded-lg text-xs font-bold text-slate-600 transition active:scale-95">
+          6 คู่ (ปานกลาง)
+        </button>
+        <button onclick="setDifficulty('hard')" id="btnDiffHard" class="px-2.5 py-1 rounded-lg text-xs font-bold text-slate-600 transition active:scale-95">
+          8 คู่ (ท้าทาย)
+        </button>
+      </div>
+
+      <!-- Stats info & Reset -->
+      <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1 text-xs font-black text-slate-600 px-2 py-1 rounded-xl bg-slate-50 border border-slate-100">
+          <span>🎯</span>
+          <span>จับคู่: <span id="matchesFound" class="text-red-600">0</span>/<span id="totalMatches">4</span></span>
+        </div>
+        <button onclick="restartGame()" class="w-8 h-8 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 flex items-center justify-center transition active:scale-90" title="เริ่มเกมใหม่">
+          <i class="fa-solid fa-rotate-right text-xs"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- CARDS GRID CONTAINER -->
+    <div id="cardsGrid" class="grid grid-cols-4 sm:grid-cols-4 gap-2 sm:gap-3 flex-1 items-center justify-center min-h-[320px]">
+      <!-- Cards rendered dynamically by JS -->
+    </div>
+
+    <!-- Match Notification & Audio Banner -->
+    <div id="praiseBanner" class="h-10 mt-2 flex items-center justify-center text-xs font-black text-slate-700 bg-white/90 rounded-2xl border border-rose-100 shadow-xs px-3 text-center transition">
+      💡 แตะเปิดการ์ดเพื่อจับคู่ "ตัวอักษรจีน" กับ "ภาพความหมาย" นะคะ
+    </div>
+
+  </main>
+
+  <!-- 3. VICTORY MODAL (POPUP ON WIN) -->
+  <div id="winModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border-4 border-amber-300 animate-pop">
+      <div class="text-5xl animate-bounce">🏆</div>
+      <div>
+        <h3 class="text-xl font-black text-slate-900 font-chinese">太棒了！ยอดเยี่ยมมาก!</h3>
+        <p class="text-xs text-slate-500 font-bold mt-1">น้องจับคู่คำศัพท์ภาษาจีนได้ครบทุกใบแล้ว!</p>
+      </div>
+
+      <!-- Rewards Card -->
+      <div class="flex items-center justify-center gap-4 py-3 bg-amber-50 rounded-2xl border border-amber-200">
+        <div class="flex items-center gap-1.5 text-base font-black text-amber-700">
+          <span>⭐</span>
+          <span>+<span id="winStarsAward">3</span> ดาว</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-base font-black text-emerald-700">
+          <span>🪙</span>
+          <span>+<span id="winCoinsAward">20</span> เหรียญ</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2 pt-2">
+        <button onclick="closeWinModal(); restartGame();" class="flex-1 py-2.5 px-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-black text-xs transition active:scale-95">
+          🔄 เล่นอีกครั้ง
+        </button>
+        <button onclick="nextCategory()" class="flex-1 py-2.5 px-3 rounded-2xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-black text-xs shadow-md shadow-red-500/20 transition active:scale-95">
+          หมวดถัดไป ➔
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STANDARD KIDOBITS FLOATING BOTTOM NAVIGATION -->
+  <nav class="fixed bottom-3 left-3 right-3 max-w-[430px] mx-auto bg-white shadow-[0_10px_30px_rgba(60,30,90,.18)] rounded-full px-2 py-2 flex justify-between border border-[#F3EDF8] z-50" aria-label="Main navigation">
+    <!-- 1. Home -->
+    <button onclick="window.location.href='/theme/theme_home.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Home">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+          <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Home</span>
+    </button>
+
+    <!-- 2. Phonics -->
+    <button onclick="window.location.href='/theme/theme_phonics_map.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Phonics">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 7v14"></path>
+          <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Phonics</span>
+    </button>
+
+    <!-- 3. Math -->
+    <button onclick="window.location.href='/theme/theme_math_lobby.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Math">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+          <line x1="8" x2="16" y1="6" y2="6"></line>
+          <line x1="16" x2="16" y1="14" y2="18"></line>
+          <path d="M16 10h.01"></path>
+          <path d="M12 10h.01"></path>
+          <path d="M8 10h.01"></path>
+          <path d="M12 14h.01"></path>
+          <path d="M8 14h.01"></path>
+          <path d="M12 18h.01"></path>
+          <path d="M8 18h.01"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Math</span>
+    </button>
+
+    <!-- 4. Chinese -->
+    <button onclick="window.location.href='/theme/theme_chinese_lobby.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Chinese">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+          <path d="M2 12h20"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Chinese</span>
+    </button>
+
+    <!-- 5. Games (Active: Purple) -->
+    <button onclick="window.location.href='/theme/theme_games.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Games">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition bg-[#8B5CF6] text-white shadow-md shadow-purple-500/25">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="6" x2="10" y1="11" y2="11"></line>
+          <line x1="8" x2="8" y1="9" y2="13"></line>
+          <line x1="15" x2="15.01" y1="12" y2="12"></line>
+          <line x1="18" x2="18.01" y1="10" y2="10"></line>
+          <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-black text-[#8B5CF6]">Games</span>
+    </button>
+
+    <!-- 6. Profile -->
+    <button onclick="window.location.href='/theme/theme_profile.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Profile">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Profile</span>
+    </button>
+  </nav>
+
+  <!-- Kidobits Core Scripts -->
+  <script src="/js/kidobits_wallet.js"></script>
+  <script src="/js/kidobits_auth.js"></script>
+
+  <!-- GAME LOGIC JAVASCRIPT -->
+  <script>
+    // 1. DATA REPOSITORY: CURATED CHINESE VOCABULARY BY TOPIC
+    const MATCH_DATA = [
+      {
+        id: 'animals',
+        name: 'สัตว์น่ารัก (动物)',
+        icon: '🐱',
+        pairs: [
+          { zh: '猫', py: 'māo', th: 'แมว', icon: '🐱' },
+          { zh: '狗', py: 'gǒu', th: 'หมา / สุนัข', icon: '🐶' },
+          { zh: '熊猫', py: 'xióngmāo', th: 'แพนด้า', icon: '🐼' },
+          { zh: '鸟', py: 'niǎo', th: 'นก', icon: '🐦' },
+          { zh: '鱼', py: 'yú', th: 'ปลา', icon: '🐟' },
+          { zh: '兔', py: 'tù', th: 'กระต่าย', icon: '🐰' },
+          { zh: '象', py: 'xiàng', th: 'ช้าง', icon: '🐘' },
+          { zh: '猴', py: 'hóu', th: 'ลิง', icon: '🐵' }
+        ]
+      },
+      {
+        id: 'fruits',
+        name: 'ผลไม้ & อาหาร (水果)',
+        icon: '🍎',
+        pairs: [
+          { zh: '苹果', py: 'píngguǒ', th: 'แอปเปิ้ล', icon: '🍎' },
+          { zh: '香蕉', py: 'xiāngjiāo', th: 'กล้วย', icon: '🍌' },
+          { zh: '西瓜', py: 'xīguā', th: 'แตงโม', icon: '🍉' },
+          { zh: '米饭', py: 'mǐfàn', th: 'ข้าวสวย', icon: '🍚' },
+          { zh: '面条', py: 'miàntiáo', th: 'บะหมี่', icon: '🍜' },
+          { zh: '牛奶', py: 'niúnǎi', th: 'นมสด', icon: '🥛' },
+          { zh: '水', py: 'shuǐ', th: 'น้ำดื่ม', icon: '💧' },
+          { zh: '包子', py: 'bāozi', th: 'ซาลาเปา', icon: '🥟' }
+        ]
+      },
+      {
+        id: 'numbers',
+        name: 'ตัวเลข & สีสัน (数字与颜色)',
+        icon: '🔢',
+        pairs: [
+          { zh: '一', py: 'yī', th: 'หนึ่ง (1)', icon: '1️⃣' },
+          { zh: '二', py: 'èr', th: 'สอง (2)', icon: '2️⃣' },
+          { zh: '三', py: 'sān', th: 'สาม (3)', icon: '3️⃣' },
+          { zh: '四', py: 'sì', th: 'สี่ (4)', icon: '4️⃣' },
+          { zh: '五', py: 'wǔ', th: 'ห้า (5)', icon: '5️⃣' },
+          { zh: '红', py: 'hóng', th: 'สีแดง', icon: '🔴' },
+          { zh: '蓝', py: 'lán', th: 'สีฟ้า/น้ำเงิน', icon: '🔵' },
+          { zh: '黄', py: 'huáng', th: 'สีเหลือง', icon: '🟡' }
+        ]
+      },
+      {
+        id: 'family',
+        name: 'ครอบครัว & ร่างกาย (家人)',
+        icon: '👨‍👩‍👧',
+        pairs: [
+          { zh: '爸爸', py: 'bàba', th: 'คุณพ่อ', icon: '👨' },
+          { zh: '妈妈', py: 'māma', th: 'คุณแม่', icon: '👩' },
+          { zh: '哥哥', py: 'gēge', th: 'พี่ชาย', icon: '👦' },
+          { zh: '妹妹', py: 'mèimei', th: 'น้องสาว', icon: '👧' },
+          { zh: '眼睛', py: 'yǎnjing', th: 'ดวงตา', icon: '👀' },
+          { zh: '口', py: 'kǒu', th: 'ปาก', icon: '👄' },
+          { zh: '手', py: 'shǒu', th: 'มือ', icon: '✋' },
+          { zh: '耳朵', py: 'ěrduo', th: 'ใบหู', icon: '👂' }
+        ]
+      }
+    ];
+
+    // 2. GAME STATE
+    let currentCategoryIndex = 0;
+    let difficulty = 'easy'; // 'easy' (4 pairs), 'medium' (6 pairs), 'hard' (8 pairs)
+    let activeCards = [];
+    let flippedCards = [];
+    let matchedCount = 0;
+    let isProcessing = false;
+    let userStars = parseInt(localStorage.getItem('KB_STARS') || '0', 10);
+
+    // 3. SYNTHETIC AUDIO & SPEECH
+    const audioCtx = (window.AudioContext || window.webkitAudioContext) ? new (window.AudioContext || window.webkitAudioContext)() : null;
+
+    function playTone(freq, duration, type = 'sine') {
+      if (!audioCtx) return;
+      try {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function playCardFlipSfx() {
+      playTone(480, 0.08, 'sine');
+    }
+
+    function playMatchSfx() {
+      playTone(523.25, 0.1, 'triangle'); // C5
+      setTimeout(() => playTone(659.25, 0.12, 'triangle'), 90); // E5
+      setTimeout(() => playTone(783.99, 0.22, 'triangle'), 180); // G5
+    }
+
+    function playMismatchSfx() {
+      playTone(320, 0.15, 'sawtooth');
+      setTimeout(() => playTone(280, 0.2, 'sawtooth'), 120);
+    }
+
+    function speakChineseWord(text, pinyin, thaiMeaning) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const ut = new SpeechSynthesisUtterance(text);
+      ut.lang = 'zh-CN';
+      ut.rate = 0.85;
+      ut.pitch = 1.05;
+      window.speechSynthesis.speak(ut);
+    }
+
+    // 4. CATEGORY & DIFFICULTY CONTROLS
+    function renderCategoryTabs() {
+      const container = document.getElementById('categoryTabs');
+      container.innerHTML = MATCH_DATA.map((cat, idx) => {
+        const isActive = (idx === currentCategoryIndex);
+        return `
+          <button onclick="selectCategory(${idx})" class="shrink-0 px-3 py-1.5 rounded-xl text-xs font-black transition active:scale-95 flex items-center gap-1.5 border ${isActive ? 'bg-red-500 text-white border-red-600 shadow-sm' : 'bg-white hover:bg-rose-50 text-slate-700 border-rose-100'}">
+            <span>${cat.icon}</span>
+            <span>${cat.name.split(' ')[0]}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectCategory(idx) {
+      currentCategoryIndex = idx;
+      renderCategoryTabs();
+      restartGame();
+    }
+
+    function nextCategory() {
+      closeWinModal();
+      currentCategoryIndex = (currentCategoryIndex + 1) % MATCH_DATA.length;
+      renderCategoryTabs();
+      restartGame();
+    }
+
+    function setDifficulty(diff) {
+      difficulty = diff;
+      document.getElementById('btnDiffEasy').className = 'px-2.5 py-1 rounded-lg text-xs font-bold text-slate-600 transition active:scale-95';
+      document.getElementById('btnDiffMedium').className = 'px-2.5 py-1 rounded-lg text-xs font-bold text-slate-600 transition active:scale-95';
+      document.getElementById('btnDiffHard').className = 'px-2.5 py-1 rounded-lg text-xs font-bold text-slate-600 transition active:scale-95';
+
+      if (diff === 'easy') {
+        document.getElementById('btnDiffEasy').className = 'px-2.5 py-1 rounded-lg text-xs font-black transition active:scale-95 bg-white text-red-600 shadow-xs';
+      } else if (diff === 'medium') {
+        document.getElementById('btnDiffMedium').className = 'px-2.5 py-1 rounded-lg text-xs font-black transition active:scale-95 bg-white text-red-600 shadow-xs';
+      } else {
+        document.getElementById('btnDiffHard').className = 'px-2.5 py-1 rounded-lg text-xs font-black transition active:scale-95 bg-white text-red-600 shadow-xs';
+      }
+      restartGame();
+    }
+
+    // 5. GAME ENGINE: CARDS GENERATION & SHUFFLE
+    function restartGame() {
+      flippedCards = [];
+      matchedCount = 0;
+      isProcessing = false;
+
+      const numPairs = (difficulty === 'easy' ? 4 : difficulty === 'medium' ? 6 : 8);
+      document.getElementById('totalMatches').textContent = numPairs;
+      document.getElementById('matchesFound').textContent = 0;
+      document.getElementById('praiseBanner').innerHTML = `💡 แตะเปิดการ์ดเพื่อจับคู่ "ตัวอักษรจีน" กับ "ภาพความหมาย" นะคะ`;
+
+      const cat = MATCH_DATA[currentCategoryIndex];
+      // Pick random pairs from category
+      const shuffledPairs = [...cat.pairs].sort(() => Math.random() - 0.5).slice(0, numPairs);
+
+      // Generate Card A (Chinese Character + Pinyin) and Card B (Icon + Thai)
+      activeCards = [];
+      shuffledPairs.forEach((p, idx) => {
+        // Card Type A: Chinese
+        activeCards.push({
+          uid: `a_${idx}`,
+          pairId: idx,
+          type: 'chinese',
+          word: p.zh,
+          pinyin: p.py,
+          meaning: p.th,
+          icon: p.icon
+        });
+        // Card Type B: Picture
+        activeCards.push({
+          uid: `b_${idx}`,
+          pairId: idx,
+          type: 'picture',
+          word: p.zh,
+          pinyin: p.py,
+          meaning: p.th,
+          icon: p.icon
+        });
+      });
+
+      // Shuffle all cards
+      activeCards.sort(() => Math.random() - 0.5);
+
+      renderCards();
+    }
+
+    function renderCards() {
+      const grid = document.getElementById('cardsGrid');
+      const numCols = activeCards.length <= 8 ? 'grid-cols-4' : (activeCards.length <= 12 ? 'grid-cols-3 sm:grid-cols-4' : 'grid-cols-4');
+      grid.className = `grid ${numCols} gap-2.5 sm:gap-3 flex-1 items-center justify-center`;
+
+      grid.innerHTML = activeCards.map((card, idx) => {
+        return `
+          <div class="perspective-1000 w-full h-24 sm:h-28" onclick="onCardClick(${idx})">
+            <div id="card_${idx}" class="card-inner">
+              <!-- Card Front (Cover) -->
+              <div class="card-front flex flex-col items-center justify-center p-2 text-white">
+                <span class="text-2xl sm:text-3xl opacity-80 select-none">🐼</span>
+                <span class="text-[9px] font-bold text-white/90 uppercase tracking-widest mt-0.5">Kidobits</span>
+              </div>
+              <!-- Card Back (Content) -->
+              <div class="card-back flex flex-col items-center justify-center p-2 select-none">
+                ${card.type === 'chinese' ? `
+                  <span class="text-3xl sm:text-4xl font-brush text-red-600 leading-none">${card.word}</span>
+                  <span class="text-[11px] font-black text-slate-700 mt-1">${card.pinyin}</span>
+                ` : `
+                  <span class="text-3xl sm:text-4xl leading-none">${card.icon}</span>
+                  <span class="text-[10.5px] font-bold text-slate-700 mt-1 truncate max-w-full px-1">${card.meaning}</span>
+                `}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 6. CARD CLICK & MATCH EVALUATION
+    function onCardClick(index) {
+      if (isProcessing) return;
+      const cardEl = document.getElementById(`card_${index}`);
+      if (!cardEl || cardEl.classList.contains('card-flipped') || cardEl.classList.contains('card-matched')) return;
+
+      playCardFlipSfx();
+      cardEl.classList.add('card-flipped');
+      flippedCards.push({ index, card: activeCards[index], el: cardEl });
+
+      // Speak card if it's Chinese
+      if (activeCards[index].type === 'chinese') {
+        speakChineseWord(activeCards[index].word, activeCards[index].pinyin, activeCards[index].meaning);
+      }
+
+      if (flippedCards.length === 2) {
+        evaluatePair();
+      }
+    }
+
+    function evaluatePair() {
+      isProcessing = true;
+      const [first, second] = flippedCards;
+
+      if (first.card.pairId === second.card.pairId && first.card.type !== second.card.type) {
+        // MATCH SUCCESS!
+        setTimeout(() => {
+          playMatchSfx();
+          first.el.classList.add('card-matched', 'animate-match');
+          second.el.classList.add('card-matched', 'animate-match');
+
+          // Spoken Mandarin Praise & Word
+          speakChineseWord(first.card.word, first.card.pinyin, first.card.meaning);
+
+          // Update praise banner
+          const praiseBanner = document.getElementById('praiseBanner');
+          praiseBanner.innerHTML = `
+            <span class="text-emerald-600 flex items-center gap-1.5">
+              <span>🎉</span>
+              <span>ถูกต้อง! <b>${first.card.word}</b> (${first.card.pinyin}) = ${first.card.meaning}</span>
+            </span>
+          `;
+
+          matchedCount++;
+          document.getElementById('matchesFound').textContent = matchedCount;
+          flippedCards = [];
+          isProcessing = false;
+
+          const numPairs = (difficulty === 'easy' ? 4 : difficulty === 'medium' ? 6 : 8);
+          if (matchedCount === numPairs) {
+            setTimeout(handleGameWon, 600);
+          }
+        }, 350);
+
+      } else {
+        // MISMATCH
+        setTimeout(() => {
+          playMismatchSfx();
+          first.el.classList.remove('card-flipped');
+          second.el.classList.remove('card-flipped');
+          flippedCards = [];
+          isProcessing = false;
+        }, 850);
+      }
+    }
+
+    // 7. VICTORY & REWARDS
+    function handleGameWon() {
+      // Confetti fireworks
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      }
+
+      // Voice praise
+      if ('speechSynthesis' in window) {
+        const ut = new SpeechSynthesisUtterance('太棒了！全部答对了！');
+        ut.lang = 'zh-CN';
+        ut.rate = 0.9;
+        window.speechSynthesis.speak(ut);
+      }
+
+      // Awards
+      const starsEarned = (difficulty === 'easy' ? 3 : difficulty === 'medium' ? 4 : 5);
+      const coinsEarned = starsEarned * 5;
+
+      userStars += starsEarned;
+      localStorage.setItem('KB_STARS', userStars);
+      document.getElementById('starsChip').textContent = userStars;
+
+      // Update Kidobits Wallet if loaded
+      if (window.KidobitsWallet) {
+        try {
+          KidobitsWallet.addReward({ stars: starsEarned, coins: coinsEarned });
+        } catch (e) {}
+      }
+
+      document.getElementById('winStarsAward').textContent = starsEarned;
+      document.getElementById('winCoinsAward').textContent = coinsEarned;
+      document.getElementById('winModal').classList.remove('hidden');
+    }
+
+    function closeWinModal() {
+      document.getElementById('winModal').classList.add('hidden');
+    }
+
+    // 8. INITIALIZE ON LOAD
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('starsChip').textContent = userStars;
+      renderCategoryTabs();
+      restartGame();
+    });
+  </script>
+</body>
+</html>
