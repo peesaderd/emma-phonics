@@ -1175,7 +1175,7 @@ body {
       }
     }, { once: true });
 
-    function stopChineseMic(shouldProcess = false, silent = false) {
+    function stopChineseMic(shouldProcess = false, silent = false, fullRelease = false) {
       if (__cnMaxTimer) { clearTimeout(__cnMaxTimer); __cnMaxTimer = null; }
       if (window.__cnSilenceTimer) { clearTimeout(window.__cnSilenceTimer); window.__cnSilenceTimer = null; }
 
@@ -1199,6 +1199,13 @@ body {
         try { window.__cnActiveRecognizer.abort(); } catch(e) {}
         window.__cnActiveRecognizer = null;
       }
+
+      if (fullRelease && __cnMicStream) {
+        try {
+          __cnMicStream.getTracks().forEach(t => t.stop());
+        } catch(e) {}
+        __cnMicStream = null;
+      }
     }
 
     function cnMicUI(state, message) {
@@ -1214,6 +1221,9 @@ body {
         } else if (state === 'thinking') {
           btn.className = "px-6 py-3.5 rounded-2xl bg-indigo-600 text-white font-display font-black text-sm shadow-lg transition flex items-center justify-center gap-2 mx-auto";
           btn.innerHTML = '<span>🎧 ครูเป่าเปากำลังตรวจเสียง...</span>';
+        } else if (state === 'correct' || state === 'success') {
+          btn.className = "px-6 py-3.5 rounded-2xl bg-sky-500 text-white font-display font-black text-base shadow-xl shadow-sky-500/30 transition flex items-center justify-center gap-2 mx-auto pointer-events-none";
+          btn.innerHTML = '<span>🎉 ออกเสียงถูกต้องแล้วค่ะ! เก่งมาก</span>';
         } else if (state === 'retry') {
           btn.className = "px-6 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-display font-black text-sm shadow-lg shadow-amber-500/30 transition cursor-pointer flex items-center justify-center gap-2 mx-auto";
           btn.innerHTML = '<span>🔁 แตะเพื่อลองพูดอีกครั้ง</span>';
@@ -1223,7 +1233,11 @@ body {
         }
       }
       if (st && message) {
-        st.className = 'text-xs font-bold text-slate-500 mt-2';
+        if (state === 'correct' || state === 'success') {
+          st.className = 'text-xs font-bold text-sky-600 mt-2';
+        } else {
+          st.className = 'text-xs font-bold text-slate-500 mt-2';
+        }
         st.textContent = message;
       }
     }
@@ -1403,7 +1417,7 @@ body {
     }
 
     function closeLesson() {
-      stopChineseMic();
+      stopChineseMic(false, true, true);
       if ('speechSynthesis' in window) window.speechSynthesis.cancel();
       if (window.location.search.includes('lesson=') || window.location.search.includes('id=') || window.location.search.includes('les=')) {
         location.href = '/theme/theme_chinese_lobby.html';
@@ -1432,7 +1446,7 @@ body {
 
     function renderStep() {
       if (CURRENT_STEP !== 1) {
-        stopChineseMic();
+        stopChineseMic(false, true, true);
       }
       updateStepPills();
       try {
@@ -1769,11 +1783,18 @@ body {
       }
 
       if (evalRes.isPass) {
+        // 1. หยุดคิวเสียงและไมโครโฟนทันที เพื่อป้องกันไมค์เปิดซ้ำ
+        cnStopQueue();
+        stopChineseMic(false, true, true);
+        isMicListening = false;
+
         playTone('correct');
         TOTAL_STARS += 1;
         updateGlobalStars();
         window.__cnLabAttempts = 0;
-        cnMicUI('listening', 'ยอดเยี่ยมมากค่ะ! 🎉');
+
+        // 2. ปรับปุ่มไมค์เป็นสีฟ้า (Sky Blue) และหยุดการรับเสียง
+        cnMicUI('correct', '🎉 ออกเสียงถูกต้องแล้วค่ะ! เก่งมาก (กำลังไปข้อต่อไป...)');
 
         fb.innerHTML = `
           <div class="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-center animate-pop">
