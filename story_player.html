@@ -382,6 +382,77 @@
     // 1. CURATED STORY REPOSITORY WITH SCENE ILLUSTRATIONS (3 STORIES X 3 SCENES)
     const STORIES_DATA = [
       {
+        id: 'darin_space',
+        title: "Darin's Journey to the Stars",
+        thTitle: "ดารินท่องอวกาศสู่ดวงดาว",
+        mins: "6 นาที",
+        badge: "✨ ภาพ Canva สวยคมชัด 10 ฉาก",
+        emojis: ["🚀", "🪐", "⭐"],
+        cover: "/assets/stories/darin_space/scene_1.jpg",
+        paragraphs: [
+          {
+            en: "Darin wore a shiny white spacesuit, waving happily beside his favorite red rocket on the launchpad. Tonight, the starry night sky was ready for a grand cosmic adventure!",
+            th: "ดาริน สวมชุดอวกาศสีขาวแสนเท่ ยืนโบกมือทักทายข้างจรวดสีแดงลำโปรดที่ฐานปล่อย ค่ำคืนนี้ ท้องฟ้าเต็มไปด้วยดวงดาวระยิบระยับพร้อมสำหรับการเดินทางครั้งยิ่งใหญ่แล้ว!",
+            icon: "🚀",
+            img: "/assets/stories/darin_space/scene_1.jpg"
+          },
+          {
+            en: "Three, two, one… blast off! The rocket soared into the sky with bright orange flames. Looking back down, Darin saw Earth glowing like a beautiful blue marble floating in space.",
+            th: "สาม สอง หนึ่ง... จุดระเบิดขับดัน! จรวดพุ่งทะยานขึ้นสู่ท้องฟ้าด้วยเปลวไฟสีส้มสว่างไสว เมื่อมองย้อนกลับลงไป ดารินเห็นโลกของเราเป็นลูกแก้วสีน้ำเงินแสนสวยงามลอยอยู่ในอวกาศ",
+            icon: "🌍",
+            img: "/assets/stories/darin_space/scene_2.jpg"
+          },
+          {
+            en: "The first stop was the gentle Moon. Darin bounced lightly across the soft gray dust, drove the lunar rover, and proudly planted a friendly flag beside his tiny footprints.",
+            th: "จุดแวะพักแรกคือดวงจันทร์สีนวล ดารินลงไปเดินก้าวกระโดดบนผืนฝุ่นนุ่มและขับรถสำรวจดวงจันทร์ พร้อมปักธงแห่งมิตรภาพไว้ข้างรอยเท้าคู่เล็กๆ อย่างภาคภูมิใจ",
+            icon: "🌕",
+            img: "/assets/stories/darin_space/scene_3.jpg"
+          },
+          {
+            en: "The spaceship zoomed near the giant golden Sun. Radiant warm beams and solar flares glowed brightly, giving warmth and vibrant energy to everything in the solar system.",
+            th: "ยานอวกาศแล่นเฉียดเข้าใกล้ดวงอาทิตย์สีทองยักษ์ แสงแดดอันอบอุ่นและเปลวเพลิงสุริยะส่องประกายเจิดจ้า มอบพลังงานและความมีชีวิตชีวาให้แก่ทุกสิ่งในระบบสุริยะ",
+            icon: "☀️",
+            img: "/assets/stories/darin_space/scene_4.jpg"
+          },
+          {
+            en: "Next was speedy Mercury, the fastest runner in space! Darin raced along its quick orbit with great excitement, feeling like he was in a grand cosmic marathon around the Sun.",
+            th: "ถัดมาคือดาวพุธ ดาวเคราะห์นักวิ่งลมกรดที่โคจรไวที่สุดในอวกาศ ดารินบินตามวงโคจรของดาวพุธด้วยความตื่นเต้น ราวกับกำลังลงแข่งวิ่งมาราธอนรอบดวงอาทิตย์",
+            icon: "🟤",
+            img: "/assets/stories/darin_space/scene_5.jpg"
+          },
+          {
+            en: "Arriving at Venus, Darin saw thick golden-yellow clouds swirling around the planet like fluffy cotton candy, hiding a sizzling hot world with endless swirling winds.",
+            th: "เมื่อถึงดาวศุกร์ ดารินมองเห็นก้อนเมฆสีเหลืองทองหนาทึบล้อมรอบตัวดาว ดูนุ่มฟูเหมือนขนมสายไหมในงานวัด แต่ข้างในกลับร้อนระอุและมีสายลมหมุนวนอยู่ตลอดเวลา",
+            icon: "🟡",
+            img: "/assets/stories/darin_space/scene_6.jpg"
+          },
+          {
+            en: "Gliding lower over Mars, the wondrous Red Planet, Darin marveled at the rusty red canyon valleys and the giant Olympus Mons volcano towering high into the Martian sky.",
+            th: "ยานอวกาศร่อนลงต่ำเหนือดาวอังคาร ดาวเคราะห์สีแดงแสนมหัศจรรย์ ดารินมองเห็นหุบผาทะเลทรายสีส้มแดง และยอดภูเขาไฟยักษ์โอลิมปัสที่สูงตระหง่านเสียดฟ้า",
+            icon: "🔴",
+            img: "/assets/stories/darin_space/scene_7.jpg"
+          },
+          {
+            en: "Wow! Ahead was giant Jupiter, the friendly colossal king of planets, painted with swirling bands of cream and orange, and the famous Great Red Spot spinning like a warm greeting.",
+            th: "โอ้โห! ข้างหน้าคือดาวพฤหัสบดี พี่ยักษ์ใหญ่ใจดีที่มีลวดลายแถบสีส้มขาวสลับกันอย่างงดงาม และมีจุดพายุสีแดงลูกโตหมุนวนทักทายดารินอย่างอบอุ่น",
+            icon: "🟠",
+            img: "/assets/stories/darin_space/scene_8.jpg"
+          },
+          {
+            en: "Then came the crown jewel of the journey: Saturn, wearing magnificent glittering rings! Darin glided along the sparkling rings of ice and rock, shining brightly like scattered diamonds.",
+            th: "และแล้วก็ถึงไฮไลต์ของการเดินทาง นั่นคือดาวเสาร์ที่สวมมงกุฎวงแหวนยักษ์ระยิบระยับ ดารินพายานร่อนเลียบวงแหวนน้ำแข็งและเศษหินที่ส่องประกายวับวาวราวกับเพชรเม็ดงาม",
+            icon: "🪐",
+            img: "/assets/stories/darin_space/scene_9.jpg"
+          },
+          {
+            en: "After a wondrous journey, the space capsule opened its bright parachute, splashing gently into Earth's warm blue ocean at golden sunset. Darin smiled warmly, knowing that nowhere in the universe is as cozy as home.",
+            th: "หลังจากท่องเที่ยวจนเต็มอิ่ม ยานอวกาศก็กางร่มชูชีพสีสดใส ร่อนลงแตะผิวน้ำทะเลสีครามบนโลกอย่างนุ่มนวลยามพระอาทิตย์ตกดิน ดารินยิ้มกว้างด้วยความสุขและรู้ว่า ไม่มีที่ใดในจักรวาลจะอบอุ่นไปกว่าบ้านของเราอีกแล้ว",
+            icon: "🏡",
+            img: "/assets/stories/darin_space/scene_10.jpg"
+          }
+        ]
+      },
+      {
         id: 'magic_library',
         title: 'The Magic Library',
         thTitle: 'ห้องสมุดมหัศจรรย์',
