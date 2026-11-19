@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="th" class="min-h-full">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#FFFDF9">
+  <title>Kidobits Story Time · นิทานเสียงแสนสนุก 📚✨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Noto+Sans+Thai:wght@400;500;600;700;800;900&family=Prompt:wght@500;600;700;800&family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Plus Jakarta Sans', 'Prompt', 'Noto Sans Thai', 'sans-serif'],
+            thai: ['Noto Sans Thai', 'Prompt', 'sans-serif'],
+            story: ['Baloo 2', 'Noto Sans Thai', 'sans-serif']
+          },
+          colors: {
+            storybook: {
+              50: '#FDF8F0',
+              100: '#F8EED9',
+              200: '#EEDBB5',
+              500: '#D97706',
+              600: '#B45309',
+              800: '#78350F'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { -webkit-tap-highlight-color: transparent; }
+    html, body {
+      min-height: 100%;
+      font-family: 'Noto Sans Thai', 'Plus Jakarta Sans', sans-serif;
+      overscroll-behavior-y: auto;
+      background-color: #FAF7F2;
+    }
+    :root {
+      --sat: env(safe-area-inset-top, 0px);
+      --sab: env(safe-area-inset-bottom, 0px);
+    }
+    nav.fixed[class*="bottom-"] {
+      bottom: max(12px, calc(10px + env(safe-area-inset-bottom, 0px))) !important;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Micro-Animations for Story Scenes */
+    @keyframes floatGentle {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-7px) rotate(1.5deg); }
+    }
+    .anim-float {
+      animation: floatGentle 4s ease-in-out infinite;
+    }
+
+    @keyframes cloudDrift {
+      0% { transform: translateX(-15px); }
+      50% { transform: translateX(15px); }
+      100% { transform: translateX(-15px); }
+    }
+    .anim-cloud {
+      animation: cloudDrift 12s ease-in-out infinite;
+    }
+
+    @keyframes sparkleGlow {
+      0%, 100% { opacity: 0.35; transform: scale(0.85); }
+      50% { opacity: 1; transform: scale(1.15); filter: drop-shadow(0 0 6px #FBBF24); }
+    }
+    .anim-sparkle {
+      animation: sparkleGlow 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulseRing {
+      0% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.4); }
+      70% { transform: scale(1); box-shadow: 0 0 0 12px rgba(217, 119, 6, 0); }
+      100% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(217, 119, 6, 0); }
+    }
+    .anim-play-pulse {
+      animation: pulseRing 2s infinite;
+    }
+
+    /* Paragraph Active Highlight */
+    .para-box {
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .para-active {
+      background: linear-gradient(135deg, #FFFDF8 0%, #FEF3C7 100%) !important;
+      border-color: #F59E0B !important;
+      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.22) !important;
+      transform: scale(1.015);
+    }
+
+    /* Sound wave indicator bars */
+    .sound-bar {
+      display: inline-block;
+      width: 3px;
+      background-color: #D97706;
+      border-radius: 9999px;
+      animation: waveBar 1.2s ease-in-out infinite;
+    }
+    @keyframes waveBar {
+      0%, 100% { height: 6px; }
+      50% { height: 18px; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-slate-800 select-none pb-28 overscroll-y-auto">
+
+  <!-- 1. STANDARD KIDOBITS TOP BAR -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-amber-100 shadow-xs">
+    <div class="max-w-4xl mx-auto px-3 py-2 flex items-center justify-between gap-2">
+      <!-- Back button -->
+      <button onclick="if (history.length > 1) { history.back(); } else { location.href='/theme/theme_home.html'; }" class="btn-press flex items-center gap-1 px-3 py-1.5 rounded-full bg-white shadow-xs border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-50 transition active:scale-95" title="ย้อนกลับ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5"></path>
+          <path d="M12 19l-7-7 7-7"></path>
+        </svg>
+        <span>กลับ</span>
+      </button>
+
+      <!-- Center Title -->
+      <div class="flex items-center gap-1.5">
+        <span class="text-xl">📚</span>
+        <div>
+          <span class="text-xs sm:text-sm font-black text-slate-900 tracking-tight">Kidobits Story Time</span>
+          <span class="hidden sm:inline-block px-2 py-0.2 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold ml-1">นิทานเสียง</span>
+        </div>
+      </div>
+
+      <!-- Stats Chips -->
+      <div class="flex items-center gap-1.5">
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-50 border border-red-100 text-[11px] font-black text-red-600 shadow-2xs">
+          <span>🔥</span>
+          <span id="streakChip">7</span>
+        </div>
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-100 text-[11px] font-black text-amber-600 shadow-2xs">
+          <span>⭐</span>
+          <span id="starsChip">0</span>
+        </div>
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-[11px] font-black text-emerald-600 shadow-2xs">
+          <span>🪙</span>
+          <span id="userCoins">240</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. MAIN STORYBOOK WRAPPER -->
+  <main class="flex-1 max-w-2xl w-full mx-auto px-4 py-3 flex flex-col justify-start">
+
+    <!-- Story Selector Horizontal Carousel -->
+    <div class="w-full mb-3">
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1" id="storyTabs">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- 3. ANIMATED STORY SCENE STAGE (Micro-Animation) -->
+    <div class="relative w-full h-52 sm:h-60 rounded-3xl overflow-hidden shadow-lg border border-amber-200/80 mb-3 select-none flex items-center justify-center" id="storyStageBox" style="background: linear-gradient(135deg, #1E1B4B 0%, #312E81 60%, #4338CA 100%);">
+      
+      <!-- Background floating stars & moon -->
+      <div class="absolute inset-0 pointer-events-none overflow-hidden">
+        <span class="anim-sparkle absolute top-4 left-7 text-yellow-300 text-lg">✨</span>
+        <span class="anim-sparkle absolute top-9 right-12 text-yellow-200 text-sm" style="animation-delay: 1.2s;">⭐</span>
+        <span class="anim-sparkle absolute bottom-6 left-14 text-yellow-300 text-xs" style="animation-delay: 0.6s;">✨</span>
+        <span class="anim-sparkle absolute bottom-12 right-20 text-yellow-200 text-base" style="animation-delay: 1.8s;">⭐</span>
+        
+        <!-- Drifting clouds -->
+        <span class="anim-cloud absolute top-3 right-6 text-white/30 text-3xl">☁️</span>
+        <span class="anim-cloud absolute bottom-4 left-4 text-white/20 text-2xl" style="animation-delay: 3s;">☁️</span>
+      </div>
+
+      <!-- Central Animated Illustration -->
+      <div class="relative z-10 flex flex-col items-center justify-center text-center p-4">
+        <!-- Floating Character & Scene Emojis with Micro-Motion -->
+        <div class="anim-float flex items-center justify-center gap-4 text-6xl sm:text-7xl drop-shadow-lg mb-2" id="sceneHeroEmoji">
+          <span>📖</span>
+          <span class="text-4xl -ml-2 -mt-6">🦁</span>
+          <span class="text-3xl ml-1 -mt-4">🚀</span>
+        </div>
+
+        <!-- Story Title & Tag -->
+        <div class="bg-black/35 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 inline-flex items-center gap-2">
+          <span id="sceneBadgeIcon">✨</span>
+          <h2 id="sceneStoryTitle" class="text-sm sm:text-base font-black text-white tracking-wide">The Magic Library</h2>
+          <span class="text-[11px] text-amber-300 font-bold" id="sceneDuration">• 4 min</span>
+        </div>
+        <p id="sceneStorySubtitle" class="text-xs text-amber-100 font-medium mt-1 font-thai">ห้องสมุดมหัศจรรย์</p>
+      </div>
+
+      <!-- Floating Bedtime Moon Indicator in corner -->
+      <div class="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/25 text-[11px] font-bold text-white shadow-xs">
+        <span>🌙</span>
+        <span>นิทานก่อนนอน</span>
+      </div>
+
+      <!-- Soft Lullaby BGM Toggle -->
+      <button onclick="toggleBgmMusic()" id="btnBgmToggle" class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/25 text-[11px] font-black text-white shadow-xs transition active:scale-95 flex items-center gap-1" title="เปิด/ปิด ดนตรีบรรเลงกล่อมนอน">
+        <span id="bgmIcon">🎵</span>
+        <span id="bgmLabel">ดนตรี: เปิด</span>
+      </button>
+
+    </div>
+
+    <!-- 4. AUDIO CONTROL CONSOLE BAR -->
+    <div class="w-full bg-white rounded-2xl border border-amber-200/90 p-2.5 sm:p-3 mb-3 shadow-xs flex items-center justify-between gap-2 flex-wrap">
+      
+      <!-- Primary Playback Controls -->
+      <div class="flex items-center gap-2">
+        <button id="btnMainPlay" onclick="togglePlayNarration()" class="w-11 h-11 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white flex items-center justify-center text-lg shadow-md shadow-orange-500/25 transition active:scale-95 anim-play-pulse" title="เล่น/หยุดเสียงเล่า">
+          <i id="mainPlayIcon" class="fa-solid fa-play ml-0.5"></i>
+        </button>
+        <button onclick="restartStoryAudio()" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center text-xs transition active:scale-95 border border-slate-200" title="เริ่มเล่าใหม่ตั้งแต่ต้น">
+          <i class="fa-solid fa-rotate-left"></i>
+        </button>
+        
+        <!-- Live Audio Wave Indicator -->
+        <div id="audioWaveBox" class="hidden flex items-center gap-0.5 px-2 py-1 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 text-[10px] font-black">
+          <span class="sound-bar" style="animation-delay: 0.1s;"></span>
+          <span class="sound-bar" style="animation-delay: 0.3s;"></span>
+          <span class="sound-bar" style="animation-delay: 0.2s;"></span>
+          <span class="ml-1">กำลังเล่า</span>
+        </div>
+      </div>
+
+      <!-- Language & Speech Rate Switcher -->
+      <div class="flex items-center gap-1.5">
+        <!-- Dual Language Toggle -->
+        <div class="flex items-center p-0.5 bg-slate-100 rounded-xl border border-slate-200 text-xs font-bold">
+          <button onclick="setNarrationLang('en')" id="btnLangEn" class="px-2.5 py-1 rounded-lg font-black transition active:scale-95 bg-white text-amber-700 shadow-xs">
+            🇬🇧 EN
+          </button>
+          <button onclick="setNarrationLang('th')" id="btnLangTh" class="px-2.5 py-1 rounded-lg text-slate-600 transition active:scale-95">
+            🇹🇭 TH
+          </button>
+        </div>
+
+        <!-- Speed rate -->
+        <button onclick="toggleSpeechRate()" id="btnRateToggle" class="px-2.5 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-black border border-slate-200 transition active:scale-95">
+          <span id="rateLabel">0.85x</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- 5. INTERACTIVE STORY PARAGRAPHS (READ-ALONG KARAOKE) -->
+    <div class="space-y-3" id="storyParagraphsContainer">
+      <!-- Paragraph cards rendered dynamically by JS -->
+    </div>
+
+    <!-- 6. NEXT STORY & REWARDS BUTTONS -->
+    <div class="mt-5 flex items-center gap-2">
+      <button onclick="finishStoryReward()" class="flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-white font-black text-sm shadow-md shadow-amber-500/25 transition active:scale-95 flex items-center justify-center gap-2">
+        <span>🏆 จบเรื่องแล้วรับรางวัล (+5 ⭐)</span>
+      </button>
+      <button onclick="nextStory()" class="py-3 px-4 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold text-xs transition active:scale-95 flex items-center gap-1.5">
+        <span>เรื่องถัดไป</span>
+        <i class="fa-solid fa-arrow-right text-xs"></i>
+      </button>
+    </div>
+
+  </main>
+
+  <!-- 7. VICTORY CELEBRATION MODAL -->
+  <div id="storyWinModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border-4 border-amber-300 animate-pop">
+      <div class="text-5xl animate-bounce">🌟</div>
+      <div>
+        <h3 class="text-xl font-black text-slate-900 font-display">เก่งมากจ้า! จบนิทานแล้ว</h3>
+        <p class="text-xs text-slate-500 font-bold mt-1">น้องฟังและอ่านนิทานจนจบ ได้รับดาวสะสมเพิ่ม!</p>
+      </div>
+
+      <div class="flex items-center justify-center gap-4 py-3 bg-amber-50 rounded-2xl border border-amber-200">
+        <div class="flex items-center gap-1.5 text-base font-black text-amber-700">
+          <span>⭐</span>
+          <span>+5 ดาว</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-base font-black text-emerald-700">
+          <span>🪙</span>
+          <span>+25 เหรียญ</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 pt-2">
+        <button onclick="closeWinModal(); restartStoryAudio();" class="flex-1 py-2.5 px-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-black text-xs transition active:scale-95">
+          🔄 ฟังอีกครั้ง
+        </button>
+        <button onclick="closeWinModal(); nextStory();" class="flex-1 py-2.5 px-3 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black text-xs shadow-md shadow-amber-500/20 transition active:scale-95">
+          เรื่องถัดไป ➔
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STANDARD KIDOBITS FLOATING BOTTOM NAVIGATION -->
+  <nav class="fixed bottom-3 left-3 right-3 max-w-[430px] mx-auto bg-white shadow-[0_10px_30px_rgba(60,30,90,.18)] rounded-full px-2 py-2 flex justify-between border border-[#F3EDF8] z-50" aria-label="Main navigation">
+    <!-- 1. Home -->
+    <button onclick="window.location.href='/theme/theme_home.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Home">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+          <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Home</span>
+    </button>
+
+    <!-- 2. Phonics -->
+    <button onclick="window.location.href='/theme/theme_phonics_map.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Phonics">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 7v14"></path>
+          <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Phonics</span>
+    </button>
+
+    <!-- 3. Math -->
+    <button onclick="window.location.href='/theme/theme_math_lobby.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Math">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+          <line x1="8" x2="16" y1="6" y2="6"></line>
+          <line x1="16" x2="16" y1="14" y2="18"></line>
+          <path d="M16 10h.01"></path>
+          <path d="M12 10h.01"></path>
+          <path d="M8 10h.01"></path>
+          <path d="M12 14h.01"></path>
+          <path d="M8 14h.01"></path>
+          <path d="M12 18h.01"></path>
+          <path d="M8 18h.01"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Math</span>
+    </button>
+
+    <!-- 4. Chinese -->
+    <button onclick="window.location.href='/theme/theme_chinese_lobby.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Chinese">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+          <path d="M2 12h20"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Chinese</span>
+    </button>
+
+    <!-- 5. Games (Active: Amber/Gold) -->
+    <button onclick="window.location.href='/theme/theme_games.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Games">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition bg-[#D97706] text-white shadow-md shadow-amber-500/25">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="6" x2="10" y1="11" y2="11"></line>
+          <line x1="8" x2="8" y1="9" y2="13"></line>
+          <line x1="15" x2="15.01" y1="12" y2="12"></line>
+          <line x1="18" x2="18.01" y1="10" y2="10"></line>
+          <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-black text-[#D97706]">Games</span>
+    </button>
+
+    <!-- 6. Profile -->
+    <button onclick="window.location.href='/theme/theme_profile.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Profile">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Profile</span>
+    </button>
+  </nav>
+
+  <!-- Core Scripts -->
+  <script src="/js/kidobits_wallet.js"></script>
+  <script src="/js/kidobits_auth.js"></script>
+
+  <!-- STORY ENGINE & AUDIO SCRIPT -->
+  <script>
+    // 1. CURATED STORY REPOSITORY (DUAL-LANGUAGE & PARAGRAPHS)
+    const STORIES_DATA = [
+      {
+        id: 'magic_library',
+        title: 'The Magic Library',
+        thTitle: 'ห้องสมุดมหัศจรรย์',
+        mins: '3 นาที',
+        badge: '✨',
+        emojis: ['📖', '🦁', '🚀'],
+        bgGradient: 'linear-gradient(135deg, #1E1B4B 0%, #312E81 60%, #4338CA 100%)',
+        paragraphs: [
+          {
+            en: 'Every night, Marion’s books opened like little magical doors. A golden lion popped out of one page, and a shiny rocket zoomed across the ceiling. “Come and read with us!” they whispered.',
+            th: 'ทุก ๆ คืน หนังสือของน้องมาเรียนจะเปิดออกเหมือนประตูกลวิเศษ สิงโตสีทองตัวหนึ่งโผล่ออกมาจากหน้าหนังสือ และจรวดลำเงาวับก็พุ่งข้ามเพดานห้อง “มาอ่านหนังสือด้วยกันนะ!” พวกเขาพากันกระซิบชวน',
+            icon: '🦁'
+          },
+          {
+            en: 'She read about friendly numbers, dancing forest animals, and faraway sparkling seas. Each story gave her a brand new word, a curious question, and a wonderful new friend.',
+            th: 'เธอได้อ่านเรื่องราวเกี่ยวกับตัวเลขอารมณ์ดี เหล่าสัตว์ป่าที่กำลังเต้นรำ และท้องทะเลระยิบระยับที่อยู่แสนไกล นิทานแต่ละเรื่องได้มอบคำศัพท์ใหม่ คำถามแสนสนุก และเพื่อนใหม่ที่แสนวิเศษให้กับเธอ',
+            icon: '🌊'
+          },
+          {
+            en: 'When the warm morning sun came up, Marion closed her book and smiled. The magic was still right there in her heart — waiting on every page she would read next.',
+            th: 'เมื่อแสงแดดยามเช้าอันอบอุ่นสาดส่องลงมา มาเรียนก็ปิดสมุดนิทานลงพร้อมรอยยิ้ม ความมหัศจรรย์ยังคงอยู่ในหัวใจของเธอเสมอ และกำลังรอคอยเธออยู่ในทุก ๆ หน้าที่จะได้เปิดอ่านครั้งต่อไป',
+            icon: '☀️'
+          }
+        ]
+      },
+      {
+        id: 'red_rocket',
+        title: 'Marion and the Rocket',
+        thTitle: 'ผจญภัยจรวดสีแดง',
+        mins: '4 นาที',
+        badge: '🚀',
+        emojis: ['🚀', '🪐', '🐱'],
+        bgGradient: 'linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%)',
+        paragraphs: [
+          {
+            en: 'Marion found a shiny red rocket parked behind the library garden. It winked at her and whispered, “Three, two, one… let’s explore!” She buckled up tight with her star map and her favorite pencil.',
+            th: 'มาเรียนพบจรวดสีแดงสดแวววาวจอดอยู่หลังสวนของห้องสมุด มันขยิบตาให้เธอแล้วกระซิบว่า “สาม สอง หนึ่ง... ไปสำรวจอวกาศกันเถอะ!” เธอรีบคาดเข็มขัดนิรภัย พร้อมแผนที่ดวงดาวและดินสอแท่งโปรด',
+            icon: '🚀'
+          },
+          {
+            en: 'Up they flew past the smiling Moon, past a giant purple planet shaped like a donut, and past a soft cloud that looked just like a sleepy kitten. Marion counted every glittering star she saw.',
+            th: 'พวกเขาทะยานขึ้นสู่ท้องฟ้า ผ่านดวงจันทร์ที่กำลังยิ้มทักทาย ผ่านดาวเคราะห์สีม่วงยักษ์ที่มีรูปร่างเหมือนโดนัท และผ่านก้อนเมฆนุ่มฟูที่ดูเหมือนลูกแมวน้อยกำลังนอนหลับ มาเรียนนับดวงดาวทุกดวงที่เธอเห็นอย่างมีความสุข',
+            icon: '🪐'
+          },
+          {
+            en: 'When she landed safely back home, she drew every galaxy in her notebook. “The best adventures,” she whispered with a smile, “are the ones we can share with the people we love.”',
+            th: 'เมื่อเธอกลับลงมาถึงบ้านอย่างปลอดภัย เธอรีบวาดกาแล็กซีทั้งหมดลงในสมุดบันทึก “การผจญภัยที่ยอดเยี่ยมที่สุด” เธอกระซิบพร้อมรอยยิ้ม “คือการผจญภัยที่เราได้แบ่งปันให้กับคนที่เรารัก”',
+            icon: '🌟'
+          }
+        ]
+      },
+      {
+        id: 'brave_fox',
+        title: 'The Brave Little Fox',
+        thTitle: 'สุนัขจิ้งจอกผู้กล้าหาญ',
+        mins: '3 นาที',
+        badge: '🦊',
+        emojis: ['🦊', '🌲', '🦉'],
+        bgGradient: 'linear-gradient(135deg, #064E3B 0%, #047857 60%, #10B981 100%)',
+        paragraphs: [
+          {
+            en: 'Deep in the Whispering Woods, a little red fox named Finny heard a tiny bird crying high up in the tallest pine tree. Even though the tree was very tall, Finny decided to be brave.',
+            th: 'ลึกเข้าไปในป่ากระซิบ สุนัขจิ้งจอกน้อยสีแดงชื่อฟินนี่ ได้ยินเสียงนกตัวเล็กๆ ร้องไห้อยู่บนยอดต้นสนที่สูงที่สุด แม้ว่าต้นไม้จะสูงมาก แต่ฟินนี่ก็ตัดสินใจที่จะกล้าหาญ',
+            icon: '🌲'
+          },
+          {
+            en: 'Step by step, Finny climbed carefully along the gentle wooden branches. Wise Old Owl flew down and offered a warm wing of encouragement. “Courage is taking one small step at a time,” Owl hooted.',
+            th: 'ฟินนี่ค่อยๆ ปีนไปตามกิ่งไม้อย่างระมัดระวังทีละก้าว นกฮูกเฒ่าผู้ชาญฉลาดบินลงมาช่วยให้กำลังใจ “ความกล้าหาญ คือการก้าวไปข้างหน้าทีละก้าวเล็กๆ เสมอ” นกฮูกร้องบอก',
+            icon: '🦉'
+          },
+          {
+            en: 'Together, they helped the baby bird safely return to its cozy nest. Finny looked out over the glowing forest sunset, knowing that a kind heart is the greatest superpower of all.',
+            th: 'พวกเขาร่วมมือกันช่วยส่งลูกนกกลับเข้ารังอันอบอุ่นได้อย่างปลอดภัย ฟินนี่มองออกไปยังพระอาทิตย์ตกดินอันงดงาม และเรียนรู้ว่า หัวใจที่โอบอ้อมอารีคือพลังที่ยิ่งใหญ่ที่สุดในโลก',
+            icon: '❤️'
+          }
+        ]
+      }
+    ];
+
+    // 2. STATE MANAGEMENT
+    let currentStoryIdx = 0;
+    let narrationLang = 'en'; // 'en' or 'th'
+    let speechRate = 0.85; // 0.85x, 1.0x, 1.2x
+    let isPlaying = false;
+    let currentParaIdx = -1;
+    let bgmEnabled = true;
+    let userStars = parseInt(localStorage.getItem('KB_STARS') || '0', 10);
+
+    // 3. SYNTHETIC LULLABY MUSIC ENGINE (SOFT MUSIC BOX)
+    let musicAudioCtx = null;
+    let bgmInterval = null;
+
+    function initBgmEngine() {
+      if (!musicAudioCtx && (window.AudioContext || window.webkitAudioContext)) {
+        musicAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (musicAudioCtx && musicAudioCtx.state === 'suspended') {
+        musicAudioCtx.resume();
+      }
+    }
+
+    // Gentle lullaby chime notes (Pentatonic soft bells: C4, D4, E4, G4, A4, C5)
+    const LULLABY_NOTES = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 392.00, 329.63];
+    let noteStep = 0;
+
+    function playSoftChime() {
+      if (!bgmEnabled || !musicAudioCtx) return;
+      try {
+        const osc = musicAudioCtx.createOscillator();
+        const gain = musicAudioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(LULLABY_NOTES[noteStep % LULLABY_NOTES.length], musicAudioCtx.currentTime);
+        noteStep++;
+
+        gain.gain.setValueAtTime(0.015, musicAudioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, musicAudioCtx.currentTime + 1.8);
+
+        osc.connect(gain);
+        gain.connect(musicAudioCtx.destination);
+        osc.start();
+        osc.stop(musicAudioCtx.currentTime + 1.8);
+      } catch (e) {}
+    }
+
+    function toggleBgmMusic() {
+      initBgmEngine();
+      bgmEnabled = !bgmEnabled;
+      document.getElementById('bgmLabel').textContent = bgmEnabled ? 'ดนตรี: เปิด' : 'ดนตรี: ปิด';
+      document.getElementById('bgmIcon').textContent = bgmEnabled ? '🎵' : '🔇';
+      
+      if (bgmEnabled && isPlaying) {
+        startBgmLoop();
+      } else {
+        stopBgmLoop();
+      }
+    }
+
+    function startBgmLoop() {
+      stopBgmLoop();
+      if (!bgmEnabled) return;
+      playSoftChime();
+      bgmInterval = setInterval(playSoftChime, 2200);
+    }
+
+    function stopBgmLoop() {
+      if (bgmInterval) {
+        clearInterval(bgmInterval);
+        bgmInterval = null;
+      }
+    }
+
+    // 4. SPEECH NARRATION LOGIC
+    function speakParagraph(index, onComplete) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+
+      const story = STORIES_DATA[currentStoryIdx];
+      if (index >= story.paragraphs.length) {
+        // Story finished!
+        handleStoryFinished();
+        return;
+      }
+
+      currentParaIdx = index;
+      updateActiveParaHighlight(index);
+
+      const para = story.paragraphs[index];
+      const text = narrationLang === 'en' ? para.en : para.th;
+      const langCode = narrationLang === 'en' ? 'en-US' : 'th-TH';
+
+      const ut = new SpeechSynthesisUtterance(text);
+      ut.lang = langCode;
+      ut.rate = speechRate;
+      ut.pitch = (narrationLang === 'en' ? 1.02 : 1.0);
+
+      // Best voice selection
+      const voices = window.speechSynthesis.getVoices();
+      const matchedVoice = voices.find(v => v.lang.startsWith(narrationLang === 'en' ? 'en' : 'th'));
+      if (matchedVoice) ut.voice = matchedVoice;
+
+      ut.onend = () => {
+        if (!isPlaying) return;
+        setTimeout(() => {
+          if (isPlaying) {
+            speakParagraph(index + 1, onComplete);
+          }
+        }, 700);
+      };
+
+      ut.onerror = () => {
+        if (!isPlaying) return;
+        setTimeout(() => {
+          if (isPlaying) speakParagraph(index + 1, onComplete);
+        }, 500);
+      };
+
+      window.speechSynthesis.speak(ut);
+    }
+
+    function togglePlayNarration() {
+      initBgmEngine();
+      if (isPlaying) {
+        pauseNarration();
+      } else {
+        playNarration();
+      }
+    }
+
+    function playNarration() {
+      isPlaying = true;
+      document.getElementById('mainPlayIcon').className = 'fa-solid fa-pause';
+      document.getElementById('btnMainPlay').classList.remove('anim-play-pulse');
+      document.getElementById('audioWaveBox').classList.remove('hidden');
+      startBgmLoop();
+
+      if (currentParaIdx < 0 || currentParaIdx >= STORIES_DATA[currentStoryIdx].paragraphs.length) {
+        currentParaIdx = 0;
+      }
+      speakParagraph(currentParaIdx);
+    }
+
+    function pauseNarration() {
+      isPlaying = false;
+      document.getElementById('mainPlayIcon').className = 'fa-solid fa-play ml-0.5';
+      document.getElementById('btnMainPlay').classList.add('anim-play-pulse');
+      document.getElementById('audioWaveBox').classList.add('hidden');
+      stopBgmLoop();
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    }
+
+    function restartStoryAudio() {
+      pauseNarration();
+      currentParaIdx = 0;
+      updateActiveParaHighlight(0);
+      setTimeout(playNarration, 100);
+    }
+
+    function tapParagraphToPlay(idx) {
+      initBgmEngine();
+      currentParaIdx = idx;
+      playNarration();
+    }
+
+    function updateActiveParaHighlight(activeIdx) {
+      const boxes = document.querySelectorAll('.para-box');
+      boxes.forEach((box, i) => {
+        if (i === activeIdx) {
+          box.classList.add('para-active');
+          // Scroll gently into view if needed
+          box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          box.classList.remove('para-active');
+        }
+      });
+    }
+
+    function setNarrationLang(lang) {
+      narrationLang = lang;
+      document.getElementById('btnLangEn').className = (lang === 'en') ? 'px-2.5 py-1 rounded-lg font-black transition active:scale-95 bg-white text-amber-700 shadow-xs' : 'px-2.5 py-1 rounded-lg text-slate-600 transition active:scale-95';
+      document.getElementById('btnLangTh').className = (lang === 'th') ? 'px-2.5 py-1 rounded-lg font-black transition active:scale-95 bg-white text-amber-700 shadow-xs' : 'px-2.5 py-1 rounded-lg text-slate-600 transition active:scale-95';
+
+      renderParagraphs();
+      if (isPlaying) {
+        speakParagraph(currentParaIdx);
+      }
+    }
+
+    function toggleSpeechRate() {
+      if (speechRate === 0.85) speechRate = 1.0;
+      else if (speechRate === 1.0) speechRate = 1.2;
+      else speechRate = 0.85;
+
+      document.getElementById('rateLabel').textContent = `${speechRate}x`;
+      if (isPlaying) {
+        speakParagraph(currentParaIdx);
+      }
+    }
+
+    // 5. UI RENDERING
+    function renderStoryTabs() {
+      const container = document.getElementById('storyTabs');
+      container.innerHTML = STORIES_DATA.map((st, idx) => {
+        const isActive = (idx === currentStoryIdx);
+        return `
+          <button onclick="selectStory(${idx})" class="shrink-0 px-3.5 py-2 rounded-2xl text-xs font-black transition active:scale-95 flex items-center gap-1.5 border ${isActive ? 'bg-amber-500 text-white border-amber-600 shadow-sm' : 'bg-white hover:bg-amber-50 text-slate-700 border-amber-200/80'}">
+            <span>${st.emojis[0]}</span>
+            <span>${st.title}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderStage() {
+      const st = STORIES_DATA[currentStoryIdx];
+      document.getElementById('sceneStoryTitle').textContent = st.title;
+      document.getElementById('sceneStorySubtitle').textContent = st.thTitle;
+      document.getElementById('sceneDuration').textContent = `• ${st.mins}`;
+      document.getElementById('sceneBadgeIcon').textContent = st.badge;
+      document.getElementById('storyStageBox').style.background = st.bgGradient;
+
+      // Render micro-animation emojis
+      document.getElementById('sceneHeroEmoji').innerHTML = `
+        <span>${st.emojis[0]}</span>
+        <span class="text-4xl -ml-2 -mt-6">${st.emojis[1] || ''}</span>
+        <span class="text-3xl ml-1 -mt-4">${st.emojis[2] || ''}</span>
+      `;
+    }
+
+    function renderParagraphs() {
+      const st = STORIES_DATA[currentStoryIdx];
+      const container = document.getElementById('storyParagraphsContainer');
+
+      container.innerHTML = st.paragraphs.map((p, idx) => {
+        return `
+          <div onclick="tapParagraphToPlay(${idx})" class="para-box bg-white rounded-2xl p-4 border-2 border-slate-100 shadow-xs cursor-pointer hover:border-amber-300 transition" id="para_box_${idx}">
+            <div class="flex items-start gap-3">
+              <span class="w-8 h-8 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center text-lg shrink-0 border border-amber-200/60">
+                ${p.icon}
+              </span>
+              <div class="flex-1 space-y-1.5">
+                <!-- English Text -->
+                <p class="text-base sm:text-lg font-bold leading-relaxed text-slate-800 ${narrationLang === 'en' ? 'font-story text-slate-900' : ''}">
+                  ${p.en}
+                </p>
+                <!-- Thai Translation -->
+                <p class="text-xs sm:text-sm font-medium leading-normal text-slate-500 font-thai border-t border-slate-50 pt-1.5">
+                  ${p.th}
+                </p>
+              </div>
+              <button class="w-7 h-7 rounded-lg bg-slate-50 hover:bg-amber-100 text-amber-600 flex items-center justify-center text-xs shrink-0 transition" title="แตะฟังประโยคนี้">
+                <i class="fa-solid fa-volume-high text-[11px]"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectStory(idx) {
+      pauseNarration();
+      currentStoryIdx = idx;
+      currentParaIdx = -1;
+      renderStoryTabs();
+      renderStage();
+      renderParagraphs();
+    }
+
+    function nextStory() {
+      pauseNarration();
+      currentStoryIdx = (currentStoryIdx + 1) % STORIES_DATA.length;
+      currentParaIdx = -1;
+      renderStoryTabs();
+      renderStage();
+      renderParagraphs();
+    }
+
+    // 6. COMPLETION REWARDS
+    function handleStoryFinished() {
+      pauseNarration();
+      finishStoryReward();
+    }
+
+    function finishStoryReward() {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 100,
+          spread: 80,
+          origin: { y: 0.6 }
+        });
+      }
+
+      userStars += 5;
+      localStorage.setItem('KB_STARS', userStars);
+      document.getElementById('starsChip').textContent = userStars;
+
+      if (window.KidobitsWallet) {
+        try {
+          KidobitsWallet.addReward({ stars: 5, coins: 25 });
+        } catch (e) {}
+      }
+
+      document.getElementById('storyWinModal').classList.remove('hidden');
+    }
+
+    function closeWinModal() {
+      document.getElementById('storyWinModal').classList.add('hidden');
+    }
+
+    // 7. INITIALIZE ON LOAD
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const storyParam = urlParams.get('story');
+      if (storyParam) {
+        const foundIdx = STORIES_DATA.findIndex(s => s.id === storyParam);
+        if (foundIdx !== -1) currentStoryIdx = foundIdx;
+      }
+      document.getElementById('starsChip').textContent = userStars;
+      renderStoryTabs();
+      renderStage();
+      renderParagraphs();
+    });
+  </script>
+</body>
+</html>
