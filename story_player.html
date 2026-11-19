@@ -167,6 +167,22 @@
       animation: quizShake 0.4s ease-in-out;
     }
 
+    
+    /* Cinema Theater Subtitle Styling */
+    .cinema-sub-shadow {
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85), 0 1px 3px rgba(0,0,0,0.9);
+    }
+    .sub-glow {
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.7);
+    }
+    @keyframes subtitlePop {
+      0% { opacity: 0; transform: translateY(8px) scale(0.98); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .anim-sub-pop {
+      animation: subtitlePop 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
     /* Sound wave indicator bars */
     .sound-bar {
       display: inline-block;
@@ -233,7 +249,7 @@
     </div>
 
     <!-- 3. ANIMATED STORY SCENE STAGE (Picture Storybook Screen) -->
-    <div class="relative w-full h-64 sm:h-72 rounded-3xl overflow-hidden shadow-xl border-2 border-amber-200/90 mb-3 select-none flex items-center justify-center bg-slate-900 group" id="storyStageBox" onclick="tapStageToWiggle()">
+    <div class="relative w-full h-72 sm:h-96 md:h-[400px] rounded-3xl overflow-hidden shadow-xl border-2 border-amber-200/90 mb-3 select-none flex items-center justify-center bg-slate-900 group" id="storyStageBox" onclick="tapStageToWiggle()">
       
       <!-- High-Resolution Storybook Illustration Image -->
       <img id="sceneHeroImg" src="/assets/stories/magic_library_1.jpg" alt="Story Scene" class="absolute inset-0 w-full h-full object-cover object-center transition-all duration-500 ease-out transform" />
@@ -269,25 +285,40 @@
         <span class="anim-float-particle text-emerald-300 text-xs" style="top:-10px; left:85%; animation-duration:8s; animation-delay:4s;">🍃</span>
       </div>
 
-      <!-- ON-STAGE ANIMATED CONVERSATION SPEECH BUBBLE -->
-      <div id="stageSpeechBubbleBox" class="absolute bottom-12 left-2 right-2 sm:left-4 sm:right-4 z-20 pointer-events-none transition-all duration-300 hidden">
-        <div id="stageSpeechBubbleInner" class="bg-white/95 backdrop-blur-md px-3.5 py-2.5 rounded-2xl shadow-xl border-2 border-amber-300 text-slate-800 flex items-center gap-2.5 anim-bubble-in max-w-lg mx-auto">
-          <div id="stageSpeakerAvatar" class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-xl shrink-0 border border-amber-300 anim-char-wiggle shadow-xs">
+      
+      <!-- CINEMA THEATER SUBTITLE BAR OVERLAY (Podcast 2-Voice Subtitles) -->
+      <div id="stageSpeechBubbleBox" class="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-6 sm:right-6 z-20 pointer-events-none transition-all duration-300">
+        <div id="stageSpeechBubbleInner" class="bg-black/75 backdrop-blur-md px-4 py-3 sm:px-5 sm:py-3.5 rounded-2xl border border-white/20 text-white flex items-center gap-3 anim-sub-pop max-w-xl mx-auto sub-glow">
+          <div id="stageSpeakerAvatar" class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-amber-500/30 flex items-center justify-center text-2xl sm:text-3xl shrink-0 border-2 border-amber-400 anim-char-wiggle shadow-md">
             🐜
           </div>
           <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-1.5 mb-0.5">
-              <span id="stageSpeakerName" class="text-[11px] font-black px-2 py-0.2 rounded-full bg-amber-100 text-amber-800">Andy</span>
-              <span class="text-[9px] font-bold text-slate-400">กำลังพูด</span>
+            <div class="flex items-center justify-between gap-1 mb-1">
+              <div class="flex items-center gap-1.5">
+                <span id="stageSpeakerName" class="text-[11px] sm:text-xs font-black px-2.5 py-0.5 rounded-full bg-red-500 text-white shadow-xs">Andy</span>
+                <span class="text-[10px] font-bold text-amber-300 flex items-center gap-1">
+                  <span class="sound-bar !bg-amber-300" style="height:10px;"></span>
+                  <span>Podcast Voice</span>
+                </span>
+              </div>
+              <span id="scenePageBadgeInline" class="text-[10px] sm:text-[11px] font-black text-slate-300 bg-white/10 px-2 py-0.5 rounded-full">
+                ฉากที่ 1/4
+              </span>
             </div>
-            <p id="stageSpeechTextEn" class="text-xs sm:text-sm font-black text-slate-900 leading-snug truncate"></p>
-            <p id="stageSpeechTextTh" class="text-[10px] sm:text-xs font-bold text-amber-700 leading-tight font-thai truncate"></p>
+            <!-- Big Clear English Subtitle -->
+            <p id="stageSpeechTextEn" class="text-sm sm:text-base md:text-lg font-black text-white leading-snug cinema-sub-shadow font-story tracking-wide">
+              “Look, Pip! I found something sweet on the grass!”
+            </p>
+            <!-- Warm Thai Subtitle -->
+            <p id="stageSpeechTextTh" class="text-xs sm:text-sm font-bold text-amber-200 leading-normal font-thai mt-0.5">
+              “ดูสิพิพ! พี่เจอของหวานแสนอร่อยบนพื้นหญ้าด้วยล่ะ!”
+            </p>
           </div>
         </div>
       </div>
 
       <!-- Bottom Caption Bar on Image -->
-      <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white z-10 pointer-events-none">
+      <div class="absolute top-12 left-3 right-3 flex items-center justify-between text-white z-10 pointer-events-none hidden">
         <div class="bg-black/50 backdrop-blur-md px-3.5 py-1.5 rounded-2xl border border-white/20 flex items-center gap-2">
           <span id="sceneBadgeIcon" class="text-base">✨</span>
           <div>
@@ -536,12 +567,12 @@
   <script>
     // 1. CURATED STORY REPOSITORY WITH SCENE ILLUSTRATIONS (3 STORIES X 3 SCENES)
     const STORIES_DATA = [
-      {
+            {
         id: 'andy_pip',
         title: 'Andy & Pip: The Sweet Sugar',
         thTitle: 'แอนดี้กับพิพ: สองมดน้อยกับน้ำตาลก้อนหวาน',
         mins: '3 นาที',
-        badge: '🐜 บทสนทนา + ควิซจับใจความ',
+        badge: '🐜 Podcast ละครเสียง 2 ตัวละคร',
         emojis: ['🐜', '🍬', '🌱'],
         cover: '/assets/stories/andy_pip/scene_1.jpg',
         paragraphs: [
@@ -552,10 +583,12 @@
             speakerColor: 'red',
             en: 'Look, Pip! I found something sweet on the grass!',
             th: 'ดูสิพิพ! พี่เจอของหวานแสนอร่อยบนพื้นหญ้าด้วยล่ะ!',
-            dialogueEn: '“Look, Pip! I found something sweet!”',
-            dialogueTh: '“ดูสิพิพ! พี่เจออะไรหวานๆ ด้วย!”',
+            dialogueEn: '“Look, Pip! I found something sweet on the grass!”',
+            dialogueTh: '“ดูสิพิพ! พี่เจอของหวานแสนอร่อยบนพื้นหญ้าด้วยล่ะ!”',
             icon: '🍬',
-            img: '/assets/stories/andy_pip/scene_1.jpg'
+            img: '/assets/stories/andy_pip/scene_1.jpg',
+            audioEn: '/assets/audio/stories/andy_pip/en_p1.mp3',
+            audioTh: '/assets/audio/stories/andy_pip/th_p1.mp3'
           },
           {
             speaker: 'Pip',
@@ -564,10 +597,12 @@
             speakerColor: 'blue',
             en: 'Wow! Is that a giant white sugar cube? It looks so delicious!',
             th: 'ว้าว! นั่นคือก้อนน้ำตาลสีขาวขนาดยักษ์เหรอฮะ? ดูน่าอร่อยจัง!',
-            dialogueEn: '“Wow! Is that a sugar cube?”',
-            dialogueTh: '“ว้าว! นั่นคือก้อนน้ำตาลเหรอฮะ?”',
+            dialogueEn: '“Wow! Is that a giant white sugar cube? It looks so delicious!”',
+            dialogueTh: '“ว้าว! นั่นคือก้อนน้ำตาลสีขาวขนาดยักษ์เหรอฮะ? ดูน่าอร่อยจัง!”',
             icon: '✨',
-            img: '/assets/stories/andy_pip/scene_1.jpg'
+            img: '/assets/stories/andy_pip/scene_1.jpg',
+            audioEn: '/assets/audio/stories/andy_pip/en_p2.mp3',
+            audioTh: '/assets/audio/stories/andy_pip/th_p2.mp3'
           },
           {
             speaker: 'Andy',
@@ -576,10 +611,12 @@
             speakerColor: 'red',
             en: 'Yes! But it is too big and heavy for me to carry alone.',
             th: 'ใช่แล้ว! แต่มันใหญ่และหนักเกินไปสำหรับพี่ที่จะยกคนเดียว',
-            dialogueEn: '“It is too big and heavy for me!”',
-            dialogueTh: '“มันใหญ่และหนักเกินไปสำหรับพี่คนเดียว!”',
+            dialogueEn: '“Yes! But it is too big and heavy for me to carry alone.”',
+            dialogueTh: '“ใช่แล้ว! แต่มันใหญ่และหนักเกินไปสำหรับพี่ที่จะยกคนเดียว”',
             icon: '🏋️',
-            img: '/assets/stories/andy_pip/scene_2.jpg'
+            img: '/assets/stories/andy_pip/scene_2.jpg',
+            audioEn: '/assets/audio/stories/andy_pip/en_p3.mp3',
+            audioTh: '/assets/audio/stories/andy_pip/th_p3.mp3'
           },
           {
             speaker: 'Pip',
@@ -588,10 +625,12 @@
             speakerColor: 'blue',
             en: 'Don’t worry, Andy! I am small, but I can help you push it!',
             th: 'ไม่ต้องห่วงนะพี่แอนดี้! แม้ผมจะตัวเล็ก แต่ผมช่วยพี่ดันได้นะ!',
-            dialogueEn: '“Don’t worry! I can help you!”',
-            dialogueTh: '“ไม่ต้องห่วงนะ! เดี๋ยวผมช่วยเอง!”',
+            dialogueEn: '“Don’t worry, Andy! I am small, but I can help you push it!”',
+            dialogueTh: '“ไม่ต้องห่วงนะพี่แอนดี้! แม้ผมจะตัวเล็ก แต่ผมช่วยพี่ดันได้นะ!”',
             icon: '🤝',
-            img: '/assets/stories/andy_pip/scene_2.jpg'
+            img: '/assets/stories/andy_pip/scene_2.jpg',
+            audioEn: '/assets/audio/stories/andy_pip/en_p4.mp3',
+            audioTh: '/assets/audio/stories/andy_pip/th_p4.mp3'
           },
           {
             speaker: 'Both',
@@ -600,10 +639,12 @@
             speakerColor: 'amber',
             en: 'One, two, three… push! We are a wonderful team!',
             th: 'หนึ่ง สอง ซำ... ดัน! พวกเราสองคนเป็นทีมที่ยอดเยี่ยมที่สุด!',
-            dialogueEn: '“One, two, three... push! Teamwork!”',
-            dialogueTh: '“หนึ่ง สอง ซำ... ดัน! พลังทีมเวิร์ก!”',
+            dialogueEn: '“One, two, three… push! We are a wonderful team!”',
+            dialogueTh: '“หนึ่ง สอง ซำ... ดัน! พวกเราสองคนเป็นทีมที่ยอดเยี่ยมที่สุด!”',
             icon: '💪',
-            img: '/assets/stories/andy_pip/scene_3.jpg'
+            img: '/assets/stories/andy_pip/scene_3.jpg',
+            audioEn: '/assets/audio/stories/andy_pip/en_p5.mp3',
+            audioTh: '/assets/audio/stories/andy_pip/th_p5.mp3'
           },
           {
             speaker: 'Andy',
@@ -612,10 +653,12 @@
             speakerColor: 'red',
             en: 'Hooray! We brought the sweet sugar all the way home to our anthill!',
             th: 'ไชโย! พวกเราพาน้ำตาลก้อนหวานกลับมาถึงรังมดอันแสนอบอุ่นแล้ว!',
-            dialogueEn: '“Hooray! We brought it home!”',
-            dialogueTh: '“ไชโย! พากลับมาถึงรังแล้ว!”',
+            dialogueEn: '“Hooray! We brought the sweet sugar all the way home to our anthill!”',
+            dialogueTh: '“ไชโย! พวกเราพาน้ำตาลก้อนหวานกลับมาถึงรังมดอันแสนอบอุ่นแล้ว!”',
             icon: '🏡',
-            img: '/assets/stories/andy_pip/scene_4.jpg'
+            img: '/assets/stories/andy_pip/scene_4.jpg',
+            audioEn: '/assets/audio/stories/andy_pip/en_p6.mp3',
+            audioTh: '/assets/audio/stories/andy_pip/th_p6.mp3'
           },
           {
             speaker: 'Pip',
@@ -624,10 +667,12 @@
             speakerColor: 'blue',
             en: 'Yummy! It tastes so sweet! Thank you for sharing with me, Andy!',
             th: 'อร่อยจังเลย! หวานชื่นใจที่สุด! ขอบคุณที่แบ่งปันให้ผมนะพี่แอนดี้!',
-            dialogueEn: '“Yummy! Thank you, Andy!”',
-            dialogueTh: '“อร่อยจัง! ขอบคุณนะพี่แอนดี้!”',
+            dialogueEn: '“Yummy! It tastes so sweet! Thank you for sharing with me, Andy!”',
+            dialogueTh: '“อร่อยจังเลย! หวานชื่นใจที่สุด! ขอบคุณที่แบ่งปันให้ผมนะพี่แอนดี้!”',
             icon: '❤️',
-            img: '/assets/stories/andy_pip/scene_4.jpg'
+            img: '/assets/stories/andy_pip/scene_4.jpg',
+            audioEn: '/assets/audio/stories/andy_pip/en_p7.mp3',
+            audioTh: '/assets/audio/stories/andy_pip/th_p7.mp3'
           }
         ],
         quiz: [
@@ -895,10 +940,24 @@
       }
     }
 
-    // 4. SPEECH NARRATION LOGIC
+    // 4. SPEECH NARRATION LOGIC (STUDIO PODCAST MP3 + WEB SPEECH FALLBACK)
+    let currentHtmlAudio = null;
+
+    function stopAllAudio() {
+      if (currentHtmlAudio) {
+        try {
+          currentHtmlAudio.pause();
+          currentHtmlAudio.currentTime = 0;
+        } catch(e) {}
+        currentHtmlAudio = null;
+      }
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    }
+
     function speakParagraph(index, onComplete) {
-      if (!('speechSynthesis' in window)) return;
-      window.speechSynthesis.cancel();
+      stopAllAudio();
 
       const story = STORIES_DATA[currentStoryIdx];
       if (index >= story.paragraphs.length) {
@@ -910,15 +969,67 @@
       updateActiveParaHighlight(index);
 
       const para = story.paragraphs[index];
-      const text = narrationLang === 'en' ? para.en : para.th;
+      const mp3Url = narrationLang === 'en' ? para.audioEn : para.audioTh;
+
+      // 1. IF STUDIO PODCAST MP3 IS AVAILABLE -> PLAY HIGH QUALITY AUDIO
+      if (mp3Url) {
+        try {
+          const audio = new Audio(mp3Url);
+          currentHtmlAudio = audio;
+          audio.playbackRate = speechRate;
+
+          audio.onended = () => {
+            if (!isPlaying) return;
+            setTimeout(() => {
+              if (isPlaying) {
+                speakParagraph(index + 1, onComplete);
+              }
+            }, 600);
+          };
+
+          audio.onerror = () => {
+            console.warn('MP3 playback failed, falling back to TTS');
+            fallbackWebSpeech(index, onComplete);
+          };
+
+          const playPromise = audio.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(err => {
+              console.warn('AutoPlay blocked or audio failed, fallback to TTS', err);
+              fallbackWebSpeech(index, onComplete);
+            });
+          }
+          return;
+        } catch(e) {
+          fallbackWebSpeech(index, onComplete);
+          return;
+        }
+      }
+
+      // 2. FALLBACK TO WEB SPEECH API
+      fallbackWebSpeech(index, onComplete);
+    }
+
+    function fallbackWebSpeech(index, onComplete) {
+      if (!('speechSynthesis' in window)) return;
+      const story = STORIES_DATA[currentStoryIdx];
+      const para = story.paragraphs[index];
+      const text = narrationLang === 'en' ? (para.dialogueEn || para.en) : (para.dialogueTh || para.th);
       const langCode = narrationLang === 'en' ? 'en-US' : 'th-TH';
 
       const ut = new SpeechSynthesisUtterance(text);
       ut.lang = langCode;
       ut.rate = speechRate;
-      ut.pitch = (narrationLang === 'en' ? 1.02 : 1.0);
 
-      // Best voice selection
+      // Tuning pitch for cute characters in fallback
+      if (para.speaker === 'Pip') {
+        ut.pitch = 1.35; // cute younger ant pitch
+      } else if (para.speaker === 'Andy') {
+        ut.pitch = 1.05; // warm brotherly ant pitch
+      } else {
+        ut.pitch = 1.0;
+      }
+
       const voices = window.speechSynthesis.getVoices();
       const matchedVoice = voices.find(v => v.lang.startsWith(narrationLang === 'en' ? 'en' : 'th'));
       if (matchedVoice) ut.voice = matchedVoice;
@@ -926,10 +1037,8 @@
       ut.onend = () => {
         if (!isPlaying) return;
         setTimeout(() => {
-          if (isPlaying) {
-            speakParagraph(index + 1, onComplete);
-          }
-        }, 700);
+          if (isPlaying) speakParagraph(index + 1, onComplete);
+        }, 600);
       };
 
       ut.onerror = () => {
@@ -978,9 +1087,7 @@
       if (heroImg) heroImg.classList.remove('anim-kenburns');
 
       stopBgmLoop();
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
+      stopAllAudio();
     }
 
     function restartStoryAudio() {
@@ -1047,7 +1154,10 @@
       else speechRate = 0.85;
 
       document.getElementById('rateLabel').textContent = `${speechRate}x`;
-      if (isPlaying) {
+      if (currentHtmlAudio) {
+        currentHtmlAudio.playbackRate = speechRate;
+      }
+      if (isPlaying && !currentHtmlAudio) {
         speakParagraph(currentParaIdx);
       }
     }
@@ -1247,6 +1357,12 @@
       document.getElementById('stageSpeakerAvatar').textContent = para.speakerEmoji || '🐜';
       document.getElementById('stageSpeechTextEn').textContent = para.dialogueEn || para.en;
       document.getElementById('stageSpeechTextTh').textContent = para.dialogueTh || para.th;
+
+      const inlineBadge = document.getElementById('scenePageBadgeInline');
+      const story = STORIES_DATA[currentStoryIdx];
+      if (inlineBadge && story) {
+        inlineBadge.textContent = `ฉากที่ ${currentParaIdx + 1}/${story.paragraphs.length}`;
+      }
 
       // Color theme for speaker
       const avatarBox = document.getElementById('stageSpeakerAvatar');
