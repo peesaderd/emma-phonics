@@ -72,9 +72,13 @@
       transform: rotateY(180deg);
     }
     .card-matched {
-      transform: rotateY(180deg) scale(0.96);
-      opacity: 0.85;
-      pointer-events: none;
+      transform: rotateY(180deg) !important;
+      cursor: pointer;
+    }
+    .card-matched .card-back {
+      border: 2.5px solid #10B981 !important;
+      background: linear-gradient(180deg, #F0FDF4 0%, #DCFCE7 100%) !important;
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.3) !important;
     }
     .card-front, .card-back {
       position: absolute;
@@ -93,13 +97,15 @@
       transform: rotateY(180deg);
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
       border: 2px solid #FED7D7;
+      transition: border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
     }
     @keyframes bounceGlow {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.06); }
+      0% { transform: rotateY(180deg) scale(1); }
+      50% { transform: rotateY(180deg) scale(1.12); }
+      100% { transform: rotateY(180deg) scale(1); }
     }
     .animate-match {
-      animation: bounceGlow 0.5s ease-out;
+      animation: bounceGlow 0.5s ease-out forwards;
     }
   </style>
 </head>
@@ -549,6 +555,8 @@
               </div>
               <!-- Card Back (Content) -->
               <div class="card-back flex flex-col items-center justify-center p-2 select-none relative">
+                <!-- Checkmark badge when matched -->
+                <span class="matched-badge absolute top-1.5 left-2 text-[11px] font-black text-emerald-600 hidden">✅</span>
                 <!-- Speaker icon indicator -->
                 <span class="absolute top-1.5 right-2 text-[10px] text-slate-300 hover:text-red-500">🔊</span>
                 ${card.type === 'chinese' ? `
@@ -613,8 +621,15 @@
         // MATCH SUCCESS!
         setTimeout(() => {
           playMatchSfx();
+          // Ensure cards stay permanently face up (rotateY 180deg) and styled as completed
           first.el.classList.add('card-matched', 'animate-match');
           second.el.classList.add('card-matched', 'animate-match');
+
+          // Display green checkmark badge on both matched cards
+          const b1 = first.el.querySelector('.matched-badge');
+          if (b1) b1.classList.remove('hidden');
+          const b2 = second.el.querySelector('.matched-badge');
+          if (b2) b2.classList.remove('hidden');
 
           // Spoken Mandarin Praise & Word
           speakChineseWord(first.card.word, '太棒了！');
