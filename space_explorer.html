@@ -192,7 +192,12 @@
         </span>
 
         <!-- Voice Narration & Language Controls -->
-        <div class="flex items-center gap-1.5">
+        <div class="flex items-center gap-1.5 flex-wrap justify-end">
+          <!-- Speed Controller (Kid Pacing) -->
+          <button onclick="toggleSpaceSpeechRate()" id="btnSpaceRate" class="px-2 py-0.5 rounded-lg bg-slate-900/90 border border-amber-500/40 text-amber-300 text-[10px] font-black transition active:scale-95 shadow-xs flex items-center gap-1" title="ปรับความเร็วการพูด (เหมาะสำหรับฝึกพูดตาม)">
+            <span id="spaceRateLabel">🐢 0.8x ช้า</span>
+          </button>
+
           <!-- Language Toggle EN/TH -->
           <div class="flex items-center p-0.5 bg-slate-900/80 rounded-xl border border-slate-700 text-[10px] font-bold">
             <button onclick="setSpaceVoiceLang('th')" id="btnVoiceLangTh" class="px-2 py-0.5 rounded-lg font-black transition active:scale-95 bg-sky-500 text-white shadow-xs">
@@ -260,32 +265,159 @@
         </div>
       </div>
 
-    </div>
-
-    <!-- 4. ROCKET BLAST OFF LAUNCHPAD (INTERACTIVE SIMULATOR) -->
-    <div class="w-full bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-4 border border-indigo-500/30 mb-3 shadow-lg flex items-center justify-between gap-3 relative overflow-hidden">
-      
-      <!-- Background Blast Glow -->
-      <div id="rocketLaunchGlow" class="absolute inset-0 bg-orange-500/10 opacity-0 pointer-events-none transition-opacity duration-300"></div>
-
-      <div class="flex items-center gap-3 z-10">
-        <!-- Animated Rocket Icon -->
-        <div id="rocketShipBox" class="w-14 h-14 rounded-2xl bg-indigo-900/50 border border-indigo-700/60 flex items-center justify-center text-3xl shadow-md">
-          <span id="rocketIcon">🚀</span>
+      <!-- 💬 CONVERSATION PRACTICE & SHADOWING CARDS -->
+      <div class="w-full mt-3 p-3 rounded-2xl bg-indigo-950/40 border border-indigo-500/20 text-left">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[11px] font-black text-indigo-200 flex items-center gap-1.5 font-thai">
+            <i class="fa-solid fa-comments text-sky-400"></i>
+            <span>ฝึกพูดตามทีละประโยค (Listen & Repeat)</span>
+          </span>
+          <span class="text-[9.5px] text-slate-400 font-thai">แตะเพื่อฟังซ้ำช้าๆ</span>
         </div>
-        <div>
-          <h3 class="text-sm font-black text-white flex items-center gap-1.5">
-            <span>Rocket Blast Off!</span>
-            <span class="px-1.5 py-0.2 rounded-md bg-orange-500/20 text-orange-300 text-[9px] font-bold border border-orange-500/30">มินิเกม</span>
-          </h3>
-          <p id="rocketStatusMsg" class="text-[11px] text-slate-300 font-medium">กดปุ่มเพื่อปล่อยจรวดท่องอวกาศ</p>
+        <div id="planetSentencesList" class="space-y-1.5">
+          <!-- Rendered dynamically by JS -->
         </div>
       </div>
 
-      <!-- Launch Action Button -->
-      <button onclick="launchRocket()" id="btnLaunchRocket" class="z-10 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-black text-xs shadow-md shadow-orange-500/30 transition active:scale-95 flex items-center gap-1.5 shrink-0">
-        <span>🔥 ปล่อยจรวด!</span>
-      </button>
+      <!-- 💡 KID CONVERSATION PROMPT CARD -->
+      <div class="w-full mt-2 p-3 rounded-2xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/10 border border-amber-500/30 text-left flex items-start gap-2.5">
+        <div class="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-base shrink-0 mt-0.5">
+          💡
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center justify-between gap-1 mb-0.5">
+            <span class="text-[10px] font-black text-amber-300 uppercase tracking-wide font-thai">คำถามชวนคุย (Conversation Prompt)</span>
+            <button onclick="speakConversationPrompt()" class="px-2 py-0.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 text-[10px] font-black transition active:scale-95 flex items-center gap-1" title="ฟังคำถามชวนคุย">
+              <i class="fa-solid fa-volume-high text-xs"></i>
+              <span>ฟังคำถาม</span>
+            </button>
+          </div>
+          <p id="planetConversationPrompt" class="text-xs text-amber-100 font-medium leading-relaxed font-thai">
+            <!-- Injected by JS -->
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 4. ROCKET BLAST OFF LAUNCHPAD (HIGH-OCTANE INTERACTIVE SIMULATOR) -->
+    <div id="spaceportStage" class="w-full bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-900 rounded-3xl p-4 sm:p-5 border border-indigo-500/40 mb-3 shadow-xl relative overflow-hidden text-center select-none">
+      
+      <!-- Launchpad Header & Telemetry -->
+      <div class="flex items-center justify-between gap-2 mb-3">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-orange-500/20 border border-orange-500/40 flex items-center justify-center text-sm shadow-xs">
+            🚀
+          </div>
+          <div class="text-left">
+            <h3 class="text-xs sm:text-sm font-black text-white flex items-center gap-1.5 font-thai">
+              <span>ฐานปล่อยยานอวกาศ (Spaceport Launch Stage)</span>
+            </h3>
+            <p id="rocketStatusMsg" class="text-[10.5px] text-indigo-200 font-medium font-thai">พร้อมจุดระเบิด! แตะปุ่มปล่อยจรวดเพื่อเริ่มนับถอยหลัง</p>
+          </div>
+        </div>
+
+        <!-- Telemetry Badges -->
+        <div class="flex items-center gap-1.5">
+          <span id="telemetrySpeed" class="px-2 py-0.5 rounded-lg bg-slate-900/80 border border-slate-700 text-sky-300 text-[10px] font-mono font-bold">
+            0 km/h
+          </span>
+          <span id="telemetryAlt" class="px-2 py-0.5 rounded-lg bg-slate-900/80 border border-slate-700 text-amber-300 text-[10px] font-mono font-bold">
+            0 km
+          </span>
+        </div>
+      </div>
+
+      <!-- Launch Window Viewport -->
+      <div id="launchViewport" class="relative w-full h-44 sm:h-48 rounded-2xl bg-gradient-to-b from-[#050814] via-[#0B1229] to-[#1E1B4B] border border-indigo-900/80 overflow-hidden flex flex-col justify-end items-center pb-2 shadow-inner">
+        
+        <!-- Twinkling Stars in viewport -->
+        <div class="absolute inset-0 pointer-events-none opacity-60">
+          <span class="absolute top-3 left-6 text-xs text-yellow-200 animate-pulse">✦</span>
+          <span class="absolute top-8 right-10 text-[10px] text-sky-200 animate-ping" style="animation-duration: 3s;">★</span>
+          <span class="absolute top-12 left-1/3 text-[9px] text-white">✦</span>
+          <span class="absolute top-4 right-1/4 text-xs text-indigo-300">★</span>
+          <span class="absolute top-16 left-3/4 text-[10px] text-amber-200">✦</span>
+        </div>
+
+        <!-- Moon in high sky -->
+        <div id="skyMoon" class="absolute top-3 right-5 text-xl transition-all duration-1000 opacity-80">
+          🌙
+        </div>
+
+        <!-- Gantry Towers (Left and Right Support Clamps) -->
+        <div id="gantryLeft" class="absolute bottom-2 left-1/2 -translate-x-16 sm:-translate-x-20 w-3 h-28 border-r-2 border-t-2 border-red-500/70 bg-gradient-to-t from-red-950/60 to-red-600/40 rounded-t transition-transform duration-700 z-10">
+          <div class="w-5 h-1 bg-red-400 absolute top-6 right-0"></div>
+          <div class="w-5 h-1 bg-red-400 absolute top-16 right-0"></div>
+        </div>
+        <div id="gantryRight" class="absolute bottom-2 right-1/2 translate-x-16 sm:translate-x-20 w-3 h-28 border-l-2 border-t-2 border-red-500/70 bg-gradient-to-t from-red-950/60 to-red-600/40 rounded-t transition-transform duration-700 z-10">
+          <div class="w-5 h-1 bg-red-400 absolute top-6 left-0"></div>
+          <div class="w-5 h-1 bg-red-400 absolute top-16 left-0"></div>
+        </div>
+
+        <!-- Launchpad Concrete Base -->
+        <div class="w-48 sm:w-56 h-4 bg-slate-800 border-t-2 border-slate-600 rounded-t-lg z-10 flex items-center justify-center">
+          <div class="w-24 h-1.5 bg-yellow-500/80 rounded-full"></div>
+        </div>
+
+        <!-- The Rocket Vessel (Animated Upward) -->
+        <div id="rocketVessel" class="absolute bottom-3 left-1/2 -translate-x-1/2 flex flex-col items-center transition-all z-20" style="transition-duration: 0.1s;">
+          
+          <!-- Rocket Body SVG Illustration -->
+          <svg class="w-16 h-28 drop-shadow-xl" viewBox="0 0 64 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Nosecone Red -->
+            <path d="M32 4 C24 16, 20 28, 20 40 L44 40 C44 28, 40 16, 32 4 Z" fill="#EF4444" stroke="#DC2626" stroke-width="2"/>
+            <!-- Main Fuselage White -->
+            <path d="M20 40 L20 90 C20 94, 24 96, 32 96 C40 96, 44 94, 44 90 L44 40 Z" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+            <!-- Body Stripe Red -->
+            <rect x="20" y="58" width="24" height="6" fill="#EF4444"/>
+            <!-- Porthole Window -->
+            <circle cx="32" cy="50" r="7" fill="#0284C7" stroke="#38BDF8" stroke-width="2"/>
+            <circle cx="30" cy="48" r="2.5" fill="#E0F2FE"/>
+            <!-- Cute Astronaut in window -->
+            <circle cx="32" cy="51" r="3.5" fill="#FDE047"/>
+            <circle cx="31" cy="50" r="0.8" fill="#1E293B"/>
+            <circle cx="33" cy="50" r="0.8" fill="#1E293B"/>
+            <!-- Left Fin -->
+            <path d="M20 74 L8 96 L20 92 Z" fill="#DC2626" stroke="#991B1B" stroke-width="1.5"/>
+            <!-- Right Fin -->
+            <path d="M44 74 L56 96 L44 92 Z" fill="#DC2626" stroke="#991B1B" stroke-width="1.5"/>
+            <!-- Center Engine Nozzle -->
+            <path d="M26 96 L24 102 L40 102 L38 96 Z" fill="#475569" stroke="#334155" stroke-width="1.5"/>
+          </svg>
+
+          <!-- Thruster Flames (Hidden by default, active during launch) -->
+          <div id="thrusterFireBox" class="w-8 h-12 -mt-2.5 opacity-0 transition-opacity flex flex-col items-center">
+            <div class="w-4 h-8 bg-gradient-to-b from-amber-300 via-orange-500 to-transparent rounded-b-full animate-bounce"></div>
+            <div class="w-6 h-6 bg-gradient-to-b from-yellow-200 via-red-600 to-transparent rounded-b-full -mt-6 opacity-80 animate-pulse"></div>
+          </div>
+        </div>
+
+        <!-- Billowing Smoke Clouds at Launchpad (Active on ignition) -->
+        <div id="launchSmokePuff" class="absolute bottom-2 w-full flex items-center justify-center gap-1 pointer-events-none opacity-0 transition-opacity duration-300 z-20">
+          <div class="w-12 h-6 bg-slate-300/80 rounded-full blur-[2px] animate-pulse"></div>
+          <div class="w-16 h-8 bg-orange-200/90 rounded-full blur-[1px]"></div>
+          <div class="w-14 h-6 bg-slate-200/80 rounded-full blur-[2px]"></div>
+        </div>
+
+        <!-- Mission Success Banner overlay -->
+        <div id="missionSuccessOverlay" class="absolute inset-0 bg-indigo-950/90 backdrop-blur-xs flex flex-col items-center justify-center p-3 opacity-0 pointer-events-none transition-opacity duration-500 z-30">
+          <span class="text-3xl mb-1">🎉 🛰️ 🌍</span>
+          <h4 class="text-sm font-black text-white font-thai">ภารกิจสำเร็จ! เข้าสู่วงโคจรแล้ว</h4>
+          <p class="text-[11px] text-sky-200 font-thai mt-0.5">ยินดีด้วยนะนักบินอวกาศจิ๋ว! ยานเดินทางสู่อวกาศเรียบร้อย</p>
+          <button onclick="resetRocketStage()" class="mt-2.5 px-3.5 py-1.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white text-xs font-black shadow-md transition active:scale-95 font-thai">
+            🔄 นำจรวดกลับฐานปล่อย
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Action Button Controls -->
+      <div class="flex items-center justify-center gap-2 mt-3">
+        <button onclick="startRocketLaunchSequence()" id="btnStartLaunch" class="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-orange-500 via-amber-500 to-orange-500 hover:from-orange-600 hover:to-amber-600 text-white font-black text-xs sm:text-sm shadow-lg shadow-orange-500/30 transition active:scale-95 flex items-center gap-2 font-thai">
+          <span>🔥 ปล่อยจรวดสู่ดวงดาว!</span>
+        </button>
+      </div>
 
     </div>
 
@@ -473,8 +605,15 @@
         temp: '+5,500°C',
         orbit: 'ศูนย์กลาง',
         moons: 'ดาวเคราะห์ 8 ดวง',
-        factTh: 'ดวงอาทิตย์ คือดวงไฟสีทองยักษ์ที่เป็นศูนย์กลางของระบบสุริยะ ร้อนแรงถึงห้าพันห้าร้อยองศาเซลเซียส ให้แสงสว่างและความอบอุ่นแก่ทุกชีวิตบนโลก ถ้าไม่มีดวงอาทิตย์ โลกของเราจะมืดมิดและหนาวเย็นเป็นน้ำแข็งเลยนะ!',
-        factEn: 'The Sun is a gigantic glowing ball of golden fire at the center of our Solar System! It shines brightly at over 5,000 degrees Celsius, giving light and warmth to Earth. Without the Sun, our world would be pitch dark and frozen cold!'
+        factTh: 'ดวงอาทิตย์ คือดวงไฟสีทองยักษ์ที่เป็นศูนย์กลางของระบบสุริยะ ร้อนแรงและส่องแสงสว่างสดใสให้โลกของเรามีชีวิตชีวาในทุกๆ เช้า',
+        factEn: 'The Sun is a giant golden fireball at the heart of our solar system, providing warmth and bright light to all living things.',
+        sentences: [
+          { th: 'ดวงอาทิตย์ คือดวงไฟยักษ์ที่เป็นศูนย์กลางของระบบสุริยะ', en: 'The Sun is a giant fireball at the center of the solar system.' },
+          { th: 'ส่องแสงสว่างสดใส และให้ความอบอุ่นแก่ทุกชีวิตบนโลก', en: 'It shines bright light and gives warm energy to all living things.' },
+          { th: 'ถ้าไม่มีดวงอาทิตย์ โลกจะมืดมิดและหนาวเย็นเป็นน้ำแข็ง', en: 'Without the Sun, Earth would be pitch dark and freezing cold.' }
+        ],
+        promptTh: 'แสงแดดตอนเช้าอุ่นจัง วันนี้หนูอยากออกไปเล่นอะไรกลางแจ้งดีครับ?',
+        promptEn: 'Sunshine gives us warm energy! What fun game do you want to play outside today?'
       },
       {
         id: 'mercury',
@@ -489,8 +628,15 @@
         temp: '+430°C / -180°C',
         orbit: '88 วัน',
         moons: '0 ดวง',
-        factTh: 'ดาวพุธ เป็นดาวเคราะห์ดวงเล็กที่สุดและอยู่ใกล้ดวงอาทิตย์ที่สุด โคจรไวมาก แค่แปดสิบแปดวันก็ครบหนึ่งปีแล้ว ตอนกลางวันจะร้อนจัด แต่ตอนกลางคืนจะหนาวจัดจนติดลบเลยล่ะ!',
-        factEn: 'Mercury is the smallest planet and the closest neighbor to the Sun! It zooms around the Sun so fast that a whole year is only 88 days! It gets boiling hot during the day and freezing cold at night!'
+        factTh: 'ดาวพุธ เป็นดาวเคราะห์ดวงเล็กที่สุดและอยู่ใกล้ดวงอาทิตย์ที่สุด โคจรรอบดวงอาทิตย์ได้ว่องไวและรวดเร็วกว่าดาวเคราะห์ดวงไหนๆ ในอวกาศ',
+        factEn: 'Mercury is the smallest planet and closest to the Sun, racing around its orbit faster than any other planet.',
+        sentences: [
+          { th: 'ดาวพุธ เป็นดาวเคราะห์ดวงเล็กที่สุดและอยู่ใกล้ดวงอาทิตย์ที่สุด', en: 'Mercury is the smallest planet and closest neighbor to the Sun.' },
+          { th: 'วิ่งโคจรรอบดวงอาทิตย์ได้ว่องไวและรวดเร็วมาก', en: 'It races around the Sun super fast, in just eighty-eight days.' },
+          { th: 'ตอนกลางวันร้อนจัด แต่ตอนกลางคืนหนาวจัดติดลบ', en: 'It is boiling hot during the day, but freezing cold at night.' }
+        ],
+        promptTh: 'ดาวพุธวิ่งรอบดวงอาทิตย์เร็วมาก! หนูคิดว่าตัวอะไรบนโลกที่วิ่งเร็วที่สุด?',
+        promptEn: 'Mercury runs super fast! What animal on Earth do you think runs fastest?'
       },
       {
         id: 'venus',
@@ -505,8 +651,15 @@
         temp: '+465°C',
         orbit: '225 วัน',
         moons: '0 ดวง',
-        factTh: 'ดาวศุกร์ เป็นดาวที่สว่างที่สุดบนท้องฟ้ายามค่ำคืน แต่รู้มั้ยว่าที่นี่คือดาวที่ร้อนที่สุดในระบบสุริยะ เพราะมีเมฆหนาทึบกักเก็บความร้อนไว้เหมือนเตาอบยักษ์ ร้อนกว่าสี่ร้อยหกสิบองศาเลยนะ!',
-        factEn: 'Venus is the brightest jewel in the night sky! But inside, it is the hottest planet in the entire Solar System, with thick yellow clouds trapping heat like a giant cosmic oven at over 460 degrees!'
+        factTh: 'ดาวศุกร์ เป็นดาวที่สว่างที่สุดบนท้องฟ้ายามค่ำคืน แต่รู้มั้ยว่าที่นี่มีก้อนเมฆหนาทึบและเป็นดาวเคราะห์ที่ร้อนระอุที่สุดในระบบสุริยะเลยนะ',
+        factEn: 'Venus shines brightest in our night sky, wrapped in thick yellowish clouds and holding the record as the hottest planet.',
+        sentences: [
+          { th: 'ดาวศุกร์ ส่องแสงสว่างสดใสที่สุดบนท้องฟ้ายามค่ำคืน', en: 'Venus shines brightest like a sparkling jewel in the night sky.' },
+          { th: 'มีกลุ่มเมฆหนาทึบกักเก็บความร้อนไว้เหมือนเตาอบยักษ์', en: 'It has thick clouds trapping heat inside like a giant cosmic oven.' },
+          { th: 'เป็นดาวเคราะห์ที่ร้อนระอุที่สุดในระบบสุริยะของเรา', en: 'It is the hottest planet in our entire solar system.' }
+        ],
+        promptTh: 'ดาวศุกร์สว่างมากเลย บนท้องฟ้าตอนกลางคืน หนูชอบมองอะไรมากที่สุด?',
+        promptEn: 'Venus shines so bright! What do you love looking at in the night sky?'
       },
       {
         id: 'earth',
@@ -520,9 +673,16 @@
         hasMoon: true,
         temp: '+15°C',
         orbit: '365 วัน',
-        moons: '1 ดวง (ดวงจันทร์)',
-        factTh: 'โลก คือบ้านสีน้ำเงินแสนอบอุ่นของเรา เป็นดาวเคราะห์เพียงดวงเดียวที่มีมหาสมุทร มีป่าไม้ และมีสิ่งมีชีวิต มีดวงจันทร์สีนวลคอยหมุนเป็นเพื่อนเราในยามค่ำคืนด้วยนะ!',
-        factEn: 'Earth is our beautiful blue home planet! It is the only known world in the universe filled with sparkling oceans, green forests, and happy living creatures. We also have a lovely glowing Moon dancing around us every night!'
+        moons: '1 ดวง',
+        factTh: 'โลก คือบ้านสีน้ำเงินแสนอบอุ่นของเรา เป็นดาวเคราะห์เพียงดวงเดียวที่มีมหาสมุทรสีฟ้า ต้นไม้เขียวชอุ่ม และอากาศบริสุทธิ์ให้เราได้หายใจ',
+        factEn: 'Earth is our beautiful blue home, the only planet known to host vast oceans, thriving green nature, and life.',
+        sentences: [
+          { th: 'โลก คือบ้านสีน้ำเงินแสนอบอุ่นและสวยงามของเรา', en: 'Earth is our beautiful blue home floating in space.' },
+          { th: 'มีมหาสมุทร มีป่าไม้เขียวชอุ่ม และอากาศบริสุทธิ์ให้หายใจ', en: 'It has blue oceans, lush green forests, and fresh air to breathe.' },
+          { th: 'มีดวงจันทร์สีนวลคอยโคจรเป็นเพื่อนเราในยามค่ำคืน', en: 'The gentle Moon circles around as our faithful night friend.' }
+        ],
+        promptTh: 'บนโลกของเรามีทั้งทะเลและป่าไม้ หนูชอบไปเที่ยวทะเลหรือภูเขามากกว่ากันครับ?',
+        promptEn: 'Earth has oceans and forests! Do you prefer going to the beach or mountains?'
       },
       {
         id: 'mars',
@@ -531,14 +691,21 @@
         emoji: '🔴',
         orderText: 'ลำดับที่ 4 จากดวงอาทิตย์',
         sphereBg: 'radial-gradient(circle at 35% 35%, #FCA5A5 0%, #DC2626 60%, #7F1D1D 100%)',
-        glowColor: 'rgba(239, 68, 68, 0.55)',
+        glowColor: 'rgba(239, 68, 68, 0.5)',
         hasRing: false,
         hasMoon: false,
         temp: '-63°C',
         orbit: '687 วัน',
         moons: '2 ดวง',
-        factTh: 'ดาวอังคาร ได้รับฉายาว่า ดาวเคราะห์สีแดง เพราะบนผิวดาวเต็มไปด้วยฝุ่นสนิมเหล็กสีแดง มีภูเขาไฟโอลิมปัสที่สูงที่สุดในระบบสุริยะ สูงกว่ายอดเขาเอเวอเรสต์ถึงสามเท่าเลยทีเดียว!',
-        factEn: 'Mars is called the Red Planet because its surface is covered in rusty red iron dust! Mars has giant canyons and Olympus Mons, the tallest volcano in the entire Solar System, three times taller than Mount Everest!'
+        factTh: 'ดาวอังคาร ได้รับฉายาว่า ดาวเคราะห์สีแดง เพราะบนผิวดาวเต็มไปด้วยผงสนิมเหล็กสีส้มแดง และมียอดภูเขาไฟที่สูงที่สุดในระบบสุริยะ',
+        factEn: 'Mars is famous as the Red Planet due to its rusty red soil, and is home to the tallest volcano in the entire solar system.',
+        sentences: [
+          { th: 'ดาวอังคาร ได้รับฉายาว่า ดาวเคราะห์สีแดง', en: 'Mars is famously known across space as the Red Planet.' },
+          { th: 'บนพื้นผิวเต็มไปด้วยหินและผงฝุ่นสนิมเหล็กสีส้มแดง', en: 'Its surface is covered with rusty red sand and rocky deserts.' },
+          { th: 'มียอดภูเขาไฟโอลิมปัสที่สูงที่สุดในระบบสุริยะ', en: 'It is home to Olympus Mons, the tallest volcano in the solar system.' }
+        ],
+        promptTh: 'ดาวอังคารมีทรายสีส้มแดง ถ้าหนูไปสร้างบ้านที่นั่น หนูอยากให้บ้านมีกี่ห้องดี?',
+        promptEn: 'Mars has red orange sand! If you build a house there, how many rooms will it have?'
       },
       {
         id: 'jupiter',
@@ -546,15 +713,22 @@
         nameTh: 'ดาวพฤหัสบดี',
         emoji: '🟠',
         orderText: 'ลำดับที่ 5 จากดวงอาทิตย์',
-        sphereBg: 'radial-gradient(circle at 35% 35%, #FED7AA 0%, #D97706 50%, #7C2D12 100%)',
-        glowColor: 'rgba(217, 119, 6, 0.5)',
+        sphereBg: 'radial-gradient(circle at 35% 35%, #FDBA74 0%, #C2410C 60%, #7C2D12 100%)',
+        glowColor: 'rgba(234, 88, 12, 0.5)',
         hasRing: false,
         hasMoon: false,
         temp: '-110°C',
         orbit: '12 ปี',
         moons: '95 ดวง',
-        factTh: 'ดาวพฤหัสบดี เป็นพี่ยักษ์ใหญ่ใจดีที่ตัวโตที่สุดในระบบสุริยะ ใหญ่ขนาดที่เอาโลกมาใส่ข้างในได้มากกว่าหนึ่งพันสามร้อยดวง! และมีจุดแดงยักษ์ที่เป็นพายุหมุนขนาดใหญ่กว่าโลกของเราเสียอีก!',
-        factEn: 'Jupiter is the king of the planets! It is so gigantic that more than 1,300 Earths could fit inside it! It also has a famous Great Red Spot, which is a giant swirling storm bigger than our entire Earth!'
+        factTh: 'ดาวพฤหัสบดี เป็นพี่ยักษ์ใหญ่ใจดีที่ตัวโตที่สุดในระบบสุริยะ ใหญ่จนสามารถใส่ดาวเคราะห์ดวงอื่นๆ ทั้งหมดไว้ข้างในได้สบายๆ เลยล่ะ',
+        factEn: 'Jupiter is the colossal giant king of all planets, so massive that every other planet could fit inside it.',
+        sentences: [
+          { th: 'ดาวพฤหัสบดี เป็นพี่ยักษ์ใหญ่ใจดีที่ตัวโตที่สุดในระบบสุริยะ', en: 'Jupiter is a friendly giant, the biggest of all planets.' },
+          { th: 'ตัวโตมากจนสามารถนำดาวเคราะห์ดวงอื่นทั้งหมดมาใส่ไว้ข้างในได้', en: 'It is so huge that every other planet could easily fit inside.' },
+          { th: 'มีจุดสีแดงยักษ์ ซึ่งเป็นพายุหมุนลูกใหญ่กว่าโลกของเรา', en: 'It has the Great Red Spot, a gigantic storm bigger than Earth.' }
+        ],
+        promptTh: 'ดาวพฤหัสบดีตัวใหญ่ใจดีที่สุด! ถ้าหนูมีพลังแปลงร่างเป็นพี่ยักษ์ หนูจะช่วยทำอะไร?',
+        promptEn: 'Jupiter is a friendly giant! If you could become a giant, what would you help with?'
       },
       {
         id: 'saturn',
@@ -562,47 +736,68 @@
         nameTh: 'ดาวเสาร์',
         emoji: '🪐',
         orderText: 'ลำดับที่ 6 จากดวงอาทิตย์',
-        sphereBg: 'radial-gradient(circle at 35% 35%, #FEF08A 0%, #EAB308 55%, #713F12 100%)',
-        glowColor: 'rgba(234, 179, 8, 0.65)',
+        sphereBg: 'radial-gradient(circle at 35% 35%, #FEF08A 0%, #D97706 60%, #78350F 100%)',
+        glowColor: 'rgba(217, 119, 6, 0.5)',
         hasRing: true,
         hasMoon: false,
         temp: '-140°C',
         orbit: '29 ปี',
         moons: '146 ดวง',
-        factTh: 'ดาวเสาร์ คือดาวที่สวยงามและโดดเด่นที่สุด เพราะสวมมงกุฎวงแหวนยักษ์ที่สร้างจากเศษก้อนน้ำแข็งและหินระยิบระยับ และยังมีดวงจันทร์บริวารคอยเต้นระบำอยู่รอบๆ มากกว่าหนึ่งร้อยสี่สิบดวงเลยนะ!',
-        factEn: 'Saturn is the crown jewel of space, famous for its magnificent giant rings made of sparkling ice, rock, and dust! It even has over 140 moons orbiting around it like a royal cosmic court!'
+        factTh: 'ดาวเสาร์ คือดาวที่สวยงามและโดดเด่นที่สุด เพราะสวมมงกุฎวงแหวนยักษ์ที่ระยิบระยับ ประกอบด้วยก้อนน้ำแข็งและเศษหินนับล้านชิ้น',
+        factEn: 'Saturn is the dazzling crown jewel of space, celebrated for its magnificent glittering rings made of ice and rock.',
+        sentences: [
+          { th: 'ดาวเสาร์ คือดาวที่สวยงามและโดดเด่นที่สุดในอวกาศ', en: 'Saturn is the most beautiful and dazzling planet in space.' },
+          { th: 'สวมมงกุฎวงแหวนยักษ์ที่ทำจากก้อนน้ำแข็งและเศษหินนับล้านชิ้น', en: 'It wears magnificent giant rings made of millions of ice and rock pieces.' },
+          { th: 'วงแหวนหมุนระยิบระยับเหมือนอัญมณีลอยอยู่ในความมืด', en: 'Its glittering rings shine like a cosmic crown in the dark.' }
+        ],
+        promptTh: 'วงแหวนของดาวเสาร์สวยจัง ถ้าหนูออกแบบวงแหวนเอง หนูอยากเอาอะไรมาทำเป็นวงแหวน?',
+        promptEn: 'Saturn has dazzling rings! If you designed your own rings, what would they be made of?'
       },
       {
         id: 'uranus',
         nameEn: 'Uranus',
         nameTh: 'ดาวยูเรนัส',
-        emoji: '🔵',
+        emoji: '🧊',
         orderText: 'ลำดับที่ 7 จากดวงอาทิตย์',
         sphereBg: 'radial-gradient(circle at 35% 35%, #A5F3FC 0%, #06B6D4 60%, #164E63 100%)',
-        glowColor: 'rgba(6, 182, 212, 0.55)',
+        glowColor: 'rgba(6, 182, 212, 0.5)',
         hasRing: false,
         hasMoon: false,
         temp: '-195°C',
         orbit: '84 ปี',
         moons: '28 ดวง',
-        factTh: 'ดาวยูเรนัส เป็นยักษ์น้ำแข็งสีฟ้าอมเขียวที่แปลกประหลาดที่สุด เพราะมันนอนตะแคงโคจรรอบดวงอาทิตย์เหมือนลูกโบว์ลิ่งกำลังกลิ้ง และเป็นดาวที่หนาวเย็นถึงลบหนึ่งร้อยเก้าสิบห้าองศาเซลเซียส!',
-        factEn: 'Uranus is a cold, cyan ice giant with a funny secret: it tilts sideways and rolls around the Sun like a giant cosmic bowling ball! It is one of the coldest and windiest planets of all!'
+        factTh: 'ดาวยูเรนัส เป็นยักษ์น้ำแข็งสีฟ้าอมเขียวที่แปลกประหลาดที่สุด เพราะมันหมุนตะแคงข้างคล้ายลูกบอลกลิ้งไปตามวงโคจรในอวกาศ',
+        factEn: 'Uranus is a chilly ice giant glowing cyan blue, uniquely rolling on its side like a ball as it circles the Sun.',
+        sentences: [
+          { th: 'ดาวยูเรนัส เป็นยักษ์น้ำแข็งสีฟ้าอมเขียวแสนสดใส', en: 'Uranus is a chilly ice giant glowing with vivid cyan blue.' },
+          { th: 'หมุนตะแคงข้างคล้ายลูกบอลกำลังกลิ้งไปตามทางในอวกาศ', en: 'It uniquely rolls on its side like a ball rolling along its orbit.' },
+          { th: 'มีบรรยากาศที่หนาวเย็นยะเยือกและปกคลุมด้วยไอหมอก', en: 'It has an icy atmosphere covered in cool swirling mists.' }
+        ],
+        promptTh: 'ดาวยูเรนัสหมุนกลิ้งตะแคงข้างเหมือนลูกบอล หนูชอบเล่นกีฬาหรือเกมลูกบอลแบบไหนที่สุด?',
+        promptEn: 'Uranus rolls sideways like a ball! What ball game do you like to play most?'
       },
       {
         id: 'neptune',
         nameEn: 'Neptune',
         nameTh: 'ดาวเนปจูน',
-        emoji: '🔷',
+        emoji: '🔵',
         orderText: 'ลำดับที่ 8 จากดวงอาทิตย์',
-        sphereBg: 'radial-gradient(circle at 35% 35%, #60A5FA 0%, #2563EB 55%, #172554 100%)',
+        sphereBg: 'radial-gradient(circle at 35% 35%, #60A5FA 0%, #1D4ED8 60%, #172554 100%)',
         glowColor: 'rgba(37, 99, 235, 0.6)',
         hasRing: false,
         hasMoon: false,
         temp: '-200°C',
         orbit: '165 ปี',
         moons: '16 ดวง',
-        factTh: 'ดาวเนปจูน คือดาวเคราะห์สีน้ำเงินเข้มที่อยู่ไกลที่สุด หนาวเย็นยะเยือกจับขั้วหัวใจ และมีพายุลมกรดที่พัดแรงเร็วที่สุดในระบบสุริยะ เร็วกว่าเครื่องบินไอพ่นเสียอีก!',
-        factEn: 'Neptune is the deep blue planet at the very edge of our solar system! It is fiercely cold and has supersonic winds that blow faster than a supersonic jet airplane!'
+        factTh: 'ดาวเนปจูน คือดาวเคราะห์สีน้ำเงินเข้มที่อยู่ไกลที่สุด หนาวเย็นยะเยือกและมีพายุหมุนความเร็วลมสูงที่สุดในระบบสุริยะของเรา',
+        factEn: 'Neptune is the distant deep-blue world, mysterious and freezing cold, with the most powerful supersonic winds in space.',
+        sentences: [
+          { th: 'ดาวเนปจูน คือดาวเคราะห์สีน้ำเงินเข้มที่อยู่ไกลที่สุด', en: 'Neptune is the deep blue world farthest away from the Sun.' },
+          { th: 'หนาวเย็นยะเยือกเหมือนมหาสมุทรอันกว้างใหญ่ไร้ก้นบึ้ง', en: 'It is freezing cold and glows like a vast bottomless ocean.' },
+          { th: 'มีพายุหมุนและความเร็วลมพัดแรงที่สุดในระบบสุริยะ', en: 'It has the most powerful supersonic winds in the entire solar system.' }
+        ],
+        promptTh: 'ดาวเนปจูนหนาวเย็นยะเยือก ถ้าหนูไปเที่ยวที่นั่น หนูจะใส่เสื้อกันหนาวสีอะไรดีครับ?',
+        promptEn: 'Neptune is freezing cold! What color winter coat would you wear there?'
       }
     ];
 
@@ -719,10 +914,36 @@
       }
 
       document.getElementById('planetCoreEmoji').textContent = p.emoji;
+
+      // Render sentence-by-sentence shadowing list & conversation prompt
+      renderSentencesList();
+      renderConversationPrompt();
     }
 
-    // 5. ENHANCED VOICE NARRATION WITH DUAL AUDIO ENGINE (STUDIO MP3 + WEB SPEECH FALLBACK)
+    // 5. ENHANCED VOICE NARRATION & CONVERSATION COACHING ENGINE
     let currentPlanetAudio = null;
+    let spaceSpeechRate = 0.82; // Default to gentle, clear cadence for kids
+    let activeSentenceIdx = -1;
+
+    function toggleSpaceSpeechRate() {
+      if (spaceSpeechRate === 0.82) {
+        spaceSpeechRate = 0.95;
+        document.getElementById('spaceRateLabel').textContent = '👶 0.95x พอดี';
+      } else if (spaceSpeechRate === 0.95) {
+        spaceSpeechRate = 1.0;
+        document.getElementById('spaceRateLabel').textContent = '🐰 1.0x ปกติ';
+      } else {
+        spaceSpeechRate = 0.82;
+        document.getElementById('spaceRateLabel').textContent = '🐢 0.8x ช้า';
+      }
+
+      if (currentPlanetAudio) {
+        try {
+          currentPlanetAudio.playbackRate = spaceSpeechRate;
+        } catch(e) {}
+      }
+      playBeep(520, 0.05, 'triangle');
+    }
 
     function setSpaceVoiceLang(lang) {
       spaceVoiceLang = lang;
@@ -735,6 +956,8 @@
 
       const p = PLANETS_DATA[currentPlanetIdx];
       document.getElementById('planetSubtitle').textContent = (spaceVoiceLang === 'th') ? p.factTh : p.factEn;
+      renderSentencesList();
+      renderConversationPrompt();
 
       if (isSpeakingPlanet) {
         speakPlanetFact();
@@ -763,6 +986,9 @@
         } catch(e) {}
       }
       isSpeakingPlanet = false;
+      activeSentenceIdx = -1;
+      updateSentenceHighlighting();
+
       const wave = document.getElementById('planetAudioWave');
       if (wave) wave.classList.add('hidden');
       const icon = document.getElementById('voicePlayIcon');
@@ -788,16 +1014,16 @@
       const label = document.getElementById('voiceBtnLabel');
       if (label) label.textContent = 'หยุดเล่า';
 
-      // 1. Primary: High-fidelity Studio MP3 (Works everywhere, 100% crystal-clear Thai & English)
       try {
         currentPlanetAudio = new Audio(audioUrl);
+        currentPlanetAudio.playbackRate = spaceSpeechRate;
 
         currentPlanetAudio.onended = () => {
           stopPlanetSpeech();
         };
 
         currentPlanetAudio.onerror = (err) => {
-          console.warn('Audio file playback failed, falling back to Web Speech API:', err);
+          console.warn('Audio playback error, fallback to Web Speech:', err);
           fallbackWebSpeech(p);
         };
 
@@ -825,169 +1051,253 @@
 
       const ut = new SpeechSynthesisUtterance(text);
       ut.lang = langCode;
-      ut.rate = 0.92;
+      ut.rate = spaceSpeechRate;
       ut.pitch = 1.0;
 
       const voices = window.speechSynthesis.getVoices();
       const matchedVoice = voices.find(v => v.lang.startsWith(spaceVoiceLang === 'th' ? 'th' : 'en'));
       if (matchedVoice) ut.voice = matchedVoice;
 
-      ut.onend = () => {
-        stopPlanetSpeech();
-      };
-
-      ut.onerror = () => {
-        stopPlanetSpeech();
-      };
-
+      ut.onend = () => stopPlanetSpeech();
+      ut.onerror = () => stopPlanetSpeech();
       window.speechSynthesis.speak(ut);
     }
 
-    // 6. ROCKET BLAST OFF SIMULATOR
-    let isLaunching = false;
-    function launchRocket() {
-      if (isLaunching) return;
-      isLaunching = true;
+    // 6. SENTENCE-BY-SENTENCE SHADOWING & CONVERSATION PROMPT
+    function renderSentencesList() {
+      const p = PLANETS_DATA[currentPlanetIdx];
+      const listEl = document.getElementById('planetSentencesList');
+      if (!listEl) return;
 
-      const btn = document.getElementById('btnLaunchRocket');
-      const rocketBox = document.getElementById('rocketShipBox');
-      const statusMsg = document.getElementById('rocketStatusMsg');
-      const glow = document.getElementById('rocketLaunchGlow');
-
-      btn.disabled = true;
-      btn.classList.add('opacity-50');
-
-      let count = 3;
-      statusMsg.textContent = `🚀 นับถอยหลัง: ${count}...`;
-      playBeep(440, 0.15, 'sawtooth');
-
-      const timer = setInterval(() => {
-        count--;
-        if (count > 0) {
-          statusMsg.textContent = `🚀 นับถอยหลัง: ${count}...`;
-          playBeep(440, 0.15, 'sawtooth');
-        } else {
-          clearInterval(timer);
-          statusMsg.textContent = `🔥 BLAST OFF! ทะยานสู่อวกาศ!`;
-          playBeep(880, 0.35, 'sawtooth');
-          glow.classList.remove('opacity-0');
-          glow.classList.add('opacity-100');
-
-          // Trigger rocket launch animation
-          rocketBox.classList.add('launching-rocket');
-
-          // Add stars
-          setTimeout(() => {
-            userStars += 2;
-            localStorage.setItem('KB_STARS', userStars);
-            document.getElementById('starsChip').textContent = userStars;
-            if (window.KidobitsWallet) {
-              try { KidobitsWallet.addReward({ stars: 2, coins: 10 }); } catch (e) {}
-            }
-          }, 1500);
-
-          // Reset Rocket after 3.5s
-          setTimeout(() => {
-            rocketBox.classList.remove('launching-rocket');
-            glow.classList.remove('opacity-100');
-            glow.classList.add('opacity-0');
-            statusMsg.textContent = '🚀 จรวดลงจอดพร้อมสำรวจรอบใหม่แล้ว (+2 ⭐)';
-            btn.disabled = false;
-            btn.classList.remove('opacity-50');
-            isLaunching = false;
-          }, 3500);
-        }
-      }, 900);
-    }
-
-    // 7. SPACE QUIZ LOGIC
-    function renderQuiz() {
-      const q = QUIZ_DATA[quizIdx];
-      document.getElementById('quizQuestionText').textContent = q.q;
-      document.getElementById('quizScoreBadge').textContent = `คำถาม ${quizIdx + 1}/${QUIZ_DATA.length}`;
-      document.getElementById('quizFeedbackText').textContent = '';
-
-      const grid = document.getElementById('quizOptionsGrid');
-      grid.innerHTML = q.options.map((opt, optIdx) => {
+      listEl.innerHTML = p.sentences.map((s, idx) => {
+        const text = (spaceVoiceLang === 'th') ? s.th : s.en;
         return `
-          <button onclick="handleQuizAnswer(${optIdx})" class="quiz-btn py-2.5 px-3 rounded-2xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-left text-xs font-bold text-slate-100 transition active:scale-95 shadow-xs">
-            ${opt}
-          </button>
+          <div onclick="speakSingleSentence(${idx})" id="sentenceCard_${idx}" class="p-2 sm:p-2.5 rounded-xl bg-slate-900/70 border border-slate-800 hover:border-sky-500/50 cursor-pointer transition active:scale-98 flex items-center justify-between gap-2 group">
+            <div class="flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-300 text-[10px] font-black flex items-center justify-center shrink-0">
+                ${idx + 1}
+              </span>
+              <p class="text-xs text-slate-200 group-hover:text-white font-medium leading-snug font-thai">
+                ${text}
+              </p>
+            </div>
+            <button class="shrink-0 w-6 h-6 rounded-lg bg-sky-500/20 text-sky-300 group-hover:bg-sky-500 group-hover:text-white flex items-center justify-center text-[10px] transition">
+              <i class="fa-solid fa-volume-high"></i>
+            </button>
+          </div>
         `;
       }).join('');
     }
 
-    function handleQuizAnswer(selectedIdx) {
-      const q = QUIZ_DATA[quizIdx];
-      const buttons = document.querySelectorAll('.quiz-btn');
-      buttons.forEach(b => b.disabled = true);
-
-      const feedback = document.getElementById('quizFeedbackText');
-
-      if (selectedIdx === q.ans) {
-        buttons[selectedIdx].classList.add('bg-emerald-600', 'border-emerald-400', 'text-white');
-        feedback.textContent = '🎉 ถูกต้องแล้ว เก่งมาก!';
-        feedback.className = 'text-center text-xs font-black mt-2.5 h-4 transition-all text-emerald-400';
-        quizScore++;
-        playBeep(659, 0.12, 'triangle');
-      } else {
-        buttons[selectedIdx].classList.add('bg-rose-600', 'border-rose-400', 'text-white');
-        buttons[q.ans].classList.add('bg-emerald-600', 'border-emerald-400', 'text-white');
-        feedback.textContent = 'ยังไม่ใช่นะจ๊ะ ลองดูคำตอบที่ถูก';
-        feedback.className = 'text-center text-xs font-black mt-2.5 h-4 transition-all text-rose-400';
-        playBeep(260, 0.15, 'sawtooth');
-      }
-
-      setTimeout(() => {
-        if (quizIdx + 1 < QUIZ_DATA.length) {
-          quizIdx++;
-          renderQuiz();
+    function updateSentenceHighlighting() {
+      const p = PLANETS_DATA[currentPlanetIdx];
+      p.sentences.forEach((_, idx) => {
+        const el = document.getElementById(`sentenceCard_${idx}`);
+        if (!el) return;
+        if (idx === activeSentenceIdx) {
+          el.className = 'p-2 sm:p-2.5 rounded-xl bg-sky-950/90 border-2 border-sky-400 shadow-md shadow-sky-500/20 transition flex items-center justify-between gap-2';
         } else {
-          // Finish Quiz
-          finishSpaceQuiz();
+          el.className = 'p-2 sm:p-2.5 rounded-xl bg-slate-900/70 border border-slate-800 hover:border-sky-500/50 cursor-pointer transition active:scale-98 flex items-center justify-between gap-2 group';
         }
-      }, 1400);
+      });
     }
 
-    function finishSpaceQuiz() {
-      if (typeof confetti === 'function') {
-        confetti({
-          particleCount: 100,
-          spread: 80,
-          origin: { y: 0.6 }
-        });
+    function speakSingleSentence(idx) {
+      stopPlanetSpeech();
+      const p = PLANETS_DATA[currentPlanetIdx];
+      const sentence = p.sentences[idx];
+      if (!sentence) return;
+
+      activeSentenceIdx = idx;
+      updateSentenceHighlighting();
+
+      const text = (spaceVoiceLang === 'th') ? sentence.th : sentence.en;
+      const langCode = (spaceVoiceLang === 'th') ? 'th-TH' : 'en-US';
+
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const ut = new SpeechSynthesisUtterance(text);
+        ut.lang = langCode;
+        ut.rate = Math.max(0.75, spaceSpeechRate * 0.95); // Slightly slower for deliberate pronunciation training
+        ut.pitch = 1.02;
+
+        const voices = window.speechSynthesis.getVoices();
+        const matchedVoice = voices.find(v => v.lang.startsWith(spaceVoiceLang === 'th' ? 'th' : 'en'));
+        if (matchedVoice) ut.voice = matchedVoice;
+
+        ut.onend = () => {
+          activeSentenceIdx = -1;
+          updateSentenceHighlighting();
+        };
+        ut.onerror = () => {
+          activeSentenceIdx = -1;
+          updateSentenceHighlighting();
+        };
+        window.speechSynthesis.speak(ut);
       }
+    }
 
-      userStars += 5;
-      localStorage.setItem('KB_STARS', userStars);
-      document.getElementById('starsChip').textContent = userStars;
+    function renderConversationPrompt() {
+      const p = PLANETS_DATA[currentPlanetIdx];
+      const el = document.getElementById('planetConversationPrompt');
+      if (!el) return;
+      el.textContent = (spaceVoiceLang === 'th') ? p.promptTh : p.promptEn;
+    }
 
-      if (window.KidobitsWallet) {
-        try {
-          KidobitsWallet.addReward({ stars: 5, coins: 25 });
-        } catch (e) {}
+    function speakConversationPrompt() {
+      stopPlanetSpeech();
+      const p = PLANETS_DATA[currentPlanetIdx];
+      const text = (spaceVoiceLang === 'th') ? p.promptTh : p.promptEn;
+      const langCode = (spaceVoiceLang === 'th') ? 'th-TH' : 'en-US';
+
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const ut = new SpeechSynthesisUtterance(text);
+        ut.lang = langCode;
+        ut.rate = 0.85;
+        const voices = window.speechSynthesis.getVoices();
+        const matchedVoice = voices.find(v => v.lang.startsWith(spaceVoiceLang === 'th' ? 'th' : 'en'));
+        if (matchedVoice) ut.voice = matchedVoice;
+        window.speechSynthesis.speak(ut);
       }
-
-      document.getElementById('spaceWinModal').classList.remove('hidden');
     }
 
-    function resetQuiz() {
-      quizIdx = 0;
-      quizScore = 0;
-      renderQuiz();
+    // 7. HIGH-OCTANE SPACEPORT LAUNCH SEQUENCE & PHYSICS ANIMATION
+    let isLaunching = false;
+
+    function playThrusterRumbleSound(durationMs = 2500) {
+      if (!audioCtx) initAudio();
+      if (!audioCtx) return;
+
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(65, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(180, audioCtx.currentTime + durationMs / 1000);
+
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + durationMs / 1000);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + durationMs / 1000);
+      } catch(e) {}
     }
 
-    function closeWinModal() {
-      document.getElementById('spaceWinModal').classList.add('hidden');
+    function startRocketLaunchSequence() {
+      if (isLaunching) return;
+      isLaunching = true;
+
+      const btn = document.getElementById('btnStartLaunch');
+      const statusMsg = document.getElementById('rocketStatusMsg');
+      const gantryL = document.getElementById('gantryLeft');
+      const gantryR = document.getElementById('gantryRight');
+      const rocket = document.getElementById('rocketVessel');
+      const fire = document.getElementById('thrusterFireBox');
+      const smoke = document.getElementById('launchSmokePuff');
+      const speedEl = document.getElementById('telemetrySpeed');
+      const altEl = document.getElementById('telemetryAlt');
+      const viewport = document.getElementById('launchViewport');
+      const successOverlay = document.getElementById('missionSuccessOverlay');
+
+      btn.disabled = true;
+      btn.classList.add('opacity-50', 'pointer-events-none');
+
+      // Countdown 3.. 2.. 1..
+      let count = 3;
+      statusMsg.textContent = `🚨 นับถอยหลังสู่การปล่อย: ${count}...`;
+      playBeep(440, 0.15, 'sawtooth');
+
+      const countInterval = setInterval(() => {
+        count--;
+        if (count > 0) {
+          statusMsg.textContent = `🚨 นับถอยหลังสู่การปล่อย: ${count}...`;
+          playBeep(440, 0.15, 'sawtooth');
+        } else {
+          clearInterval(countInterval);
+          // IGNITION PHASE!
+          statusMsg.textContent = `🔥 จุดระเบิดขับดัน! ปลดล็อกแขนกั้นฐานปล่อย!`;
+          playBeep(660, 0.25, 'sawtooth');
+
+          // 1. Swing open Gantry Arms
+          if (gantryL) gantryL.style.transform = 'translateX(-30px) rotate(-15deg)';
+          if (gantryR) gantryR.style.transform = 'translateX(30px) rotate(15deg)';
+
+          // 2. Thruster Flame & Smoke burst
+          if (fire) fire.classList.remove('opacity-0');
+          if (smoke) smoke.classList.remove('opacity-0');
+
+          // 3. Screen rumble shake
+          viewport.classList.add('animate-pulse');
+          playThrusterRumbleSound(2800);
+
+          // 4. Rocket Lift-Off ascent
+          let ascentProgress = 0;
+          const ascentInterval = setInterval(() => {
+            ascentProgress += 1;
+            const bottomOffset = 12 + Math.pow(ascentProgress, 1.8) * 2;
+            const currentSpeed = Math.min(11200, Math.floor(ascentProgress * 380));
+            const currentAlt = Math.min(420, Math.floor(ascentProgress * 14));
+
+            rocket.style.bottom = `${bottomOffset}px`;
+            speedEl.textContent = `${currentSpeed.toLocaleString()} km/h`;
+            altEl.textContent = `${currentAlt} km`;
+
+            if (ascentProgress === 10) {
+              statusMsg.textContent = `🚀 ทะยานผ่านชั้นบรรยากาศ! ความเร็วหลุดพ้น!`;
+            }
+
+            if (ascentProgress >= 28) {
+              clearInterval(ascentInterval);
+              // ORBIT REACHED
+              viewport.classList.remove('animate-pulse');
+              if (fire) fire.classList.add('opacity-0');
+              if (smoke) smoke.classList.add('opacity-0');
+
+              statusMsg.textContent = `🛰️ ยานเข้าสู่วงโคจรอวกาศอย่างสมบูรณ์แบบ!`;
+              playFanfare();
+
+              setTimeout(() => {
+                successOverlay.classList.remove('opacity-0', 'pointer-events-none');
+              }, 400);
+            }
+          }, 70);
+        }
+      }, 1000);
     }
 
-    // 8. INITIALIZATION ON DOM LOAD
-    window.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('starsChip').textContent = userStars;
-      renderPlanetTabs();
-      updatePlanetStage();
-      renderQuiz();
-    });
+    function resetRocketStage() {
+      const btn = document.getElementById('btnStartLaunch');
+      const statusMsg = document.getElementById('rocketStatusMsg');
+      const gantryL = document.getElementById('gantryLeft');
+      const gantryR = document.getElementById('gantryRight');
+      const rocket = document.getElementById('rocketVessel');
+      const fire = document.getElementById('thrusterFireBox');
+      const smoke = document.getElementById('launchSmokePuff');
+      const speedEl = document.getElementById('telemetrySpeed');
+      const altEl = document.getElementById('telemetryAlt');
+      const successOverlay = document.getElementById('missionSuccessOverlay');
+
+      successOverlay.classList.add('opacity-0', 'pointer-events-none');
+      if (fire) fire.classList.add('opacity-0');
+      if (smoke) smoke.classList.add('opacity-0');
+
+      if (gantryL) gantryL.style.transform = '';
+      if (gantryR) gantryR.style.transform = '';
+
+      rocket.style.bottom = '12px';
+      speedEl.textContent = '0 km/h';
+      altEl.textContent = '0 km';
+
+      statusMsg.textContent = 'พร้อมจุดระเบิด! แตะปุ่มปล่อยจรวดเพื่อเริ่มนับถอยหลัง';
+      btn.disabled = false;
+      btn.classList.remove('opacity-50', 'pointer-events-none');
+      isLaunching = false;
+      playBeep(520, 0.08, 'triangle');
+    }
+
   </script>
 </body>
 </html>
