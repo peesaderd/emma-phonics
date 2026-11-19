@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="th" class="min-h-full">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0B0F19">
+  <title>Kidobits Space Explorer · ผจญภัยระบบสุริยะอวกาศ 🚀🪐</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Noto+Sans+Thai:wght@400;500;600;700;800;900&family=Prompt:wght@500;600;700;800&family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Plus Jakarta Sans', 'Prompt', 'Noto Sans Thai', 'sans-serif'],
+            thai: ['Noto Sans Thai', 'Prompt', 'sans-serif'],
+            bubble: ['Baloo 2', 'Noto Sans Thai', 'sans-serif']
+          },
+          colors: {
+            space: {
+              900: '#070A13',
+              800: '#0F172A',
+              700: '#1E293B'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { -webkit-tap-highlight-color: transparent; }
+    html, body {
+      min-height: 100%;
+      font-family: 'Noto Sans Thai', 'Plus Jakarta Sans', sans-serif;
+      overscroll-behavior-y: auto;
+      background-color: #070A13;
+      color: #F8FAFC;
+    }
+    :root {
+      --sat: env(safe-area-inset-top, 0px);
+      --sab: env(safe-area-inset-bottom, 0px);
+    }
+    nav.fixed[class*="bottom-"] {
+      bottom: max(12px, calc(10px + env(safe-area-inset-bottom, 0px))) !important;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Twinkling Space Stars */
+    @keyframes twinkleStar {
+      0%, 100% { opacity: 0.25; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); filter: drop-shadow(0 0 5px #60A5FA); }
+    }
+    .star-twinkle {
+      animation: twinkleStar 3s ease-in-out infinite;
+    }
+
+    /* 3D Planet Sphere Visual with Inner Shadow */
+    .planet-sphere {
+      border-radius: 9999px;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+    .planet-glow {
+      box-shadow: inset -22px -22px 45px rgba(0, 0, 0, 0.85),
+                  inset 10px 10px 25px rgba(255, 255, 255, 0.35),
+                  0 0 35px var(--glow-color, rgba(59, 130, 246, 0.45));
+    }
+
+    /* Saturn Ring */
+    .saturn-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 170%;
+      height: 44%;
+      border-radius: 50%;
+      border: 8px solid rgba(234, 179, 8, 0.75);
+      border-top-color: rgba(253, 224, 71, 0.95);
+      transform: translate(-50%, -50%) rotate(-25deg);
+      pointer-events: none;
+      box-shadow: 0 0 20px rgba(234, 179, 8, 0.4);
+    }
+
+    /* Planet Rotation Animation */
+    @keyframes slowOrbitSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .anim-spin-slow {
+      animation: slowOrbitSpin 40s linear infinite;
+    }
+
+    /* Rocket Blast Off Animation */
+    @keyframes rocketLaunch {
+      0% { transform: translateY(0) scale(1); }
+      20% { transform: translateY(8px) scale(0.98); }
+      40% { transform: translateY(-30px) scale(1.05); }
+      70% { transform: translateY(-220px) scale(1.15); opacity: 1; }
+      100% { transform: translateY(-600px) scale(0.4); opacity: 0; }
+    }
+    .launching-rocket {
+      animation: rocketLaunch 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+    }
+
+    /* Audio wave sound bars */
+    .sound-bar {
+      display: inline-block;
+      width: 3px;
+      background-color: #38BDF8;
+      border-radius: 9999px;
+      animation: waveBar 1.2s ease-in-out infinite;
+    }
+    @keyframes waveBar {
+      0%, 100% { height: 6px; }
+      50% { height: 18px; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-slate-100 select-none pb-28 overscroll-y-auto bg-[#070A13]">
+
+  <!-- 1. STANDARD KIDOBITS TOP BAR (SPACE THEME) -->
+  <header class="sticky top-0 z-40 bg-[#0B0F19]/90 backdrop-blur-md border-b border-indigo-900/40 shadow-md">
+    <div class="max-w-4xl mx-auto px-3 py-2 flex items-center justify-between gap-2">
+      <!-- Back button -->
+      <button onclick="if (history.length > 1) { history.back(); } else { location.href='/theme/theme_home.html'; }" class="btn-press flex items-center gap-1 px-3 py-1.5 rounded-full bg-slate-800/80 shadow-xs border border-slate-700 text-xs font-bold text-slate-200 hover:bg-slate-700 transition active:scale-95" title="ย้อนกลับ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5"></path>
+          <path d="M12 19l-7-7 7-7"></path>
+        </svg>
+        <span>กลับ</span>
+      </button>
+
+      <!-- Center Title -->
+      <div class="flex items-center gap-1.5">
+        <span class="text-xl">🚀</span>
+        <div>
+          <span class="text-xs sm:text-sm font-black text-white tracking-tight">Kidobits Space Explorer</span>
+          <span class="hidden sm:inline-block px-2 py-0.2 rounded-full bg-indigo-500/20 text-indigo-300 text-[10px] font-bold ml-1 border border-indigo-500/30">ผจญภัยระบบสุริยะ</span>
+        </div>
+      </div>
+
+      <!-- Stats Chips -->
+      <div class="flex items-center gap-1.5">
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-950/60 border border-red-800/50 text-[11px] font-black text-red-400 shadow-2xs">
+          <span>🔥</span>
+          <span id="streakChip">7</span>
+        </div>
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-950/60 border border-amber-800/50 text-[11px] font-black text-amber-400 shadow-2xs">
+          <span>⭐</span>
+          <span id="starsChip">0</span>
+        </div>
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-950/60 border border-emerald-800/50 text-[11px] font-black text-emerald-400 shadow-2xs">
+          <span>🪙</span>
+          <span id="userCoins">240</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. MAIN SPACE WORKSPACE -->
+  <main class="flex-1 max-w-2xl w-full mx-auto px-4 py-3 flex flex-col justify-start relative">
+
+    <!-- Ambient Twinkling Stars Background -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden -z-10">
+      <span class="star-twinkle absolute top-6 left-10 text-blue-300 text-xs">✦</span>
+      <span class="star-twinkle absolute top-20 right-14 text-yellow-200 text-sm" style="animation-delay: 1.4s;">★</span>
+      <span class="star-twinkle absolute top-52 left-4 text-purple-300 text-xs" style="animation-delay: 0.8s;">✦</span>
+      <span class="star-twinkle absolute bottom-32 right-8 text-cyan-200 text-base" style="animation-delay: 2.1s;">★</span>
+      <span class="star-twinkle absolute bottom-12 left-16 text-blue-200 text-sm" style="animation-delay: 1.7s;">✦</span>
+    </div>
+
+    <!-- Planet Selector Horizontal Carousel -->
+    <div class="w-full mb-3">
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1" id="planetTabs">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- 3. INTERACTIVE 3D PLANET SHOWCASE STAGE -->
+    <div class="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-indigo-500/30 p-5 mb-3 select-none flex flex-col items-center justify-between text-center min-h-[300px] sm:min-h-[320px]" id="planetStageBox" style="background: radial-gradient(circle at 50% 35%, #1E1B4B 0%, #0F172A 70%, #070A13 100%);">
+      
+      <!-- Top Tag Row: Order from Sun & BGM sound -->
+      <div class="w-full flex items-center justify-between gap-2 z-10">
+        <span id="planetOrderTag" class="px-3 py-1 rounded-full bg-indigo-950/80 border border-indigo-700/50 text-[11px] font-black text-indigo-300 shadow-xs">
+          ลำดับที่ 3 จากดวงอาทิตย์
+        </span>
+
+        <!-- Speak Narration Button -->
+        <button onclick="speakPlanetFact()" id="btnVoicePlanet" class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-[11px] font-black shadow-md shadow-sky-500/30 transition active:scale-95" title="ฟังเสียงเล่าข้อมูลดาว">
+          <i class="fa-solid fa-volume-high"></i>
+          <span id="voiceBtnLabel">ฟังเสียงเล่า</span>
+        </button>
+      </div>
+
+      <!-- Center 3D Planet Model Display -->
+      <div class="relative my-4 flex items-center justify-center">
+        <!-- Planet Sphere -->
+        <div id="planetDisplaySphere" class="planet-sphere planet-glow w-32 h-32 sm:w-36 sm:h-36 flex items-center justify-center text-5xl">
+          <!-- Saturn ring injected via JS if needed -->
+          <span id="planetCoreEmoji">🌍</span>
+        </div>
+
+        <!-- Moon Orbit Badge for Earth -->
+        <div id="moonOrbitBadge" class="hidden absolute -top-2 -right-4 flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-800/80 border border-slate-600 text-[10px] text-yellow-200">
+          <span>🌙 Moon</span>
+        </div>
+      </div>
+
+      <!-- Planet Title & Description Box -->
+      <div class="w-full z-10 space-y-1">
+        <div class="flex items-center justify-center gap-2">
+          <h2 id="planetNameEn" class="text-xl sm:text-2xl font-black text-white tracking-wide">Earth</h2>
+          <span class="text-sm font-bold text-sky-400 font-thai" id="planetNameTh">(โลก)</span>
+        </div>
+        <p id="planetSubtitle" class="text-xs text-indigo-200/90 font-medium font-thai max-w-md mx-auto leading-relaxed">
+          ดาวเคราะห์สีน้ำเงินบ้านแสนอบอุ่นของเรา เป็นดาวเคราะห์เพียงดวงเดียวที่มีน้ำและสิ่งมีชีวิต!
+        </p>
+
+        <!-- Live Wave bar when speaking -->
+        <div id="planetAudioWave" class="hidden inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-sky-950/80 border border-sky-600/50 text-sky-300 text-[10px] font-black mt-1">
+          <span class="sound-bar"></span>
+          <span class="sound-bar" style="animation-delay: 0.2s;"></span>
+          <span class="sound-bar" style="animation-delay: 0.1s;"></span>
+          <span class="ml-1">กำลังเล่าความรู้</span>
+        </div>
+      </div>
+
+      <!-- Bottom Quick Specs Badges -->
+      <div class="w-full grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-slate-800/80 text-left">
+        <div class="bg-slate-900/60 rounded-xl p-2 border border-slate-800">
+          <span class="text-[9.5px] font-bold text-slate-400 block">🌡️ อุณหภูมิเฉลี่ย</span>
+          <span id="specTemp" class="text-xs font-black text-amber-300">+15°C</span>
+        </div>
+        <div class="bg-slate-900/60 rounded-xl p-2 border border-slate-800">
+          <span class="text-[9.5px] font-bold text-slate-400 block">⏱️ 1 ปี (โคจร)</span>
+          <span id="specOrbit" class="text-xs font-black text-sky-300">365 วัน</span>
+        </div>
+        <div class="bg-slate-900/60 rounded-xl p-2 border border-slate-800">
+          <span class="text-[9.5px] font-bold text-slate-400 block">🌕 ดวงจันทร์บริวาร</span>
+          <span id="specMoons" class="text-xs font-black text-purple-300">1 ดวง</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 4. ROCKET BLAST OFF LAUNCHPAD (INTERACTIVE SIMULATOR) -->
+    <div class="w-full bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-4 border border-indigo-500/30 mb-3 shadow-lg flex items-center justify-between gap-3 relative overflow-hidden">
+      
+      <!-- Background Blast Glow -->
+      <div id="rocketLaunchGlow" class="absolute inset-0 bg-orange-500/10 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+      <div class="flex items-center gap-3 z-10">
+        <!-- Animated Rocket Icon -->
+        <div id="rocketShipBox" class="w-14 h-14 rounded-2xl bg-indigo-900/50 border border-indigo-700/60 flex items-center justify-center text-3xl shadow-md">
+          <span id="rocketIcon">🚀</span>
+        </div>
+        <div>
+          <h3 class="text-sm font-black text-white flex items-center gap-1.5">
+            <span>Rocket Blast Off!</span>
+            <span class="px-1.5 py-0.2 rounded-md bg-orange-500/20 text-orange-300 text-[9px] font-bold border border-orange-500/30">มินิเกม</span>
+          </h3>
+          <p id="rocketStatusMsg" class="text-[11px] text-slate-300 font-medium">กดปุ่มเพื่อปล่อยจรวดท่องอวกาศ</p>
+        </div>
+      </div>
+
+      <!-- Launch Action Button -->
+      <button onclick="launchRocket()" id="btnLaunchRocket" class="z-10 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-black text-xs shadow-md shadow-orange-500/30 transition active:scale-95 flex items-center gap-1.5 shrink-0">
+        <span>🔥 ปล่อยจรวด!</span>
+      </button>
+
+    </div>
+
+    <!-- 5. SPACE QUICK QUIZ SECTION -->
+    <div class="w-full bg-slate-900/90 rounded-3xl p-4 border border-slate-800 shadow-md">
+      <div class="flex items-center justify-between mb-2.5">
+        <div class="flex items-center gap-2">
+          <span class="w-8 h-8 rounded-xl bg-indigo-950 border border-indigo-800 grid place-items-center text-base">⭐</span>
+          <div>
+            <h3 class="text-xs sm:text-sm font-black text-white">Space Quiz · ทายดาวชิงรางวัล</h3>
+            <p class="text-[10px] text-slate-400">ตอบถูกรับดาวสะสมเพิ่ม +5 ⭐</p>
+          </div>
+        </div>
+        <span id="quizScoreBadge" class="px-2.5 py-1 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[11px] font-black">
+          คะแนน: 0/3
+        </span>
+      </div>
+
+      <!-- Question Box -->
+      <div class="bg-slate-950/80 rounded-2xl p-3 border border-slate-800 text-center mb-3">
+        <p id="quizQuestionText" class="text-xs sm:text-sm font-black text-slate-100">
+          ดาวเคราะห์ดวงใดในระบบสุริยะมีวงแหวนขนาดใหญ่และสวยเด่นที่สุด?
+        </p>
+      </div>
+
+      <!-- Quiz Options Grid -->
+      <div id="quizOptionsGrid" class="grid grid-cols-2 gap-2">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Feedback message -->
+      <p id="quizFeedbackText" class="text-center text-xs font-black mt-2.5 h-4 transition-all"></p>
+    </div>
+
+  </main>
+
+  <!-- 6. CELEBRATION WIN MODAL -->
+  <div id="spaceWinModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border-2 border-indigo-500 animate-pop text-white">
+      <div class="text-5xl animate-bounce">🪐</div>
+      <div>
+        <h3 class="text-xl font-black font-display text-white">สุดยอดนักสำรวจอวกาศ!</h3>
+        <p class="text-xs text-slate-300 font-bold mt-1">น้องตอบคำถามดาราศาสตร์ได้ถูกต้อง รับดาวสะสมเพิ่มเลย!</p>
+      </div>
+
+      <div class="flex items-center justify-center gap-4 py-3 bg-indigo-950/80 rounded-2xl border border-indigo-700/50">
+        <div class="flex items-center gap-1.5 text-base font-black text-amber-400">
+          <span>⭐</span>
+          <span>+5 ดาว</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-base font-black text-emerald-400">
+          <span>🪙</span>
+          <span>+25 เหรียญ</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 pt-2">
+        <button onclick="closeWinModal(); resetQuiz();" class="flex-1 py-2.5 px-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-black text-xs transition active:scale-95 border border-slate-700">
+          🔄 เล่นควิซอีกครั้ง
+        </button>
+        <button onclick="closeWinModal()" class="flex-1 py-2.5 px-3 rounded-2xl bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-600 hover:to-sky-600 text-white font-black text-xs shadow-md shadow-indigo-500/25 transition active:scale-95">
+          🚀 สำรวจต่อ
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STANDARD KIDOBITS FLOATING BOTTOM NAVIGATION -->
+  <nav class="fixed bottom-3 left-3 right-3 max-w-[430px] mx-auto bg-white shadow-[0_10px_30px_rgba(60,30,90,.18)] rounded-full px-2 py-2 flex justify-between border border-[#F3EDF8] z-50 text-slate-800" aria-label="Main navigation">
+    <!-- 1. Home -->
+    <button onclick="window.location.href='/theme/theme_home.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Home">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+          <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Home</span>
+    </button>
+
+    <!-- 2. Phonics -->
+    <button onclick="window.location.href='/theme/theme_phonics_map.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Phonics">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 7v14"></path>
+          <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Phonics</span>
+    </button>
+
+    <!-- 3. Math -->
+    <button onclick="window.location.href='/theme/theme_math_lobby.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Math">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+          <line x1="8" x2="16" y1="6" y2="6"></line>
+          <line x1="16" x2="16" y1="14" y2="18"></line>
+          <path d="M16 10h.01"></path>
+          <path d="M12 10h.01"></path>
+          <path d="M8 10h.01"></path>
+          <path d="M12 14h.01"></path>
+          <path d="M8 14h.01"></path>
+          <path d="M12 18h.01"></path>
+          <path d="M8 18h.01"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Math</span>
+    </button>
+
+    <!-- 4. Chinese -->
+    <button onclick="window.location.href='/chinese_match.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Chinese">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+          <path d="M2 12h20"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Chinese</span>
+    </button>
+
+    <!-- 5. Games (Active: Indigo for Space) -->
+    <button onclick="window.location.href='/theme/theme_games.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Games">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition bg-[#6366F1] text-white shadow-md shadow-indigo-500/25">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="6" x2="10" y1="11" y2="11"></line>
+          <line x1="8" x2="8" y1="9" y2="13"></line>
+          <line x1="15" x2="15.01" y1="12" y2="12"></line>
+          <line x1="18" x2="18.01" y1="10" y2="10"></line>
+          <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"></path>
+        </svg>
+      </span>
+      <span class="text-[10px] font-black text-[#6366F1]">Games</span>
+    </button>
+
+    <!-- 6. Profile -->
+    <button onclick="window.location.href='/theme/theme_profile.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Profile">
+      <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </span>
+      <span class="text-[10px] font-extrabold text-[#9A8FA8]">Profile</span>
+    </button>
+  </nav>
+
+  <!-- Core Scripts -->
+  <script src="/js/kidobits_wallet.js"></script>
+  <script src="/js/kidobits_auth.js"></script>
+
+  <!-- SPACE EXPLORER ENGINE SCRIPT -->
+  <script>
+    // 1. SOLAR SYSTEM PLANET REPOSITORY
+    const PLANETS_DATA = [
+      {
+        id: 'sun',
+        nameEn: 'The Sun',
+        nameTh: 'ดวงอาทิตย์',
+        emoji: '☀️',
+        orderText: 'ศูนย์กลางระบบสุริยะ',
+        sphereBg: 'radial-gradient(circle at 35% 35%, #FDE047 0%, #EA580C 65%, #9A3412 100%)',
+        glowColor: 'rgba(245, 158, 11, 0.75)',
+        hasRing: false,
+        hasMoon: false,
+        temp: '+5,500°C',
+        orbit: 'ศูนย์กลาง',
+        moons: 'ดาวเคราะห์ 8 ดวง',
+        factTh: 'ดวงอาทิตย์คือดาวฤกษ์ดวงใหญ่ตรงกลางระบบสุริยะ ให้แสงสว่างและความอบอุ่นแก่ทุกชีวิตบนโลก!',
+        factEn: 'The Sun is the giant star at the center of our solar system, giving warmth and light to all life on Earth!'
+      },
+      {
+        id: 'mercury',
+        nameEn: 'Mercury',
+        nameTh: 'ดาวพุธ',
+        emoji: '🟤',
+        orderText: 'ลำดับที่ 1 จากดวงอาทิตย์',
+        sphereBg: 'radial-gradient(circle at 35% 35%, #CBD5E1 0%, #64748B 60%, #334155 100%)',
+        glowColor: 'rgba(148, 163, 184, 0.4)',
+        hasRing: false,
+        hasMoon: false,
+        temp: '+430°C / -180°C',
+        orbit: '88 วัน',
+        moons: '0 ดวง',
+        factTh: 'ดาวพุธเป็นดาวเคราะห์ที่อยู่ใกล้ดวงอาทิตย์ที่สุด และมีขนาดเล็กที่สุดในระบบสุริยะ!',
+        factEn: 'Mercury is the smallest planet and closest to the Sun. It zooms around the Sun the fastest!'
+      },
+      {
+        id: 'venus',
+        nameEn: 'Venus',
+        nameTh: 'ดาวศุกร์',
+        emoji: '🟡',
+        orderText: 'ลำดับที่ 2 จากดวงอาทิตย์',
+        sphereBg: 'radial-gradient(circle at 35% 35%, #FEF08A 0%, #CA8A04 60%, #854D0E 100%)',
+        glowColor: 'rgba(234, 179, 8, 0.5)',
+        hasRing: false,
+        hasMoon: false,
+        temp: '+465°C',
+        orbit: '225 วัน',
+        moons: '0 ดวง',
+        factTh: 'ดาวศุกร์เป็นดาวเคราะห์ที่ร้อนที่สุดในระบบสุริยะ เพราะมีชั้นบรรยากาศหนาทึบกักเก็บความร้อนไว้!',
+        factEn: 'Venus is the hottest planet in the Solar System, with thick yellow clouds trapping heat like a giant oven!'
+      },
+      {
+        id: 'earth',
+        nameEn: 'Earth',
+        nameTh: 'โลก',
+        emoji: '🌍',
+        orderText: 'ลำดับที่ 3 จากดวงอาทิตย์',
+        sphereBg: 'radial-gradient(circle at 35% 35%, #93C5FD 0%, #2563EB 50%, #1E3A8A 100%)',
+        glowColor: 'rgba(59, 130, 246, 0.6)',
+        hasRing: false,
+        hasMoon: true,
+        temp: '+15°C',
+        orbit: '365 วัน',
+        moons: '1 ดวง (ดวงจันทร์)',
+        factTh: 'โลกคือบ้านสีน้ำเงินแสนอบอุ่นของเรา มีน้ำและอากาศบริสุทธิ์ ทำให้สิ่งมีชีวิตอาศัยอยู่ได้อย่างมีความสุข!',
+        factEn: 'Earth is our beautiful blue home planet, full of water, trees, and fresh air for all living creatures!'
+      },
+      {
+        id: 'mars',
+        nameEn: 'Mars',
+        nameTh: 'ดาวอังคาร',
+        emoji: '🔴',
+        orderText: 'ลำดับที่ 4 จากดวงอาทิตย์',
+        sphereBg: 'radial-gradient(circle at 35% 35%, #FCA5A5 0%, #DC2626 60%, #7F1D1D 100%)',
+        glowColor: 'rgba(239, 68, 68, 0.55)',
+        hasRing: false,
+        hasMoon: false,
+        temp: '-63°C',
+        orbit: '687 วัน',
+        moons: '2 ดวง',
+        factTh: 'ดาวอังคารมีฉายาว่า "ดาวเคราะห์สีแดง" เพราะผิวหน้าเต็มไปด้วยฝุ่นสนิมเหล็ก และมีภูเขาไฟที่สูงที่สุดในระบบสุริยะ!',
+        factEn: 'Mars is called the Red Planet because of its rusty iron dust. It has giant red canyons and volcanoes!'
+      },
+      {
+        id: 'jupiter',
+        nameEn: 'Jupiter',
+        nameTh: 'ดาวพฤหัสบดี',
+        emoji: '🟠',
+        orderText: 'ลำดับที่ 5 จากดวงอาทิตย์',
+        sphereBg: 'radial-gradient(circle at 35% 35%, #FED7AA 0%, #D97706 50%, #7C2D12 100%)',
+        glowColor: 'rgba(217, 119, 6, 0.5)',
+        hasRing: false,
+        hasMoon: false,
+        temp: '-110°C',
+        orbit: '12 ปี',
+        moons: '95 ดวง',
+        factTh: 'ดาวพฤหัสบดีเป็นพี่ใหญ่ที่ตัวโตที่สุดในระบบสุริยะ ใหญ่กว่าโลกถึง 1,300 เท่า และมีจุดแดงยักษ์ที่เป็นพายุหมุน!',
+        factEn: 'Jupiter is the biggest planet of all! It is a giant gas ball with a famous swirling Great Red Spot storm!'
+      },
+      {
+        id: 'saturn',
+        nameEn: 'Saturn',
+        nameTh: 'ดาวเสาร์',
+        emoji: '🪐',
+        orderText: 'ลำดับที่ 6 จากดวงอาทิตย์',
+        sphereBg: 'radial-gradient(circle at 35% 35%, #FEF08A 0%, #EAB308 55%, #713F12 100%)',
+        glowColor: 'rgba(234, 179, 8, 0.65)',
+        hasRing: true,
+        hasMoon: false,
+        temp: '-140°C',
+        orbit: '29 ปี',
+        moons: '146 ดวง',
+        factTh: 'ดาวเสาร์มีวงแหวนขนาดใหญ่ที่สวยงามที่สุดในอวกาศ ซึ่งสร้างขึ้นจากเศษก้อนน้ำแข็งและหินระยิบระยับ!',
+        factEn: 'Saturn is the jewel of the Solar System, crowned with spectacular shining rings made of ice and rock!'
+      },
+      {
+        id: 'uranus',
+        nameEn: 'Uranus',
+        nameTh: 'ดาวยูเรนัส',
+        emoji: '🔵',
+        orderText: 'ลำดับที่ 7 จากดวงอาทิตย์',
+        sphereBg: 'radial-gradient(circle at 35% 35%, #A5F3FC 0%, #06B6D4 60%, #164E63 100%)',
+        glowColor: 'rgba(6, 182, 212, 0.55)',
+        hasRing: false,
+        hasMoon: false,
+        temp: '-195°C',
+        orbit: '84 ปี',
+        moons: '28 ดวง',
+        factTh: 'ดาวยูเรนัสเป็นยักษ์น้ำแข็งสีฟ้าอมเขียวที่นอนตะแคงโคจรรอบดวงอาทิตย์เหมือนลูกบอลกำลังกลิ้ง!',
+        factEn: 'Uranus is a cold, cyan ice giant that tilts on its side, rolling around the Sun like a giant bowling ball!'
+      },
+      {
+        id: 'neptune',
+        nameEn: 'Neptune',
+        nameTh: 'ดาวเนปจูน',
+        emoji: '🔷',
+        orderText: 'ลำดับที่ 8 จากดวงอาทิตย์',
+        sphereBg: 'radial-gradient(circle at 35% 35%, #60A5FA 0%, #2563EB 55%, #172554 100%)',
+        glowColor: 'rgba(37, 99, 235, 0.6)',
+        hasRing: false,
+        hasMoon: false,
+        temp: '-200°C',
+        orbit: '165 ปี',
+        moons: '16 ดวง',
+        factTh: 'ดาวเนปจูนเป็นดาวเคราะห์สีน้ำเงินเข้มที่อยู่ไกลที่สุด หนาวเย็นยะเยือก และมีพายุลมพัดแรงที่สุดในระบบสุริยะ!',
+        factEn: 'Neptune is the farthest blue planet in our solar system, with freezing temperatures and supersonic winds!'
+      }
+    ];
+
+    // 2. QUIZ REPOSITORY
+    const QUIZ_DATA = [
+      {
+        q: 'ดาวเคราะห์ดวงใดในระบบสุริยะมีวงแหวนขนาดใหญ่และสวยเด่นที่สุด?',
+        options: ['🪐 ดาวเสาร์ (Saturn)', '🔴 ดาวอังคาร (Mars)', '🌍 โลก (Earth)', '🟤 ดาวพุธ (Mercury)'],
+        ans: 0
+      },
+      {
+        q: 'ดาวเคราะห์สีน้ำเงินที่มีน้ำและสิ่งมีชีวิตอาศัยอยู่คือดาวดวงใด?',
+        options: ['🟡 ดาวศุกร์ (Venus)', '🌍 โลก (Earth)', '🔷 ดาวเนปจูน (Neptune)', '☀️ ดวงอาทิตย์ (The Sun)'],
+        ans: 1
+      },
+      {
+        q: 'ดาวเคราะห์ดวงใดที่มีขนาดใหญ่ที่สุดในระบบสุริยะ?',
+        options: ['🔵 ดาวยูเรนัส', '🟠 ดาวพฤหัสบดี (Jupiter)', '🟤 ดาวพุธ', '🪐 ดาวเสาร์'],
+        ans: 1
+      }
+    ];
+
+    // 3. APP STATE
+    let currentPlanetIdx = 3; // Earth by default
+    let isSpeaking = false;
+    let quizIdx = 0;
+    let quizScore = 0;
+    let userStars = parseInt(localStorage.getItem('KB_STARS') || '0', 10);
+
+    // Audio SFX synthesizer
+    let audioCtx = null;
+    function playBeep(freq, duration = 0.08, type = 'sine') {
+      try {
+        if (!audioCtx && (window.AudioContext || window.webkitAudioContext)) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx) {
+          if (audioCtx.state === 'suspended') audioCtx.resume();
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + duration);
+        }
+      } catch (e) {}
+    }
+
+    // 4. PLANET CAROUSEL & DISPLAY
+    function renderPlanetTabs() {
+      const container = document.getElementById('planetTabs');
+      container.innerHTML = PLANETS_DATA.map((p, idx) => {
+        const isActive = (idx === currentPlanetIdx);
+        return `
+          <button onclick="selectPlanet(${idx})" class="shrink-0 px-3 py-1.5 rounded-2xl text-xs font-black transition active:scale-95 flex items-center gap-1.5 border ${isActive ? 'bg-indigo-600 text-white border-indigo-400 shadow-md shadow-indigo-600/30' : 'bg-slate-900/80 hover:bg-slate-800 text-slate-300 border-slate-800'}">
+            <span>${p.emoji}</span>
+            <span>${p.nameEn}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectPlanet(idx) {
+      currentPlanetIdx = idx;
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+      isSpeaking = false;
+      document.getElementById('planetAudioWave').classList.add('hidden');
+      renderPlanetTabs();
+      updatePlanetStage();
+      playBeep(480, 0.06, 'triangle');
+    }
+
+    function updatePlanetStage() {
+      const p = PLANETS_DATA[currentPlanetIdx];
+
+      document.getElementById('planetOrderTag').textContent = p.orderText;
+      document.getElementById('planetNameEn').textContent = p.nameEn;
+      document.getElementById('planetNameTh').textContent = `(${p.nameTh})`;
+      document.getElementById('planetSubtitle').textContent = p.factTh;
+
+      // Specs
+      document.getElementById('specTemp').textContent = p.temp;
+      document.getElementById('specOrbit').textContent = p.orbit;
+      document.getElementById('specMoons').textContent = p.moons;
+
+      // Sphere Styling
+      const sphere = document.getElementById('planetDisplaySphere');
+      sphere.style.background = p.sphereBg;
+      sphere.style.setProperty('--glow-color', p.glowColor);
+
+      // Moon badge for Earth
+      const moonBadge = document.getElementById('moonOrbitBadge');
+      if (p.hasMoon) {
+        moonBadge.classList.remove('hidden');
+      } else {
+        moonBadge.classList.add('hidden');
+      }
+
+      // Check Saturn Ring
+      let ringEl = document.getElementById('saturnRingEl');
+      if (p.hasRing) {
+        if (!ringEl) {
+          ringEl = document.createElement('div');
+          ringEl.id = 'saturnRingEl';
+          ringEl.className = 'saturn-ring';
+          sphere.appendChild(ringEl);
+        }
+      } else if (ringEl) {
+        ringEl.remove();
+      }
+
+      document.getElementById('planetCoreEmoji').textContent = p.emoji;
+    }
+
+    // 5. PLANET VOICE NARRATION
+    function speakPlanetFact() {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+
+      const p = PLANETS_DATA[currentPlanetIdx];
+      const text = `${p.nameEn} ${p.nameTh} ${p.factTh}`;
+
+      const ut = new SpeechSynthesisUtterance(text);
+      ut.lang = 'th-TH';
+      ut.rate = 0.95;
+
+      const voices = window.speechSynthesis.getVoices();
+      const thVoice = voices.find(v => v.lang.startsWith('th'));
+      if (thVoice) ut.voice = thVoice;
+
+      isSpeaking = true;
+      document.getElementById('planetAudioWave').classList.remove('hidden');
+
+      ut.onend = () => {
+        isSpeaking = false;
+        document.getElementById('planetAudioWave').classList.add('hidden');
+      };
+
+      ut.onerror = () => {
+        isSpeaking = false;
+        document.getElementById('planetAudioWave').classList.add('hidden');
+      };
+
+      window.speechSynthesis.speak(ut);
+    }
+
+    // 6. ROCKET BLAST OFF SIMULATOR
+    let isLaunching = false;
+    function launchRocket() {
+      if (isLaunching) return;
+      isLaunching = true;
+
+      const btn = document.getElementById('btnLaunchRocket');
+      const rocketBox = document.getElementById('rocketShipBox');
+      const statusMsg = document.getElementById('rocketStatusMsg');
+      const glow = document.getElementById('rocketLaunchGlow');
+
+      btn.disabled = true;
+      btn.classList.add('opacity-50');
+
+      let count = 3;
+      statusMsg.textContent = `🚀 นับถอยหลัง: ${count}...`;
+      playBeep(440, 0.15, 'sawtooth');
+
+      const timer = setInterval(() => {
+        count--;
+        if (count > 0) {
+          statusMsg.textContent = `🚀 นับถอยหลัง: ${count}...`;
+          playBeep(440, 0.15, 'sawtooth');
+        } else {
+          clearInterval(timer);
+          statusMsg.textContent = `🔥 BLAST OFF! ทะยานสู่อวกาศ!`;
+          playBeep(880, 0.35, 'sawtooth');
+          glow.classList.remove('opacity-0');
+          glow.classList.add('opacity-100');
+
+          // Trigger rocket launch animation
+          rocketBox.classList.add('launching-rocket');
+
+          // Add stars
+          setTimeout(() => {
+            userStars += 2;
+            localStorage.setItem('KB_STARS', userStars);
+            document.getElementById('starsChip').textContent = userStars;
+            if (window.KidobitsWallet) {
+              try { KidobitsWallet.addReward({ stars: 2, coins: 10 }); } catch (e) {}
+            }
+          }, 1500);
+
+          // Reset Rocket after 3.5s
+          setTimeout(() => {
+            rocketBox.classList.remove('launching-rocket');
+            glow.classList.remove('opacity-100');
+            glow.classList.add('opacity-0');
+            statusMsg.textContent = '🚀 จรวดลงจอดพร้อมสำรวจรอบใหม่แล้ว (+2 ⭐)';
+            btn.disabled = false;
+            btn.classList.remove('opacity-50');
+            isLaunching = false;
+          }, 3500);
+        }
+      }, 900);
+    }
+
+    // 7. SPACE QUIZ LOGIC
+    function renderQuiz() {
+      const q = QUIZ_DATA[quizIdx];
+      document.getElementById('quizQuestionText').textContent = q.q;
+      document.getElementById('quizScoreBadge').textContent = `คำถาม ${quizIdx + 1}/${QUIZ_DATA.length}`;
+      document.getElementById('quizFeedbackText').textContent = '';
+
+      const grid = document.getElementById('quizOptionsGrid');
+      grid.innerHTML = q.options.map((opt, optIdx) => {
+        return `
+          <button onclick="handleQuizAnswer(${optIdx})" class="quiz-btn py-2.5 px-3 rounded-2xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-left text-xs font-bold text-slate-100 transition active:scale-95 shadow-xs">
+            ${opt}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function handleQuizAnswer(selectedIdx) {
+      const q = QUIZ_DATA[quizIdx];
+      const buttons = document.querySelectorAll('.quiz-btn');
+      buttons.forEach(b => b.disabled = true);
+
+      const feedback = document.getElementById('quizFeedbackText');
+
+      if (selectedIdx === q.ans) {
+        buttons[selectedIdx].classList.add('bg-emerald-600', 'border-emerald-400', 'text-white');
+        feedback.textContent = '🎉 ถูกต้องแล้ว เก่งมาก!';
+        feedback.className = 'text-center text-xs font-black mt-2.5 h-4 transition-all text-emerald-400';
+        quizScore++;
+        playBeep(659, 0.12, 'triangle');
+      } else {
+        buttons[selectedIdx].classList.add('bg-rose-600', 'border-rose-400', 'text-white');
+        buttons[q.ans].classList.add('bg-emerald-600', 'border-emerald-400', 'text-white');
+        feedback.textContent = 'ยังไม่ใช่นะจ๊ะ ลองดูคำตอบที่ถูก';
+        feedback.className = 'text-center text-xs font-black mt-2.5 h-4 transition-all text-rose-400';
+        playBeep(260, 0.15, 'sawtooth');
+      }
+
+      setTimeout(() => {
+        if (quizIdx + 1 < QUIZ_DATA.length) {
+          quizIdx++;
+          renderQuiz();
+        } else {
+          // Finish Quiz
+          finishSpaceQuiz();
+        }
+      }, 1400);
+    }
+
+    function finishSpaceQuiz() {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 100,
+          spread: 80,
+          origin: { y: 0.6 }
+        });
+      }
+
+      userStars += 5;
+      localStorage.setItem('KB_STARS', userStars);
+      document.getElementById('starsChip').textContent = userStars;
+
+      if (window.KidobitsWallet) {
+        try {
+          KidobitsWallet.addReward({ stars: 5, coins: 25 });
+        } catch (e) {}
+      }
+
+      document.getElementById('spaceWinModal').classList.remove('hidden');
+    }
+
+    function resetQuiz() {
+      quizIdx = 0;
+      quizScore = 0;
+      renderQuiz();
+    }
+
+    function closeWinModal() {
+      document.getElementById('spaceWinModal').classList.add('hidden');
+    }
+
+    // 8. INITIALIZATION ON DOM LOAD
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('starsChip').textContent = userStars;
+      renderPlanetTabs();
+      updatePlanetStage();
+      renderQuiz();
+    });
+  </script>
+</body>
+</html>
