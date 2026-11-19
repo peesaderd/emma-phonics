@@ -185,17 +185,30 @@
     <!-- 3. INTERACTIVE 3D PLANET SHOWCASE STAGE -->
     <div class="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-indigo-500/30 p-5 mb-3 select-none flex flex-col items-center justify-between text-center min-h-[300px] sm:min-h-[320px]" id="planetStageBox" style="background: radial-gradient(circle at 50% 35%, #1E1B4B 0%, #0F172A 70%, #070A13 100%);">
       
-      <!-- Top Tag Row: Order from Sun & BGM sound -->
-      <div class="w-full flex items-center justify-between gap-2 z-10">
+      <!-- Top Tag Row: Order from Sun & Voice Language Selector -->
+      <div class="w-full flex items-center justify-between gap-2 z-10 flex-wrap">
         <span id="planetOrderTag" class="px-3 py-1 rounded-full bg-indigo-950/80 border border-indigo-700/50 text-[11px] font-black text-indigo-300 shadow-xs">
           ลำดับที่ 3 จากดวงอาทิตย์
         </span>
 
-        <!-- Speak Narration Button -->
-        <button onclick="speakPlanetFact()" id="btnVoicePlanet" class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-[11px] font-black shadow-md shadow-sky-500/30 transition active:scale-95" title="ฟังเสียงเล่าข้อมูลดาว">
-          <i class="fa-solid fa-volume-high"></i>
-          <span id="voiceBtnLabel">ฟังเสียงเล่า</span>
-        </button>
+        <!-- Voice Narration & Language Controls -->
+        <div class="flex items-center gap-1.5">
+          <!-- Language Toggle EN/TH -->
+          <div class="flex items-center p-0.5 bg-slate-900/80 rounded-xl border border-slate-700 text-[10px] font-bold">
+            <button onclick="setSpaceVoiceLang('th')" id="btnVoiceLangTh" class="px-2 py-0.5 rounded-lg font-black transition active:scale-95 bg-sky-500 text-white shadow-xs">
+              🇹🇭 ไทย
+            </button>
+            <button onclick="setSpaceVoiceLang('en')" id="btnVoiceLangEn" class="px-2 py-0.5 rounded-lg text-slate-400 transition active:scale-95">
+              🇬🇧 EN
+            </button>
+          </div>
+
+          <!-- Speak / Pause Button -->
+          <button onclick="toggleSpeakPlanet()" id="btnVoicePlanet" class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-[11px] font-black shadow-md shadow-sky-500/30 transition active:scale-95" title="ฟังเสียงเล่าข้อมูลดาว">
+            <i id="voicePlayIcon" class="fa-solid fa-volume-high"></i>
+            <span id="voiceBtnLabel">ฟังเสียงเล่า</span>
+          </button>
+        </div>
       </div>
 
       <!-- Center 3D Planet Model Display -->
@@ -219,7 +232,7 @@
           <span class="text-sm font-bold text-sky-400 font-thai" id="planetNameTh">(โลก)</span>
         </div>
         <p id="planetSubtitle" class="text-xs text-indigo-200/90 font-medium font-thai max-w-md mx-auto leading-relaxed">
-          ดาวเคราะห์สีน้ำเงินบ้านแสนอบอุ่นของเรา เป็นดาวเคราะห์เพียงดวงเดียวที่มีน้ำและสิ่งมีชีวิต!
+          โลก คือบ้านสีน้ำเงินแสนอบอุ่นของเรา เป็นดาวเคราะห์เพียงดวงเดียวที่มีมหาสมุทร มีป่าไม้ และมีสิ่งมีชีวิต มีดวงจันทร์สีนวลคอยหมุนเป็นเพื่อนเราในยามค่ำคืนด้วยนะ!
         </p>
 
         <!-- Live Wave bar when speaking -->
@@ -227,7 +240,7 @@
           <span class="sound-bar"></span>
           <span class="sound-bar" style="animation-delay: 0.2s;"></span>
           <span class="sound-bar" style="animation-delay: 0.1s;"></span>
-          <span class="ml-1">กำลังเล่าความรู้</span>
+          <span class="ml-1" id="audioWaveLabel">กำลังเล่าความรู้</span>
         </div>
       </div>
 
@@ -276,7 +289,25 @@
 
     </div>
 
-    <!-- 5. SPACE QUICK QUIZ SECTION -->
+    <!-- 5. SPACE STORYTIME BANNER (MARION AND THE ROCKET) -->
+    <div onclick="window.location.href='/story_player.html?story=red_rocket'" class="w-full bg-gradient-to-r from-blue-900/60 via-indigo-900/80 to-purple-900/60 rounded-3xl p-3.5 border border-indigo-400/30 mb-3 shadow-lg flex items-center justify-between gap-3 cursor-pointer hover:border-indigo-400 transition active:scale-98">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 border border-indigo-400/40 flex items-center justify-center text-2xl shadow-xs">
+          📖
+        </div>
+        <div>
+          <span class="text-[9.5px] font-black uppercase tracking-wider bg-indigo-500/30 text-indigo-200 px-2 py-0.5 rounded-full border border-indigo-400/30">นิทานภาพมีเสียง</span>
+          <h4 class="text-xs sm:text-sm font-black text-white mt-0.5">ผจญภัยจรวดสีแดง (Marion & the Rocket)</h4>
+          <p class="text-[10px] text-indigo-200/80">ฟังนิทานอวกาศ 4 นาที พร้อมภาพวาดสีน้ำขยับได้ ✨</p>
+        </div>
+      </div>
+      <span class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-black text-white shrink-0 flex items-center gap-1">
+        <span>ฟังนิทาน</span>
+        <i class="fa-solid fa-chevron-right text-[10px]"></i>
+      </span>
+    </div>
+
+    <!-- 6. SPACE QUICK QUIZ SECTION -->
     <div class="w-full bg-slate-900/90 rounded-3xl p-4 border border-slate-800 shadow-md">
       <div class="flex items-center justify-between mb-2.5">
         <div class="flex items-center gap-2">
@@ -287,7 +318,7 @@
           </div>
         </div>
         <span id="quizScoreBadge" class="px-2.5 py-1 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[11px] font-black">
-          คะแนน: 0/3
+          คำถาม 1/3
         </span>
       </div>
 
@@ -309,7 +340,7 @@
 
   </main>
 
-  <!-- 6. CELEBRATION WIN MODAL -->
+  <!-- 7. CELEBRATION WIN MODAL -->
   <div id="spaceWinModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border-2 border-indigo-500 animate-pop text-white">
       <div class="text-5xl animate-bounce">🪐</div>
@@ -427,7 +458,7 @@
 
   <!-- SPACE EXPLORER ENGINE SCRIPT -->
   <script>
-    // 1. SOLAR SYSTEM PLANET REPOSITORY
+    // 1. SOLAR SYSTEM PLANET REPOSITORY WITH FULL ENGAGING NARRATION STORIES
     const PLANETS_DATA = [
       {
         id: 'sun',
@@ -442,8 +473,8 @@
         temp: '+5,500°C',
         orbit: 'ศูนย์กลาง',
         moons: 'ดาวเคราะห์ 8 ดวง',
-        factTh: 'ดวงอาทิตย์คือดาวฤกษ์ดวงใหญ่ตรงกลางระบบสุริยะ ให้แสงสว่างและความอบอุ่นแก่ทุกชีวิตบนโลก!',
-        factEn: 'The Sun is the giant star at the center of our solar system, giving warmth and light to all life on Earth!'
+        factTh: 'ดวงอาทิตย์ คือดวงไฟสีทองยักษ์ที่เป็นศูนย์กลางของระบบสุริยะ ร้อนแรงถึงห้าพันห้าร้อยองศาเซลเซียส ให้แสงสว่างและความอบอุ่นแก่ทุกชีวิตบนโลก ถ้าไม่มีดวงอาทิตย์ โลกของเราจะมืดมิดและหนาวเย็นเป็นน้ำแข็งเลยนะ!',
+        factEn: 'The Sun is a gigantic glowing ball of golden fire at the center of our Solar System! It shines brightly at over 5,000 degrees Celsius, giving light and warmth to Earth. Without the Sun, our world would be pitch dark and frozen cold!'
       },
       {
         id: 'mercury',
@@ -458,8 +489,8 @@
         temp: '+430°C / -180°C',
         orbit: '88 วัน',
         moons: '0 ดวง',
-        factTh: 'ดาวพุธเป็นดาวเคราะห์ที่อยู่ใกล้ดวงอาทิตย์ที่สุด และมีขนาดเล็กที่สุดในระบบสุริยะ!',
-        factEn: 'Mercury is the smallest planet and closest to the Sun. It zooms around the Sun the fastest!'
+        factTh: 'ดาวพุธ เป็นดาวเคราะห์ดวงเล็กที่สุดและอยู่ใกล้ดวงอาทิตย์ที่สุด โคจรไวมาก แค่แปดสิบแปดวันก็ครบหนึ่งปีแล้ว ตอนกลางวันจะร้อนจัด แต่ตอนกลางคืนจะหนาวจัดจนติดลบเลยล่ะ!',
+        factEn: 'Mercury is the smallest planet and the closest neighbor to the Sun! It zooms around the Sun so fast that a whole year is only 88 days! It gets boiling hot during the day and freezing cold at night!'
       },
       {
         id: 'venus',
@@ -474,8 +505,8 @@
         temp: '+465°C',
         orbit: '225 วัน',
         moons: '0 ดวง',
-        factTh: 'ดาวศุกร์เป็นดาวเคราะห์ที่ร้อนที่สุดในระบบสุริยะ เพราะมีชั้นบรรยากาศหนาทึบกักเก็บความร้อนไว้!',
-        factEn: 'Venus is the hottest planet in the Solar System, with thick yellow clouds trapping heat like a giant oven!'
+        factTh: 'ดาวศุกร์ เป็นดาวที่สว่างที่สุดบนท้องฟ้ายามค่ำคืน แต่รู้มั้ยว่าที่นี่คือดาวที่ร้อนที่สุดในระบบสุริยะ เพราะมีเมฆหนาทึบกักเก็บความร้อนไว้เหมือนเตาอบยักษ์ ร้อนกว่าสี่ร้อยหกสิบองศาเลยนะ!',
+        factEn: 'Venus is the brightest jewel in the night sky! But inside, it is the hottest planet in the entire Solar System, with thick yellow clouds trapping heat like a giant cosmic oven at over 460 degrees!'
       },
       {
         id: 'earth',
@@ -490,8 +521,8 @@
         temp: '+15°C',
         orbit: '365 วัน',
         moons: '1 ดวง (ดวงจันทร์)',
-        factTh: 'โลกคือบ้านสีน้ำเงินแสนอบอุ่นของเรา มีน้ำและอากาศบริสุทธิ์ ทำให้สิ่งมีชีวิตอาศัยอยู่ได้อย่างมีความสุข!',
-        factEn: 'Earth is our beautiful blue home planet, full of water, trees, and fresh air for all living creatures!'
+        factTh: 'โลก คือบ้านสีน้ำเงินแสนอบอุ่นของเรา เป็นดาวเคราะห์เพียงดวงเดียวที่มีมหาสมุทร มีป่าไม้ และมีสิ่งมีชีวิต มีดวงจันทร์สีนวลคอยหมุนเป็นเพื่อนเราในยามค่ำคืนด้วยนะ!',
+        factEn: 'Earth is our beautiful blue home planet! It is the only known world in the universe filled with sparkling oceans, green forests, and happy living creatures. We also have a lovely glowing Moon dancing around us every night!'
       },
       {
         id: 'mars',
@@ -506,8 +537,8 @@
         temp: '-63°C',
         orbit: '687 วัน',
         moons: '2 ดวง',
-        factTh: 'ดาวอังคารมีฉายาว่า "ดาวเคราะห์สีแดง" เพราะผิวหน้าเต็มไปด้วยฝุ่นสนิมเหล็ก และมีภูเขาไฟที่สูงที่สุดในระบบสุริยะ!',
-        factEn: 'Mars is called the Red Planet because of its rusty iron dust. It has giant red canyons and volcanoes!'
+        factTh: 'ดาวอังคาร ได้รับฉายาว่า ดาวเคราะห์สีแดง เพราะบนผิวดาวเต็มไปด้วยฝุ่นสนิมเหล็กสีแดง มีภูเขาไฟโอลิมปัสที่สูงที่สุดในระบบสุริยะ สูงกว่ายอดเขาเอเวอเรสต์ถึงสามเท่าเลยทีเดียว!',
+        factEn: 'Mars is called the Red Planet because its surface is covered in rusty red iron dust! Mars has giant canyons and Olympus Mons, the tallest volcano in the entire Solar System, three times taller than Mount Everest!'
       },
       {
         id: 'jupiter',
@@ -522,8 +553,8 @@
         temp: '-110°C',
         orbit: '12 ปี',
         moons: '95 ดวง',
-        factTh: 'ดาวพฤหัสบดีเป็นพี่ใหญ่ที่ตัวโตที่สุดในระบบสุริยะ ใหญ่กว่าโลกถึง 1,300 เท่า และมีจุดแดงยักษ์ที่เป็นพายุหมุน!',
-        factEn: 'Jupiter is the biggest planet of all! It is a giant gas ball with a famous swirling Great Red Spot storm!'
+        factTh: 'ดาวพฤหัสบดี เป็นพี่ยักษ์ใหญ่ใจดีที่ตัวโตที่สุดในระบบสุริยะ ใหญ่ขนาดที่เอาโลกมาใส่ข้างในได้มากกว่าหนึ่งพันสามร้อยดวง! และมีจุดแดงยักษ์ที่เป็นพายุหมุนขนาดใหญ่กว่าโลกของเราเสียอีก!',
+        factEn: 'Jupiter is the king of the planets! It is so gigantic that more than 1,300 Earths could fit inside it! It also has a famous Great Red Spot, which is a giant swirling storm bigger than our entire Earth!'
       },
       {
         id: 'saturn',
@@ -538,8 +569,8 @@
         temp: '-140°C',
         orbit: '29 ปี',
         moons: '146 ดวง',
-        factTh: 'ดาวเสาร์มีวงแหวนขนาดใหญ่ที่สวยงามที่สุดในอวกาศ ซึ่งสร้างขึ้นจากเศษก้อนน้ำแข็งและหินระยิบระยับ!',
-        factEn: 'Saturn is the jewel of the Solar System, crowned with spectacular shining rings made of ice and rock!'
+        factTh: 'ดาวเสาร์ คือดาวที่สวยงามและโดดเด่นที่สุด เพราะสวมมงกุฎวงแหวนยักษ์ที่สร้างจากเศษก้อนน้ำแข็งและหินระยิบระยับ และยังมีดวงจันทร์บริวารคอยเต้นระบำอยู่รอบๆ มากกว่าหนึ่งร้อยสี่สิบดวงเลยนะ!',
+        factEn: 'Saturn is the crown jewel of space, famous for its magnificent giant rings made of sparkling ice, rock, and dust! It even has over 140 moons orbiting around it like a royal cosmic court!'
       },
       {
         id: 'uranus',
@@ -554,8 +585,8 @@
         temp: '-195°C',
         orbit: '84 ปี',
         moons: '28 ดวง',
-        factTh: 'ดาวยูเรนัสเป็นยักษ์น้ำแข็งสีฟ้าอมเขียวที่นอนตะแคงโคจรรอบดวงอาทิตย์เหมือนลูกบอลกำลังกลิ้ง!',
-        factEn: 'Uranus is a cold, cyan ice giant that tilts on its side, rolling around the Sun like a giant bowling ball!'
+        factTh: 'ดาวยูเรนัส เป็นยักษ์น้ำแข็งสีฟ้าอมเขียวที่แปลกประหลาดที่สุด เพราะมันนอนตะแคงโคจรรอบดวงอาทิตย์เหมือนลูกโบว์ลิ่งกำลังกลิ้ง และเป็นดาวที่หนาวเย็นถึงลบหนึ่งร้อยเก้าสิบห้าองศาเซลเซียส!',
+        factEn: 'Uranus is a cold, cyan ice giant with a funny secret: it tilts sideways and rolls around the Sun like a giant cosmic bowling ball! It is one of the coldest and windiest planets of all!'
       },
       {
         id: 'neptune',
@@ -570,8 +601,8 @@
         temp: '-200°C',
         orbit: '165 ปี',
         moons: '16 ดวง',
-        factTh: 'ดาวเนปจูนเป็นดาวเคราะห์สีน้ำเงินเข้มที่อยู่ไกลที่สุด หนาวเย็นยะเยือก และมีพายุลมพัดแรงที่สุดในระบบสุริยะ!',
-        factEn: 'Neptune is the farthest blue planet in our solar system, with freezing temperatures and supersonic winds!'
+        factTh: 'ดาวเนปจูน คือดาวเคราะห์สีน้ำเงินเข้มที่อยู่ไกลที่สุด หนาวเย็นยะเยือกจับขั้วหัวใจ และมีพายุลมกรดที่พัดแรงเร็วที่สุดในระบบสุริยะ เร็วกว่าเครื่องบินไอพ่นเสียอีก!',
+        factEn: 'Neptune is the deep blue planet at the very edge of our solar system! It is fiercely cold and has supersonic winds that blow faster than a supersonic jet airplane!'
       }
     ];
 
@@ -596,7 +627,9 @@
 
     // 3. APP STATE
     let currentPlanetIdx = 3; // Earth by default
-    let isSpeaking = false;
+    let spaceVoiceLang = 'th'; // 'th' or 'en'
+    let isSpeakingPlanet = false;
+
     let quizIdx = 0;
     let quizScore = 0;
     let userStars = parseInt(localStorage.getItem('KB_STARS') || '0', 10);
@@ -640,9 +673,7 @@
 
     function selectPlanet(idx) {
       currentPlanetIdx = idx;
-      if (window.speechSynthesis) window.speechSynthesis.cancel();
-      isSpeaking = false;
-      document.getElementById('planetAudioWave').classList.add('hidden');
+      stopPlanetSpeech();
       renderPlanetTabs();
       updatePlanetStage();
       playBeep(480, 0.06, 'triangle');
@@ -654,7 +685,7 @@
       document.getElementById('planetOrderTag').textContent = p.orderText;
       document.getElementById('planetNameEn').textContent = p.nameEn;
       document.getElementById('planetNameTh').textContent = `(${p.nameTh})`;
-      document.getElementById('planetSubtitle').textContent = p.factTh;
+      document.getElementById('planetSubtitle').textContent = (spaceVoiceLang === 'th') ? p.factTh : p.factEn;
 
       // Specs
       document.getElementById('specTemp').textContent = p.temp;
@@ -690,33 +721,79 @@
       document.getElementById('planetCoreEmoji').textContent = p.emoji;
     }
 
-    // 5. PLANET VOICE NARRATION
+    // 5. ENHANCED VOICE NARRATION WITH PURE LANGUAGE TTS (NO MIXED CODE POINTS)
+    function setSpaceVoiceLang(lang) {
+      spaceVoiceLang = lang;
+      document.getElementById('btnVoiceLangTh').className = (lang === 'th') 
+        ? 'px-2 py-0.5 rounded-lg font-black transition active:scale-95 bg-sky-500 text-white shadow-xs' 
+        : 'px-2 py-0.5 rounded-lg text-slate-400 transition active:scale-95';
+      document.getElementById('btnVoiceLangEn').className = (lang === 'en') 
+        ? 'px-2 py-0.5 rounded-lg font-black transition active:scale-95 bg-sky-500 text-white shadow-xs' 
+        : 'px-2 py-0.5 rounded-lg text-slate-400 transition active:scale-95';
+
+      const p = PLANETS_DATA[currentPlanetIdx];
+      document.getElementById('planetSubtitle').textContent = (spaceVoiceLang === 'th') ? p.factTh : p.factEn;
+
+      if (isSpeakingPlanet) {
+        speakPlanetFact();
+      }
+    }
+
+    function toggleSpeakPlanet() {
+      if (isSpeakingPlanet) {
+        stopPlanetSpeech();
+      } else {
+        speakPlanetFact();
+      }
+    }
+
+    function stopPlanetSpeech() {
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+      isSpeakingPlanet = false;
+      const wave = document.getElementById('planetAudioWave');
+      if (wave) wave.classList.add('hidden');
+      const icon = document.getElementById('voicePlayIcon');
+      if (icon) icon.className = 'fa-solid fa-volume-high';
+      const label = document.getElementById('voiceBtnLabel');
+      if (label) label.textContent = 'ฟังเสียงเล่า';
+    }
+
     function speakPlanetFact() {
       if (!('speechSynthesis' in window)) return;
       window.speechSynthesis.cancel();
 
       const p = PLANETS_DATA[currentPlanetIdx];
-      const text = `${p.nameEn} ${p.nameTh} ${p.factTh}`;
+      const text = (spaceVoiceLang === 'th') ? `${p.nameTh}! ${p.factTh}` : `${p.nameEn}! ${p.factEn}`;
+      const langCode = (spaceVoiceLang === 'th') ? 'th-TH' : 'en-US';
 
       const ut = new SpeechSynthesisUtterance(text);
-      ut.lang = 'th-TH';
-      ut.rate = 0.95;
+      ut.lang = langCode;
+      ut.rate = 0.92;
+      ut.pitch = 1.0;
 
       const voices = window.speechSynthesis.getVoices();
-      const thVoice = voices.find(v => v.lang.startsWith('th'));
-      if (thVoice) ut.voice = thVoice;
+      const matchedVoice = voices.find(v => v.lang.startsWith(spaceVoiceLang === 'th' ? 'th' : 'en'));
+      if (matchedVoice) ut.voice = matchedVoice;
 
-      isSpeaking = true;
-      document.getElementById('planetAudioWave').classList.remove('hidden');
+      isSpeakingPlanet = true;
+      const wave = document.getElementById('planetAudioWave');
+      if (wave) wave.classList.remove('hidden');
+      const waveLabel = document.getElementById('audioWaveLabel');
+      if (waveLabel) waveLabel.textContent = (spaceVoiceLang === 'th') ? 'กำลังเล่าเรื่องดาว' : 'Story Narration';
+
+      const icon = document.getElementById('voicePlayIcon');
+      if (icon) icon.className = 'fa-solid fa-pause';
+      const label = document.getElementById('voiceBtnLabel');
+      if (label) label.textContent = 'หยุดเล่า';
 
       ut.onend = () => {
-        isSpeaking = false;
-        document.getElementById('planetAudioWave').classList.add('hidden');
+        stopPlanetSpeech();
       };
 
       ut.onerror = () => {
-        isSpeaking = false;
-        document.getElementById('planetAudioWave').classList.add('hidden');
+        stopPlanetSpeech();
       };
 
       window.speechSynthesis.speak(ut);
