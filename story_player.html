@@ -91,6 +91,82 @@
       transform: scale(1.015);
     }
 
+    
+    /* Smooth Multi-Mode Ken Burns & Camera Movements */
+    @keyframes kenBurnsZoomIn {
+      0% { transform: scale(1.0) translate(0, 0); }
+      100% { transform: scale(1.08) translate(-1%, -1%); }
+    }
+    @keyframes kenBurnsZoomOut {
+      0% { transform: scale(1.08) translate(-1%, -1%); }
+      100% { transform: scale(1.0) translate(0, 0); }
+    }
+    @keyframes kenBurnsPanRight {
+      0% { transform: scale(1.05) translate(-2%, 0); }
+      100% { transform: scale(1.05) translate(2%, 0); }
+    }
+    @keyframes kenBurnsPanLeft {
+      0% { transform: scale(1.05) translate(2%, 0); }
+      100% { transform: scale(1.05) translate(-2%, 0); }
+    }
+    .anim-zoom-in { animation: kenBurnsZoomIn 14s ease-in-out infinite alternate; }
+    .anim-zoom-out { animation: kenBurnsZoomOut 14s ease-in-out infinite alternate; }
+    .anim-pan-right { animation: kenBurnsPanRight 14s ease-in-out infinite alternate; }
+    .anim-pan-left { animation: kenBurnsPanLeft 14s ease-in-out infinite alternate; }
+
+    /* Animated Speech Bubble & Wiggle */
+    @keyframes bubbleBounceIn {
+      0% { opacity: 0; transform: scale(0.65) translateY(14px); }
+      70% { opacity: 1; transform: scale(1.04) translateY(-3px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .anim-bubble-in {
+      animation: bubbleBounceIn 0.38s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @keyframes charWiggle {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(-8deg) scale(1.1); }
+      75% { transform: rotate(8deg) scale(1.1); }
+    }
+    .anim-char-wiggle {
+      animation: charWiggle 0.6s ease-in-out infinite alternate;
+    }
+
+    /* Floating Nature Particles on Stage */
+    @keyframes floatParticle {
+      0% { transform: translateY(-10px) translateX(0) rotate(0deg); opacity: 0; }
+      20% { opacity: 0.85; }
+      80% { opacity: 0.85; }
+      100% { transform: translateY(180px) translateX(45px) rotate(160deg); opacity: 0; }
+    }
+    .anim-float-particle {
+      position: absolute;
+      pointer-events: none;
+      animation: floatParticle 8s linear infinite;
+    }
+
+    /* Stage Tap Wiggle Reaction */
+    @keyframes stageTapBounce {
+      0% { transform: scale(1); }
+      40% { transform: scale(0.985); }
+      70% { transform: scale(1.015); }
+      100% { transform: scale(1); }
+    }
+    .stage-tapped {
+      animation: stageTapBounce 0.4s ease-out;
+    }
+
+    /* Shake animation for wrong quiz answers */
+    @keyframes quizShake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .anim-shake {
+      animation: quizShake 0.4s ease-in-out;
+    }
+
     /* Sound wave indicator bars */
     .sound-bar {
       display: inline-block;
@@ -157,7 +233,7 @@
     </div>
 
     <!-- 3. ANIMATED STORY SCENE STAGE (Picture Storybook Screen) -->
-    <div class="relative w-full h-64 sm:h-72 rounded-3xl overflow-hidden shadow-xl border-2 border-amber-200/90 mb-3 select-none flex items-center justify-center bg-slate-900 group" id="storyStageBox">
+    <div class="relative w-full h-64 sm:h-72 rounded-3xl overflow-hidden shadow-xl border-2 border-amber-200/90 mb-3 select-none flex items-center justify-center bg-slate-900 group" id="storyStageBox" onclick="tapStageToWiggle()">
       
       <!-- High-Resolution Storybook Illustration Image -->
       <img id="sceneHeroImg" src="/assets/stories/magic_library_1.jpg" alt="Story Scene" class="absolute inset-0 w-full h-full object-cover object-center transition-all duration-500 ease-out transform" />
@@ -184,6 +260,31 @@
         <span id="bgmIcon">🎵</span>
         <span id="bgmLabel">ดนตรี: เปิด</span>
       </button>
+
+      
+      <!-- Dynamic Floating Particles (Sparkles & Sugar Crystals) -->
+      <div id="stageParticles" class="absolute inset-0 pointer-events-none overflow-hidden">
+        <span class="anim-float-particle text-amber-200 text-sm" style="top:-10px; left:15%; animation-duration:7s; animation-delay:0.5s;">🍬</span>
+        <span class="anim-float-particle text-yellow-300 text-xs" style="top:-10px; left:60%; animation-duration:9s; animation-delay:2s;">✨</span>
+        <span class="anim-float-particle text-emerald-300 text-xs" style="top:-10px; left:85%; animation-duration:8s; animation-delay:4s;">🍃</span>
+      </div>
+
+      <!-- ON-STAGE ANIMATED CONVERSATION SPEECH BUBBLE -->
+      <div id="stageSpeechBubbleBox" class="absolute bottom-12 left-2 right-2 sm:left-4 sm:right-4 z-20 pointer-events-none transition-all duration-300 hidden">
+        <div id="stageSpeechBubbleInner" class="bg-white/95 backdrop-blur-md px-3.5 py-2.5 rounded-2xl shadow-xl border-2 border-amber-300 text-slate-800 flex items-center gap-2.5 anim-bubble-in max-w-lg mx-auto">
+          <div id="stageSpeakerAvatar" class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-xl shrink-0 border border-amber-300 anim-char-wiggle shadow-xs">
+            🐜
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-1.5 mb-0.5">
+              <span id="stageSpeakerName" class="text-[11px] font-black px-2 py-0.2 rounded-full bg-amber-100 text-amber-800">Andy</span>
+              <span class="text-[9px] font-bold text-slate-400">กำลังพูด</span>
+            </div>
+            <p id="stageSpeechTextEn" class="text-xs sm:text-sm font-black text-slate-900 leading-snug truncate"></p>
+            <p id="stageSpeechTextTh" class="text-[10px] sm:text-xs font-bold text-amber-700 leading-tight font-thai truncate"></p>
+          </div>
+        </div>
+      </div>
 
       <!-- Bottom Caption Bar on Image -->
       <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white z-10 pointer-events-none">
@@ -253,6 +354,11 @@
       <button onclick="finishStoryReward()" class="flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-white font-black text-sm shadow-md shadow-amber-500/25 transition active:scale-95 flex items-center justify-center gap-2">
         <span>🏆 จบเรื่องแล้วรับรางวัล (+5 ⭐)</span>
       </button>
+      
+      <button id="btnOpenQuiz" onclick="openQuizModal()" class="py-3 px-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-black text-xs shadow-md shadow-emerald-500/25 transition active:scale-95 flex items-center justify-center gap-1.5" title="ทำแบบทดสอบจับใจความ">
+        <span>🎯 ควิซจับใจความ</span>
+      </button>
+
       <button onclick="nextStory()" class="py-3 px-4 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold text-xs transition active:scale-95 flex items-center gap-1.5">
         <span>เรื่องถัดไป</span>
         <i class="fa-solid fa-arrow-right text-xs"></i>
@@ -289,6 +395,55 @@
           เรื่องถัดไป ➔
         </button>
       </div>
+    </div>
+  </div>
+
+  
+  <!-- 8. INTERACTIVE COMPREHENSION QUIZ MODAL -->
+  <div id="storyQuizModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-md w-full p-5 sm:p-6 space-y-4 shadow-2xl border-4 border-emerald-400 animate-pop relative max-h-[92vh] overflow-y-auto no-scrollbar">
+      
+      <!-- Close Button -->
+      <button onclick="closeQuizModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center text-sm transition">
+        ✕
+      </button>
+
+      <!-- Quiz Header -->
+      <div class="text-center">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-black text-emerald-700 mb-1">
+          <span>🎯</span>
+          <span>Mini Challenge: ทายสนุกจับใจความ</span>
+        </div>
+        <h3 id="quizTitle" class="text-lg sm:text-xl font-black text-slate-900 font-display">คำถามท้ายบทนิทาน</h3>
+        <p id="quizProgressText" class="text-xs text-slate-500 font-bold mt-0.5">ข้อที่ 1 จาก 3</p>
+      </div>
+
+      <!-- Quiz Question Card -->
+      <div class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-4 border border-emerald-200/80 relative">
+        <button onclick="speakQuizQuestion()" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white shadow-xs text-emerald-600 flex items-center justify-center text-xs hover:bg-emerald-100 transition active:scale-95" title="กดฟังคำถาม">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
+        <p id="quizQuestionEn" class="text-sm sm:text-base font-black text-slate-800 pr-8"></p>
+        <p id="quizQuestionTh" class="text-xs sm:text-sm font-bold text-emerald-800 font-thai mt-1"></p>
+      </div>
+
+      <!-- Quiz Options List -->
+      <div class="space-y-2.5" id="quizOptionsContainer">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Explanation Feedback Banner -->
+      <div id="quizFeedbackBanner" class="p-3 rounded-2xl hidden transition-all">
+        <p id="quizFeedbackText" class="text-xs sm:text-sm font-bold"></p>
+      </div>
+
+      <!-- Next Question / Complete Button -->
+      <div class="pt-2">
+        <button id="btnNextQuizQuestion" onclick="advanceQuizQuestion()" class="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-black text-sm shadow-md shadow-emerald-500/25 transition active:scale-95 hidden flex items-center justify-center gap-1.5">
+          <span id="btnNextQuizText">ข้อถัดไป ➔</span>
+        </button>
+      </div>
+
     </div>
   </div>
 
@@ -381,6 +536,136 @@
   <script>
     // 1. CURATED STORY REPOSITORY WITH SCENE ILLUSTRATIONS (3 STORIES X 3 SCENES)
     const STORIES_DATA = [
+      {
+        id: 'andy_pip',
+        title: 'Andy & Pip: The Sweet Sugar',
+        thTitle: 'แอนดี้กับพิพ: สองมดน้อยกับน้ำตาลก้อนหวาน',
+        mins: '3 นาที',
+        badge: '🐜 บทสนทนา + ควิซจับใจความ',
+        emojis: ['🐜', '🍬', '🌱'],
+        cover: '/assets/stories/andy_pip/scene_1.jpg',
+        paragraphs: [
+          {
+            speaker: 'Andy',
+            speakerEmoji: '🐜',
+            speakerBadge: 'Andy (พี่มด)',
+            speakerColor: 'red',
+            en: 'Look, Pip! I found something sweet on the grass!',
+            th: 'ดูสิพิพ! พี่เจอของหวานแสนอร่อยบนพื้นหญ้าด้วยล่ะ!',
+            dialogueEn: '“Look, Pip! I found something sweet!”',
+            dialogueTh: '“ดูสิพิพ! พี่เจออะไรหวานๆ ด้วย!”',
+            icon: '🍬',
+            img: '/assets/stories/andy_pip/scene_1.jpg'
+          },
+          {
+            speaker: 'Pip',
+            speakerEmoji: '🐜',
+            speakerBadge: 'Pip (มดน้อง)',
+            speakerColor: 'blue',
+            en: 'Wow! Is that a giant white sugar cube? It looks so delicious!',
+            th: 'ว้าว! นั่นคือก้อนน้ำตาลสีขาวขนาดยักษ์เหรอฮะ? ดูน่าอร่อยจัง!',
+            dialogueEn: '“Wow! Is that a sugar cube?”',
+            dialogueTh: '“ว้าว! นั่นคือก้อนน้ำตาลเหรอฮะ?”',
+            icon: '✨',
+            img: '/assets/stories/andy_pip/scene_1.jpg'
+          },
+          {
+            speaker: 'Andy',
+            speakerEmoji: '🐜',
+            speakerBadge: 'Andy (พี่มด)',
+            speakerColor: 'red',
+            en: 'Yes! But it is too big and heavy for me to carry alone.',
+            th: 'ใช่แล้ว! แต่มันใหญ่และหนักเกินไปสำหรับพี่ที่จะยกคนเดียว',
+            dialogueEn: '“It is too big and heavy for me!”',
+            dialogueTh: '“มันใหญ่และหนักเกินไปสำหรับพี่คนเดียว!”',
+            icon: '🏋️',
+            img: '/assets/stories/andy_pip/scene_2.jpg'
+          },
+          {
+            speaker: 'Pip',
+            speakerEmoji: '🐜',
+            speakerBadge: 'Pip (มดน้อง)',
+            speakerColor: 'blue',
+            en: 'Don’t worry, Andy! I am small, but I can help you push it!',
+            th: 'ไม่ต้องห่วงนะพี่แอนดี้! แม้ผมจะตัวเล็ก แต่ผมช่วยพี่ดันได้นะ!',
+            dialogueEn: '“Don’t worry! I can help you!”',
+            dialogueTh: '“ไม่ต้องห่วงนะ! เดี๋ยวผมช่วยเอง!”',
+            icon: '🤝',
+            img: '/assets/stories/andy_pip/scene_2.jpg'
+          },
+          {
+            speaker: 'Both',
+            speakerEmoji: '🐜🐜',
+            speakerBadge: 'Andy & Pip (ร่วมใจ)',
+            speakerColor: 'amber',
+            en: 'One, two, three… push! We are a wonderful team!',
+            th: 'หนึ่ง สอง ซำ... ดัน! พวกเราสองคนเป็นทีมที่ยอดเยี่ยมที่สุด!',
+            dialogueEn: '“One, two, three... push! Teamwork!”',
+            dialogueTh: '“หนึ่ง สอง ซำ... ดัน! พลังทีมเวิร์ก!”',
+            icon: '💪',
+            img: '/assets/stories/andy_pip/scene_3.jpg'
+          },
+          {
+            speaker: 'Andy',
+            speakerEmoji: '🐜',
+            speakerBadge: 'Andy (พี่มด)',
+            speakerColor: 'red',
+            en: 'Hooray! We brought the sweet sugar all the way home to our anthill!',
+            th: 'ไชโย! พวกเราพาน้ำตาลก้อนหวานกลับมาถึงรังมดอันแสนอบอุ่นแล้ว!',
+            dialogueEn: '“Hooray! We brought it home!”',
+            dialogueTh: '“ไชโย! พากลับมาถึงรังแล้ว!”',
+            icon: '🏡',
+            img: '/assets/stories/andy_pip/scene_4.jpg'
+          },
+          {
+            speaker: 'Pip',
+            speakerEmoji: '🐜',
+            speakerBadge: 'Pip (มดน้อง)',
+            speakerColor: 'blue',
+            en: 'Yummy! It tastes so sweet! Thank you for sharing with me, Andy!',
+            th: 'อร่อยจังเลย! หวานชื่นใจที่สุด! ขอบคุณที่แบ่งปันให้ผมนะพี่แอนดี้!',
+            dialogueEn: '“Yummy! Thank you, Andy!”',
+            dialogueTh: '“อร่อยจัง! ขอบคุณนะพี่แอนดี้!”',
+            icon: '❤️',
+            img: '/assets/stories/andy_pip/scene_4.jpg'
+          }
+        ],
+        quiz: [
+          {
+            questionEn: "What did Andy find on the grass?",
+            questionTh: "แอนดี้เจอน้ำตาล หรือ เจอก้อนหินบนพื้นหญ้า?",
+            options: [
+              { textEn: "A sweet sugar cube 🍬", textTh: "ก้อนน้ำตาลแสนหวาน 🍬", correct: true },
+              { textEn: "A small rock 🪨", textTh: "ก้อนหินก้อนเล็ก 🪨", correct: false },
+              { textEn: "A toy ball ⚽", textTh: "ลูกบอลของเล่น ⚽", correct: false }
+            ],
+            explanationEn: "Andy found a shiny white sugar cube on the grass!",
+            explanationTh: "ถูกต้องแล้วจ้า! แอนดี้เจอก้อนน้ำตาลสีขาวแสนหวานบนพื้นหญ้า!"
+          },
+          {
+            questionEn: "Was the sugar cube light or heavy for Andy?",
+            questionTh: "ก้อนน้ำตาลเบา หรือ หนักเกินไปสำหรับแอนดี้?",
+            options: [
+              { textEn: "Too big and heavy! 🏋️", textTh: "ใหญ่และหนักเกินไป! 🏋️", correct: true },
+              { textEn: "Very small and light 🪶", textTh: "เล็กและเบามาก 🪶", correct: false }
+            ],
+            explanationEn: "It was too big and heavy for Andy to lift alone!",
+            explanationTh: "เก่งมาก! ก้อนน้ำตาลใหญ่และหนักเกินไป แอนดี้จึงยกคนเดียวไม่ไหว"
+          },
+          {
+            questionEn: "How did Andy and Pip move the sugar cube?",
+            questionTh: "แอนดี้กับพิพย้ายก้อนน้ำตาลอย่างไร?",
+            options: [
+              { textEn: "They pushed together as a team! 🤝", textTh: "ช่วยกันดันเป็นทีมเวิร์ก! 🤝", correct: true },
+              { textEn: "A bird carried it in the sky 🐦", textTh: "นกช่วยบินคาบไป 🐦", correct: false },
+              { textEn: "They left it on the grass 🌿", textTh: "ทิ้งไว้ที่เดิม 🌿", correct: false }
+            ],
+            explanationEn: "They counted 'One, two, three... push!' and worked together as a team!",
+            explanationTh: "ถูกต้องนะคร้าบ! ทั้งสองช่วยกันนับ 1 2 3 ดัน! และร่วมมือกันเป็นทีมจนสำเร็จ!"
+          }
+        ]
+      },
+
       {
         id: 'darin_space',
         title: "Darin's Journey to the Stars",
@@ -723,17 +1008,22 @@
         }
       });
 
-      // Update scene stage illustration and page badge
+      // Update scene stage illustration, camera movement, speech bubble and page badge
       const story = STORIES_DATA[currentStoryIdx];
       const currentPara = story.paragraphs[activeIdx];
       if (currentPara && currentPara.img) {
         const heroImg = document.getElementById('sceneHeroImg');
         if (heroImg && !heroImg.src.endsWith(currentPara.img)) {
-          heroImg.style.opacity = '0.5';
+          heroImg.style.opacity = '0.2';
           heroImg.src = currentPara.img;
-          setTimeout(() => { heroImg.style.opacity = '1'; }, 120);
+          applyCameraAnimation(activeIdx);
+          setTimeout(() => { heroImg.style.opacity = '1'; }, 220);
+        } else if (heroImg) {
+          applyCameraAnimation(activeIdx);
         }
       }
+      updateStageSpeechBubble(currentPara);
+
       const pageBadge = document.getElementById('scenePageBadge');
       if (pageBadge) {
         pageBadge.textContent = `ฉากที่ ${activeIdx + 1}/${story.paragraphs.length}`;
@@ -799,7 +1089,19 @@
       const st = STORIES_DATA[currentStoryIdx];
       const container = document.getElementById('storyParagraphsContainer');
 
+      // Show/Hide Quiz Button based on story having quiz
+      const quizBtn = document.getElementById('btnOpenQuiz');
+      if (quizBtn) {
+        if (st.quiz && st.quiz.length > 0) quizBtn.classList.remove('hidden');
+        else quizBtn.classList.add('hidden');
+      }
+
       container.innerHTML = st.paragraphs.map((p, idx) => {
+        const isDialogue = !!p.speaker;
+        const speakerBadgeClass = p.speakerColor === 'blue' 
+          ? 'bg-blue-100 text-blue-800 border-blue-200' 
+          : (p.speakerColor === 'red' ? 'bg-red-100 text-red-800 border-red-200' : 'bg-amber-100 text-amber-800 border-amber-200');
+
         return `
           <div onclick="tapParagraphToPlay(${idx})" class="para-box bg-white rounded-2xl p-3 sm:p-4 border-2 border-slate-100 shadow-xs cursor-pointer hover:border-amber-300 transition" id="para_box_${idx}">
             <div class="flex items-start gap-3">
@@ -809,13 +1111,20 @@
                 <span class="absolute bottom-1 right-1 px-1.5 py-0.5 rounded-md bg-black/60 backdrop-blur-xs text-[9px] font-black text-white">#${idx+1}</span>
               </div>
               <div class="flex-1 space-y-1">
+                ${isDialogue ? `
+                  <div class="flex items-center gap-1.5 mb-1">
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-black border ${speakerBadgeClass}">
+                      ${p.speakerEmoji || '🐜'} ${p.speakerBadge || p.speaker}
+                    </span>
+                  </div>
+                ` : ''}
                 <!-- English Text -->
                 <p class="text-sm sm:text-base font-bold leading-relaxed text-slate-800 ${narrationLang === 'en' ? 'font-story text-slate-900 font-extrabold' : ''}">
-                  ${p.en}
+                  ${p.dialogueEn || p.en}
                 </p>
                 <!-- Thai Translation -->
                 <p class="text-xs sm:text-sm font-medium leading-normal text-slate-500 font-thai border-t border-slate-100 pt-1">
-                  ${p.th}
+                  ${p.dialogueTh || p.th}
                 </p>
               </div>
               <button class="w-7 h-7 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-600 flex items-center justify-center text-xs shrink-0 transition" title="แตะฟังประโยคนี้">
@@ -877,6 +1186,209 @@
 
     function closeWinModal() {
       document.getElementById('storyWinModal').classList.add('hidden');
+    }
+
+    
+    // --- STAGE CAMERA & WIGGLE REACTION ---
+    const CAMERA_EFFECTS = ['anim-zoom-in', 'anim-pan-right', 'anim-zoom-out', 'anim-pan-left'];
+
+    function applyCameraAnimation(idx) {
+      const heroImg = document.getElementById('sceneHeroImg');
+      if (!heroImg) return;
+      CAMERA_EFFECTS.forEach(cls => heroImg.classList.remove(cls));
+      const chosenEffect = CAMERA_EFFECTS[idx % CAMERA_EFFECTS.length];
+      heroImg.classList.add(chosenEffect);
+    }
+
+    function tapStageToWiggle() {
+      const stage = document.getElementById('storyStageBox');
+      if (!stage) return;
+      stage.classList.remove('stage-tapped');
+      void stage.offsetWidth; // trigger reflow
+      stage.classList.add('stage-tapped');
+
+      // Play joyful chime note
+      if (musicAudioCtx) {
+        try {
+          const osc = musicAudioCtx.createOscillator();
+          const gain = musicAudioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(587.33, musicAudioCtx.currentTime); // D5
+          osc.frequency.exponentialRampToValueAtTime(880.00, musicAudioCtx.currentTime + 0.25); // A5
+          gain.gain.setValueAtTime(0.04, musicAudioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, musicAudioCtx.currentTime + 0.35);
+          osc.connect(gain);
+          gain.connect(musicAudioCtx.destination);
+          osc.start();
+          osc.stop(musicAudioCtx.currentTime + 0.35);
+        } catch(e) {}
+      }
+    }
+
+    // --- ON-STAGE SPEECH BUBBLE SYNC ---
+    function updateStageSpeechBubble(para) {
+      const bubbleBox = document.getElementById('stageSpeechBubbleBox');
+      if (!bubbleBox) return;
+
+      if (!para || !para.speaker) {
+        bubbleBox.classList.add('hidden');
+        return;
+      }
+
+      bubbleBox.classList.remove('hidden');
+      const inner = document.getElementById('stageSpeechBubbleInner');
+      if (inner) {
+        inner.classList.remove('anim-bubble-in');
+        void inner.offsetWidth;
+        inner.classList.add('anim-bubble-in');
+      }
+
+      document.getElementById('stageSpeakerName').textContent = para.speakerBadge || para.speaker;
+      document.getElementById('stageSpeakerAvatar').textContent = para.speakerEmoji || '🐜';
+      document.getElementById('stageSpeechTextEn').textContent = para.dialogueEn || para.en;
+      document.getElementById('stageSpeechTextTh').textContent = para.dialogueTh || para.th;
+
+      // Color theme for speaker
+      const avatarBox = document.getElementById('stageSpeakerAvatar');
+      const nameTag = document.getElementById('stageSpeakerName');
+      if (para.speakerColor === 'blue') {
+        avatarBox.className = 'w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-xl shrink-0 border border-blue-300 anim-char-wiggle shadow-xs';
+        nameTag.className = 'text-[11px] font-black px-2 py-0.2 rounded-full bg-blue-100 text-blue-800';
+      } else if (para.speakerColor === 'red') {
+        avatarBox.className = 'w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-xl shrink-0 border border-red-300 anim-char-wiggle shadow-xs';
+        nameTag.className = 'text-[11px] font-black px-2 py-0.2 rounded-full bg-red-100 text-red-800';
+      } else {
+        avatarBox.className = 'w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-xl shrink-0 border border-amber-300 anim-char-wiggle shadow-xs';
+        nameTag.className = 'text-[11px] font-black px-2 py-0.2 rounded-full bg-amber-100 text-amber-800';
+      }
+    }
+
+    // --- COMPREHENSION QUIZ LOGIC ---
+    let currentQuizIdx = 0;
+    let quizAnswered = false;
+
+    function openQuizModal() {
+      pauseNarration();
+      const story = STORIES_DATA[currentStoryIdx];
+      if (!story.quiz || story.quiz.length === 0) {
+        alert('เรื่องนี้ยังไม่มีควิซจับใจความจ้า');
+        return;
+      }
+      currentQuizIdx = 0;
+      quizAnswered = false;
+      renderQuizQuestion();
+      document.getElementById('storyQuizModal').classList.remove('hidden');
+    }
+
+    function closeQuizModal() {
+      document.getElementById('storyQuizModal').classList.add('hidden');
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    }
+
+    function renderQuizQuestion() {
+      const story = STORIES_DATA[currentStoryIdx];
+      const q = story.quiz[currentQuizIdx];
+      quizAnswered = false;
+
+      document.getElementById('quizTitle').textContent = story.title;
+      document.getElementById('quizProgressText').textContent = `ข้อที่ ${currentQuizIdx + 1} จาก ${story.quiz.length}`;
+      document.getElementById('quizQuestionEn').textContent = q.questionEn;
+      document.getElementById('quizQuestionTh').textContent = q.questionTh;
+
+      const feedback = document.getElementById('quizFeedbackBanner');
+      feedback.classList.add('hidden');
+      document.getElementById('btnNextQuizQuestion').classList.add('hidden');
+
+      const container = document.getElementById('quizOptionsContainer');
+      container.innerHTML = q.options.map((opt, i) => {
+        return `
+          <button onclick="selectQuizOption(${i})" class="quiz-opt-btn w-full p-3.5 rounded-2xl bg-white border-2 border-slate-200 hover:border-emerald-400 text-left transition active:scale-98 flex items-center justify-between gap-3 shadow-xs" id="quiz_opt_${i}">
+            <div>
+              <p class="text-sm font-black text-slate-800">${opt.textEn}</p>
+              <p class="text-xs font-bold text-slate-500 font-thai mt-0.5">${opt.textTh}</p>
+            </div>
+            <span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center text-xs text-slate-400 shrink-0 font-bold" id="quiz_opt_icon_${i}">
+              ${String.fromCharCode(65 + i)}
+            </span>
+          </button>
+        `;
+      }).join('');
+
+      // Auto read question
+      speakQuizQuestion();
+    }
+
+    function speakQuizQuestion() {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const story = STORIES_DATA[currentStoryIdx];
+      const q = story.quiz[currentQuizIdx];
+      const text = narrationLang === 'en' ? q.questionEn : q.questionTh;
+      const ut = new SpeechSynthesisUtterance(text);
+      ut.lang = narrationLang === 'en' ? 'en-US' : 'th-TH';
+      ut.rate = 0.9;
+      window.speechSynthesis.speak(ut);
+    }
+
+    function selectQuizOption(choiceIdx) {
+      if (quizAnswered) return;
+      const story = STORIES_DATA[currentStoryIdx];
+      const q = story.quiz[currentQuizIdx];
+      const selected = q.options[choiceIdx];
+      const btn = document.getElementById(`quiz_opt_${choiceIdx}`);
+      const icon = document.getElementById(`quiz_opt_icon_${choiceIdx}`);
+      const feedback = document.getElementById('quizFeedbackBanner');
+      const feedbackText = document.getElementById('quizFeedbackText');
+
+      if (selected.correct) {
+        quizAnswered = true;
+        btn.className = 'w-full p-3.5 rounded-2xl bg-emerald-50 border-2 border-emerald-500 text-left transition flex items-center justify-between gap-3 shadow-xs';
+        icon.className = 'w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs shrink-0 font-black';
+        icon.innerHTML = '✓';
+
+        feedback.className = 'p-3 rounded-2xl bg-emerald-100 border border-emerald-300 text-emerald-900 transition-all';
+        feedbackText.textContent = narrationLang === 'en' ? ('🌟 Correct! ' + q.explanationEn) : ('🌟 ถูกต้องนะจ๊ะ! ' + q.explanationTh);
+        feedback.classList.remove('hidden');
+
+        // Play chime and confetti
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 50, spread: 60, origin: { y: 0.5 } });
+        }
+
+        const nextBtn = document.getElementById('btnNextQuizQuestion');
+        nextBtn.classList.remove('hidden');
+        if (currentQuizIdx < story.quiz.length - 1) {
+          document.getElementById('btnNextQuizText').textContent = 'ข้อถัดไป ➔';
+        } else {
+          document.getElementById('btnNextQuizText').textContent = '🎉 รับเหรียญรางวัลพิเศษ (+10 ⭐)';
+        }
+      } else {
+        btn.classList.add('anim-shake', 'border-red-400', 'bg-red-50');
+        icon.className = 'w-6 h-6 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-xs shrink-0 font-black';
+        icon.innerHTML = '✗';
+        setTimeout(() => {
+          btn.classList.remove('anim-shake');
+        }, 500);
+
+        feedback.className = 'p-3 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 transition-all';
+        feedbackText.textContent = narrationLang === 'en' ? 'Almost there! Try another choice!' : 'เกือบถูกแล้วจ้า ลองคิดอีกรอบนะ!';
+        feedback.classList.remove('hidden');
+      }
+    }
+
+    function advanceQuizQuestion() {
+      const story = STORIES_DATA[currentStoryIdx];
+      if (currentQuizIdx < story.quiz.length - 1) {
+        currentQuizIdx++;
+        renderQuizQuestion();
+      } else {
+        // Finished Quiz!
+        closeQuizModal();
+        finishStoryReward();
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
+        }
+      }
     }
 
     // 7. INITIALIZE ON LOAD
