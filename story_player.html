@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="theme-color" content="#FFFDF9">
-  <title>Kidobits Story Time · นิทานเสียงแสนสนุก 📚✨</title>
+  <title>Kidobits Story Time · นิทานเสียงภาพประกอบ 📚✨</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Noto+Sans+Thai:wght@400;500;600;700;800;900&family=Prompt:wght@500;600;700;800&family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
@@ -53,22 +53,14 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-    /* Micro-Animations for Story Scenes */
-    @keyframes floatGentle {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-7px) rotate(1.5deg); }
+    /* Micro-Animations & Ken Burns for Story Scenes */
+    @keyframes kenBurnsSlow {
+      0% { transform: scale(1) translate(0, 0); }
+      50% { transform: scale(1.06) translate(-1%, -1%); }
+      100% { transform: scale(1) translate(0, 0); }
     }
-    .anim-float {
-      animation: floatGentle 4s ease-in-out infinite;
-    }
-
-    @keyframes cloudDrift {
-      0% { transform: translateX(-15px); }
-      50% { transform: translateX(15px); }
-      100% { transform: translateX(-15px); }
-    }
-    .anim-cloud {
-      animation: cloudDrift 12s ease-in-out infinite;
+    .anim-kenburns {
+      animation: kenBurnsSlow 16s ease-in-out infinite alternate;
     }
 
     @keyframes sparkleGlow {
@@ -132,7 +124,7 @@
         <span class="text-xl">📚</span>
         <div>
           <span class="text-xs sm:text-sm font-black text-slate-900 tracking-tight">Kidobits Story Time</span>
-          <span class="hidden sm:inline-block px-2 py-0.2 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold ml-1">นิทานเสียง</span>
+          <span class="hidden sm:inline-block px-2 py-0.2 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold ml-1">นิทานภาพมีเสียง</span>
         </div>
       </div>
 
@@ -164,50 +156,49 @@
       </div>
     </div>
 
-    <!-- 3. ANIMATED STORY SCENE STAGE (Micro-Animation) -->
-    <div class="relative w-full h-52 sm:h-60 rounded-3xl overflow-hidden shadow-lg border border-amber-200/80 mb-3 select-none flex items-center justify-center" id="storyStageBox" style="background: linear-gradient(135deg, #1E1B4B 0%, #312E81 60%, #4338CA 100%);">
+    <!-- 3. ANIMATED STORY SCENE STAGE (Picture Storybook Screen) -->
+    <div class="relative w-full h-64 sm:h-72 rounded-3xl overflow-hidden shadow-xl border-2 border-amber-200/90 mb-3 select-none flex items-center justify-center bg-slate-900 group" id="storyStageBox">
       
-      <!-- Background floating stars & moon -->
+      <!-- High-Resolution Storybook Illustration Image -->
+      <img id="sceneHeroImg" src="/assets/stories/magic_library_1.jpg" alt="Story Scene" class="absolute inset-0 w-full h-full object-cover object-center transition-all duration-500 ease-out transform" />
+
+      <!-- Gentle Dark Vignette Overlay for Crisp Typography -->
+      <div id="sceneGlowOverlay" class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/30 pointer-events-none"></div>
+
+      <!-- Sparkles and Ambient Bedtime Atmosphere -->
       <div class="absolute inset-0 pointer-events-none overflow-hidden">
-        <span class="anim-sparkle absolute top-4 left-7 text-yellow-300 text-lg">✨</span>
-        <span class="anim-sparkle absolute top-9 right-12 text-yellow-200 text-sm" style="animation-delay: 1.2s;">⭐</span>
-        <span class="anim-sparkle absolute bottom-6 left-14 text-yellow-300 text-xs" style="animation-delay: 0.6s;">✨</span>
-        <span class="anim-sparkle absolute bottom-12 right-20 text-yellow-200 text-base" style="animation-delay: 1.8s;">⭐</span>
-        
-        <!-- Drifting clouds -->
-        <span class="anim-cloud absolute top-3 right-6 text-white/30 text-3xl">☁️</span>
-        <span class="anim-cloud absolute bottom-4 left-4 text-white/20 text-2xl" style="animation-delay: 3s;">☁️</span>
+        <span class="anim-sparkle absolute top-4 left-6 text-yellow-300 text-lg">✨</span>
+        <span class="anim-sparkle absolute top-8 right-12 text-yellow-200 text-sm" style="animation-delay: 1.2s;">⭐</span>
+        <span class="anim-sparkle absolute bottom-16 left-8 text-yellow-300 text-xs" style="animation-delay: 0.6s;">✨</span>
+        <span class="anim-sparkle absolute bottom-20 right-14 text-yellow-200 text-base" style="animation-delay: 1.8s;">⭐</span>
       </div>
 
-      <!-- Central Animated Illustration -->
-      <div class="relative z-10 flex flex-col items-center justify-center text-center p-4">
-        <!-- Floating Character & Scene Emojis with Micro-Motion -->
-        <div class="anim-float flex items-center justify-center gap-4 text-6xl sm:text-7xl drop-shadow-lg mb-2" id="sceneHeroEmoji">
-          <span>📖</span>
-          <span class="text-4xl -ml-2 -mt-6">🦁</span>
-          <span class="text-3xl ml-1 -mt-4">🚀</span>
-        </div>
-
-        <!-- Story Title & Tag -->
-        <div class="bg-black/35 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 inline-flex items-center gap-2">
-          <span id="sceneBadgeIcon">✨</span>
-          <h2 id="sceneStoryTitle" class="text-sm sm:text-base font-black text-white tracking-wide">The Magic Library</h2>
-          <span class="text-[11px] text-amber-300 font-bold" id="sceneDuration">• 4 min</span>
-        </div>
-        <p id="sceneStorySubtitle" class="text-xs text-amber-100 font-medium mt-1 font-thai">ห้องสมุดมหัศจรรย์</p>
-      </div>
-
-      <!-- Floating Bedtime Moon Indicator in corner -->
-      <div class="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/25 text-[11px] font-bold text-white shadow-xs">
+      <!-- Story Bedtime Moon Tag in corner -->
+      <div class="absolute top-3 left-3 flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/45 backdrop-blur-md border border-white/25 text-[11px] font-bold text-white shadow-xs">
         <span>🌙</span>
-        <span>นิทานก่อนนอน</span>
+        <span>นิทานภาพก่อนนอน</span>
       </div>
 
-      <!-- Soft Lullaby BGM Toggle -->
-      <button onclick="toggleBgmMusic()" id="btnBgmToggle" class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/25 text-[11px] font-black text-white shadow-xs transition active:scale-95 flex items-center gap-1" title="เปิด/ปิด ดนตรีบรรเลงกล่อมนอน">
+      <!-- Lullaby BGM Toggle -->
+      <button onclick="toggleBgmMusic()" id="btnBgmToggle" class="absolute top-3 right-3 px-3 py-1 rounded-full bg-black/45 hover:bg-black/60 backdrop-blur-md border border-white/25 text-[11px] font-black text-white shadow-xs transition active:scale-95 flex items-center gap-1.5" title="เปิด/ปิด ดนตรีบรรเลงกล่อมนอน">
         <span id="bgmIcon">🎵</span>
         <span id="bgmLabel">ดนตรี: เปิด</span>
       </button>
+
+      <!-- Bottom Caption Bar on Image -->
+      <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white z-10 pointer-events-none">
+        <div class="bg-black/50 backdrop-blur-md px-3.5 py-1.5 rounded-2xl border border-white/20 flex items-center gap-2">
+          <span id="sceneBadgeIcon" class="text-base">✨</span>
+          <div>
+            <h2 id="sceneStoryTitle" class="text-xs sm:text-sm font-black text-white tracking-wide leading-tight">The Magic Library</h2>
+            <p id="sceneStorySubtitle" class="text-[10px] text-amber-200 font-medium font-thai">ห้องสมุดมหัศจรรย์</p>
+          </div>
+        </div>
+
+        <div class="bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-2xl border border-white/20 flex items-center gap-1.5 text-[11px] font-black text-amber-300">
+          <span id="scenePageBadge">ฉากที่ 1/3</span>
+        </div>
+      </div>
 
     </div>
 
@@ -252,7 +243,7 @@
 
     </div>
 
-    <!-- 5. INTERACTIVE STORY PARAGRAPHS (READ-ALONG KARAOKE) -->
+    <!-- 5. INTERACTIVE STORY PARAGRAPHS (READ-ALONG WITH SCENE THUMBNAILS) -->
     <div class="space-y-3" id="storyParagraphsContainer">
       <!-- Paragraph cards rendered dynamically by JS -->
     </div>
@@ -345,7 +336,7 @@
     </button>
 
     <!-- 4. Chinese -->
-    <button onclick="window.location.href='/theme/theme_chinese_lobby.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Chinese">
+    <button onclick="window.location.href='/chinese_match.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]" aria-label="Chinese">
       <span class="w-10 h-10 grid place-items-center rounded-full transition text-[#9A8FA8] hover:bg-slate-50">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"></circle>
@@ -388,7 +379,7 @@
 
   <!-- STORY ENGINE & AUDIO SCRIPT -->
   <script>
-    // 1. CURATED STORY REPOSITORY (DUAL-LANGUAGE & PARAGRAPHS)
+    // 1. CURATED STORY REPOSITORY WITH SCENE ILLUSTRATIONS (3 STORIES X 3 SCENES)
     const STORIES_DATA = [
       {
         id: 'magic_library',
@@ -397,22 +388,24 @@
         mins: '3 นาที',
         badge: '✨',
         emojis: ['📖', '🦁', '🚀'],
-        bgGradient: 'linear-gradient(135deg, #1E1B4B 0%, #312E81 60%, #4338CA 100%)',
         paragraphs: [
           {
             en: 'Every night, Marion’s books opened like little magical doors. A golden lion popped out of one page, and a shiny rocket zoomed across the ceiling. “Come and read with us!” they whispered.',
             th: 'ทุก ๆ คืน หนังสือของน้องมาเรียนจะเปิดออกเหมือนประตูกลวิเศษ สิงโตสีทองตัวหนึ่งโผล่ออกมาจากหน้าหนังสือ และจรวดลำเงาวับก็พุ่งข้ามเพดานห้อง “มาอ่านหนังสือด้วยกันนะ!” พวกเขาพากันกระซิบชวน',
-            icon: '🦁'
+            icon: '🦁',
+            img: '/assets/stories/magic_library_1.jpg'
           },
           {
             en: 'She read about friendly numbers, dancing forest animals, and faraway sparkling seas. Each story gave her a brand new word, a curious question, and a wonderful new friend.',
             th: 'เธอได้อ่านเรื่องราวเกี่ยวกับตัวเลขอารมณ์ดี เหล่าสัตว์ป่าที่กำลังเต้นรำ และท้องทะเลระยิบระยับที่อยู่แสนไกล นิทานแต่ละเรื่องได้มอบคำศัพท์ใหม่ คำถามแสนสนุก และเพื่อนใหม่ที่แสนวิเศษให้กับเธอ',
-            icon: '🌊'
+            icon: '🌊',
+            img: '/assets/stories/magic_library_2.jpg'
           },
           {
             en: 'When the warm morning sun came up, Marion closed her book and smiled. The magic was still right there in her heart — waiting on every page she would read next.',
             th: 'เมื่อแสงแดดยามเช้าอันอบอุ่นสาดส่องลงมา มาเรียนก็ปิดสมุดนิทานลงพร้อมรอยยิ้ม ความมหัศจรรย์ยังคงอยู่ในหัวใจของเธอเสมอ และกำลังรอคอยเธออยู่ในทุก ๆ หน้าที่จะได้เปิดอ่านครั้งต่อไป',
-            icon: '☀️'
+            icon: '☀️',
+            img: '/assets/stories/magic_library_3.jpg'
           }
         ]
       },
@@ -423,22 +416,24 @@
         mins: '4 นาที',
         badge: '🚀',
         emojis: ['🚀', '🪐', '🐱'],
-        bgGradient: 'linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%)',
         paragraphs: [
           {
             en: 'Marion found a shiny red rocket parked behind the library garden. It winked at her and whispered, “Three, two, one… let’s explore!” She buckled up tight with her star map and her favorite pencil.',
             th: 'มาเรียนพบจรวดสีแดงสดแวววาวจอดอยู่หลังสวนของห้องสมุด มันขยิบตาให้เธอแล้วกระซิบว่า “สาม สอง หนึ่ง... ไปสำรวจอวกาศกันเถอะ!” เธอรีบคาดเข็มขัดนิรภัย พร้อมแผนที่ดวงดาวและดินสอแท่งโปรด',
-            icon: '🚀'
+            icon: '🚀',
+            img: '/assets/stories/red_rocket_1.jpg'
           },
           {
             en: 'Up they flew past the smiling Moon, past a giant purple planet shaped like a donut, and past a soft cloud that looked just like a sleepy kitten. Marion counted every glittering star she saw.',
             th: 'พวกเขาทะยานขึ้นสู่ท้องฟ้า ผ่านดวงจันทร์ที่กำลังยิ้มทักทาย ผ่านดาวเคราะห์สีม่วงยักษ์ที่มีรูปร่างเหมือนโดนัท และผ่านก้อนเมฆนุ่มฟูที่ดูเหมือนลูกแมวน้อยกำลังนอนหลับ มาเรียนนับดวงดาวทุกดวงที่เธอเห็นอย่างมีความสุข',
-            icon: '🪐'
+            icon: '🪐',
+            img: '/assets/stories/red_rocket_2.jpg'
           },
           {
             en: 'When she landed safely back home, she drew every galaxy in her notebook. “The best adventures,” she whispered with a smile, “are the ones we can share with the people we love.”',
             th: 'เมื่อเธอกลับลงมาถึงบ้านอย่างปลอดภัย เธอรีบวาดกาแล็กซีทั้งหมดลงในสมุดบันทึก “การผจญภัยที่ยอดเยี่ยมที่สุด” เธอกระซิบพร้อมรอยยิ้ม “คือการผจญภัยที่เราได้แบ่งปันให้กับคนที่เรารัก”',
-            icon: '🌟'
+            icon: '🌟',
+            img: '/assets/stories/red_rocket_3.jpg'
           }
         ]
       },
@@ -449,22 +444,24 @@
         mins: '3 นาที',
         badge: '🦊',
         emojis: ['🦊', '🌲', '🦉'],
-        bgGradient: 'linear-gradient(135deg, #064E3B 0%, #047857 60%, #10B981 100%)',
         paragraphs: [
           {
             en: 'Deep in the Whispering Woods, a little red fox named Finny heard a tiny bird crying high up in the tallest pine tree. Even though the tree was very tall, Finny decided to be brave.',
             th: 'ลึกเข้าไปในป่ากระซิบ สุนัขจิ้งจอกน้อยสีแดงชื่อฟินนี่ ได้ยินเสียงนกตัวเล็กๆ ร้องไห้อยู่บนยอดต้นสนที่สูงที่สุด แม้ว่าต้นไม้จะสูงมาก แต่ฟินนี่ก็ตัดสินใจที่จะกล้าหาญ',
-            icon: '🌲'
+            icon: '🌲',
+            img: '/assets/stories/brave_fox_1.jpg'
           },
           {
             en: 'Step by step, Finny climbed carefully along the gentle wooden branches. Wise Old Owl flew down and offered a warm wing of encouragement. “Courage is taking one small step at a time,” Owl hooted.',
             th: 'ฟินนี่ค่อยๆ ปีนไปตามกิ่งไม้อย่างระมัดระวังทีละก้าว นกฮูกเฒ่าผู้ชาญฉลาดบินลงมาช่วยให้กำลังใจ “ความกล้าหาญ คือการก้าวไปข้างหน้าทีละก้าวเล็กๆ เสมอ” นกฮูกร้องบอก',
-            icon: '🦉'
+            icon: '🦉',
+            img: '/assets/stories/brave_fox_2.jpg'
           },
           {
             en: 'Together, they helped the baby bird safely return to its cozy nest. Finny looked out over the glowing forest sunset, knowing that a kind heart is the greatest superpower of all.',
             th: 'พวกเขาร่วมมือกันช่วยส่งลูกนกกลับเข้ารังอันอบอุ่นได้อย่างปลอดภัย ฟินนี่มองออกไปยังพระอาทิตย์ตกดินอันงดงาม และเรียนรู้ว่า หัวใจที่โอบอ้อมอารีคือพลังที่ยิ่งใหญ่ที่สุดในโลก',
-            icon: '❤️'
+            icon: '❤️',
+            img: '/assets/stories/brave_fox_3.jpg'
           }
         ]
       }
@@ -549,7 +546,6 @@
 
       const story = STORIES_DATA[currentStoryIdx];
       if (index >= story.paragraphs.length) {
-        // Story finished!
         handleStoryFinished();
         return;
       }
@@ -604,6 +600,10 @@
       document.getElementById('mainPlayIcon').className = 'fa-solid fa-pause';
       document.getElementById('btnMainPlay').classList.remove('anim-play-pulse');
       document.getElementById('audioWaveBox').classList.remove('hidden');
+      
+      const heroImg = document.getElementById('sceneHeroImg');
+      if (heroImg) heroImg.classList.add('anim-kenburns');
+
       startBgmLoop();
 
       if (currentParaIdx < 0 || currentParaIdx >= STORIES_DATA[currentStoryIdx].paragraphs.length) {
@@ -617,6 +617,10 @@
       document.getElementById('mainPlayIcon').className = 'fa-solid fa-play ml-0.5';
       document.getElementById('btnMainPlay').classList.add('anim-play-pulse');
       document.getElementById('audioWaveBox').classList.add('hidden');
+      
+      const heroImg = document.getElementById('sceneHeroImg');
+      if (heroImg) heroImg.classList.remove('anim-kenburns');
+
       stopBgmLoop();
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
@@ -633,6 +637,7 @@
     function tapParagraphToPlay(idx) {
       initBgmEngine();
       currentParaIdx = idx;
+      updateActiveParaHighlight(idx);
       playNarration();
     }
 
@@ -641,12 +646,27 @@
       boxes.forEach((box, i) => {
         if (i === activeIdx) {
           box.classList.add('para-active');
-          // Scroll gently into view if needed
           box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         } else {
           box.classList.remove('para-active');
         }
       });
+
+      // Update scene stage illustration and page badge
+      const story = STORIES_DATA[currentStoryIdx];
+      const currentPara = story.paragraphs[activeIdx];
+      if (currentPara && currentPara.img) {
+        const heroImg = document.getElementById('sceneHeroImg');
+        if (heroImg && !heroImg.src.endsWith(currentPara.img)) {
+          heroImg.style.opacity = '0.5';
+          heroImg.src = currentPara.img;
+          setTimeout(() => { heroImg.style.opacity = '1'; }, 120);
+        }
+      }
+      const pageBadge = document.getElementById('scenePageBadge');
+      if (pageBadge) {
+        pageBadge.textContent = `ฉากที่ ${activeIdx + 1}/${story.paragraphs.length}`;
+      }
     }
 
     function setNarrationLang(lang) {
@@ -689,16 +709,19 @@
       const st = STORIES_DATA[currentStoryIdx];
       document.getElementById('sceneStoryTitle').textContent = st.title;
       document.getElementById('sceneStorySubtitle').textContent = st.thTitle;
-      document.getElementById('sceneDuration').textContent = `• ${st.mins}`;
       document.getElementById('sceneBadgeIcon').textContent = st.badge;
-      document.getElementById('storyStageBox').style.background = st.bgGradient;
-
-      // Render micro-animation emojis
-      document.getElementById('sceneHeroEmoji').innerHTML = `
-        <span>${st.emojis[0]}</span>
-        <span class="text-4xl -ml-2 -mt-6">${st.emojis[1] || ''}</span>
-        <span class="text-3xl ml-1 -mt-4">${st.emojis[2] || ''}</span>
-      `;
+      
+      const firstImg = st.paragraphs[0] ? st.paragraphs[0].img : '/assets/stories/magic_library_1.jpg';
+      const heroImg = document.getElementById('sceneHeroImg');
+      if (heroImg) {
+        heroImg.src = firstImg;
+        heroImg.style.opacity = '1';
+      }
+      
+      const pageBadge = document.getElementById('scenePageBadge');
+      if (pageBadge) {
+        pageBadge.textContent = `ฉากที่ 1/${st.paragraphs.length}`;
+      }
     }
 
     function renderParagraphs() {
@@ -707,22 +730,24 @@
 
       container.innerHTML = st.paragraphs.map((p, idx) => {
         return `
-          <div onclick="tapParagraphToPlay(${idx})" class="para-box bg-white rounded-2xl p-4 border-2 border-slate-100 shadow-xs cursor-pointer hover:border-amber-300 transition" id="para_box_${idx}">
+          <div onclick="tapParagraphToPlay(${idx})" class="para-box bg-white rounded-2xl p-3 sm:p-4 border-2 border-slate-100 shadow-xs cursor-pointer hover:border-amber-300 transition" id="para_box_${idx}">
             <div class="flex items-start gap-3">
-              <span class="w-8 h-8 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center text-lg shrink-0 border border-amber-200/60">
-                ${p.icon}
-              </span>
-              <div class="flex-1 space-y-1.5">
+              <!-- Scene Illustration Thumbnail -->
+              <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden shadow-xs shrink-0 border border-slate-200 bg-slate-100">
+                <img src="${p.img}" alt="Scene #${idx+1}" class="w-full h-full object-cover hover:scale-105 transition duration-300" loading="lazy" />
+                <span class="absolute bottom-1 right-1 px-1.5 py-0.5 rounded-md bg-black/60 backdrop-blur-xs text-[9px] font-black text-white">#${idx+1}</span>
+              </div>
+              <div class="flex-1 space-y-1">
                 <!-- English Text -->
-                <p class="text-base sm:text-lg font-bold leading-relaxed text-slate-800 ${narrationLang === 'en' ? 'font-story text-slate-900' : ''}">
+                <p class="text-sm sm:text-base font-bold leading-relaxed text-slate-800 ${narrationLang === 'en' ? 'font-story text-slate-900 font-extrabold' : ''}">
                   ${p.en}
                 </p>
                 <!-- Thai Translation -->
-                <p class="text-xs sm:text-sm font-medium leading-normal text-slate-500 font-thai border-t border-slate-50 pt-1.5">
+                <p class="text-xs sm:text-sm font-medium leading-normal text-slate-500 font-thai border-t border-slate-100 pt-1">
                   ${p.th}
                 </p>
               </div>
-              <button class="w-7 h-7 rounded-lg bg-slate-50 hover:bg-amber-100 text-amber-600 flex items-center justify-center text-xs shrink-0 transition" title="แตะฟังประโยคนี้">
+              <button class="w-7 h-7 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-600 flex items-center justify-center text-xs shrink-0 transition" title="แตะฟังประโยคนี้">
                 <i class="fa-solid fa-volume-high text-[11px]"></i>
               </button>
             </div>
@@ -734,19 +759,21 @@
     function selectStory(idx) {
       pauseNarration();
       currentStoryIdx = idx;
-      currentParaIdx = -1;
+      currentParaIdx = 0;
       renderStoryTabs();
       renderStage();
       renderParagraphs();
+      updateActiveParaHighlight(0);
     }
 
     function nextStory() {
       pauseNarration();
       currentStoryIdx = (currentStoryIdx + 1) % STORIES_DATA.length;
-      currentParaIdx = -1;
+      currentParaIdx = 0;
       renderStoryTabs();
       renderStage();
       renderParagraphs();
+      updateActiveParaHighlight(0);
     }
 
     // 6. COMPLETION REWARDS
@@ -793,6 +820,7 @@
       renderStoryTabs();
       renderStage();
       renderParagraphs();
+      updateActiveParaHighlight(0);
     });
   </script>
 </body>
