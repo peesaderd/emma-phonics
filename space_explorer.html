@@ -1165,6 +1165,17 @@
     // 7. HIGH-OCTANE SPACEPORT LAUNCH SEQUENCE & PHYSICS ANIMATION
     let isLaunching = false;
 
+    function playFanfare() {
+      if (!audioCtx) initAudio();
+      if (!audioCtx) return;
+      const notes = [523.25, 659.25, 783.99, 1046.50];
+      notes.forEach((freq, i) => {
+        setTimeout(() => {
+          playBeep(freq, 0.18, 'triangle');
+        }, i * 120);
+      });
+    }
+
     function playThrusterRumbleSound(durationMs = 2500) {
       if (!audioCtx) initAudio();
       if (!audioCtx) return;
@@ -1296,6 +1307,19 @@
       btn.classList.remove('opacity-50', 'pointer-events-none');
       isLaunching = false;
       playBeep(520, 0.08, 'triangle');
+    }
+
+    // 8. INITIALIZATION ON PAGE LOAD
+    function initSpaceExplorer() {
+      currentPlanetIdx = 3; // Default to Earth
+      renderPlanetTabs();
+      updatePlanetStage();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSpaceExplorer);
+    } else {
+      initSpaceExplorer();
     }
 
   </script>
