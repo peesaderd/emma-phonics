@@ -1436,7 +1436,7 @@
       box.innerHTML = `
         <div class="py-4 text-center">
           <span class="text-5xl block animate-bounce">🏆</span>
-          <h2 class="text-2xl font-extrabold mt-2 text-[#1A1A1A]">เก่งมาก! เรียนจบบทนี้แล้ว</h2>
+          <h2 class="text-2xl font-extrabold mt-2 text-[#1A1A1A]">Great job! Lesson Complete 🏆</h2>
           <p class="text-xs font-bold text-[#7B7488] mt-1">${LID} สำเร็จแล้ว</p>
           <div class="flex justify-center gap-2 my-3 flex-wrap">
             <span class="bg-[#FFF8E0] border border-[#FFE8A3] px-3 py-1 rounded-full text-xs font-extrabold text-[#8C6D1F]">
@@ -2203,7 +2203,7 @@
           } else if (state === 'interim') {
             statusBox.innerHTML = `<span class="text-[#8B7CFF] font-bold">🗣️ กำลังได้ยิน: <span class="text-base underline font-extrabold text-[#2E2856]">"${msg}"</span></span>`;
           } else if (state === 'instant_ok') {
-            statusBox.innerHTML = `<span class="text-[#1B9A62] font-extrabold animate-bounce">⚡ ตรวจคำตอบทันใจ! ถูกต้อง 🎉</span>`;
+            statusBox.innerHTML = `<span class="text-[#1B9A62] font-extrabold animate-bounce">⚡ Great job! Correct 🎉</span>`;
           } else if (state === 'thinking') {
             statusBox.innerHTML = `<span class="text-[#8B7CFF] font-bold">🎧 กำลังตรวจเสียงอ่าน...</span>`;
           } else {
@@ -2222,7 +2222,7 @@
 
       if (isHit) {
         step4Attempts = 0;
-        if (statusBox) statusBox.innerHTML = `<span class="text-[#1B9A62] font-extrabold">✅ ยอดเยี่ยมมาก! อ่านถูกต้อง 🎉</span>`;
+        if (statusBox) statusBox.innerHTML = `<span class="text-[#1B9A62] font-extrabold">✅ Great job! Correct 🎉</span>`;
         submitAnswer(target, { fuzzy_ok: true });
       } else if (!heard) {
         if (statusBox) statusBox.innerHTML = `<span class="text-[#E67E22] font-bold">ไม่ได้ยินเสียงชัด — กดปุ่ม 🎙️ แล้วลองพูดอีกครั้งนะ 🙂</span>`;
@@ -2257,7 +2257,7 @@
           } else if (state === 'interim') {
             statusBox.innerHTML = `<span class="text-[#1B9A62] font-bold">🗣️ กำลังได้ยิน: <span class="text-base underline font-extrabold text-[#2E2856]">"${msg}"</span></span>`;
           } else if (state === 'instant_ok') {
-            statusBox.innerHTML = `<span class="text-[#1B9A62] font-extrabold animate-bounce">⚡ ตรวจคำตอบทันใจ! ยอดเยี่ยม 🎉</span>`;
+            statusBox.innerHTML = `<span class="text-[#1B9A62] font-extrabold animate-bounce">⚡ Great job! Correct 🎉</span>`;
           } else if (state === 'thinking') {
             statusBox.innerHTML = `<span class="text-[#8B7CFF] font-bold">🎧 กำลังตรวจเสียงอ่าน...</span>`;
           } else {
@@ -2272,7 +2272,7 @@
       const isHit = (sc.ratio >= 0.4) || (heard.toLowerCase() === sentence.toLowerCase()) || res.fuzzy_ok;
 
       if (isHit) {
-        if (statusBox) statusBox.innerHTML = `<span class="text-[#1B9A62] font-extrabold">✅ หนูอ่านได้ ${sc.hit.length} จาก ${sc.hit.length + sc.miss.length} คำ — เก่งมาก! 🎉</span>`;
+        if (statusBox) statusBox.innerHTML = `<span class="text-[#1B9A62] font-extrabold">✅ Great job! ${sc.hit.length} from ${sc.hit.length + sc.miss.length} words! 🎉</span>`;
         submitAnswer(sentence, { fuzzy_ok: true });
       } else if (!heard) {
         if (statusBox) statusBox.innerHTML = `<span class="text-[#E67E22] font-bold">ไม่ได้ยินเสียงชัด — กดปุ่ม 🎙️ แล้วลองอ่านอีกครั้งนะ 🙂</span>`;

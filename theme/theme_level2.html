@@ -2089,10 +2089,10 @@
           } else if (state === 'interim') {
             if (transcriptEl) transcriptEl.innerHTML = `<span class="text-sky-700 font-bold">🗣️ กำลังได้ยิน: <b class="underline text-lg text-slate-900">"${msg}"</b></span>`;
           } else if (state === 'instant_ok') {
-            if (transcriptEl) transcriptEl.innerHTML = `<span class="text-emerald-600 font-black animate-bounce">⚡ ตรวจคำตอบทันใจ! ยอดเยี่ยมมากค่ะ 🎉</span>`;
+            if (transcriptEl) transcriptEl.innerHTML = `<span class="text-emerald-600 font-black animate-bounce">⚡ Great job! Instant match! 🎉</span>`;
             if (micBtn) {
               micBtn.className = "px-6 py-3 rounded-2xl bg-emerald-600 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25";
-              micBtn.innerHTML = '<span>✅ ยอดเยี่ยมมากค่ะ!</span>';
+              micBtn.innerHTML = '<span>✅ Great job!</span>';
             }
           } else if (state === 'thinking') {
             if (micBtn) {
@@ -2122,11 +2122,11 @@
 
         if (isMatch) {
           if (transcriptEl) {
-            transcriptEl.innerHTML = `<span class="text-emerald-600 font-black">"${heard}" ✅ อ่านได้ ${sc.hitCount} คำ — ยอดเยี่ยมมากค่ะ!</span>`;
+            transcriptEl.innerHTML = `<span class="text-emerald-600 font-black">"${heard}" ✅ Read ${sc.hitCount} words — Great job! 🎉</span>`;
           }
           if (micBtn) {
             micBtn.className = "px-6 py-3 rounded-2xl bg-emerald-600 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25";
-            micBtn.innerHTML = '<span>✅ ยอดเยี่ยมมากค่ะ!</span>';
+            micBtn.innerHTML = '<span>✅ Great job!</span>';
           }
           // Single praise playback handled inside handleChildSuccess
           handleChildSuccess(it, 'mic');
@@ -2290,32 +2290,32 @@
       const badge = document.getElementById('tutorStateBadge');
       badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500 text-white text-xs font-black shadow-md";
 
-      let praiseUrl = '/kidobits/audio/l2/praise_correct.mp3';
+      let praiseUrl = '/kidobits/audio/great_job.mp3';
 
       if (mode === 'blend') {
-        badge.textContent = "ยอดเยี่ยมมาก! ผสมเสียงถูกต้อง ⭐⭐⭐";
-        document.getElementById('tutorSpeechText').textContent = `ครูเอ็มม่า: "ยอดเยี่ยมมากค่ะ! รวมเสียงเป็นคำว่า ${targetWord} ได้ถูกต้อง!"`;
-        praiseUrl = '/kidobits/audio/l2/praise_blend.mp3';
+        badge.textContent = "Great job! ⭐⭐⭐";
+        document.getElementById('tutorSpeechText').textContent = `Teacher Emma: "Great job! You blended ${targetWord}!"`;
+        praiseUrl = '/kidobits/audio/great_job.mp3';
       } else if (mode === 'spell') {
-        badge.textContent = "เก่งมากค่ะ! สะกดคำได้ถูกต้องเป๊ะ ⭐⭐⭐";
-        document.getElementById('tutorSpeechText').textContent = `ครูเอ็มม่า: "เก่งมากค่ะ! สะกดคำว่า ${targetWord} ได้ถูกต้องเป๊ะเลย!"`;
-        praiseUrl = '/kidobits/audio/l2/praise_spell.mp3';
+        badge.textContent = "Great job! ⭐⭐⭐";
+        document.getElementById('tutorSpeechText').textContent = `Teacher Emma: "Great job! You spelled ${targetWord}!"`;
+        praiseUrl = '/kidobits/audio/great_job.mp3';
       } else if (mode === 'listen') {
-        badge.textContent = "ถูกต้องค่ะ! ฟังเสียงแม่นยำ ⭐⭐⭐";
-        document.getElementById('tutorSpeechText').textContent = `ครูเอ็มม่า: "ถูกต้องค่ะ! หูไวมาก ฟังเสียง ${targetWord} ได้แม่นยำ!"`;
-        praiseUrl = '/kidobits/audio/l2/praise_listen.mp3';
+        badge.textContent = "Great job! ⭐⭐⭐";
+        document.getElementById('tutorSpeechText').textContent = `Teacher Emma: "Great job! ${targetWord}!"`;
+        praiseUrl = '/kidobits/audio/great_job.mp3';
       } else if (mode === 'mic') {
-        badge.textContent = "สุดยอดมาก! อ่านออกเสียงชัดเจน ⭐⭐⭐";
-        document.getElementById('tutorSpeechText').textContent = `ครูเอ็มม่า: "สุดยอดมากค่ะคนเก่ง! ออกเสียงประโยคได้ชัดเจนมากเลย! Good job!"`;
-        praiseUrl = '/kidobits/audio/l2/praise_reading.mp3';
+        badge.textContent = "Great job! ⭐⭐⭐";
+        document.getElementById('tutorSpeechText').textContent = `Teacher Emma: "Great job! Excellent reading!"`;
+        praiseUrl = '/kidobits/audio/great_job.mp3';
       } else {
-        badge.textContent = "เก่งมากค่ะ! หนูอ่านคล่องแล้ว ⭐⭐⭐";
-        document.getElementById('tutorSpeechText').textContent = `ครูเอ็มม่า: "เก่งมากค่ะ! หนูอ่านประโยคนี้ได้อย่างคล่องแคล่ว!"`;
+        badge.textContent = "Great job! ⭐⭐⭐";
+        document.getElementById('tutorSpeechText').textContent = `Teacher Emma: "Great job! Fluent reader!"`;
         praiseUrl = '/kidobits/audio/l2/praise_correct.mp3';
       }
 
       const fb = document.getElementById('stepFeedback');
-      if (fb) fb.innerHTML = '🎉 ถูกต้อง! <b>"' + targetWord + '"</b> เก่งมากค่ะ!';
+      if (fb) fb.innerHTML = '🎉 Great job! <b>"' + targetWord + '"</b>';
 
       const proceedWithPraise = () => {
         playEmmaMp3(praiseUrl, () => {
