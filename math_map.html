@@ -195,7 +195,79 @@
 
   </div>
 
-  <!-- TOAST NOTIFICATION -->
+  
+    <!-- ================= FLOATING BOTTOM NAV (MATH ACTIVE) ================= -->
+    <nav class="fixed bottom-3 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] max-w-[406px] bg-white/95 backdrop-blur-md shadow-[0_10px_30px_rgba(60,30,90,.18)] rounded-full px-2 py-2 flex justify-between border border-[#F3EDF8] z-40" aria-label="Main navigation">
+      <!-- Home -->
+      <button onclick="window.location.href='theme_home.html'" class="flex flex-col items-center gap-0.5 min-w-[52px] text-[#9A8FA8] hover:text-black transition">
+        <span class="w-10 h-10 grid place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+        </span>
+        <span class="text-[10px] font-extrabold text-[#9A8FA8]">Home</span>
+      </button>
+
+      <!-- Phonics -->
+      <button onclick="window.location.href='theme_phonics_map.html'" class="flex flex-col items-center gap-0.5 min-w-[52px] text-[#9A8FA8] hover:text-[#8B7CFF] transition">
+        <span class="w-10 h-10 grid place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+            <path d="M6 6h10"></path>
+            <path d="M6 10h10"></path>
+          </svg>
+        </span>
+        <span class="text-[10px] font-extrabold text-[#9A8FA8]">Phonics</span>
+      </button>
+
+      <!-- Math (Active) -->
+      <button onclick="window.location.href='theme_math_map.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]">
+        <span class="w-10 h-10 grid place-items-center rounded-full bg-[#FF6633] text-white shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+            <line x1="8" x2="16" y1="6" y2="6"></line>
+            <line x1="16" x2="16" y1="14" y2="18"></line>
+            <path d="M16 10h.01"></path>
+            <path d="M12 10h.01"></path>
+            <path d="M8 10h.01"></path>
+            <path d="M12 14h.01"></path>
+            <path d="M8 14h.01"></path>
+            <path d="M12 18h.01"></path>
+            <path d="M8 18h.01"></path>
+          </svg>
+        </span>
+        <span class="text-[10px] font-black text-[#FF6633]">Math</span>
+      </button>
+
+      <!-- Chinese -->
+      <button onclick="window.location.href='theme_chinese_lobby.html'" class="flex flex-col items-center gap-0.5 min-w-[52px] text-[#9A8FA8] hover:text-[#E53935] transition">
+        <span class="w-10 h-10 grid place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+            <path d="M2 12h20"></path>
+          </svg>
+        </span>
+        <span class="text-[10px] font-extrabold text-[#9A8FA8]">Chinese</span>
+      </button>
+
+      <!-- Games -->
+      <button onclick="window.location.href='theme_games.html'" class="flex flex-col items-center gap-0.5 min-w-[52px] text-[#9A8FA8] hover:text-black transition">
+        <span class="w-10 h-10 grid place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="6" x2="10" y1="12" y2="12"></line>
+            <line x1="8" x2="8" y1="10" y2="14"></line>
+            <line x1="15" x2="15.01" y1="13" y2="13"></line>
+            <line x1="18" x2="18.01" y1="11" y2="11"></line>
+            <rect width="20" height="12" x="2" y="6" rx="2"></rect>
+          </svg>
+        </span>
+        <span class="text-[10px] font-extrabold text-[#9A8FA8]">Games</span>
+      </button>
+    </nav>
+
+    <!-- TOAST NOTIFICATION -->
   <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900/90 text-white px-4 py-2 rounded-2xl text-xs font-bold shadow-2xl opacity-0 pointer-events-none transition-all duration-300 z-50">
     คัดลอกลิงก์สำเร็จแล้ว! 📋✨
   </div>

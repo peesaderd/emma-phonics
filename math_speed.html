@@ -47,7 +47,7 @@
   <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-indigo-100 shadow-sm px-4 py-3">
     <div class="max-w-xl mx-auto flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <a href="/theme/theme_math_map.html" class="w-10 h-10 rounded-2xl bg-indigo-50 hover:bg-indigo-100 flex items-center justify-center text-indigo-600 transition shadow-sm">
+        <a href="/theme/theme_home.html" class="w-10 h-10 rounded-2xl bg-indigo-50 hover:bg-indigo-100 flex items-center justify-center text-indigo-600 transition shadow-sm">
           ‹
         </a>
         <div>
@@ -84,8 +84,9 @@
           <h2 class="text-xl font-black">ภารกิจคิดเลขเร็วประจำวัน</h2>
           <p class="text-xs text-indigo-100 mt-1">วันละ 15 ข้อ · สมองสร้างวงจรคิดเลขอัตโนมัติ ป.3 สปีดเทพ ⚡</p>
           <div class="mt-4 flex items-center gap-3">
-            <button onclick="startStage(currentSelectedStage || 1)" class="px-5 py-2.5 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-900 font-black text-sm shadow-md active:scale-95 transition">
-              🚀 เริ่มฝึกทันที (15 ข้อ)
+            <button id="heroResumeBtn" onclick="resumeStage()" class="px-5 py-2.5 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-900 font-black text-sm shadow-md active:scale-95 transition flex items-center gap-2">
+              <span class="text-base">▶️</span>
+              <span id="heroResumeLabel">เล่นต่อ: Stage 1 (Friends of 10)</span>
             </button>
             <button onclick="openStrategyModal(currentSelectedStage || 1)" class="px-3.5 py-2.5 rounded-2xl bg-white/15 hover:bg-white/25 text-white font-bold text-xs backdrop-blur-sm transition">
               💡 ดูกลยุทธ์ 15 วิ
@@ -99,7 +100,7 @@
         <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 px-1">เลือกระดับกลยุทธ์ (Stages)</h3>
 
         <!-- Stage 1 -->
-        <div onclick="selectStage(1)" id="stageCard-1" class="p-4 rounded-2xl bg-white border-2 border-indigo-500 shadow-sm cursor-pointer transition flex items-center justify-between">
+        <div onclick="startStage(1)" id="stageCard-1" class="p-4 rounded-2xl bg-white border-2 border-indigo-500 shadow-sm cursor-pointer transition flex items-center justify-between">
           <div class="flex items-center gap-3.5">
             <div class="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-black text-xl shadow-inner">
               1
@@ -119,7 +120,7 @@
         </div>
 
         <!-- Stage 2 -->
-        <div onclick="selectStage(2)" id="stageCard-2" class="p-4 rounded-2xl bg-white border-2 border-transparent hover:border-slate-200 shadow-sm cursor-pointer transition flex items-center justify-between">
+        <div onclick="startStage(2)" id="stageCard-2" class="p-4 rounded-2xl bg-white border-2 border-transparent hover:border-slate-200 shadow-sm cursor-pointer transition flex items-center justify-between">
           <div class="flex items-center gap-3.5">
             <div class="w-12 h-12 rounded-2xl bg-violet-100 text-violet-700 flex items-center justify-center font-black text-xl shadow-inner">
               2
@@ -136,7 +137,7 @@
         </div>
 
         <!-- Stage 3 -->
-        <div onclick="selectStage(3)" id="stageCard-3" class="p-4 rounded-2xl bg-white border-2 border-transparent hover:border-slate-200 shadow-sm cursor-pointer transition flex items-center justify-between">
+        <div onclick="startStage(3)" id="stageCard-3" class="p-4 rounded-2xl bg-white border-2 border-transparent hover:border-slate-200 shadow-sm cursor-pointer transition flex items-center justify-between">
           <div class="flex items-center gap-3.5">
             <div class="w-12 h-12 rounded-2xl bg-pink-100 text-pink-700 flex items-center justify-center font-black text-xl shadow-inner">
               3
@@ -153,7 +154,7 @@
         </div>
 
         <!-- Stage 4 -->
-        <div onclick="selectStage(4)" id="stageCard-4" class="p-4 rounded-2xl bg-white border-2 border-transparent hover:border-slate-200 shadow-sm cursor-pointer transition flex items-center justify-between">
+        <div onclick="startStage(4)" id="stageCard-4" class="p-4 rounded-2xl bg-white border-2 border-transparent hover:border-slate-200 shadow-sm cursor-pointer transition flex items-center justify-between">
           <div class="flex items-center gap-3.5">
             <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center font-black text-xl shadow-inner">
               4
@@ -170,7 +171,7 @@
         </div>
 
         <!-- Stage 5 -->
-        <div onclick="selectStage(5)" id="stageCard-5" class="p-4 rounded-2xl bg-white border-2 border-transparent hover:border-slate-200 shadow-sm cursor-pointer transition flex items-center justify-between">
+        <div onclick="startStage(5)" id="stageCard-5" class="p-4 rounded-2xl bg-white border-2 border-transparent hover:border-slate-200 shadow-sm cursor-pointer transition flex items-center justify-between">
           <div class="flex items-center gap-3.5">
             <div class="w-12 h-12 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center font-black text-xl shadow-inner">
               5
@@ -187,7 +188,7 @@
         </div>
 
         <!-- Stage 6 -->
-        <div onclick="selectStage(6)" id="stageCard-6" class="p-4 rounded-2xl bg-white border-2 border-transparent hover:border-slate-200 shadow-sm cursor-pointer transition flex items-center justify-between">
+        <div onclick="startStage(6)" id="stageCard-6" class="p-4 rounded-2xl bg-white border-2 border-transparent hover:border-slate-200 shadow-sm cursor-pointer transition flex items-center justify-between">
           <div class="flex items-center gap-3.5">
             <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-xl shadow-inner">
               ⚡
@@ -318,7 +319,7 @@
             🔄 ฝึกด่านนี้อีกรอบ
           </button>
           <button onclick="backToSelector()" class="flex-1 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-sm transition">
-            🗺️ กลับแผนที่ Math World
+            🏠 กลับหน้าหลัก
           </button>
         </div>
       </div>
@@ -344,11 +345,106 @@
     </div>
   </div>
 
+  
+    <!-- ================= FLOATING BOTTOM NAV (MATH ACTIVE) ================= -->
+    <nav id="mathSpeedBottomNav" class="fixed bottom-3 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] max-w-[406px] bg-white/95 backdrop-blur-md shadow-[0_10px_30px_rgba(60,30,90,.18)] rounded-full px-2 py-2 flex justify-between border border-[#F3EDF8] z-40 transition-all duration-200" aria-label="Main navigation">
+      <!-- Home -->
+      <button onclick="window.location.href='theme_home.html'" class="flex flex-col items-center gap-0.5 min-w-[52px] text-[#9A8FA8] hover:text-black transition">
+        <span class="w-10 h-10 grid place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+        </span>
+        <span class="text-[10px] font-extrabold text-[#9A8FA8]">Home</span>
+      </button>
+
+      <!-- Phonics -->
+      <button onclick="window.location.href='theme_phonics_map.html'" class="flex flex-col items-center gap-0.5 min-w-[52px] text-[#9A8FA8] hover:text-[#8B7CFF] transition">
+        <span class="w-10 h-10 grid place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+            <path d="M6 6h10"></path>
+            <path d="M6 10h10"></path>
+          </svg>
+        </span>
+        <span class="text-[10px] font-extrabold text-[#9A8FA8]">Phonics</span>
+      </button>
+
+      <!-- Math (Active) -->
+      <button onclick="window.location.href='theme_math_map.html'" class="flex flex-col items-center gap-0.5 min-w-[52px]">
+        <span class="w-10 h-10 grid place-items-center rounded-full bg-[#FF6633] text-white shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+            <line x1="8" x2="16" y1="6" y2="6"></line>
+            <line x1="16" x2="16" y1="14" y2="18"></line>
+            <path d="M16 10h.01"></path>
+            <path d="M12 10h.01"></path>
+            <path d="M8 10h.01"></path>
+            <path d="M12 14h.01"></path>
+            <path d="M8 14h.01"></path>
+            <path d="M12 18h.01"></path>
+            <path d="M8 18h.01"></path>
+          </svg>
+        </span>
+        <span class="text-[10px] font-black text-[#FF6633]">Math</span>
+      </button>
+
+      <!-- Chinese -->
+      <button onclick="window.location.href='theme_chinese_lobby.html'" class="flex flex-col items-center gap-0.5 min-w-[52px] text-[#9A8FA8] hover:text-[#E53935] transition">
+        <span class="w-10 h-10 grid place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+            <path d="M2 12h20"></path>
+          </svg>
+        </span>
+        <span class="text-[10px] font-extrabold text-[#9A8FA8]">Chinese</span>
+      </button>
+
+      <!-- Games -->
+      <button onclick="window.location.href='theme_games.html'" class="flex flex-col items-center gap-0.5 min-w-[52px] text-[#9A8FA8] hover:text-black transition">
+        <span class="w-10 h-10 grid place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="6" x2="10" y1="12" y2="12"></line>
+            <line x1="8" x2="8" y1="10" y2="14"></line>
+            <line x1="15" x2="15.01" y1="13" y2="13"></line>
+            <line x1="18" x2="18.01" y1="11" y2="11"></line>
+            <rect width="20" height="12" x="2" y="6" rx="2"></rect>
+          </svg>
+        </span>
+        <span class="text-[10px] font-extrabold text-[#9A8FA8]">Games</span>
+      </button>
+    </nav>
+
   <!-- AUDIO ELEMENTS -->
   <audio id="audioGreatJob" src="/kidobits/audio/great_job.mp3" preload="auto"></audio>
 
   <script>
     // GAME STATE
+
+    const STAGE_NAMES = {
+      1: "Stage 1 (Friends of 10)",
+      2: "Stage 2 (Make 10 Strategy)",
+      3: "Stage 3 (Doubles & Pairs)",
+      4: "Stage 4 (Bridging Tens)",
+      5: "Stage 5 (Round & Adjust)",
+      6: "Stage 6 (Mental Sprint)"
+    };
+
+    function updateResumeButton() {
+      const lastStage = parseInt(localStorage.getItem('kidobits_last_math_stage') || '1');
+      const label = document.getElementById('heroResumeLabel');
+      if (label) {
+        label.textContent = `เล่นต่อ: ${STAGE_NAMES[lastStage] || 'Stage 1'}`;
+      }
+    }
+
+    function resumeStage() {
+      const lastStage = parseInt(localStorage.getItem('kidobits_last_math_stage') || '1');
+      startStage(lastStage);
+    }
+
     let currentSelectedStage = 1;
     let questions = [];
     let currentIndex = 0;
@@ -362,6 +458,7 @@
 
     document.getElementById('totalCoins').textContent = coins;
     document.getElementById('streakCount').textContent = streak;
+    updateResumeButton();
 
     // AUDIO PLAYBACK
     function playGreatJob() {
@@ -448,6 +545,7 @@
       document.getElementById('viewSelector').classList.add('hidden');
       document.getElementById('viewSummary').classList.add('hidden');
       document.getElementById('viewArena').classList.remove('hidden');
+      const bnav = document.getElementById('mathSpeedBottomNav'); if(bnav) bnav.classList.add('hidden');
 
       const stageLabels = [
         "",
@@ -587,6 +685,7 @@
       clearInterval(timerInterval);
       document.getElementById('viewArena').classList.add('hidden');
       document.getElementById('viewSummary').classList.remove('hidden');
+      const bnav = document.getElementById('mathSpeedBottomNav'); if(bnav) bnav.classList.remove('hidden');
 
       confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
 
@@ -620,6 +719,7 @@
       document.getElementById('viewArena').classList.add('hidden');
       document.getElementById('viewSummary').classList.add('hidden');
       document.getElementById('viewSelector').classList.remove('hidden');
+      const bnav = document.getElementById('mathSpeedBottomNav'); if(bnav) bnav.classList.remove('hidden');
     }
 
     // STRATEGY MODAL
