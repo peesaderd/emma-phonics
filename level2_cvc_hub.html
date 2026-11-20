@@ -1277,8 +1277,8 @@
       return '';
     }
 
-    function speakSingleWord(word) {
-      if (!word) return;
+    function speakSingleWord(word, onEnd) {
+      if (!word) { if (onEnd) onEnd(); return; }
       if ('speechSynthesis' in window) {
         try {
           window.speechSynthesis.cancel();
@@ -1286,11 +1286,86 @@
           const voice = getFemaleVoice();
           if (voice) ut.voice = voice;
           ut.lang = 'en-US';
-          ut.rate = 0.8;
+          ut.rate = 0.82;
           ut.pitch = 1.15;
+          ut.onend = () => { if (onEnd) onEnd(); };
+          ut.onerror = () => { if (onEnd) onEnd(); };
           window.speechSynthesis.speak(ut);
+          return;
         } catch(e) {}
       }
+      if (onEnd) onEnd();
+    }
+
+    /* Smart Phoneme Audio Player with 3-tier fallback (Phonics Bank -> L2/L3 -> Web Speech) */
+    function playPhonemeSound(g, onEnd) {
+      const clean = String(g || '').toLowerCase().trim().replace(/[^a-z0-9]/g, '');
+      if (!clean) { if (onEnd) onEnd(); return; }
+
+      const p1 = `/kidobits/v2/audio/phonics_bank/ph_${clean}.mp3`;
+      const p2 = `/kidobits/audio/l2/g_${clean}.mp3`;
+
+      let triedP2 = false;
+      const audio = new Audio(p1);
+      audio.onended = () => { if (onEnd) onEnd(); };
+      audio.onerror = () => {
+        if (!triedP2) {
+          triedP2 = true;
+          audio.src = p2;
+          audio.play().catch(fallbackPhoneme);
+        } else {
+          fallbackPhoneme();
+        }
+      };
+
+      function fallbackPhoneme() {
+        speakSingleWord(clean, onEnd);
+      }
+
+      audio.play().catch(() => {
+        if (!triedP2) {
+          triedP2 = true;
+          audio.src = p2;
+          audio.play().catch(fallbackPhoneme);
+        } else {
+          fallbackPhoneme();
+        }
+      });
+    }
+
+    /* Word Audio Player with 3-tier fallback: speaks full vocabulary word */
+    function playWordAudio(word, onEnd) {
+      const clean = String(word || '').toLowerCase().trim().replace(/[^a-z0-9']/g, '');
+      if (!clean) { if (onEnd) onEnd(); return; }
+
+      const candidates = [
+        `/kidobits/v2/audio/word_${clean}.mp3`,
+        `/kidobits/audio/l2/w_${clean}.mp3`,
+        `/kidobits/audio/l2/g_${clean}.mp3`,
+        `/kidobits/audio/l3/g_${clean}.mp3`
+      ];
+
+      let idx = 0;
+      let handled = false;
+      const done = () => {
+        if (handled) return;
+        handled = true;
+        if (onEnd) onEnd();
+      };
+
+      function tryNext() {
+        if (handled) return;
+        if (idx >= candidates.length) {
+          speakSingleWord(clean, done);
+          return;
+        }
+        const url = candidates[idx++];
+        const a = new Audio(url);
+        a.onended = done;
+        a.onerror = () => tryNext();
+        a.play().catch(() => tryNext());
+      }
+      tryNext();
     }
 
     function updateVuVisual(pct) {
@@ -1672,7 +1747,7 @@
             playChime('pop');
             btn.classList.add('bg-orange-500', 'text-white', 'border-orange-600');
             const gText = btn.textContent.trim().toLowerCase();
-            playEmmaMp3(`/kidobits/audio/l2/g_${gText}.mp3`);
+            playPhonemeSound(gText);
             currentTap++;
             if (currentTap === it.graphemes.length) {
               handleChildSuccess(it.word, 'blend');
@@ -1757,7 +1832,7 @@
         btn.onclick = () => {
           if (STATE.hasAnswered) return;
           const g = btn.dataset.g;
-          playEmmaMp3(`/kidobits/audio/l2/g_${g.toLowerCase()}.mp3`);
+          playPhonemeSound(g);
           userPicks.push(g);
           btn.disabled = true;
           btn.classList.add('opacity-30', 'pointer-events-none');
@@ -2164,12 +2239,23 @@
       const fb = document.getElementById('stepFeedback');
       if (fb) fb.innerHTML = '🎉 ถูกต้อง! <b>"' + targetWord + '"</b> เก่งมากค่ะ!';
 
-      playEmmaMp3(praiseUrl, () => {
-        setTimeout(() => {
-          STATE.i++;
-          render();
-        }, 350);
-      });
+      const proceedWithPraise = () => {
+        playEmmaMp3(praiseUrl, () => {
+          setTimeout(() => {
+            STATE.i++;
+            render();
+          }, 350);
+        });
+      };
+
+      // Speak blended vocabulary word first upon spelling completion!
+      if (mode === 'blend' || mode === 'spell') {
+        playWordAudio(targetWord, () => {
+          setTimeout(proceedWithPraise, 350);
+        });
+      } else {
+        proceedWithPraise();
+      }
     }
 
     // CONTROLS & NAVIGATION

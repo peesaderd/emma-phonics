@@ -945,8 +945,8 @@
           renderStepTabs();
           renderCurrentStep();
 
-          // In Step 1 (Blending): Speak the blended target word first, then play praise!
-          if (currentItem && currentItem.step === 1) {
+          // In Step 1 (Blending) & Step 2 (Spelling): Speak the target word first, then play praise!
+          if (currentItem && (currentItem.step === 1 || currentItem.step === 2)) {
             setTimeout(() => {
               playTargetWord(() => {
                 setTimeout(() => {
@@ -1118,8 +1118,24 @@
       const clean = String(l || '').toLowerCase().trim().replace(/[^a-z0-9]/g, '');
       const phonicsUrl = `/kidobits/v2/audio/phonics_bank/ph_${clean}.mp3`;
       playAudio(phonicsUrl, `เสียง /${clean}/`, onEnd, () => {
-        // Fallback to legacy sp_ if missing
-        playAudio(`sp_${clean}.mp3`, `เสียง /${clean}/`, onEnd, onEnd);
+        // Fallback 1: legacy sp_
+        playAudio(`sp_${clean}.mp3`, `เสียง /${clean}/`, onEnd, () => {
+          // Fallback 2: Web Speech Synthesis
+          if ('speechSynthesis' in window) {
+            try {
+              window.speechSynthesis.cancel();
+              const ut = new SpeechSynthesisUtterance(clean);
+              ut.lang = 'en-US';
+              ut.rate = 0.8;
+              ut.pitch = 1.15;
+              ut.onend = () => { if (onEnd) onEnd(); };
+              ut.onerror = () => { if (onEnd) onEnd(); };
+              window.speechSynthesis.speak(ut);
+              return;
+            } catch(e) {}
+          }
+          if (typeof onEnd === 'function') onEnd();
+        });
       });
     }
 
@@ -1497,7 +1513,24 @@
 
     function playTargetWord(onEnd) {
       if (currentItem && currentItem.word) {
-        playAudio(`word_${currentItem.word}.mp3`, `🔊 ${currentItem.word}`, onEnd, onEnd);
+        const clean = String(currentItem.word).toLowerCase().replace(/[^a-z0-9']/g, '');
+        playAudio(`word_${clean}.mp3`, `🔊 ${clean}`, onEnd, () => {
+          // Fallback to Web Speech API
+          if ('speechSynthesis' in window) {
+            try {
+              window.speechSynthesis.cancel();
+              const ut = new SpeechSynthesisUtterance(clean);
+              ut.lang = 'en-US';
+              ut.rate = 0.85;
+              ut.pitch = 1.15;
+              ut.onend = () => { if (onEnd) onEnd(); };
+              ut.onerror = () => { if (onEnd) onEnd(); };
+              window.speechSynthesis.speak(ut);
+              return;
+            } catch(e) {}
+          }
+          if (typeof onEnd === 'function') onEnd();
+        });
       } else if (typeof onEnd === 'function') {
         onEnd();
       }
