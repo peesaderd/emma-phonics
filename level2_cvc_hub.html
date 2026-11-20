@@ -1065,12 +1065,12 @@
         finish();
       };
 
-      // Safety timeout in case audio stalls
+      // Safety timeout in case audio stalls (fast 4s ceiling)
       setTimeout(() => {
         if (!finished && emmaAudioElem === audio) {
           finish();
         }
-      }, 7000);
+      }, 4000);
 
       audio.play().catch(err => {
         finish();
@@ -1247,13 +1247,26 @@
       return { ratio: ratio, hitCount: hit, total: tw.length };
     }
 
+    let micPrewarmed = false;
     async function ensureMic() {
       if (micStream && micStream.active) return micStream;
       micStream = await navigator.mediaDevices.getUserMedia({
         audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true }
       });
+      micPrewarmed = true;
       return micStream;
     }
+
+    // Pre-warm mic permission on first touch/click anywhere on page
+    (function prewarmMicOnFirstInteraction() {
+      const handler = () => {
+        if (!micPrewarmed && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          ensureMic().catch(() => {});
+        }
+      };
+      window.addEventListener('pointerdown', handler, { once: true, passive: true });
+      window.addEventListener('touchstart', handler, { once: true, passive: true });
+    })();
 
     function pickMime() {
       if (typeof MediaRecorder === 'undefined') return '';
@@ -1312,7 +1325,11 @@
       isSentenceListening = false;
     }
 
-    /* อัดเสียง 1 ครั้ง → ส่ง STT → คืน {text, raw, fuzzy_ok, via, decision} (ถอดแบบตรง 100% จาก Level 1 v2/lesson.html) */
+    /* -------------------------------------------------------------
+       DUAL-ENGINE STT:
+       Engine A: Instant In-Browser Web Speech API (0ms Match!)
+       Engine B: MediaRecorder + Whisper Fallback with 600ms Silence VAD
+       ------------------------------------------------------------- */
     async function listenOnce(targetWord, onState) {
       const myId = ++micAttemptId;
       const stub = { text: '', fuzzy_ok: false, via: 'error', decision: 'error' };
@@ -1330,19 +1347,183 @@
       }
 
       return await new Promise((resolve) => {
+        let resolved = false;
+        let rec = null;
+        let recognizer = null;
+        let vuCtx = null, analyser = null, rafId = null, ceiling = null;
         const chunks = [];
         let speechDetected = false, lastVoiceTs = 0, voicedMs = 0, recStart = Date.now();
         let mime = pickMime();
-        let rec;
+        let userForcedStop = false;
+
+        const doResolve = (result) => {
+          if (resolved) return;
+          resolved = true;
+          cleanup();
+          resolve(result);
+        };
+
+        const cleanup = () => {
+          try { if (rafId) cancelAnimationFrame(rafId); } catch(e) {}
+          try { if (ceiling) clearTimeout(ceiling); } catch(e) {}
+          try { if (vuCtx) vuCtx.close(); } catch(e) {}
+          try {
+            if (recognizer) {
+              recognizer.onresult = null;
+              recognizer.onerror = null;
+              recognizer.onend = null;
+              recognizer.stop();
+            }
+          } catch(e) {}
+          try {
+            if (rec && rec.state !== 'inactive') rec.stop();
+          } catch(e) {}
+          activeMediaRec = null;
+          isSentenceListening = false;
+          stopListeningFn = null;
+          updateVuVisual(10);
+        };
+
+        const stop = (forcedByUser = false) => {
+          if (forcedByUser) userForcedStop = true;
+          try { if (recognizer) recognizer.stop(); } catch(e) {}
+          try { if (rec && rec.state !== 'inactive') rec.stop(); } catch(e) {}
+        };
+        stopListeningFn = () => stop(true);
+        isSentenceListening = true;
+
+        const targetClean = String(targetWord || '').toLowerCase().trim();
+
+        // 1. ENGINE A: Instant Web Speech API (0ms Match!)
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRec) {
+          try {
+            recognizer = new SpeechRec();
+            recognizer.lang = 'en-US';
+            recognizer.continuous = true;
+            recognizer.interimResults = true;
+            recognizer.maxAlternatives = 3;
+
+            recognizer.onresult = (e) => {
+              if (resolved || myId !== micAttemptId) return;
+              let liveTranscript = '';
+              for (let i = e.resultIndex; i < e.results.length; ++i) {
+                const r = e.results[i];
+                if (r[0] && r[0].transcript) liveTranscript += r[0].transcript + ' ';
+              }
+              const liveText = liveTranscript.trim().toLowerCase();
+              if (liveText) {
+                speechDetected = true;
+                lastVoiceTs = Date.now();
+                voicedMs += 80;
+                onState && onState('interim', liveText);
+              }
+
+              for (let i = e.resultIndex; i < e.results.length; ++i) {
+                const r = e.results[i];
+                for (let j = 0; j < r.length; ++j) {
+                  const heard = (r[j].transcript || '').trim().toLowerCase();
+                  if (!heard) continue;
+
+                  const sc = scoreSentence(targetClean, heard);
+                  const isMatch = (sc.ratio >= 0.5 || sc.hitCount >= 2 || targetClean.includes(heard.slice(0, 7)) || heard.includes(targetClean.slice(0, 7)));
+
+                  if (isMatch) {
+                    onState && onState('instant_ok', heard);
+                    doResolve({
+                      text: heard,
+                      raw: heard,
+                      fuzzy_ok: true,
+                      via: 'web_speech',
+                      decision: 'instant',
+                      elapsed: Date.now() - recStart
+                    });
+                    return;
+                  }
+                }
+              }
+            };
+
+            recognizer.onerror = (err) => {
+              console.warn('Web Speech error (Whisper fallback active):', err.error);
+            };
+
+            recognizer.start();
+          } catch(e) {
+            console.warn('Web Speech init error:', e);
+          }
+        }
+
+        // 2. ENGINE B: MediaRecorder + Whisper Fallback
         try {
           rec = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream);
         } catch(e) {
-          onState && onState('nocorder', 'อัดเสียงไม่ได้');
-          return resolve(stub);
+          if (!recognizer) {
+            onState && onState('nocorder', 'อัดเสียงไม่ได้');
+            return doResolve(stub);
+          }
         }
 
-        // Dedicated new AudioContext per recording session (never reused, prevents muted graph bug)
-        let vuCtx = null, analyser = null, rafId = null;
+        if (rec) {
+          activeMediaRec = rec;
+          rec.ondataavailable = (ev) => {
+            if (ev.data && ev.data.size > 0) chunks.push(ev.data);
+          };
+          rec.onerror = () => { doResolve(stub); };
+          rec.onstop = async () => {
+            if (resolved) return;
+            const blob = new Blob(chunks, { type: mime || 'audio/webm' });
+
+            if (!userForcedStop && (blob.size < 1200 || !speechDetected || voicedMs < MIN_SPEECH_MS)) {
+              onState && onState('tooshort', 'ไม่ได้ยินเสียงชัด — ลองอีกครั้งนะ 🙂');
+              return doResolve(stub);
+            }
+
+            onState && onState('thinking', 'กำลังส่งเสียงให้ครูตรวจ… 🎧');
+            const fd = new FormData();
+            fd.append('audio', blob, 'child.webm');
+            const tw = String(targetWord || '').toLowerCase();
+            const sentWords = tw.replace(/[^a-z ]/g, ' ').split(/\s+/).filter(Boolean);
+            const hint = (sentWords.length > 1 ? sentWords : [tw]).filter(Boolean);
+            fd.append('hint', Array.from(new Set(hint)).join(','));
+
+            const ctrl = new AbortController();
+            const to = setTimeout(() => { try { ctrl.abort(); } catch(e) {} }, 15000);
+            try {
+              const resp = await fetch(STT_URL, { method: 'POST', body: fd, signal: ctrl.signal });
+              clearTimeout(to);
+              if (myId !== micAttemptId || resolved) return doResolve(stub);
+              const data = await resp.json();
+              const raw = (data && data.text) || '';
+              const clean = raw.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g, ' ').replace(/\s+/g, ' ').trim();
+              doResolve({
+                text: clean, raw: raw,
+                fuzzy_ok: !!(data && data.fuzzy_ok),
+                via: (data && data.via) || 'asr',
+                decision: (data && data.decision) || 'asr',
+                spelled: !!(data && data.spelled),
+                elapsed: data && data.elapsed,
+              });
+            } catch(e) {
+              clearTimeout(to);
+              doResolve(stub);
+            }
+          };
+
+          try {
+            rec.start();
+          } catch(e) {
+            if (!recognizer) {
+              cleanup();
+              onState && onState('nocorder', 'อัดเสียงไม่ได้');
+              return doResolve(stub);
+            }
+          }
+        }
+
+        onState && onState('recording', 'กำลังฟัง… หนูอ่านออกเสียงตามครูเลย 🎙️');
+
+        // 3. AudioContext VAD
         try {
           const Ctx = window.AudioContext || window.webkitAudioContext;
           if (Ctx) {
@@ -1354,86 +1535,8 @@
           }
         } catch(e) {}
 
-        let resolved = false;
-        let userForcedStop = false;
-
-        const cleanup = () => {
-          try { if (rafId) cancelAnimationFrame(rafId); } catch(e) {}
-          try { if (vuCtx) vuCtx.close(); } catch(e) {}
-          activeMediaRec = null;
-          isSentenceListening = false;
-          stopListeningFn = null;
-          updateVuVisual(10);
-        };
-
-        const stop = (forcedByUser = false) => {
-          if (forcedByUser) userForcedStop = true;
-          try {
-            if (rec && rec.state !== 'inactive') rec.stop();
-          } catch(e) {}
-        };
-        stopListeningFn = () => stop(true);
-        activeMediaRec = rec;
-        isSentenceListening = true;
-
-        rec.ondataavailable = (ev) => {
-          if (ev.data && ev.data.size > 0) chunks.push(ev.data);
-        };
-        rec.onerror = () => {};
-        rec.onstop = async () => {
-          cleanup();
-          if (resolved) return;
-          resolved = true;
-          const blob = new Blob(chunks, { type: mime || 'audio/webm' });
-
-          // ถ้าไม่ได้ยินเสียง หรือสั้นเกินไป และไม่ใช่ผู้ใช้กดหยุดเอง -> แจ้งและคืน stub
-          if (!userForcedStop && (blob.size < 1200 || !speechDetected || voicedMs < MIN_SPEECH_MS)) {
-            onState && onState('tooshort', 'ไม่ได้ยินเสียงชัด — ลองอีกครั้งนะ 🙂');
-            return resolve(stub);
-          }
-
-          onState && onState('thinking', 'กำลังส่งเสียงให้ครูตรวจ… 🎧');
-          const fd = new FormData();
-          fd.append('audio', blob, 'child.webm');
-          const tw = String(targetWord || '').toLowerCase();
-          const sentWords = tw.replace(/[^a-z ]/g, ' ').split(/\s+/).filter(Boolean);
-          const hint = (sentWords.length > 1 ? sentWords : [tw]).filter(Boolean);
-          fd.append('hint', Array.from(new Set(hint)).join(','));
-
-          const ctrl = new AbortController();
-          const to = setTimeout(() => { try { ctrl.abort(); } catch(e) {} }, 30000);
-          try {
-            const resp = await fetch(STT_URL, { method: 'POST', body: fd, signal: ctrl.signal });
-            clearTimeout(to);
-            if (myId !== micAttemptId) return resolve(stub);
-            const data = await resp.json();
-            const raw = (data && data.text) || '';
-            const clean = raw.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g, ' ').replace(/\s+/g, ' ').trim();
-            resolve({
-              text: clean, raw: raw,
-              fuzzy_ok: !!(data && data.fuzzy_ok),
-              via: (data && data.via) || 'asr',
-              decision: (data && data.decision) || 'asr',
-              spelled: !!(data && data.spelled),
-              elapsed: data && data.elapsed,
-            });
-          } catch(e) {
-            clearTimeout(to);
-            resolve(stub);
-          }
-        };
-
-        try {
-          rec.start();
-        } catch(e) {
-          cleanup();
-          onState && onState('nocorder', 'อัดเสียงไม่ได้');
-          return resolve(stub);
-        }
-        onState && onState('recording', 'กำลังฟัง… หนูอ่านออกเสียงตามครูเลย 🎙️');
-
         const poll = () => {
-          if (myId !== micAttemptId) return stop();
+          if (resolved || myId !== micAttemptId) return stop();
           const dur = Date.now() - recStart;
           if (analyser && vuCtx) {
             try {
@@ -1445,7 +1548,7 @@
               let sum = 0, n = 0;
               for (let i = lo; i <= hi; i++) { sum += freq[i] * freq[i]; n++; }
               const bandRms = n ? Math.sqrt(sum / n) / 255 : 0;
-              const pct = Math.max(5, Math.min(100, Math.round(bandRms * 350)));
+              const pct = Math.min(100, Math.round(bandRms * 300));
               updateVuVisual(pct);
               if (bandRms > SPEECH_RMS) {
                 speechDetected = true;
@@ -1464,9 +1567,9 @@
           rafId = requestAnimationFrame(poll);
         };
         rafId = requestAnimationFrame(poll);
+        ceiling = setTimeout(stop, REC_WINDOW_MS + 400);
       });
     }
-
     function toggleSentenceMic() {
       if (isSentenceListening) {
         stopSentenceMic();
@@ -1920,7 +2023,16 @@
 
       window.doSentenceMic = doMic;
       const mb = document.getElementById('btnSentenceMic');
-      if (mb) mb.onclick = doMic;
+      if (mb) {
+        mb.onclick = () => {
+          if (STATE.isTeacherSpeaking) {
+            try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch(e) {}
+            if (emmaAudioElem) { try { emmaAudioElem.pause(); emmaAudioElem.currentTime = 0; } catch(e) {} emmaAudioElem = null; }
+            STATE.isTeacherSpeaking = false;
+          }
+          doMic();
+        };
+      }
 
       // Emma speaks sentence first -> on finished, AUTOMATICALLY starts mic!
       emmaSpeak(`Read after me: ${it}. Your turn!`, sentAudio, () => {

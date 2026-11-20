@@ -755,11 +755,29 @@
       stopAllAudio();
       const mySeq = ++scriptSeq;
       let i = 0;
+      let doneCalled = false;
+      const callComplete = () => {
+        if (doneCalled) return;
+        doneCalled = true;
+        try { clearTimeout(safetyCeiling); } catch(e) {}
+        if (onComplete) onComplete();
+      };
+
+      // Safety ceiling: Ensure step advances to mic even if audio load hangs
+      const safetyCeiling = setTimeout(() => {
+        if (mySeq === scriptSeq) {
+          console.warn('playAudioScript safety ceiling reached -> calling onComplete');
+          callComplete();
+        }
+      }, 5000);
 
       function playNextItem() {
-        if (mySeq !== scriptSeq) return;
+        if (mySeq !== scriptSeq) {
+          try { clearTimeout(safetyCeiling); } catch(e) {}
+          return;
+        }
         if (i >= scriptList.length) {
-          if (onComplete) onComplete();
+          callComplete();
           return;
         }
 
@@ -776,7 +794,7 @@
           if (finished) return;
           finished = true;
           if (wait) {
-            setTimeout(playNextItem, 250);
+            setTimeout(playNextItem, 200);
           }
         };
 
@@ -789,7 +807,7 @@
         window.currentAudio = a;
 
         if (!wait) {
-          setTimeout(playNextItem, 300);
+          setTimeout(playNextItem, 250);
         }
       }
 
@@ -1761,17 +1779,70 @@
     const SILENCE_HOLD_MS = 600;
     const NO_SPEECH_MS = 4500;
 
+    // Phonetic tolerance helpers
+    function levenshtein(a, b) {
+      const m = a.length, n = b.length;
+      const dp = Array.from({ length: m + 1 }, () => new Uint8Array(n + 1));
+      for (let i = 0; i <= m; i++) dp[i][0] = i;
+      for (let j = 0; j <= n; j++) dp[0][j] = j;
+      for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+          const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+          dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + cost);
+        }
+      }
+      return dp[m][n];
+    }
+
+    function soundKey(w) {
+      if (!w) return '';
+      let x = String(w).toLowerCase().replace(/[^a-z]/g, '');
+      if (!x) return '';
+      x = x.replace(/^c(?=[eiy])/, 's');
+      x = x.replace(/c(?=[eiy])/g, 's');
+      x = x.replace(/x/g, 'ks').replace(/qu/g, 'kw');
+      x = x.replace(/ck/g, 'k').replace(/ph/g, 'f').replace(/gh/g, '');
+      x = x.replace(/th/g, 't').replace(/sh/g, 's').replace(/ch/g, 'k');
+      x = x.replace(/wh/g, 'w').replace(/wr/g, 'r');
+      x = x.replace(/[aeiouy]+/g, 'a');
+      x = x.replace(/(.)\1+/g, '$1');
+      return x;
+    }
+
+    function soundsLike(token, target) {
+      const tk = soundKey(target);
+      const sk = soundKey(token);
+      if (!tk || !sk) return false;
+      if (sk === tk) return true;
+      if (tk.length >= 3 && sk.length >= 3 && levenshtein(sk, tk) <= 1) return true;
+      if (tk.length >= 4 && sk.startsWith(tk.slice(0, 3))) return true;
+      return false;
+    }
+
     let micStream = null;
     let micAttemptId = 0;
     let isMicRecording = false;
+    let micPrewarmed = false;
 
     async function ensureMic() {
       if (micStream && micStream.active) return micStream;
       micStream = await navigator.mediaDevices.getUserMedia({
         audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true }
       });
+      micPrewarmed = true;
       return micStream;
     }
+
+    // Pre-warm mic permission on first touch/click anywhere on page
+    (function prewarmMicOnFirstInteraction() {
+      const handler = () => {
+        if (!micPrewarmed && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          ensureMic().catch(() => {});
+        }
+      };
+      window.addEventListener('pointerdown', handler, { once: true, passive: true });
+      window.addEventListener('touchstart', handler, { once: true, passive: true });
+    })();
 
     function pickMime() {
       if (typeof MediaRecorder === 'undefined') return '';
@@ -1780,6 +1851,11 @@
       return '';
     }
 
+    /* -------------------------------------------------------------
+       DUAL-ENGINE STT:
+       Engine A: Instant In-Browser Web Speech API (0ms Match!)
+       Engine B: MediaRecorder + Whisper Fallback with 600ms Silence VAD
+       ------------------------------------------------------------- */
     async function listenOnce(targetWord, onState) {
       const myId = ++micAttemptId;
       const stub = { text: '', raw: '', fuzzy_ok: false, via: 'error', decision: 'error' };
@@ -1797,18 +1873,185 @@
       }
 
       return await new Promise((resolve) => {
+        let resolved = false;
+        let rec = null;
+        let recognizer = null;
+        let vuCtx = null, analyser = null, rafId = null, ceiling = null;
         const chunks = [];
         let speechDetected = false, lastVoiceTs = 0, voicedMs = 0, recStart = Date.now();
-        let mime = pickMime();
-        let rec;
+        const mime = pickMime();
+
+        const doResolve = (result) => {
+          if (resolved) return;
+          resolved = true;
+          cleanup();
+          resolve(result);
+        };
+
+        const cleanup = () => {
+          isMicRecording = false;
+          try { if (rafId) cancelAnimationFrame(rafId); } catch (e) {}
+          try { if (ceiling) clearTimeout(ceiling); } catch (e) {}
+          try { if (vuCtx) vuCtx.close(); } catch (e) {}
+          try {
+            if (recognizer) {
+              recognizer.onresult = null;
+              recognizer.onerror = null;
+              recognizer.onend = null;
+              recognizer.stop();
+            }
+          } catch (e) {}
+          try {
+            if (rec && rec.state !== 'inactive') rec.stop();
+          } catch (e) {}
+        };
+
+        const targetClean = String(targetWord || '').toLowerCase().trim();
+        const isSentence = targetClean.includes(' ') || (targetClean.length > 15);
+
+        // 1. ENGINE A: Instant In-Browser Web Speech API
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRec) {
+          try {
+            recognizer = new SpeechRec();
+            recognizer.lang = 'en-US';
+            recognizer.continuous = true;
+            recognizer.interimResults = true;
+            recognizer.maxAlternatives = 3;
+
+            recognizer.onresult = (e) => {
+              if (resolved || myId !== micAttemptId) return;
+              let liveTranscript = '';
+              for (let i = e.resultIndex; i < e.results.length; ++i) {
+                const r = e.results[i];
+                if (r[0] && r[0].transcript) liveTranscript += r[0].transcript + ' ';
+              }
+              const liveText = liveTranscript.trim().toLowerCase();
+              if (liveText) {
+                speechDetected = true;
+                lastVoiceTs = Date.now();
+                voicedMs += 80;
+                onState && onState('interim', liveText);
+              }
+
+              for (let i = e.resultIndex; i < e.results.length; ++i) {
+                const r = e.results[i];
+                for (let j = 0; j < r.length; ++j) {
+                  const heard = (r[j].transcript || '').trim().toLowerCase();
+                  if (!heard) continue;
+
+                  let isMatch = false;
+                  if (isSentence) {
+                    const sc = scoreSentence(targetClean, heard);
+                    if (sc.ratio >= 0.4 || sc.hit.length >= 2) isMatch = true;
+                    if (!isMatch) {
+                      const tw = targetClean.replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(w => w.length > 2);
+                      const hw = heard.replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(w => w.length > 2);
+                      const hits = tw.filter(w => hw.includes(w));
+                      if (hits.length >= Math.ceil(tw.length * 0.4)) isMatch = true;
+                    }
+                  } else {
+                    const heardTokens = heard.replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(Boolean);
+                    const aliases = (typeof WORD_ALIASES !== 'undefined' && WORD_ALIASES[targetClean]) || [];
+                    const aliasMatch = aliases.some(a => heard === a || heardTokens.includes(a) || heard.includes(a));
+                    const soundMatch = heardTokens.some(tok => soundsLike(tok, targetClean));
+                    isMatch = (heard === targetClean) || heardTokens.includes(targetClean) || heard.includes(targetClean) || aliasMatch || soundMatch;
+                    if (!isMatch && targetClean.length >= 4) {
+                      isMatch = heardTokens.some(tok => tok.length >= 4 && tok.startsWith(targetClean.slice(0, 3)));
+                    }
+                  }
+
+                  if (isMatch) {
+                    onState && onState('instant_ok', heard);
+                    doResolve({
+                      text: heard,
+                      raw: heard,
+                      fuzzy_ok: true,
+                      via: 'web_speech',
+                      decision: 'instant',
+                      elapsed: Date.now() - recStart
+                    });
+                    return;
+                  }
+                }
+              }
+            };
+
+            recognizer.onerror = (err) => {
+              console.warn('Web Speech error (Whisper fallback ready):', err.error);
+            };
+
+            recognizer.start();
+          } catch (e) {
+            console.warn('Web Speech init error:', e);
+          }
+        }
+
+        // 2. ENGINE B: MediaRecorder + Whisper Fallback with Silence VAD
         try {
           rec = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream);
         } catch (e) {
-          onState && onState('nocorder', 'อัดเสียงไม่ได้');
-          return resolve(stub);
+          if (!recognizer) {
+            onState && onState('nocorder', 'อัดเสียงไม่ได้');
+            return doResolve(stub);
+          }
         }
 
-        let vuCtx = null, analyser = null, rafId = null, ceiling = null;
+        if (rec) {
+          rec.ondataavailable = (ev) => { if (ev.data && ev.data.size > 0) chunks.push(ev.data); };
+          rec.onerror = () => { doResolve(stub); };
+          rec.onstop = async () => {
+            if (resolved) return;
+            const blob = new Blob(chunks, { type: mime || 'audio/webm' });
+            if (blob.size < 1200 || !speechDetected || voicedMs < MIN_SPEECH_MS) {
+              onState && onState('tooshort', 'ไม่ได้ยินเสียงชัด — ลองอีกครั้งนะ 🙂');
+              return doResolve(stub);
+            }
+            onState && onState('thinking', 'กำลังตรวจเสียง… 🎧');
+            const fd = new FormData();
+            fd.append('audio', blob, 'child.webm');
+            const tw = String(targetWord || '').toLowerCase();
+            const sentWords = tw.replace(/[^a-z ]/g, ' ').split(/\s+/).filter(Boolean);
+            const hint = (sentWords.length > 1 ? sentWords : [tw]).filter(Boolean);
+            fd.append('hint', Array.from(new Set(hint)).join(','));
+            const ctrl = new AbortController();
+            const to = setTimeout(() => { try { ctrl.abort(); } catch (e) {} }, 15000);
+            try {
+              const resp = await fetch(STT_URL, { method: 'POST', body: fd, signal: ctrl.signal });
+              clearTimeout(to);
+              if (myId !== micAttemptId || resolved) return doResolve(stub);
+              const data = await resp.json();
+              const raw = (data && data.text) || '';
+              const clean = raw.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g, ' ').replace(/\s+/g, ' ').trim();
+              doResolve({
+                text: clean,
+                raw: raw,
+                fuzzy_ok: !!(data && data.fuzzy_ok),
+                via: (data && data.via) || 'asr',
+                decision: (data && data.decision) || 'asr',
+                spelled: !!(data && data.spelled),
+                elapsed: data && data.elapsed,
+              });
+            } catch (e) {
+              clearTimeout(to);
+              doResolve(stub);
+            }
+          };
+
+          try {
+            rec.start();
+            isMicRecording = true;
+          } catch (e) {
+            if (!recognizer) {
+              onState && onState('nocorder', 'อัดเสียงไม่ได้');
+              return doResolve(stub);
+            }
+          }
+        }
+
+        onState && onState('recording', '🎙️ กำลังฟัง… พูดเลยจ้ะ');
+
+        // 3. AudioContext VAD
         try {
           const Ctx = window.AudioContext || window.webkitAudioContext;
           if (Ctx) {
@@ -1820,69 +2063,13 @@
           }
         } catch (e) {}
 
-        const cleanup = () => {
-          isMicRecording = false;
-          try { if (rafId) cancelAnimationFrame(rafId); } catch (e) {}
-          try { if (ceiling) clearTimeout(ceiling); } catch (e) {}
-          try { if (vuCtx) vuCtx.close(); } catch (e) {}
-        };
-
-        const stop = () => {
+        const stopRecording = () => {
+          try { if (recognizer) recognizer.stop(); } catch (e) {}
           try { if (rec && rec.state !== 'inactive') rec.stop(); } catch (e) {}
         };
 
-        rec.ondataavailable = (ev) => { if (ev.data && ev.data.size > 0) chunks.push(ev.data); };
-        rec.onerror = () => { cleanup(); resolve(stub); };
-        rec.onstop = async () => {
-          cleanup();
-          const blob = new Blob(chunks, { type: mime || 'audio/webm' });
-          if (blob.size < 1200 || !speechDetected || voicedMs < MIN_SPEECH_MS) {
-            onState && onState('tooshort', 'ไม่ได้ยินเสียงชัด — ลองอีกครั้งนะ 🙂');
-            return resolve(stub);
-          }
-          onState && onState('thinking', 'กำลังตรวจเสียง… 🎧');
-          const fd = new FormData();
-          fd.append('audio', blob, 'child.webm');
-          const tw = String(targetWord || '').toLowerCase();
-          const sentWords = tw.replace(/[^a-z ]/g, ' ').split(/\s+/).filter(Boolean);
-          const hint = (sentWords.length > 1 ? sentWords : [tw]).filter(Boolean);
-          fd.append('hint', Array.from(new Set(hint)).join(','));
-          const ctrl = new AbortController();
-          const to = setTimeout(() => { try { ctrl.abort(); } catch (e) {} }, 30000);
-          try {
-            const resp = await fetch(STT_URL, { method: 'POST', body: fd, signal: ctrl.signal });
-            clearTimeout(to);
-            if (myId !== micAttemptId) return resolve(stub);
-            const data = await resp.json();
-            const raw = (data && data.text) || '';
-            const clean = raw.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g, ' ').replace(/\s+/g, ' ').trim();
-            resolve({
-              text: clean,
-              raw: raw,
-              fuzzy_ok: !!(data && data.fuzzy_ok),
-              via: (data && data.via) || 'asr',
-              decision: (data && data.decision) || 'asr',
-              spelled: !!(data && data.spelled),
-              elapsed: data && data.elapsed,
-            });
-          } catch (e) {
-            clearTimeout(to);
-            resolve(stub);
-          }
-        };
-
-        try {
-          rec.start();
-          isMicRecording = true;
-        } catch (e) {
-          cleanup();
-          onState && onState('nocorder', 'อัดเสียงไม่ได้');
-          return resolve(stub);
-        }
-        onState && onState('recording', '🎙️ กำลังฟัง… พูดเลยจ้ะ');
-
         const poll = () => {
-          if (myId !== micAttemptId) return stop();
+          if (resolved || myId !== micAttemptId) return stopRecording();
           const dur = Date.now() - recStart;
           if (analyser) {
             try {
@@ -1897,15 +2084,17 @@
               if (bandRms > SPEECH_RMS) { speechDetected = true; lastVoiceTs = Date.now(); voicedMs += 16; }
             } catch (e) {}
           }
-          if (dur >= REC_WINDOW_MS) return stop();
+          if (dur >= REC_WINDOW_MS) return stopRecording();
           if (speechDetected) {
-            if (Date.now() - lastVoiceTs >= SILENCE_HOLD_MS) return stop();
-          } else if (dur >= NO_SPEECH_MS) { return stop(); }
+            if (Date.now() - lastVoiceTs >= SILENCE_HOLD_MS) return stopRecording();
+          } else if (dur >= NO_SPEECH_MS) {
+            return stopRecording();
+          }
           if (speechDetected && voicedMs < MIN_SPEECH_MS) speechDetected = false;
           rafId = requestAnimationFrame(poll);
         };
         rafId = requestAnimationFrame(poll);
-        ceiling = setTimeout(stop, REC_WINDOW_MS + 500);
+        ceiling = setTimeout(stopRecording, REC_WINDOW_MS + 400);
       });
     }
 
@@ -1922,8 +2111,11 @@
       for (const w of tw) {
         let idx = pool.indexOf(w);
         if (idx === -1) {
-          const aliases = WORD_ALIASES[w] || [];
+          const aliases = (typeof WORD_ALIASES !== 'undefined' && WORD_ALIASES[w]) || [];
           idx = pool.findIndex(x => aliases.includes(x));
+        }
+        if (idx === -1) {
+          idx = pool.findIndex(x => soundsLike(x, w));
         }
         if (idx === -1) {
           idx = pool.findIndex(x => x.length > 3 && w.length > 3 && x[0] === w[0] && x.slice(0, 3) === w.slice(0, 3));
@@ -1949,7 +2141,6 @@
       const lidClean = String(LID || "").toLowerCase().replace(".", "_");
       const sentAudio = currentItem.sentence_audio || `/kidobits/v2/audio/sent_${lidClean}.mp3`;
       playAudio(sentAudio, `🔊 ${currentItem.sentence || currentItem.word}`, () => {}, (err) => {
-        // Fallback: play words sequentially using word audios
         if (currentItem && currentItem.words && currentItem.words.length) {
           const wordList = currentItem.words.map(w => w.toLowerCase().replace(/[^a-z]/g, '')).filter(Boolean);
           let wIdx = 0;
@@ -1966,6 +2157,7 @@
 
     async function startMicStep4() {
       if (!currentItem || currentItem.step !== 4) return;
+      stopAllAudio(); // Cut any teacher audio instantly
       const target = String(currentItem.word || '').toLowerCase().trim();
       const statusBox = document.getElementById('mic-status-box-4');
       const micBtn = document.getElementById('btn-mic-step4');
@@ -1975,6 +2167,10 @@
         if (statusBox) {
           if (state === 'recording') {
             statusBox.innerHTML = `<span class="text-[#D81B60] font-bold animate-pulse">🎙️ กำลังฟัง... พูดคำว่า "${target}" เลยจ้ะ</span>`;
+          } else if (state === 'interim') {
+            statusBox.innerHTML = `<span class="text-[#8B7CFF] font-bold">🗣️ กำลังได้ยิน: <span class="text-base underline font-extrabold text-[#2E2856]">"${msg}"</span></span>`;
+          } else if (state === 'instant_ok') {
+            statusBox.innerHTML = `<span class="text-[#1B9A62] font-extrabold animate-bounce">⚡ ตรวจคำตอบทันใจ! ถูกต้อง 🎉</span>`;
           } else if (state === 'thinking') {
             statusBox.innerHTML = `<span class="text-[#8B7CFF] font-bold">🎧 กำลังตรวจเสียงอ่าน...</span>`;
           } else {
@@ -1988,7 +2184,8 @@
       const heardTokens = heard.split(/\s+/).filter(Boolean);
       const aliases = WORD_ALIASES[target] || [];
       const isAliasMatch = aliases.some(a => heard === a || heardTokens.includes(a) || heard.includes(a));
-      const isHit = (heard === target) || res.fuzzy_ok || (heard.includes(target)) || heardTokens.includes(target) || isAliasMatch;
+      const isSoundMatch = heardTokens.some(tok => soundsLike(tok, target));
+      const isHit = (heard === target) || res.fuzzy_ok || (heard.includes(target)) || heardTokens.includes(target) || isAliasMatch || isSoundMatch;
 
       if (isHit) {
         step4Attempts = 0;
@@ -2014,6 +2211,7 @@
 
     async function startMicStep5() {
       if (!currentItem || currentItem.step !== 5) return;
+      stopAllAudio(); // Cut any teacher audio instantly
       const sentence = currentItem.sentence || currentItem.word || '';
       const statusBox = document.getElementById('mic-status-box-5');
       const micBtn = document.getElementById('btn-mic-step5');
@@ -2023,6 +2221,10 @@
         if (statusBox) {
           if (state === 'recording') {
             statusBox.innerHTML = `<span class="text-[#D81B60] font-bold animate-pulse">🎙️ กำลังฟัง... อ่านประโยคเลยจ้ะ</span>`;
+          } else if (state === 'interim') {
+            statusBox.innerHTML = `<span class="text-[#1B9A62] font-bold">🗣️ กำลังได้ยิน: <span class="text-base underline font-extrabold text-[#2E2856]">"${msg}"</span></span>`;
+          } else if (state === 'instant_ok') {
+            statusBox.innerHTML = `<span class="text-[#1B9A62] font-extrabold animate-bounce">⚡ ตรวจคำตอบทันใจ! ยอดเยี่ยม 🎉</span>`;
           } else if (state === 'thinking') {
             statusBox.innerHTML = `<span class="text-[#8B7CFF] font-bold">🎧 กำลังตรวจเสียงอ่าน...</span>`;
           } else {
@@ -2047,7 +2249,6 @@
         playAudio('/kidobits/v2/audio/try_again.mp3', 'ลองอีกครั้ง');
       }
     }
-
   </script>
   <script src="/theme/js/kidobits_dynamic_island.js"></script>
 </body>
