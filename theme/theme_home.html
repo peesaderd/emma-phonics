@@ -540,5 +540,39 @@
 
   <script src="/theme/js/kidobits_real_sync.js"></script>
   <script src="/theme/js/kidobits_dynamic_island.js"></script>
+
+  <!-- Share Functionality & Toast -->
+  <div id="homeToast" class="fixed bottom-24 left-1/2 -translate-x-1/2 bg-slate-900/95 text-white px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl opacity-0 pointer-events-none transition-all duration-300 z-50">
+    คัดลอกลิงก์สำเร็จแล้ว! ส่งต่อให้เพื่อนได้เลย 📋✨
+  </div>
+  <script>
+    function showHomeToast(msg) {
+      const t = document.getElementById('homeToast');
+      if (t) {
+        t.textContent = msg;
+        t.classList.remove('opacity-0', 'pointer-events-none');
+        setTimeout(() => {
+          t.classList.add('opacity-0', 'pointer-events-none');
+        }, 2200);
+      }
+    }
+    function openShareModal() {
+      const shareData = {
+        title: 'Kidobits • แพลตฟอร์มการเรียนรู้โฟนิกส์และคิดเลขเร็วสำหรับเด็ก',
+        text: 'ชวนมาฝึกโฟนิกส์และคิดเลขเร็วบน Kidobits กันเถอะ! สนุกและเก่งขึ้นไวมาก 🚀',
+        url: window.location.origin + '/theme/theme_home.html'
+      };
+      if (navigator.share) {
+        navigator.share(shareData).catch(e => console.log('Share canceled:', e));
+      } else {
+        navigator.clipboard.writeText(shareData.url).then(() => {
+          showHomeToast('คัดลอกลิงก์สำเร็จแล้ว! ส่งต่อให้เพื่อนได้เลย 📋✨');
+        }).catch(() => {
+          prompt('คัดลอกลิงก์เพื่อแชร์:', shareData.url);
+        });
+      }
+    }
+  </script>
+
 </body>
 </html>
